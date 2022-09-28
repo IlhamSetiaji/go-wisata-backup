@@ -57,7 +57,7 @@
                             <p class="card-text" align="justify">Explore kuliner memberikan referensi makanan dan minuman
                                 yang bisa Anda coba bersama teman maupun keluarga.
                             </p>
-                            <a href="#" class="button">Explore</a>
+                            <a href="/explore_kuliner" class="button">Explore</a>
                         </div>
                     </div>
                 </div>

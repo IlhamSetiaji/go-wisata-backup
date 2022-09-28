@@ -74,6 +74,9 @@ Route::get('/explore-penyewaan-tempat-detail/{id}', [FrontendController::class, 
 //explore desa wisata
 Route::get('/explore_desa_wisata', [FrontendController::class, 'explore_desa_wisata']);
 
+//Explore kuliner
+Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
+
 //profile
 Route::resource('/profile', ProfileController::class);
 Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');

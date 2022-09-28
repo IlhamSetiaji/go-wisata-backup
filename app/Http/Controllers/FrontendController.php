@@ -87,6 +87,18 @@ class FrontendController extends Controller
             "kategori" => $kategori,
         ]);
     }
+
+    public function explore_kuliner(Request $request)
+    {
+        $tempat  = Tempat::where('kategori', 'kuliner')->orderby('id', 'DESC')->where('status', '1')->get();
+        $setting =  Setting::first();
+        return view('explore/halaman_explore_kuliner', [
+            "title" => "Home",
+            "tempat" => $tempat,
+            "setting" => $setting
+        ]);
+    }
+
     // public function explore_Villa(Request $request)
     // {
     //     $setting =  Setting::first();
