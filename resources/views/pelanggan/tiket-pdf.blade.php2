@@ -1,0 +1,19 @@
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<textarea id="printing-css" style="display:none;">.no-print{display:none}</textarea>
+<iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none;"></iframe>
+<script type="text/javascript">
+function printDiv(elementId) {
+    var a = document.getElementById('printing-css').value;
+    var b = document.getElementById(elementId).innerHTML;
+    window.frames["print_frame"].document.title = document.title;
+    window.frames["print_frame"].document.body.innerHTML = '<style>' + a + '</style>' + b;
+    window.frames["print_frame"].window.focus();
+    window.frames["print_frame"].window.print();
+   }
+</script>
+<div id="print-area-2" class="print-area">
+</div>
+<div style="text-align:center;"><a class="no-print" href="javascript:printDiv('print-area-2');"><h3>PRINT</h3></a></div> -->
+
+{!! QrCode::encoding('UTF-8')->size(200)->generate($tiket->kode); !!}
