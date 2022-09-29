@@ -151,9 +151,9 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
+                                                            {{-- <div class="form-control-icon avatar avatar.avatar-im">
                                                                 <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->sponsor2}}">
-                                                            </div>
+                                                            </div> --}}
                                                             <input type="file" class="form-control file-upload-info @error('sponsor2') is-invalid @enderror"   placeholder="Upload Image" name="sponsor2">
                                                             <span class="input-group-append">
                                                         </div>
