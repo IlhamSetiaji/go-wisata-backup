@@ -86,28 +86,27 @@
         <section class="discover section" id="discover">
             <h2 class="section__title">Temukan Tempat Wisata <br> Di Desa Wisata Paling Menarik</h2>
 
-            <div class="discover__container container swiper-container">
-                <div class="swiper-wrapper">
+            <div class="card-group">
                     @if (count($tempat) > 0)
-                        @foreach ($tempat as $key => $tempat)
-                            <!--==================== DISCOVER 1 ====================-->
-                            <div class="discover__card swiper-slide">
-                                @if ($tempat->image == null)
-                                    Gambar Tidak Tersedia
-                                @else
-                                    <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
-                                        class="discover__img">
-                                @endif
-                                <div class="discover__data">
-                                    <h2 class="discover__title">{{ $tempat->name }}</h2>
-                                </div>
-                                <a href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}">
-                                    <button class="button button--flex place__button">
-                                        <i class="ri-arrow-right-line"></i>
-                                    </button>
-                                </a>
+                    @foreach ($tempat as $key => $tempat)
+                    <div class="card mx-2">
+                                <!--==================== DISCOVER 1 ====================-->
+                                    @if ($tempat->image == null)
+                                        Gambar Tidak Tersedia
+                                    @else
+                                        <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
+                                            class="discover__img">
+                                    @endif
+                                    <div class="discover__data">
+                                        <h2 class="discover__title">{{ $tempat->name }}</h2>
+                                    </div>
+                                    <a href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}">
+                                        <button class="button button--flex place__button">
+                                            <i class="ri-arrow-right-line"></i>
+                                        </button>
+                                    </a>
                             </div>
-                        @endforeach
+                            @endforeach
                     @else
                     <img src="{{ asset('images/setting') }}/{{ $setting->about1 }}" alt="" class="about__img-one">
                     @endif
