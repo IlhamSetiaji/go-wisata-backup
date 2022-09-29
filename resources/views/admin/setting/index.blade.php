@@ -56,11 +56,13 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->home1}}">
+                                                            <div>
+                                                                <img alt="image" class="mb-3" width="50%" src="{{asset('images/setting')}}/{{$setting->home1}}">
+                                                                <div class="col auto">
+                                                                    <input type="file" class="form-control file-upload-info @error('home1') is-invalid @enderror"  placeholder="Upload Image" name="home1">
+                                                                    <span class="input-group-append">
+                                                                </div>
                                                             </div>
-                                                            <input type="file" class="form-control file-upload-info @error('home1') is-invalid @enderror"  placeholder="Upload Image" name="home1">
-                                                            <span class="input-group-append">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -72,11 +74,11 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->about1}}">
+                                                            <div>
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->about1}}">
                                                             </div>
                                                             <div>
-                                                            <a href="{{ url('/admin/crop-about1') }}" class="nav__link"> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Upload</a>
+                                                            <a href="{{ url('/admin/crop-about1') }}" class=" btn btn-primary nav__link">Upload</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -88,12 +90,13 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->about2}}">
+                                                            <div>
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->about2}}">
+                                                                
                                                             </div>
                                                             <div>
-                                                                <a href="{{ url('/admin/crop-about2') }}" class="nav__link"> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  Upload</a>
-                                                                </div>
+                                                                <a href="{{ url('/admin/crop-about2') }}" class="col btn btn-primary nav__link">Upload</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -105,8 +108,8 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->experience1}}">
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="50%" src="{{asset('images/setting')}}/{{$setting->experience1}}">
                                                             </div>
                                                             <input type="file" class="form-control file-upload-info @error('experience1') is-invalid @enderror"   placeholder="Upload Image" name="experience1">
                                                             <span class="input-group-append">
@@ -120,8 +123,8 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->experience2}}">
+                                                            <div>
+                                                                <img alt="image" class="mb-3" width="50%" src="{{asset('images/setting')}}/{{$setting->experience2}}">
                                                             </div>
                                                             <input type="file" class="form-control file-upload-info @error('experience2') is-invalid @enderror"   placeholder="Upload Image" name="experience2">
                                                             <span class="input-group-append">
@@ -136,8 +139,8 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->sponsor1}}">
+                                                            <div>
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor1}}">
                                                             </div>
                                                             <input type="file" class="form-control file-upload-info @error('sponsor1') is-invalid @enderror"   placeholder="Upload Image" name="sponsor1">
                                                             <span class="input-group-append">
@@ -151,8 +154,8 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->sponsor2}}">
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor2}}">
                                                             </div>
                                                             <input type="file" class="form-control file-upload-info @error('sponsor2') is-invalid @enderror"   placeholder="Upload Image" name="sponsor2">
                                                             <span class="input-group-append">
@@ -166,8 +169,8 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->sponsor3}}">
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor3}}">
                                                             </div>
                                                             <input type="file" class="form-control file-upload-info @error('sponsor3') is-invalid @enderror"   placeholder="Upload Image" name="sponsor3">
                                                             <span class="input-group-append">
@@ -181,8 +184,8 @@
                                                     <div class="form-group has-icon-lefts">
                                                         <div class="position-relative">
 
-                                                            <div class="form-control-icon avatar avatar.avatar-im">
-                                                                <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images/setting')}}/{{$setting->sponsor4}}">
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor4}}">
                                                             </div>
                                                             <input type="file" class="form-control file-upload-info @error('sponsor4') is-invalid @enderror"   placeholder="Upload Image" name="sponsor4">
                                                             <span class="input-group-append">
