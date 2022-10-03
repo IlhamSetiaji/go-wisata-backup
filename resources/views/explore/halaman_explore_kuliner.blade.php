@@ -16,7 +16,7 @@
 
             <div class="home__container container grid">
                 <div class="home__data">
-                   <span class="home__data-subtitle">Temukan liburan Anda</span>
+                    <span class="home__data-subtitle">Temukan liburan Anda</span>
                     <h1 class="home__data-title">Banyak Restoran Menarik<br> <b>Bersama Kami</b></h1>
                     <a href="#explore_kuliner" class="button">Disekitar</a>
                 </div>
@@ -30,32 +30,30 @@
             <section class="discover section" id="explore_kuliner">
                 <h2 class="section__title" id="#explore_kuliner">Temukan Tempat Kuliner <br> Di Restoran Paling Menarik</h2>
 
-                <div class="discover__container container swiper-container">
-                    <div class="swiper-wrapper">
-                        @if (count($tempat) > 0)
-                            @foreach ($tempat as $key => $tempat)
-                                <!--==================== DISCOVER 1 ====================-->
-                                <div class="discover__card swiper-slide">
-                                    @if ($tempat->image == null)
-                                        Gambar Tidak Tersedia
-                                    @else
-                                        <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
-                                            class="discover__img">
-                                    @endif
-                                    <div class="discover__data">
-                                        <h2 class="discover__title">{{ $tempat->name }}</h2>
-                                    </div>
-                                    <a href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}">
-                                        <button class="button button--flex place__button">
-                                            <i class="ri-arrow-right-line"></i>
-                                        </button>
-                                    </a>
+                <div class="card-group">
+                    @if (count($tempat) > 0)
+                        @foreach ($tempat as $key => $tempat)
+                            <!--==================== DISCOVER 1 ====================-->
+                            <div class="card mx-2">
+                                @if ($tempat->image == null)
+                                    Gambar Tidak Tersedia
+                                @else
+                                    <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
+                                        class="discover__img">
+                                @endif
+                                <div class="discover__data">
+                                    <h2 class="discover__title">{{ $tempat->name }}</h2>
                                 </div>
-                            @endforeach
-                        @else
-                            Sedang Liburan
-                        @endif
-                    </div>
+                                <a href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}">
+                                    <button class="button button--flex place__button">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </a>
+                            </div>
+                        @endforeach
+                    @else
+                        Sedang Liburan
+                    @endif
                 </div>
             </section>
         </div>
