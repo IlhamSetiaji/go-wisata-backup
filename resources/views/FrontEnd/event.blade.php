@@ -38,13 +38,13 @@
                 <div class="row">
 
                     <div class="col-12 col-xl-3">
-                        <div >
-                            <img class="img-fluid w-100" src="{{asset('images')}}/{{$value->image}}" alt="Card image cap">
-                            {{-- <img src="{{asset('images')}}/{{$value->image}}" alt="Face 1" style="width:200px;height:200px;"> --}}
-                        </div>
                     </div>
                     <div class="col-12 col-xl-9">
                         <div class="card" >
+                            <div >
+                                <img class="img-fluid w-100" src="{{asset('images')}}/{{$value->image}}" alt="Card image cap">
+                                {{-- <img src="{{asset('images')}}/{{$value->image}}" alt="Face 1" style="width:200px;height:200px;"> --}}
+                            </div>
                             <div class="card-header">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">{{ $value->name }}
