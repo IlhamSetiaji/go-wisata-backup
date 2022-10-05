@@ -47,7 +47,6 @@
 
                     </div>
                     <input type="submit" id="basic" value="Login" class="btn solid" />
-                    {{-- <p class="social-text">Or Sign in with social platforms</p> --}}
                     <div class="social-media">
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}"> Lupa Password?</a>
@@ -64,35 +63,18 @@
                         <input placeholder="Nama" id="name" type="text"
                             class="form-control @error('name') is-invalid @enderror" name="name"
                             value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                        {{-- @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror --}}
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
                         <input placeholder="Email" id="email_register" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email') }}" required autocomplete="email">
-
-                        {{-- @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror --}}
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input placeholder="Password" id="password_register" type="password"
                             class="form-control @error('password') is-invalid @enderror" name="password" required
                             autocomplete="new-password">
-                        {{-- @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror --}}
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
@@ -105,20 +87,8 @@
                         <input placeholder="Nomor Telepon" id="telp" type="telp"
                             class="form-control @error('telp') is-invalid @enderror" name="telp" required
                             autocomplete="telp">
-
-                        {{-- @error('telp')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror --}}
                     </div>
-                    @if ($errors->any())
-                        @foreach ($errors->all() as $error)
-                            <div class="invalid-feedback">
-                                <strong>{{ $error }}</strong>
-                            </div>
-                        @endforeach
-                    @endif
+
 
                     <input type="submit" class="btn" value="Sign up" />
                 </form>
