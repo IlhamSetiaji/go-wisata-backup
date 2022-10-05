@@ -1,5 +1,6 @@
 <?php
 
+use RealRashid\SweetAlert\Facades\Alert;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -34,7 +35,7 @@ use App\Http\Controllers\BookingEventController;
 
 use App\Http\Controllers\BookingVillaController;
 use App\Http\Controllers\TempatSewaController;
-
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\BookingTempatSewaController;
 use App\Http\Controllers\TopUpController;

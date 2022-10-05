@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="{{ asset('auth/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('./vendor/depan/css/style.css') }}" />
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
     <title>Sign in & Sign up Form</title>
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/images/favicon/GoWisata.png') }}">
 </head>
@@ -21,8 +24,9 @@
 @endforeach
 
 <body>
-    <div class="container">
+    @include('sweetalert::alert')
 
+    <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
                 <form method="POST" action="{{ route('login') }}" class="sign-in-form">
@@ -43,26 +47,11 @@
 
                     </div>
                     <input type="submit" id="basic" value="Login" class="btn solid" />
-
-                    @error('email')
-                        <span class="invalid-feedback" role="alert">
-
-
-                            <strong>{{ $message }}</strong>
-                            {{-- {!! Toastr::error('message', '$message', ['options']) !!} --}}
-                        </span>
-                    @enderror
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                     {{-- <p class="social-text">Or Sign in with social platforms</p> --}}
                     <div class="social-media">
                         @if (Route::has('password.request'))
                             <a href="{{ route('password.request') }}"> Lupa Password?</a>
                         @endif
-
                     </div>
                 </form>
 
@@ -76,35 +65,34 @@
                             class="form-control @error('name') is-invalid @enderror" name="name"
                             value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                        @error('name')
+                        {{-- @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input placeholder="Email" id="email" type="email"
+                        <input placeholder="Email" id="email_register" type="email"
                             class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email') }}" required autocomplete="email">
 
-                        @error('email')
+                        {{-- @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input placeholder="Password" id="password" type="password"
+                        <input placeholder="Password" id="password_register" type="password"
                             class="form-control @error('password') is-invalid @enderror" name="password" required
                             autocomplete="new-password">
-
-                        @error('password')
+                        {{-- @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
@@ -118,12 +106,19 @@
                             class="form-control @error('telp') is-invalid @enderror" name="telp" required
                             autocomplete="telp">
 
-                        @error('telp')
+                        {{-- @error('telp')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror
+                        @enderror --}}
                     </div>
+                    @if ($errors->any())
+                        @foreach ($errors->all() as $error)
+                            <div class="invalid-feedback">
+                                <strong>{{ $error }}</strong>
+                            </div>
+                        @endforeach
+                    @endif
 
                     <input type="submit" class="btn" value="Sign up" />
                 </form>
@@ -178,6 +173,7 @@
     {{-- <script src="{{ asset('assets/vendors/toastify/toastify.js') }}"></script>
     <script src="{{ asset('assets/js/extensions/toastify.js') }}"></script> --}}
     <script src="{{ asset('auth/app.js') }}"></script>
+
 </body>
 
 </html>

@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'e08ff405ad36a274734b216a57626aed8d1beb6a',
+        'reference' => '1a3cb6c35b0a26065663e507e579773d6011472c',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -27,6 +27,15 @@
             'aliases' => array(),
             'reference' => 'd70c840f68657ce49094b8d91f9ee0cc07fbf66c',
             'dev_requirement' => false,
+        ),
+        'barryvdh/laravel-debugbar' => array(
+            'pretty_version' => 'v3.7.0',
+            'version' => '3.7.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../barryvdh/laravel-debugbar',
+            'aliases' => array(),
+            'reference' => '3372ed65e6d2039d663ed19aa699956f9d346271',
+            'dev_requirement' => true,
         ),
         'barryvdh/laravel-dompdf' => array(
             'pretty_version' => 'v0.9.0',
@@ -467,12 +476,12 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'e08ff405ad36a274734b216a57626aed8d1beb6a',
+            'reference' => '1a3cb6c35b0a26065663e507e579773d6011472c',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -546,6 +555,15 @@
             'aliases' => array(),
             'reference' => '3e4a35d756eedc67096f30240a68a3149120dae7',
             'dev_requirement' => false,
+        ),
+        'maximebf/debugbar' => array(
+            'pretty_version' => 'v1.18.1',
+            'version' => '1.18.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../maximebf/debugbar',
+            'aliases' => array(),
+            'reference' => 'ba0af68dd4316834701ecb30a00ce9604ced3ee9',
+            'dev_requirement' => true,
         ),
         'midtrans/midtrans-php' => array(
             'pretty_version' => '2.5.2',
@@ -918,6 +936,15 @@
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
             'reference' => 'fc9bb7fb5388691fd7373cd44dcb4d63bbcf24df',
+            'dev_requirement' => false,
+        ),
+        'realrashid/sweet-alert' => array(
+            'pretty_version' => 'v5.1.0',
+            'version' => '5.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../realrashid/sweet-alert',
+            'aliases' => array(),
+            'reference' => 'fb837beaa52568fb3106d311ff3c7a7b8e543608',
             'dev_requirement' => false,
         ),
         'rhumsaa/uuid' => array(
