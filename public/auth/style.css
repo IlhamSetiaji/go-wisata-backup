@@ -37,7 +37,13 @@ input {
   display: grid;
   grid-template-columns: 1fr;
   z-index: 5;
+  margin-bottom: 10px;
 }
+
+/* .invalid-feedback {
+  transform: -49% 49%;
+  z-index: 5;
+} */
 
 form {
   display: flex;
@@ -70,7 +76,7 @@ form.sign-in-form {
   max-width: 380px;
   width: 100%;
   background-color: #f0f0f0;
-  margin: 10px 0;
+  margin: 10px 10px;
   height: 55px;
   border-radius: 55px;
   display: grid;

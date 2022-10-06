@@ -158,33 +158,6 @@
 
                 </form>
             @endif
-            <div class="experience__container container grid">
-                <div class="experience__content grid">
-                    <div class="experience__data">
-                        <h2 class="experience__number">
-                            {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'wisata')->count() }}+
-                        </h2>
-                        <span class="experience__description">Tempat <br> Wisata</span>
-                    </div>
-                    <div class="experience__data">
-                        <h2 class="experience__number">
-                            {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'kuliner')->count() }}+
-                        </h2>
-                        <span class="experience__description">Tempat <br> Kuliner</span>
-                    </div>
-
-                    <div class="experience__data">
-                        <h2 class="experience__number">
-                            {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'hotel')->count() }}+
-                        </h2>
-                        <span class="experience__description">Tempat <br> Penginapan</span>
-                    </div>
-
-
-                </div>
-
-
-            </div>
         </section>
 
 
@@ -214,6 +187,42 @@
         <!--</section>-->
 
 
+
+        @if (count($ez) > 0)
+            <section class="place section" id="place">
+                <h2 class="section__title">Tempat di {{ $tempat->name }}</h2>
+                <div class="place__container container grid">
+
+                    @foreach ($ez as $key => $tempat2)
+                        <!--==================== PLACES CARD 1 ====================-->
+                        <div class="place__card">
+                            <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                class="place__img">
+
+                            <div class="place__content">
+                                <span class="place__rating">
+                                    <i class="ri-star-line place__rating-icon"></i>
+                                    <!--<span class="place__rating-number">4,8</span>-->
+                                </span>
+
+                                <div class="place__data">
+                                    <h3 class="place__title">{{ $tempat2->name }}</h3>
+                                    {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
+                                    <span class="place__price">{{ $tempat2->kategori }}</span>
+                                </div>
+                            </div>
+                            <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+
+                        </div>
+                    @endforeach
+
+                </div>
+            </section>
+        @endif
 
 
 
@@ -270,41 +279,7 @@
 
         <!--==================== KULINER ====================-->
 
-        @if (count($ez) > 0)
-            <section class="place section" id="place">
-                <h2 class="section__title">Tempat di {{ $tempat->name }}</h2>
-                <div class="place__container container grid">
 
-                    @foreach ($ez as $key => $tempat2)
-                        <!--==================== PLACES CARD 1 ====================-->
-                        <div class="place__card">
-                            <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
-                                class="place__img">
-
-                            <div class="place__content">
-                                <span class="place__rating">
-                                    <i class="ri-star-line place__rating-icon"></i>
-                                    <!--<span class="place__rating-number">4,8</span>-->
-                                </span>
-
-                                <div class="place__data">
-                                    <h3 class="place__title">{{ $tempat2->name }}</h3>
-                                    {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
-                                    <span class="place__price">{{ $tempat2->kategori }}</span>
-                                </div>
-                            </div>
-                            <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
-                                <button class="button button--flex place__button">
-                                    <i class="ri-arrow-right-line"></i>
-                                </button>
-                            </a>
-
-                        </div>
-                    @endforeach
-
-                </div>
-            </section>
-        @endif
         <!--==================== HOTEL ====================-->
         {{-- <section class="place section" id="penginapan">
                 <h2 class="section__title">Penginapan Disekitar {{ $tempat->name }}</h2>
@@ -364,6 +339,30 @@
                     </div>
             </div>
             </section> --}}
+
+        <div class="experience__container container grid">
+            <div class="experience__content grid">
+                <div class="experience__data">
+                    <h2 class="experience__number">
+                        {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'wisata')->count() }}+
+                    </h2>
+                    <span class="experience__description">Tempat <br> Wisata</span>
+                </div>
+                <div class="experience__data">
+                    <h2 class="experience__number">
+                        {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'kuliner')->count() }}+
+                    </h2>
+                    <span class="experience__description">Tempat <br> Kuliner</span>
+                </div>
+
+                <div class="experience__data">
+                    <h2 class="experience__number">
+                        {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'hotel')->count() }}+
+                    </h2>
+                    <span class="experience__description">Tempat <br> Penginapan</span>
+                </div>
+            </div>
+        </div>
         <!--==================== SPONSORS ====================-->
         <section class="sponsor section">
             <div class="sponsor__container container grid">
