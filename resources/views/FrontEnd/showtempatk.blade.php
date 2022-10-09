@@ -194,7 +194,7 @@
                             <div class="makan__data">
 
                                 <h3 class="makan__title">{{ $whn->name }}</h3>
-                                
+
                                 <span class="makan__description">
                                     @if ($whn->harga == '0' || $whn->harga == null)
                                         Free
@@ -236,99 +236,96 @@
             <h2 class="section__title">Minuman <br> Yang Tersedia</h2>
 
             <div class="makan__container container grid">
-                    @if (count($minuman) > 0)
-                        @foreach ($minuman as $key => $whn)
-                            <!--==================== KULINER 1 ====================-->
-                            <div class="makan__card">
-                                <img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image"
-                                    class="img-thumbnail">
-                                <div class="makan__data">
+                @if (count($minuman) > 0)
+                    @foreach ($minuman as $key => $whn)
+                        <!--==================== KULINER 1 ====================-->
+                        <div class="makan__card">
+                            <img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image"
+                                class="img-thumbnail">
+                            <div class="makan__data">
 
-                                    <h2 class="makan__title">{{ $whn->name }}</h2>
+                                <h2 class="makan__title">{{ $whn->name }}</h2>
 
-                                    <span class="makan__description">
-                                        @if ($whn->harga == '0' || $whn->harga == null)
-                                            Free
-                                        @else
-                                            <a disabled class="button"> Rp.{{ number_format($whn->harga) }} </a>
-                                        @endif
+                                <span class="makan__description">
+                                    @if ($whn->harga == '0' || $whn->harga == null)
+                                        Free
+                                    @else
+                                        <a disabled class="button"> Rp.{{ number_format($whn->harga) }} </a>
+                                    @endif
 
-                                    </span>
-                                </div>
-                                @if ($whn->harga == '0' || $whn->harga == null)
-                                @else
-                                    <form action="{{ url('/cart/tambah/kuliner/' . $whn->kode_kuliner) }}"
-                                        method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="kode_produk" value="{{ $whn->kode_kuliner }}">
-                                        <input type="hidden" name="tempat_id" value="{{ $tempat->id }}">
-                                        <input name="jumlah" class="form-control" type="number" id="jumlah"
-                                            placeholder="Jumlah" min="0" required>
-                                        <input type="hidden" name="kategori" value="kuliner">
-                                        <button class="button button--flex makan__button">
-                                            <i class="fas fa-cart-plus"></i>
-                                        </button>
-                                    </form>
-                                @endif
-
+                                </span>
                             </div>
-                        @endforeach
-                    @else
-                        Sedang Liburan
-                    @endif
+                            @if ($whn->harga == '0' || $whn->harga == null)
+                            @else
+                                <form action="{{ url('/cart/tambah/kuliner/' . $whn->kode_kuliner) }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="kode_produk" value="{{ $whn->kode_kuliner }}">
+                                    <input type="hidden" name="tempat_id" value="{{ $tempat->id }}">
+                                    <input name="jumlah" class="form-control" type="number" id="jumlah"
+                                        placeholder="Jumlah" min="0" required>
+                                    <input type="hidden" name="kategori" value="kuliner">
+                                    <button class="button button--flex makan__button">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </form>
+                            @endif
+
+                        </div>
+                    @endforeach
+                @else
+                    Sedang Liburan
+                @endif
 
             </div>
         </section>
 
         <!--==================== Snack ====================-->
-        <section class="discover section" id="snack">
+        <section class="makan section" id="snack">
             <h2 class="section__title">Makanan Ringan <br> Yang Tersedia</h2>
 
-            <div class="discover__container container swiper-container">
-                <div class="swiper-wrapper">
-                    @if (count($snack) > 0)
-                        @foreach ($snack as $key => $whn)
-                            <!--==================== DISCOVER 1 ====================-->
-                            <div class="discover__card swiper-slide">
-                                <img src="{{ asset('images') }}/{{ $whn->image }}" alt=""
-                                    class="discover__img">
-                                <div class="discover__data">
+            <div class="makan__container container grid">
+                @if (count($snack) > 0)
+                    @foreach ($snack as $key => $whn)
+                        <!--==================== KULINER 1 ====================-->
+                        <div class="makan__card">
+                            <img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image"
+                                class="img-thumbnail">
+                            <div class="makan__data">
 
-                                    <h2 class="discover__title">{{ $whn->name }}</h2>
+                                <h2 class="makan__title">{{ $whn->name }}</h2>
 
-                                    <span class="discover__description">
-                                        @if ($whn->harga == '0' || $whn->harga == null)
-                                            Free
-                                        @else
-                                            <a disabled class="button"> Rp.{{ number_format($whn->harga) }} </a>
-                                        @endif
+                                <span class="makan__description">
+                                    @if ($whn->harga == '0' || $whn->harga == null)
+                                        Free
+                                    @else
+                                        <a disabled class="button"> Rp.{{ number_format($whn->harga) }} </a>
+                                    @endif
 
-                                    </span>
-                                </div>
-                                @if ($whn->harga == '0' || $whn->harga == null)
-                                @else
-                                    <form action="{{ url('/cart/tambah/kuliner/' . $whn->kode_kuliner) }}"
-                                        method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="kode_produk" value="{{ $whn->kode_kuliner }}">
-                                        <input type="hidden" name="tempat_id" value="{{ $tempat->id }}">
-                                        <input name="jumlah" class="form-control" type="number" id="jumlah"
-                                            placeholder="Jumlah" min="0" required>
-                                        <input type="hidden" name="kategori" value="kuliner">
-                                        <button class="button button--flex place__button">
-                                            <i class="fas fa-cart-plus"></i>
-                                        </button>
-                                    </form>
-                                @endif
-
+                                </span>
                             </div>
-                        @endforeach
-                    @else
-                        Sedang Liburan
-                    @endif
+                            @if ($whn->harga == '0' || $whn->harga == null)
+                            @else
+                                <form action="{{ url('/cart/tambah/kuliner/' . $whn->kode_kuliner) }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @csrf
+                                    <input type="hidden" name="kode_produk" value="{{ $whn->kode_kuliner }}">
+                                    <input type="hidden" name="tempat_id" value="{{ $tempat->id }}">
+                                    <input name="jumlah" class="form-control" type="number" id="jumlah"
+                                        placeholder="Jumlah" min="0" required>
+                                    <input type="hidden" name="kategori" value="kuliner">
+                                    <button class="button button--flex makan__button">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </form>
+                            @endif
 
+                        </div>
+                    @endforeach
+                @else
+                    Sedang Liburan
+                @endif
 
-                </div>
             </div>
         </section>
 
@@ -364,19 +361,20 @@
                     <h2 class="experience__number">
                         {{ App\Models\Kuliner::where('tempat_id', $tempat->id)->where('harga', '!=', 0)->where('status', 1)->where('kategori', 'makan')->count() }}+
                     </h2>
-                    <span class="experience__description">Makanan <br> Yang Lezat</span>
+                    <span class="experience__description">Makanan <br> Yang Sedap</span>
                 </div>
                 <div class="experience__data">
                     <h2 class="experience__number">
-                        {{ App\Models\Kuliner::where('tempat_id', $tempat->id)->where('harga', '!=', 0)->where('status', 1)->where('kategori', 'makan')->count() }}+
+                        {{ App\Models\Kuliner::where('tempat_id', $tempat->id)->where('harga', '!=', 0)->where('status', 1)->where('kategori', 'minum')->count() }}+
                     </h2>
                     <span class="experience__description">Minuman<br> Yang Menyejukan</span>
                 </div>
 
                 <div class="experience__data">
                     <h2 class="experience__number">
-                        {{ App\Models\Detail_transaksi::where('tempat_id', $tempat->id)->count() }}+</h2>
-                    <span class="experience__description">Pesanan <br> Selesai</span>
+                        {{ App\Models\Kuliner::where('tempat_id', $tempat->id)->where('harga', '!=', 0)->where('status', 1)->where('kategori', 'snack')->count() }}+
+                    </h2>
+                    <span class="experience__description">Snack <br> Yang Lezat</span>
                 </div>
 
 

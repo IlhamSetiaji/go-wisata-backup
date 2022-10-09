@@ -1103,15 +1103,18 @@ input {
   bottom: 0;
   padding: .75rem 1rem;
 }
-
+/* 
 .makan__description {
   display: block;
   font-size: var(--smaller-font-size);
   padding: .75rem .75rem 1rem;
-}
+} */
 
 .makan__data {
   position: absolute;
   bottom: 2rem;
   left: 1rem;
+  padding: .20rem .20rem 1rem;
+  display: block;
+
 }
