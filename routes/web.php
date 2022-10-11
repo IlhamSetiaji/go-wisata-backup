@@ -57,7 +57,7 @@ use App\Http\Controllers\TopUpController;
 
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::resource('/', FrontendController::class);
 //event
 Route::get('/explore', [FrontendController::class, 'explore']);
@@ -79,13 +79,13 @@ Route::get('/explore_desa_wisata', [FrontendController::class, 'explore_desa_wis
 Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
-Route::resource('/profile', ProfileController::class);
+Route::resource('/profile', ProfileController::class)->middleware('verified');
 Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
 Route::group([
-    'middleware' => ['auth', 'pelanggan'],
+    'middleware' => ['auth', 'pelanggan', 'verified'],
 ], function () {
 
 
@@ -173,7 +173,7 @@ Route::group([
 
 
 Route::group([
-    'middleware' => ['auth', 'admin'],
+    'middleware' => ['auth', 'admin', 'verified'],
     'prefix' => 'admin',
 
 ], function () {
@@ -200,7 +200,7 @@ Route::group([
 
 
 Route::group([
-    'middleware' => ['auth', 'wisata'],
+    'middleware' => ['auth', 'wisata', 'verified'],
     'prefix' => 'awisata',
 
 ], function () {
@@ -235,7 +235,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['auth', 'desa'],
+    'middleware' => ['auth', 'desa', 'verified'],
     'prefix' => 'adesa',
 
 ], function () {
@@ -265,7 +265,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['auth', 'kuliner'],
+    'middleware' => ['auth', 'kuliner', 'verified'],
     'prefix' => 'akuliner',
 
 ], function () {
@@ -296,7 +296,7 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => ['auth', 'penginapan'],
+    'middleware' => ['auth', 'penginapan', 'verified'],
     'prefix' => 'penginapan',
 
 ], function () {
@@ -349,7 +349,7 @@ Route::group([
 
 
 Route::group([
-    'middleware' => ['auth', 'event.sewatempat'],
+    'middleware' => ['auth', 'event.sewatempat', 'verified'],
 
 ], function () {
     //tempat
@@ -425,21 +425,21 @@ Route::group([
 });
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-Route::get('/qrcode/{kode}', [App\Http\Controllers\ProfileController::class, 'qrcode'])->name('qrcode.kode');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
+Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
+Route::get('/qrcode/{kode}', [App\Http\Controllers\ProfileController::class, 'qrcode'])->middleware('verified')->name('qrcode.kode');
 Route::get('/event', [App\Http\Controllers\FrontendController::class, 'event']);
 Route::get('/event/{slug}', [App\Http\Controllers\FrontendController::class, 'eventtempat']);
 
-Route::resource('/pay', PaymentController::class);
-Route::get('/getevent', [App\Http\Controllers\FullCalendarController::class, 'getEvent']);
+Route::resource('/pay', PaymentController::class)->middleware('verified');
+Route::get('/getevent', [App\Http\Controllers\FullCalendarController::class, 'getEvent'])->middleware('verified');
 Route::post('/createevent', [App\Http\Controllers\FullCalendarController::class, 'createEvent']);
 Route::post('/deleteevent',  [App\Http\Controllers\FullCalendarController::class, 'deleteEvent']);
-Route::get('/full-calender', [App\Http\Controllers\FullCalendarController::class, 'index']);
+Route::get('/full-calender', [App\Http\Controllers\FullCalendarController::class, 'index'])->middleware('verified');
 Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarController::class, 'action']);
 
 
-Route::get('/desa/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
+Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');
 Route::get('/kuliner/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showk');
@@ -448,29 +448,29 @@ Route::post('/tiket/{name}', [TiketController::class, 'beli'])->name('tiket.beli
 Route::get('/logout2', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout2');
 
 //Pembayaran Midrrans
-Route::get('/bayar', [PaymentController::class, 'index']);
-Route::get('/bayar/{id}', [PaymentController::class, 'bayar']);
+Route::get('/bayar', [PaymentController::class, 'index'])->middleware('verified');
+Route::get('/bayar/{id}', [PaymentController::class, 'bayar'])->middleware('verified');
 Route::post('/bayar/{id}', [PaymentController::class, 'bayar']);
-Route::get('/bayar/snapfinish', [PaymentController::class, 'finish']);
+Route::get('/bayar/snapfinish', [PaymentController::class, 'finish'])->middleware('verified');
 Route::post('/bayar/snapfinish/store', [PaymentController::class, 'store'])->name('payment.store');
-Route::get('/bayar/status/{kode}', [PaymentController::class, 'status'])->name('bayar_status');
+Route::get('/bayar/status/{kode}', [PaymentController::class, 'status'])->name('bayar_status')->middleware('verified');
 Route::post('/bayar/status/update/{kode}', [PaymentController::class, 'update'])->name('payment.update');
 Route::post('/bayar/cancel/{kode}', [PaymentController::class, 'cancel'])->name('payment.cancel');
-Route::get('/bayar/astatus/{kode}', [PaymentController::class, 'astatus'])->name('admin_bayar_status');
+Route::get('/bayar/astatus/{kode}', [PaymentController::class, 'astatus'])->name('admin_bayar_status')->middleware('verified');
 
 Route::get('/checkpenginapan/{id}', [FrontendController::class, 'checkpenginapan']);
 Route::post('/checkpenginapan/{id}', [FrontendController::class, 'checkpenginapan']);
 Route::get('/mau/nginap', [App\Http\Controllers\FrontendController::class, 'pilihkamar'])->name('pilih.kamar');
 Route::post('/mau/nginap/pesan', [App\Http\Controllers\FrontendController::class, 'pesankamar'])->name('pesan.kamar');
 Route::get('/mau/nginap/pesan', [App\Http\Controllers\FrontendController::class, 'pesankamar']);
-Route::get('/vt_transaction',  [App\Http\Controllers\TransactionController::class, 'transaction']);
+Route::get('/vt_transaction',  [App\Http\Controllers\TransactionController::class, 'transaction'])->middleware('verified');
 Route::post('/vt_transaction', [App\Http\Controllers\TransactionController::class, 'transaction_process']);
 
-Route::get('crop-image-upload',  [App\Http\Controllers\CropImageController::class, 'editgambar']);
-Route::get('crop-image-upload2',  [App\Http\Controllers\CropImageController::class, 'editgambar2']);
-Route::get('video-upload',  [App\Http\Controllers\TempatController::class, 'indexvideo']);
-Route::any('video-upload2',  [App\Http\Controllers\TempatController::class, 'videoupload'])->name('video-upload2');
+Route::get('crop-image-upload',  [App\Http\Controllers\CropImageController::class, 'editgambar'])->middleware('verified');
+Route::get('crop-image-upload2',  [App\Http\Controllers\CropImageController::class, 'editgambar2'])->middleware('verified');
+Route::get('video-upload',  [App\Http\Controllers\TempatController::class, 'indexvideo'])->middleware('verified');
+Route::any('video-upload2',  [App\Http\Controllers\TempatController::class, 'videoupload'])->name('video-upload2')->middleware('verified');
 
 Route::post('crop-image-before-upload-using-croppie', [App\Http\Controllers\CropImageController::class, 'uploadCropImage2'])->name('croppie.upload-image');
-Route::resource('/kegiatan', KegiatanController::class);
-Route::get('/status/update/kegiatan/{kode}', [KegiatanController::class, 'toggleStatus'])->name('update.status.kegiatan');
+Route::resource('/kegiatan', KegiatanController::class)->middleware('verified');
+Route::get('/status/update/kegiatan/{kode}', [KegiatanController::class, 'toggleStatus'])->name('update.status.kegiatan')->middleware('verified');
