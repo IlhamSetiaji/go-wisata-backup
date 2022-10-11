@@ -56,7 +56,7 @@ trait RegistersUsers
 
         return $request->wantsJson()
             ? new JsonResponse([], 201)
-            : redirect($this->redirectPath());
+            : redirect('/email/verify');
     }
 
     /**

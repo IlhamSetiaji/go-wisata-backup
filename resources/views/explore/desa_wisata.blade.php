@@ -31,28 +31,28 @@
 
                 <div class="card-group">
                     @if (count($tempat) > 0)
-                    @foreach ($tempat as $key => $tempat)
-                    <div class="card mx-2">
+                        @foreach ($tempat as $key => $tempat)
+                            <div class="card mx-2">
                                 <!--==================== DISCOVER 1 ====================-->
-                                    @if ($tempat->image == null)
-                                        Gambar Tidak Tersedia
-                                    @else
-                                        <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
-                                            class="discover__img">
-                                    @endif
-                                    <div class="discover__data">
-                                        <h2 class="discover__title">{{ $tempat->name }}</h2>
-                                    </div>
-                                    <a href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}">
-                                        <button class="button button--flex place__button">
-                                            <i class="ri-arrow-right-line"></i>
-                                        </button>
-                                    </a>
+                                @if ($tempat->image == null)
+                                    Gambar Tidak Tersedia
+                                @else
+                                    <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
+                                        class="discover__img">
+                                @endif
+                                <div class="discover__data">
+                                    <h2 class="discover__title">{{ $tempat->name }}</h2>
+                                </div>
+                                <a href="{{ url('./' . $tempat->slug) }}">
+                                    <button class="button button--flex place__button">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </a>
                             </div>
-                            @endforeach
-                        @else
-                            Sedang Liburan
-                        @endif
+                        @endforeach
+                    @else
+                        Sedang Liburan
+                    @endif
                 </div>
             </section>
         </div>
