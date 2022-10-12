@@ -233,6 +233,14 @@ input {
     padding: 3rem;
     transition: .4s;
   }
+  .nav__toggle {
+    position: fixed;
+    top: 0;
+    right: 0;
+    /* color: black; */
+    margin-right: 40px;
+    margin-top: 10px;
+  }
 }
 
 .nav__list {
