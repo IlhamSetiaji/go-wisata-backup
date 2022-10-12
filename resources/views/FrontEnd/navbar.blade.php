@@ -14,37 +14,38 @@
                     <a href="#discover" class="nav__link">Discover</a>
                 </li> --}}
                 <li class="nav__item">
-                    <a href="{{ url('/explore') }}" class="nav__link {{ $title === 'Explore' ? 'active-link' : '' }}">Explore</a>
+                    <a href="{{ url('/explore') }}"
+                        class="nav__link {{ $title === 'Explore' ? 'active-link' : '' }}">Explore</a>
                 </li>
                 @guest
-                <li class="nav__item">
-                    <a href="{{ route('login') }}" class="nav__link">Login</a>
-                </li>
+                    <li class="nav__item">
+                        <a href="{{ route('login') }}" class="nav__link">Login</a>
+                    </li>
                 @else
-                @if (auth()->check() && auth()->user()->role->id != 5)
-                <li class="nav__item">
-                    <a href="{{ route('dashboard') }}" class="nav__link">Dashboard</a>
-                </li>
-                @else
-                <li class="nav__item">
-                    <a href="{{ route('pesananku') }}" class="nav__link">Pesananku</a>
-                </li>
-                @endif
-                <li class="nav__item">
-                    <a href="{{ url('/profile') }}" class="nav__link">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('logout') }}" class="nav__link"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                        <i class="fas fa-power-off"></i>
-                    </a>
+                    @if (auth()->check() && auth()->user()->role->id != 5)
+                        <li class="nav__item">
+                            <a href="{{ route('dashboard') }}" class="nav__link">Dashboard</a>
+                        </li>
+                    @else
+                        <li class="nav__item">
+                            <a href="{{ route('pesananku') }}" class="nav__link">Pesananku</a>
+                        </li>
+                    @endif
+                    <li class="nav__item">
+                        <a href="{{ url('/profile') }}" class="nav__link">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav__link"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                            <i class="fas fa-power-off"></i>
+                        </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
 
-                    </form>
+                        </form>
 
-                </li>
+                    </li>
                 @endguest
 
                 <div class="nav__dark">
