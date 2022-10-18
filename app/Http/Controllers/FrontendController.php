@@ -231,6 +231,7 @@ class FrontendController extends Controller
             $wahana  = Wahana::where('tempat_id', $tempatini)->where('status', '1')->get();
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
+            // $wisata = Tempat::where('induk_id', $tempatini)->where('kategori', 'wisata')->get();
             $penginapan = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
             $ez = Tempat::where('induk_id', $tempatini)->get();
             $camp = Camp::where('tempat_id', $tempatini)->where('status', 1)->where('kategori', 'alat')->get();

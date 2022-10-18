@@ -125,6 +125,16 @@
             </div>
         </section>
 
+          <!--==================== ABOUT ====================-->
+        <section class="about_section">
+            <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
+        
+                <div class="text_tengah">
+                    <h3>{{ $tempat->deskripsi }}</h3>
+                </div>
+           
+        </section>
+
         <!--==================== EXPERIENCE ====================-->
         <section class="experience section">
             {{-- <h2 class="section__title"> {{ $tempat->name }}  <br> </h2> --}}
@@ -150,47 +160,14 @@
                             Pesan Tiket
                         </button>
                     </h5>
-
-
-
-
-
-
                 </form>
             @endif
         </section>
 
 
-
-        <!--==================== ABOUT ====================-->
-        <!--<section class="about section" id="camp">-->
-        <!--    <div class="about__container container grid">-->
-        <!--        <div class="about__data">-->
-        <!--            <h2 class="section__title about__title">  {{ $tempat->name }}<br> </h2>-->
-        <!--            <p class="about__description"> {{ $tempat->deskripsi }}-->
-        <!--            </p>-->
-        <!--            <a href="#place" class="button">Disekitar</a>-->
-
-        <!--        </div>-->
-
-        <!--        <div class="about__img">-->
-
-        <!--            {{-- <div class="about__img-overlay">-->
-            <!--                <img src="{{ asset('./vendor/depan/assets/img/camping.jpg') }}" alt="" class="about__img-one">-->
-            <!--            </div> --}}-->
-
-        <!--            <div class="about__img-overlay">-->
-        <!--                <img src="{{ asset('./vendor/depan/assets/img/camping.jpg') }}" alt="" class="about__img-two">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--</section>-->
-
-
-
         @if (count($ez) > 0)
             <section class="place section" id="place">
-                <h2 class="section__title">Tempat di {{ $tempat->name }}</h2>
+                <h2 class="section__title">Destinasi wisata di {{ $tempat->name }}</h2>
                 <div class="place__container container grid">
 
                     @foreach ($ez as $key => $tempat2)
@@ -212,6 +189,43 @@
                                 </div>
                             </div>
                             <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+
+                        </div>
+                    @endforeach
+
+                </div>
+            </section>
+        @endif
+
+
+        @if (count($kuliner) > 0)
+            <section class="place section" id="place">
+                <h2 class="section__title">Kuliner di {{ $tempat->name }}</h2>
+                <div class="place__container container grid">
+
+                    @foreach ($kuliner as $kuliner)
+                        <!--==================== PLACES CARD 1 ====================-->
+                        <div class="place__card">
+                            <img src="{{ asset('images') }}/{{ $kuliner->image }}" alt=""
+                                class="place__img">
+
+                            <div class="place__content">
+                                <span class="place__rating">
+                                    <i class="ri-star-line place__rating-icon"></i>
+                                    <!--<span class="place__rating-number">4,8</span>-->
+                                </span>
+
+                                <div class="place__data">
+                                    <h3 class="place__title">{{ $kuliner->name }}</h3>
+                                    {{-- <span class="place__subtitle">{{ $kuliner->kategori }}</span> --}}
+                                    <span class="place__price">{{ $kuliner->kategori }}</span>
+                                </div>
+                            </div>
+                            <a href="{{ url('./' . $kuliner->kategori . '/' . $kuliner->slug) }}">
                                 <button class="button button--flex place__button">
                                     <i class="ri-arrow-right-line"></i>
                                 </button>
