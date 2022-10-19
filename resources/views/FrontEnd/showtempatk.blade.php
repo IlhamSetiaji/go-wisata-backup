@@ -142,8 +142,11 @@
                 <h2 class="section__title">Tempat Disekitar {{ $tempat->name }}</h2>
                 <div class="place__container container grid">
 
+                    {{-- <div class="row"> --}}
                     @foreach ($ez2 as $key => $tempat2)
+                        {{-- <div class="col-md-6 col-lg-6 col-sm-12"> --}}
                         <!--==================== PLACES CARD 1 ====================-->
+
                         <div class="place__card">
                             <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
                                 class="place__img">
@@ -165,9 +168,11 @@
                                     <i class="ri-arrow-right-line"></i>
                                 </button>
                             </a>
-
                         </div>
+
+                        {{-- </div> --}}
                     @endforeach
+                    {{-- </div> --}}
 
                 </div>
             </section>

@@ -222,6 +222,20 @@ input {
 }
 
 @media screen and (max-width: 767px) {
+  .makan__container {
+    grid-template-columns: repeat(1, max-content);
+    justify-content: center;
+  }
+  .makan__card {
+    position: relative;
+    width: 200px;
+    overflow: var(--img-hidden);
+  }
+  
+  .place__container {
+    grid-template-columns: repeat(max-content, 3);
+    justify-content: center;
+  }
   .nav__menu {
     position: fixed;
     background-color: var(--body-color);
@@ -579,12 +593,16 @@ input {
 /*=============== PLACES ===============*/
 .place__card, .place__img {
   height: 230px;
+  margin-bottom: 1px;
+  /* margin-left: 12px; */
 }
-
-.place__container {
-  grid-template-columns: repeat(2, max-content);
+/* .place__container {
+  grid-template-columns: repeat(3, max-content);
+} */
+/* .place__container {
+  grid-template-columns: repeat(3, max-content);
   justify-content: center;
-}
+} */
 
 .place__card {
   position: relative;
@@ -845,12 +863,21 @@ input {
     justify-content: center;
   }
   .place__container {
-    grid-template-columns: repeat(3, max-content);
+    grid-template-columns: repeat(2, 3);
   }
   .subscribe__form {
     width: 470px;
     margin: 0 auto;
   }
+  
+  
+  /* .makan__card {
+
+      position: relative;
+      width: 200px;
+      overflow: var(--img-hidden);
+    
+  } */
 }
 
 @media screen and (min-width: 768px) {
@@ -969,6 +996,14 @@ input {
 
 /* For large devices */
 @media screen and (min-width: 1024px) {
+  .place__container {
+    grid-template-columns: repeat(3, max-content);
+    justify-content: center;
+  }
+  .makan__container {
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+  }
   .container {
     margin-left: auto;
     margin-right: auto;
@@ -1056,10 +1091,10 @@ input {
   height: 200px;
 }
 
-.makan__container {
+/* .makan__container {
   grid-template-columns: repeat(4, max-content);
   justify-content: center;
-}
+} */
 
 .makan__card {
   position: relative;
