@@ -585,6 +585,10 @@ input {
   margin-top: 50px;
 }
 
+.gradient_background {
+  background: transparent;
+}
+
 .text_tengah {
   text-align: center;
   margin-left: 200px;

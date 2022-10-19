@@ -226,18 +226,28 @@ class FrontendController extends Controller
         $setting =  Setting::first();
 
         if ($tempat->kategori == "wisata") {
+
             $tempat2  = Tempat::where('slug', $slug)->where('status', '1')->first();
+            
             $tempatini = $tempat->id;
+
             $wahana  = Wahana::where('tempat_id', $tempatini)->where('status', '1')->get();
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
+            
             // $wisata = Tempat::where('induk_id', $tempatini)->where('kategori', 'wisata')->get();
+
             $penginapan = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
+
             $ez = Tempat::where('induk_id', $tempatini)->get();
+
             $camp = Camp::where('tempat_id', $tempatini)->where('status', 1)->where('kategori', 'alat')->get();
+
             $camp1 = Camp::where('tempat_id', $tempatini)->where('status', 1)->get();
+
             $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
-            return view('FrontEnd/showtempat', compact('setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+
+            return view('FrontEnd/showtempat', compact('wisata','setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
         }
 
         if ($tempat->kategori == "desa") {

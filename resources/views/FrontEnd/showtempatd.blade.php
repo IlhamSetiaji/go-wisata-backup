@@ -127,11 +127,7 @@
 
           <!--==================== ABOUT ====================-->
         <section class="about_section">
-            <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
-        
-                <div class="text_tengah">
-                    <h3>{{ $tempat->deskripsi }}</h3>
-                </div>
+           
            
         </section>
 
@@ -164,13 +160,16 @@
             @endif
         </section>
 
+         <?php 
+            $wisata = App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'wisata')->get();  
+        ?> 
 
-        @if (count($ez) > 0)
+        @if (count($wisata) > 0)
             <section class="place section" id="place">
                 <h2 class="section__title">Destinasi wisata di {{ $tempat->name }}</h2>
                 <div class="place__container container grid">
 
-                    @foreach ($ez as $key => $tempat2)
+                    @foreach ($wisata as $key => $tempat2)
                         <!--==================== PLACES CARD 1 ====================-->
                         <div class="place__card">
                             <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
@@ -237,7 +236,43 @@
                 </div>
             </section>
         @endif
+        
 
+        @if (count($penginapan) > 0)
+            <section class="place section" id="place">
+                <h2 class="section__title">penginapan di {{ $tempat->name }}</h2>
+                <div class="place__container container grid">
+
+                    @foreach ($penginapan as $penginapan)
+                        <!--==================== PLACES CARD 1 ====================-->
+                        <div class="place__card">
+                            <img src="{{ asset('images') }}/{{ $penginapan->image }}" alt=""
+                                class="place__img">
+
+                            <div class="place__content">
+                                <span class="place__rating">
+                                    <i class="ri-star-line place__rating-icon"></i>
+                                    <!--<span class="place__rating-number">4,8</span>-->
+                                </span>
+
+                                <div class="place__data">
+                                    <h3 class="place__title">{{ $penginapan->name }}</h3>
+                                    {{-- <span class="place__subtitle">{{ $penginapan->kategori }}</span> --}}
+                                    <span class="place__price">{{ $penginapan->kategori }}</span>
+                                </div>
+                            </div>
+                            <a href="{{ url('./' . $penginapan->kategori . '/' . $penginapan->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+
+                        </div>
+                    @endforeach
+
+                </div>
+            </section>
+        @endif
 
 
         @if (!$tempat->video == null)
