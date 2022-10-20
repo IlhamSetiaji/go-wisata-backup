@@ -27,7 +27,7 @@
         </section>
         <div class="container">
             &nbsp;
-            <div class="row">
+            <div class="row me-1">
                 <div class="col-sm-6 mb-2">
                     <div class="card">
                         <div class="card-body">
