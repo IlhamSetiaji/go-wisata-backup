@@ -596,11 +596,23 @@ input {
   margin-bottom: 1px;
   /* margin-left: 12px; */
 }
-/* .place__container {
-  grid-template-columns: repeat(3, max-content);
-} */
-/* .place__container {
-  grid-template-columns: repeat(3, max-content);
+
+.about_section {
+  margin-top: 50px;
+}
+
+.gradient_background {
+  background: transparent;
+}
+
+.text_tengah {
+  text-align: center;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.place__container {
+  grid-template-columns: repeat(2, max-content);
   justify-content: center;
 } */
 
@@ -930,7 +942,7 @@ input {
     color: var(--text-color);
   }
   .section {
-    padding: 7rem 0 2rem;
+    padding: 5rem 0 2rem;
   }
   .home__container {
     height: 100vh;
