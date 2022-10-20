@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Auth;
 
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('auth.login-user');
     }
 
     /**
@@ -35,15 +36,25 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    public function checkIsNoAdmin($param)
+    {
+        $data = User::where('email', $param)->pluck('role_id')->first();
+        return $data;
+    }
     public function login(Request $request)
     {
+        $roleId = $this->checkIsNoAdmin($request->email);
 
-        // $this->validateLogin($request);
+        if ($roleId != 5) {
+            Alert::error('Error', 'Use Admin Login Page');
+            return back();
+        }
+
         $checkValidator = Validator::make($request->all(), [
             'email' => 'required|string',
             'password' => 'required|string',
         ]);
-        
+
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
@@ -70,7 +81,7 @@ trait AuthenticatesUsers
         $this->incrementLoginAttempts($request);
         // $data = $this->validateLogin($request);
         // dd($data);
-        
+
         if ($checkValidator->fails() == false) {
             Alert::error('Error', 'Email and/or password invalid.');
             return back();

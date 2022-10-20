@@ -29,7 +29,7 @@
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-                <form method="POST" action="{{ route('login') }}" class="sign-in-form">
+                <form method="POST" action="/post-login" class="sign-in-form">
                     @csrf
                     <h2 class="title">Sign in</h2>
                     <div class="input-field">
@@ -97,24 +97,6 @@
 
         <div class="panels-container">
             <div class="panel left-panel">
-                <div class="content">
-                    <h3>Tidak memiliki akun ?</h3>
-                    <p>
-                        Mari daftar ! :)
-                    </p>
-                    <button class="btn transparent" id="sign-up-btn">
-                        Daftar
-                    </button>
-                    <p>
-                        or
-                    </p>
-                    <button class="btn transparent">
-                        <a style="text-decoration:none" href="{{ url('/') }}"
-                            class="btn btn-light-secondary me-1 mb-1">
-                            Back to App</a>
-
-                    </button>
-                </div>
                 <img src="{{ asset('auth/img/log.svg') }}" class="image" alt="" />
             </div>
             <div class="panel right-panel">
