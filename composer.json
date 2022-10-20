@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "midtrans/midtrans-php": "^2.3",
+        "realrashid/sweet-alert": "^5.1",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "twbs/bootstrap": "5.1.3"
     },
