@@ -24,7 +24,7 @@
     <title>GoWisata.</title>
 </head>
 
-<body>
+<body onload="myFunction()">
 
     <header class="header" id="header">
         <nav class="nav container">
