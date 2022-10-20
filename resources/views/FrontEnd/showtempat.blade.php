@@ -26,7 +26,7 @@
 
 <body>
 
-    <header class="header" id="header">
+    <header class="header" id="header" onload="myFunction()">
         <nav class="nav container">
             <a href="{{ url('/') }}" class="nav__logo">GoWisata.</a>
 
@@ -132,7 +132,7 @@
         {{-- DESKRIPSI --}}
         <section class="about_section">
             <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
-        
+
             <div class="text_tengah">
                 <h3>{{ $tempat->deskripsi }}</h3>
             </div>
@@ -162,75 +162,76 @@
                     </h5>
                 </form>
             @endif
-           
 
 
-        @if (count($camp1) > 0)
-            <!--==================== ABOUT ====================-->
-            <section class="about section" id="camp">
-                <div class="about__container container grid">
-                    <div class="about__data">
-                        <h2 class="section__title about__title"> Di {{ $tempat->name }}<br> Ada Camping Ground lho
-                        </h2>
-                        <p class="about__description"> Langsung saja tekan tombol mau camping
-                        </p>
-                        <a href="{{ url('/mau/camping/' . $tempat2->id) }}" class="button">Mau Camping !</a>
-                    </div>
 
-                    <div class="about__img">
+            @if (count($camp1) > 0)
+                <!--==================== ABOUT ====================-->
+                <section class="about section" id="camp">
+                    <div class="about__container container grid">
+                        <div class="about__data">
+                            <h2 class="section__title about__title"> Di {{ $tempat->name }}<br> Ada Camping Ground lho
+                            </h2>
+                            <p class="about__description"> Langsung saja tekan tombol mau camping
+                            </p>
+                            <a href="{{ url('/mau/camping/' . $tempat2->id) }}" class="button">Mau Camping !</a>
+                        </div>
 
-                        <div class="about__img-overlay">
-                            <img src="{{ asset('vendor/depan/assets/img/camping.jpg') }}" alt=""
-                                class="about__img-two">
+                        <div class="about__img">
+
+                            <div class="about__img-overlay">
+                                <img src="{{ asset('vendor/depan/assets/img/camping.jpg') }}" alt=""
+                                    class="about__img-two">
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        @endif
+                </section>
+            @endif
 
-        @if (count($wahana) > 0)
-        <!--==================== WAHANA ====================-->
+            @if (count($wahana) > 0)
+                <!--==================== WAHANA ====================-->
 
-        @foreach ($wahana as $wahana)
-            
-        <section class="about section" id="camp">
-            <div class="about__container container grid">
-                <div class="about__data">
-                    <h2 class="section__title about__title"> Di {{ $tempat->name }} ada {{ $wahana->name }}<br>
-                    </h2>
-                    <p class="about__description"> Langsung saja tekan tombol daftar sekarang!
-                    </p>
-                    <a href="{{ url('/mau/camping/' . $wahana->id) }}" class="button">Daftar sekarang !</a>
-                </div>
+                @foreach ($wahana as $wahana)
+                    <section class="about section" id="camp">
+                        <div class="about__container container grid">
+                            <div class="about__data">
+                                <h2 class="section__title about__title"> Di {{ $tempat->name }} ada
+                                    {{ $wahana->name }}<br>
+                                </h2>
+                                <p class="about__description"> Langsung saja tekan tombol daftar sekarang!
+                                </p>
+                                <a href="{{ url('/mau/camping/' . $wahana->id) }}" class="button">Daftar sekarang
+                                    !</a>
+                            </div>
 
-                <div class="about__img">
+                            <div class="about__img">
 
-                    <div class="about__img-overlay">
-                        <img src="{{ asset('images') }}/{{ $wahana->image }}" alt=""
-                            class="about__img-two">
-                    </div>
-                </div>
-            </div>
-        </section>
-        @endforeach
-    @endif
+                                <div class="about__img-overlay">
+                                    <img src="{{ asset('images') }}/{{ $wahana->image }}" alt=""
+                                        class="about__img-two">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                @endforeach
+            @endif
 
 
-            
 
-        <!--==================== DISCOVER ====================-->
-        {{-- @if (count($wahana) > 0)
+
+            <!--==================== DISCOVER ====================-->
+            {{-- @if (count($wahana) > 0)
             <section class="discover section" id="wahana">
                 <h2 class="section__title">Wahana <br> Yang Tersedia</h2>
 
                 <div class="discover__container container swiper-container">
                     <div class="swiper-wrapper"> --}}
 
-                        {{-- @foreach ($wahana as $key => $whn) --}}
-                            <!--==================== DISCOVER 1 ====================-->
-                            {{-- @if ($tempat2->id != $whn->tempat_id) --}}
+            {{-- @foreach ($wahana as $key => $whn) --}}
+            <!--==================== DISCOVER 1 ====================-->
+            {{-- @if ($tempat2->id != $whn->tempat_id) --}}
 
-                            {{-- <div class="discover__card swiper-slide">
+            {{-- <div class="discover__card swiper-slide">
                                 <img src="{{ asset('images') }}/{{ $whn->image }}" alt=""
                                     class="discover__img">
                                 <div class="discover__data">
@@ -264,8 +265,8 @@
                                 @endif
 
                             </div> --}}
-                            
-                        {{-- @endforeach
+
+            {{-- @endforeach
 
 
 
@@ -276,50 +277,50 @@
         @endif --}}
 
 
-        <?php
+            <?php
             
-        $ez2 = App\Models\Tempat::where('induk_id', $tempat->induk_id)
-            ->where('status', 1)
-            ->get();
-        // dd($ez2);
-        ?>
-        @if (count($ez2) > 0)
-            <section class="place section" id="place">
-                <h2 class="section__title">Tempat Disekitar {{ $tempat->name }}</h2>
-                <div class="place__container container grid">
+            $ez2 = App\Models\Tempat::where('induk_id', $tempat->induk_id)
+                ->where('status', 1)
+                ->get();
+            // dd($ez2);
+            ?>
+            @if (count($ez2) > 0)
+                <section class="place section" id="place">
+                    <h2 class="section__title">Tempat Disekitar {{ $tempat->name }}</h2>
+                    <div class="place__container container grid">
 
-                    @foreach ($ez2 as $key => $tempat2)
-                        <!--==================== PLACES CARD 1 ====================-->
-                        <div class="place__card">
-                            <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
-                                class="place__img">
+                        @foreach ($ez2 as $key => $tempat2)
+                            <!--==================== PLACES CARD 1 ====================-->
+                            <div class="place__card">
+                                <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                    class="place__img">
 
-                            <div class="place__content">
-                                <span class="place__rating">
-                                    <i class="ri-star-line place__rating-icon"></i>
-                                    <!--<span class="place__rating-number">4,8</span>-->
-                                </span>
+                                <div class="place__content">
+                                    <span class="place__rating">
+                                        <i class="ri-star-line place__rating-icon"></i>
+                                        <!--<span class="place__rating-number">4,8</span>-->
+                                    </span>
 
-                                <div class="place__data">
-                                    <h3 class="place__title">{{ $tempat2->name }}</h3>
+                                    <div class="place__data">
+                                        <h3 class="place__title">{{ $tempat2->name }}</h3>
 
-                                    <span class="place__price">{{ $tempat2->kategori }}</span>
+                                        <span class="place__price">{{ $tempat2->kategori }}</span>
+                                    </div>
                                 </div>
+                                <a href="/{{ $tempat2->kategori }}/{{ $tempat2->slug }}">
+                                    <button class="button button--flex place__button">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </a>
+
                             </div>
-                            <a href="/{{ $tempat2->kategori }}/{{ $tempat2->slug }}">
-                                <button class="button button--flex place__button">
-                                    <i class="ri-arrow-right-line"></i>
-                                </button>
-                            </a>
+                        @endforeach
 
-                        </div>
-                    @endforeach
+                    </div>
+                </section>
+            @endif
 
-                </div>
-            </section>
-        @endif
-
-    </section>
+        </section>
 
 
         @if (!$tempat2->video == null)
@@ -356,7 +357,7 @@
                     </p> --}}
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
                             {{-- <source src="{{ asset('./vendor/depan/assets/video/video.mp4') }}" type="video/mp4"> --}}
                         </video>
 
@@ -493,3 +494,9 @@
 </body>
 
 </html>
+<script>
+    function myFunction() {
+        var x = document.getElementById("video-file").autoplay;
+        return x;
+    }
+</script>

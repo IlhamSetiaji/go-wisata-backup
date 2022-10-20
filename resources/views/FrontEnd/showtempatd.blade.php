@@ -24,9 +24,9 @@
     <title>GoWisata.</title>
 </head>
 
-<body>
+<body onload="myFunction()">
 
-    <header class="header" id="header">
+    <header class="header" id="header" onload="myFunction()">
         <nav class="nav container">
             <a href="{{ url('/') }}" class="nav__logo">GoWisata.</a>
 
@@ -125,10 +125,10 @@
             </div>
         </section>
 
-          <!--==================== ABOUT ====================-->
+        <!--==================== ABOUT ====================-->
         <section class="about_section">
-           
-           
+
+
         </section>
 
         <!--==================== EXPERIENCE ====================-->
@@ -160,9 +160,11 @@
             @endif
         </section>
 
-         <?php 
-            $wisata = App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'wisata')->get();  
-        ?> 
+        <?php
+        $wisata = App\Models\Tempat::where('induk_id', $tempat->id)
+            ->where('kategori', 'wisata')
+            ->get();
+        ?>
 
         @if (count($wisata) > 0)
             <section class="place section" id="place">
@@ -236,7 +238,7 @@
                 </div>
             </section>
         @endif
-        
+
 
         @if (count($penginapan) > 0)
             <section class="place section" id="place">
@@ -286,7 +288,7 @@
                     </p>
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
 
                             {{-- <source src="https://www.youtube.com/watch?v=zJNIFyVAmQw" type="video/mp4"> --}}
                             <source src="{{ asset('videos') }}/{{ $tempat->video }}" type="video/mp4">
@@ -309,7 +311,7 @@
                     </p> --}}
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
                             {{-- <source src="{{ asset('./vendor/depan/assets/video/video.mp4') }}" type="video/mp4"> --}}
                         </video>
 
@@ -515,3 +517,9 @@
 </body>
 
 </html>
+<script>
+    function myFunction() {
+        var x = document.getElementById("video-file").autoplay;
+        return x;
+    }
+</script>
