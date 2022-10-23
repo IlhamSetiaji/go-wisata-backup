@@ -29,7 +29,7 @@
         $(document).ready(function() {});
 
         function budgeting() {
-            let jml_dewasa = $('#jml_dewasa').val()
+            let jml_dewasa = parseInt($('#jml_dewasa').val())
             let jml_anak = parseInt($('#jml_anak').val())
             let jml_budget = $('#jml_budget').val()
             let jml_hari = parseInt($('#jml_hari').val())
