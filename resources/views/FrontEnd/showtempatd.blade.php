@@ -12,6 +12,8 @@
 
     <!--=============== SWIPER CSS ===============-->
     <link rel="stylesheet" href="{{ asset('./vendor/depan/assets/css/swiper-bundle.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <!--=============== CSS ===============-->
     <script src="https://kit.fontawesome.com/ad6395cc9e.js" crossorigin="anonymous"></script>
@@ -71,7 +73,7 @@
                     @endguest
                 </ul>
 
-                <div class="nav__dark">
+                <div class="nav__dark mb-2">
                     <!-- Theme change button -->
                     <span class="change-theme-name">Dark mode</span>
                     <i class="ri-moon-line change-theme" id="theme-button"></i>
@@ -163,6 +165,14 @@
                 </form>
             @endif
         </section>
+
+        <h2 class="section__title"> Sesuaikan wisatamu dengan budgetmu! </h2>
+        <div class="d-flex justify-content-center">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Klik di Sini
+            </button>
+        </div>
 
         <?php
         $wisata = App\Models\Tempat::where('induk_id', $tempat->id)
@@ -506,7 +516,88 @@
             </div>
         </div>
     </footer>
+    @if ($tempat->name != '')
+        <script>
+            $(document).ready(function() {
+                $('#firstModal').modal('show');
+            });
+        </script>
+    @endif
 
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">E-Budgeting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
+                                    <input type="text" class="form-control" name="desa"
+                                        value="{{ $tempat->name }}" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
+                                    <input type="number" class="form-control" name="jmlh_hari">
+                                </div>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
+                                    <input type="number" class="form-control" name="dewasa">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa anak-anak yang Ikut?</label>
+                                    <input type="number" class="form-control" name="anak">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
+                                        Hitung</label>
+                                    <input type="number" class="form-control" name="budget">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="firstModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--========== SCROLL UP ==========-->
     <a href="#" class="scrollup" id="scroll-up">
         <i class="ri-arrow-up-line scrollup__icon"></i>
@@ -520,6 +611,11 @@
 
     <!--=============== MAIN JS ===============-->
     <script src="{{ asset('./vendor/depan/assets/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
