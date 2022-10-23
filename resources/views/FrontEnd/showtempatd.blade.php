@@ -128,12 +128,12 @@
         </section>
 
         <!--==================== ABOUT ====================-->
-         {{-- DESKRIPSI --}}
-         <section class="about_section">
+        {{-- DESKRIPSI --}}
+        <section class="about_section">
             <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
 
             <div class="text_tengah">
-                <h3>{{ $tempat->deskripsi }}</h3>
+                <h4>{{ $tempat->deskripsi }}</h4>
             </div>
         </section>
 
@@ -169,7 +169,7 @@
         <h2 class="section__title"> Sesuaikan wisatamu dengan budgetmu! </h2>
         <div class="d-flex justify-content-center">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form-budgeting">
                 Klik di Sini
             </button>
         </div>
@@ -178,8 +178,9 @@
         $wisata = App\Models\Tempat::where('induk_id', $tempat->id)
             ->where('kategori', 'wisata')
             ->get();
-
-            // dd($wisata)
+        
+        // dd($wisata)
+        
         ?>
 
         @if (count($wisata) > 0)
@@ -525,7 +526,7 @@
     @endif
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="form-budgeting" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -543,13 +544,23 @@
                                         value="{{ $tempat->name }}" disabled>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
-                                    <input type="number" class="form-control" name="jmlh_hari">
+                            {{-- {{ dd($penginapan) }} --}}
+                            @if (count($penginapan) != 0)
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
+                                        <input type="number" class="form-control" name="jmlh_hari">
+                                    </div>
                                 </div>
-
-                            </div>
+                            @else
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
+                                        <input type="number" class="form-control" name="jmlh_hari"
+                                            placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled>
+                                    </div>
+                                </div>
+                            @endif
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
@@ -585,15 +596,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Coba Fitur Baru Kami!!</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <p class="fs-6" style="text-align: justify">E-Budgeting adalah fitur untuk membantu anda
+                        mengalokasikan dana yang
+                        tersedia ke
+                        suatu desa pilihan anda!</p>
+                    <p class="fs-6">Coba fitur ini gratis!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#form-budgeting">Coba!</button>
                 </div>
             </div>
         </div>
