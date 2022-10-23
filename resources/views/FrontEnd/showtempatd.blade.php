@@ -29,7 +29,7 @@
         $(document).ready(function() {});
 
         function budgeting() {
-            let jml_dewasa = parseInt($('#jml_dewasa').val())
+            let jml_dewasa = $('#jml_dewasa').val()
             let jml_anak = parseInt($('#jml_anak').val())
             let jml_budget = $('#jml_budget').val()
             let jml_hari = parseInt($('#jml_hari').val())
@@ -39,12 +39,16 @@
             let itung_tiket_wisata = jml_org*harga_tiket_wisata
             let itung_tiket_wahana = jml_org*harga_tiket_wahana
             
+            
             $('#close-budgeting').click(function () {
                 location.reload()
             })
 
             
             $('#e-budgeting').empty()
+
+
+            
 
             if (jml_hari >= 2) {
                 let harga_penginapan = 200000
@@ -76,7 +80,7 @@
                             <td>Rp.${itung_inap}</td>
                         </tr>
                         <tr>
-                            <th scope="row" colspan="2">Budget</th>
+                            <th scope="row">Budget</th>
                             <td>Rp.${jml_budget}</td>
                         </tr>
                     </tbody>
@@ -84,7 +88,7 @@
 
                 $('#e-budgeting').append(temp_html)
             } else {
-                let temp_html = `<table class="table table-success table-striped">
+                let temp_html = `<table class="table">
                 <thead>
                     <tr>
                     <th scope="col">#</th>
@@ -94,18 +98,25 @@
                 </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">Orang</th>
-                            <td>${jml_org}</td>
-                            <td>${itung_tiket}</td>
+                            <th scope="row">Tiket Wisata</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wisata}</td>
                             
                         </tr>
                         <tr>
-                            <th scope="row">Budget</th>
-                            <td>${jml_budget}</td>
+                            <th scope="row" >Tiket Wahana</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wahana}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row" colspan="2">Budget</th>
+                            <td>Rp.${jml_budget}</td>
                         </tr>
                     </tbody>
                 </table>`;
                 $('#e-budgeting').append(temp_html)
+                
             }
             
             
@@ -633,11 +644,11 @@
                                 </div>
                             </div>
                             {{-- {{ dd($penginapan) }} --}}
-                            @if (count($penginapan) != 0)
+                            @if ($penginapan == null)
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
-                                        <input type="number" class="form-control" name="jmlh_hari" required>
+                                        <input type="number" class="form-control" name="jmlh_hari" required id="jml_hari">
                                     </div>
                                 </div>
                             @else
@@ -645,27 +656,27 @@
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
                                         <input type="number" class="form-control" name="jmlh_hari"
-                                            placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled>
+                                            placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled id="jml_hari">
                                     </div>
                                 </div>
                             @endif
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
-                                    <input type="number" class="form-control" name="dewasa" required>
+                                    <input type="number" class="form-control" name="dewasa" required id="jml_dewasa">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa anak-anak yang Ikut?</label>
-                                    <input type="number" class="form-control" name="anak" required>
+                                    <input type="number" class="form-control" name="anak" required id="jml_anak">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
                                         Hitung</label>
-                                    <input type="number" class="form-control" name="budget" required>
+                                    <input type="number" class="form-control" name="budget" required id="jml_budget">
                                 </div>
                             </div>
                         </div>
