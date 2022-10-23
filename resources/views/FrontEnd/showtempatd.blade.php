@@ -549,7 +549,7 @@
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
-                                        <input type="number" class="form-control" name="jmlh_hari">
+                                        <input type="number" class="form-control" name="jmlh_hari" required>
                                     </div>
                                 </div>
                             @else
@@ -564,20 +564,20 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
-                                    <input type="number" class="form-control" name="dewasa">
+                                    <input type="number" class="form-control" name="dewasa" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa anak-anak yang Ikut?</label>
-                                    <input type="number" class="form-control" name="anak">
+                                    <input type="number" class="form-control" name="anak" required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
                                         Hitung</label>
-                                    <input type="number" class="form-control" name="budget">
+                                    <input type="number" class="form-control" name="budget" required>
                                 </div>
                             </div>
                         </div>
