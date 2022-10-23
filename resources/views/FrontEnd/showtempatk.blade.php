@@ -137,53 +137,6 @@
             ->get();
         // dd($ez2);
         ?>
-        @if (count($ez2) > 0)
-            <section class="place section" id="place">
-                <h2 class="section__title">Tempat Disekitar {{ $tempat->name }}</h2>
-                <div class="place__container container grid">
-
-                    {{-- <div class="row"> --}}
-                    @foreach ($ez2 as $key => $tempat2)
-                        {{-- <div class="col-md-6 col-lg-6 col-sm-12"> --}}
-                        <!--==================== PLACES CARD 1 ====================-->
-
-                        <div class="place__card">
-                            <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
-                                class="place__img">
-
-                            <div class="place__content">
-                                <span class="place__rating">
-                                    <i class="ri-star-line place__rating-icon"></i>
-                                    <!--<span class="place__rating-number">4,8</span>-->
-                                </span>
-
-                                <div class="place__data">
-                                    <h3 class="place__title">{{ $tempat2->name }}</h3>
-
-                                    <span class="place__price">{{ $tempat2->kategori }}</span>
-                                </div>
-                            </div>
-                            <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
-                                <button class="button button--flex place__button">
-                                    <i class="ri-arrow-right-line"></i>
-                                </button>
-                            </a>
-                        </div>
-
-                        {{-- </div> --}}
-                    @endforeach
-                    {{-- </div> --}}
-
-                </div>
-            </section>
-        @endif
-
-
-
-        </section>
-
-
-
 
         <!--==================== Makanan ====================-->
         <section class="makan section" id="makan">
@@ -382,8 +335,8 @@
                     </p> --}}
 
                 <div class="video__content">
-                    <video id="video-file">
-                        {{-- <source src="{{ asset('./vendor/depan/assets/video/video.mp4') }}" type="video/mp4"> --}}
+                    <video id="video-file" controls autoplay muted>
+                        <source src="{{ asset('./vendor/depan/assets/video/video.mp4') }}" type="video/mp4">
                     </video>
 
                     <button class="button button--flex video__button" id="video-button" type="hidden">
@@ -530,5 +483,11 @@
     <!--=============== MAIN JS ===============-->
     <script src="{{ asset('./vendor/depan/assets/js/main.js') }}"></script>
 </body>
+<script>
+    function myFunction() {
+        var x = document.getElementById("video-file").autoplay;
+        return x;
+    }
+</script>
 
 </html>

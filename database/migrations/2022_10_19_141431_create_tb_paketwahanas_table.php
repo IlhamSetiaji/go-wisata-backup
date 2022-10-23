@@ -15,7 +15,7 @@ class CreateTbPaketwahanasTable extends Migration
     {
         Schema::create('tb_paketwahanas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_paket')->constrained('tb_paket')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('id_paket')->constrained('tb_pakets')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
