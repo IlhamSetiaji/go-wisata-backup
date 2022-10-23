@@ -24,6 +24,94 @@
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 
     <title>GoWisata.</title>
+
+    <script>
+        $(document).ready(function() {});
+
+        function budgeting() {
+            let jml_dewasa = parseInt($('#jml_dewasa').val())
+            let jml_anak = parseInt($('#jml_anak').val())
+            let jml_budget = $('#jml_budget').val()
+            let jml_hari = parseInt($('#jml_hari').val())
+            let jml_org = jml_anak + jml_dewasa
+            let harga_tiket_wisata = 30000
+            let harga_tiket_wahana = 20000
+            let itung_tiket_wisata = jml_org*harga_tiket_wisata
+            let itung_tiket_wahana = jml_org*harga_tiket_wahana
+            
+            $('#close-budgeting').click(function () {
+                location.reload()
+            })
+
+            
+            $('#e-budgeting').empty()
+
+            if (jml_hari >= 2) {
+                let harga_penginapan = 200000
+                let itung_inap = jml_org*harga_penginapan
+                let temp_html = `<table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Harga</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Tiket Wisata</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wisata}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">Tiket Wahana</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wahana}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">Penginapan</th>
+                            <td>${jml_hari} hari</td>
+                            <td>Rp.${itung_inap}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" colspan="2">Budget</th>
+                            <td>Rp.${jml_budget}</td>
+                        </tr>
+                    </tbody>
+                </table>`;
+
+                $('#e-budgeting').append(temp_html)
+            } else {
+                let temp_html = `<table class="table table-success table-striped">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Harga</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Orang</th>
+                            <td>${jml_org}</td>
+                            <td>${itung_tiket}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">Budget</th>
+                            <td>${jml_budget}</td>
+                        </tr>
+                    </tbody>
+                </table>`;
+                $('#e-budgeting').append(temp_html)
+            }
+            
+            
+
+        }
+    </script>
 </head>
 
 <body onload="myFunction()">
@@ -128,8 +216,8 @@
         </section>
 
         <!--==================== ABOUT ====================-->
-         {{-- DESKRIPSI --}}
-         <section class="about_section">
+        {{-- DESKRIPSI --}}
+        <section class="about_section">
             <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
 
             <div class="text_tengah">
@@ -178,8 +266,9 @@
         $wisata = App\Models\Tempat::where('induk_id', $tempat->id)
             ->where('kategori', 'wisata')
             ->get();
-
-            // dd($wisata)
+        
+        // dd($wisata)
+        
         ?>
 
         @if (count($wisata) > 0)
@@ -533,7 +622,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">E-Budgeting</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" id="e-budgeting">
                     <form>
                         <div class="row">
                             <div class="col-lg-12">
@@ -546,34 +635,34 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
-                                    <input type="number" class="form-control" name="jmlh_hari">
+                                    <input type="number" class="form-control" name="jmlh_hari" id="jml_hari">
                                 </div>
 
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
-                                    <input type="number" class="form-control" name="dewasa">
+                                    <input type="number" class="form-control" name="dewasa" id="jml_dewasa">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa anak-anak yang Ikut?</label>
-                                    <input type="number" class="form-control" name="anak">
+                                    <input type="number" class="form-control" name="anak" id="jml_anak">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
                                         Hitung</label>
-                                    <input type="number" class="form-control" name="budget">
+                                    <input type="number" class="form-control" name="budget" id="jml_budget">
                                 </div>
                             </div>
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-budgeting">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="budgeting()">Submit</button>
                 </div>
                 </form>
             </div>

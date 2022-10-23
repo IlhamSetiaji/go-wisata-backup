@@ -226,12 +226,12 @@ class FrontendController extends Controller
         $setting =  Setting::first();
         
         if ($tempat->kategori == "wisata") {
-            $tempatini = $tempat->id;
-
+            
             // $wisata = Tempat::where('induk_id', $tempatini)->where('kategori', 'wisata')->get();
             
             $tempat2  = Tempat::where('slug', $slug)->where('status', '1')->first();
             
+            $tempatini = $tempat->id;
 
             $wahana  = Wahana::where('tempat_id', $tempatini)->where('status', '1')->get();
 
