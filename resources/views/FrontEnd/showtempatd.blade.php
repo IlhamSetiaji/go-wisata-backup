@@ -126,9 +126,13 @@
         </section>
 
         <!--==================== ABOUT ====================-->
-        <section class="about_section">
+         {{-- DESKRIPSI --}}
+         <section class="about_section">
+            <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
 
-
+            <div class="text_tengah">
+                <h3>{{ $tempat->deskripsi }}</h3>
+            </div>
         </section>
 
         <!--==================== EXPERIENCE ====================-->
@@ -164,6 +168,8 @@
         $wisata = App\Models\Tempat::where('induk_id', $tempat->id)
             ->where('kategori', 'wisata')
             ->get();
+
+            // dd($wisata)
         ?>
 
         @if (count($wisata) > 0)
