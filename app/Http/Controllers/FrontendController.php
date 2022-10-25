@@ -224,9 +224,11 @@ class FrontendController extends Controller
         session()->forget("camping");
         $tempat  = DB::table('tb_tempat')->where('status', '1')->where('slug', $slug)->first();
         $setting =  Setting::first();
-
+        
         if ($tempat->kategori == "wisata") {
-
+            
+            // $wisata = Tempat::where('induk_id', $tempatini)->where('kategori', 'wisata')->get();
+            
             $tempat2  = Tempat::where('slug', $slug)->where('status', '1')->first();
             
             $tempatini = $tempat->id;
@@ -235,7 +237,6 @@ class FrontendController extends Controller
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
             
-            // $wisata = Tempat::where('induk_id', $tempatini)->where('kategori', 'wisata')->get();
 
             $penginapan = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
 
@@ -247,7 +248,7 @@ class FrontendController extends Controller
 
             $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
 
-            return view('FrontEnd/showtempat', compact('wisata','setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+            return view('FrontEnd/showtempat', compact('setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
         }
 
         if ($tempat->kategori == "desa") {

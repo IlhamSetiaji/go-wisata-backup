@@ -1,7 +1,7 @@
 @extends('FrontEnd.main')
 @section('content')
 
-    <main class="main">
+    <main class="main" onload="myFunction()">
         <!--==================== HOME ====================-->
         <section class="home" id="home">
             @if ($setting->home1 == null)
@@ -136,7 +136,7 @@
                     </p>
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
                             @if ($setting->video == null)
                                 Video Tidak Tersedia
                             @else
@@ -153,7 +153,7 @@
             <section class="video section">
                 <div class="video__container container">
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" autoplay>
                         </video>
                         <button class="button button--flex video__button" id="video-button" type="hidden">
                         </button>
@@ -184,3 +184,9 @@
     </div> --}}
 
 @endsection
+<script>
+    function myFunction() {
+        var x = document.getElementById("video-file").autoplay;
+        return x;
+    }
+</script>

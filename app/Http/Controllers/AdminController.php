@@ -64,7 +64,7 @@ class AdminController extends Controller
 
         $name = (new User)->userAvatar($request);
         $data['image'] = $name;
-
+        $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
 
         User::create($data);
@@ -73,6 +73,7 @@ class AdminController extends Controller
         Toastr::success('Membuat akun admin berhasil :)', 'Success');
         return redirect()->route('admin.index');
     }
+
     public function stored(Request $request)
     {
         // dd($request);

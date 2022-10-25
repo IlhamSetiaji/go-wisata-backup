@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Booking Form HTML Template</title>
+    <title>Go Wisata</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
@@ -55,12 +55,12 @@
                                     <li class="nav-item flex-fill" role="presentation">
                                         <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab"
                                             data-bs-target="#home-justified" type="button" role="tab"
-                                            aria-controls="home" aria-selected="true">Sign In</button>
+                                            aria-controls="home" aria-selected="true">Login</button>
                                     </li>
                                     <li class="nav-item flex-fill" role="presentation">
                                         <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab"
                                             data-bs-target="#profile-justified" type="button" role="tab"
-                                            aria-controls="profile" aria-selected="false">Sign Up</button>
+                                            aria-controls="profile" aria-selected="false">Register</button>
                                     </li>
 
                                 </ul>
@@ -74,7 +74,7 @@
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <b>
-                                                    <h2 class="fw-bolder">Sign in</h2>
+                                                    <h2 class="fw-bolder">Login</h2>
                                                 </b>
                                             </div>
                                             <span class="form-label">Email</span>
@@ -105,11 +105,11 @@
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <b>
-                                                    <h2 class="fw-bolder">Sign Up</h2>
+                                                    <h2 class="fw-bolder">Register</h2>
                                                 </b>
                                             </div>
                                             <div class="mt-3">
-                                                <span class="form-label">Name</span>
+                                                <span class="form-label">Nama</span>
                                                 <input placeholder="Nama" id="name" type="text"
                                                     class="form-control @error('name') is-invalid @enderror"
                                                     name="name" value="{{ old('name') }}" required
@@ -128,7 +128,7 @@
                                                     autocomplete="current-password">
                                             </div>
                                             <div class="mt-3">
-                                                <span class="form-label">Repeat Password</span>
+                                                <span class="form-label">Konfirmasi Password</span>
                                                 <input placeholder="Konfirmasi Password " id="password-confirm"
                                                     type="password" class="form-control" name="password_confirmation"
                                                     required autocomplete="new-password">
@@ -155,9 +155,9 @@
                     <div class="col-md-6 col-lg-7">
                         <div class="booking-cta">
                             <h1 class="text">Welcome! :)</h1>
-                            <p class="text"> Temukan Paket wisata disini, Kami Membantu
-                                wisata anda, dimanapun
-                                dan kapanpun.
+                            <p class="text"> Temukan Paket Wisata Di sini, Kami Membantu
+                                Wisata Anda, Di mana pun
+                                dan Kapan pun.
                             </p>
                         </div>
                     </div>
