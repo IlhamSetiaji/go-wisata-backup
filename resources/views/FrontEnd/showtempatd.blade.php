@@ -285,34 +285,39 @@
         @if (count($wisata) > 0)
             <section class="place section" id="place">
                 <h2 class="section__title">Destinasi wisata di {{ $tempat->name }}</h2>
-                <div class="place__container container grid">
+                <div class="container">
+                    <div class="row">
 
-                    @foreach ($wisata as $key => $tempat2)
-                        <!--==================== PLACES CARD 1 ====================-->
-                        <div class="place__card">
-                            <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
-                                class="place__img">
+                        @foreach ($wisata as $key => $tempat2)
+                            <div class="col-lg-3 col-md-6 col-sm-12 mt-2">
+                                <!--==================== PLACES CARD 1 ====================-->
 
-                            <div class="place__content">
-                                <span class="place__rating">
-                                    <i class="ri-star-line place__rating-icon"></i>
-                                    <!--<span class="place__rating-number">4,8</span>-->
-                                </span>
+                                <div class="place__card">
+                                    <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                        class="place__img">
 
-                                <div class="place__data">
-                                    <h3 class="place__title">{{ $tempat2->name }}</h3>
-                                    {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
-                                    <span class="place__price">{{ $tempat2->kategori }}</span>
+                                    <div class="place__content">
+                                        <span class="place__rating">
+                                            <i class="ri-star-line place__rating-icon"></i>
+                                            <!--<span class="place__rating-number">4,8</span>-->
+                                        </span>
+
+                                        <div class="place__data">
+                                            <h3 class="place__title">{{ $tempat2->name }}</h3>
+                                            {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
+                                            <span class="place__price">{{ $tempat2->kategori }}</span>
+                                        </div>
+                                    </div>
+                                    <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
+                                        <button class="button button--flex place__button">
+                                            <i class="ri-arrow-right-line"></i>
+                                        </button>
+                                    </a>
+
                                 </div>
                             </div>
-                            <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
-                                <button class="button button--flex place__button">
-                                    <i class="ri-arrow-right-line"></i>
-                                </button>
-                            </a>
-
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
 
                 </div>
             </section>

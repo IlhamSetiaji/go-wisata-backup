@@ -220,6 +220,12 @@ input {
 .nav__menu {
   position: relative;
 }
+@media screen and (max-width: 969px) {
+  .makan__container {
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+  }
+}
 
 @media screen and (max-width: 767px) {
   .makan__container {
@@ -233,7 +239,9 @@ input {
   }
   
   .place__container {
-    grid-template-columns: repeat(max-content, 3);
+    display: flex;
+    flex-direction: column;
+    /* grid-template-columns: repeat(max-content, 3); */
     justify-content: center;
   }
   .nav__menu {
