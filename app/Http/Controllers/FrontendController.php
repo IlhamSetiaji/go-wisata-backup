@@ -223,20 +223,21 @@ class FrontendController extends Controller
     {
         session()->forget("camping");
         $tempat  = DB::table('tb_tempat')->where('status', '1')->where('slug', $slug)->first();
+        // dd($tempat);
         $setting =  Setting::first();
-        
+
         if ($tempat->kategori == "wisata") {
-            
+
             // $wisata = Tempat::where('induk_id', $tempatini)->where('kategori', 'wisata')->get();
-            
+
             $tempat2  = Tempat::where('slug', $slug)->where('status', '1')->first();
-            
+
             $tempatini = $tempat->id;
 
             $wahana  = Wahana::where('tempat_id', $tempatini)->where('status', '1')->get();
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
-            
+            // dd($kuliner);
 
             $penginapan = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
 
@@ -257,6 +258,7 @@ class FrontendController extends Controller
             $wahana  = Wahana::where('tempat_id', $tempatini)->where('status', '1')->get();
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
+            // dd($kuliner);
             $penginapan = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
             $ez = Tempat::where('induk_id', $tempatini)->where('status', 1)->get();
             $camp = Camp::where('tempat_id', $tempatini)->where('status', 1)->where('kategori', 'alat')->get();
@@ -833,7 +835,7 @@ class FrontendController extends Controller
             'avg' => $avg,
         ]);
     }
-    public function explore_villa(Request $request)
+    public function explore_villa()
     {
         $setting =  Setting::first();
         $idmax = Villa::max('id');
@@ -841,7 +843,7 @@ class FrontendController extends Controller
         $tempat_lama = Villa::where('status', 1)->orderby('id', 'asc')->take(3)->get();
         $tempat_murah = Villa::where('status', 1)->orderby('harga', 'asc')->take(3)->get();
         $penginapan = Hotel::where('status', 1)->get();
-
+        // dd($penginapan);
         return view('explore/halaman_explore_penginapan', [
             "title" => "Explore",
             "setting" => $setting,
@@ -849,7 +851,6 @@ class FrontendController extends Controller
             "tempat_lama" => $tempat_lama,
             "tempat_murah" => $tempat_murah,
             "penginapan" => $penginapan,
-
         ]);
     }
     // function available_place(Request $request, $checkin_date)
