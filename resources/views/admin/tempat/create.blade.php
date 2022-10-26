@@ -227,7 +227,7 @@
 
                                                                 <option selected value=''>Pilih Petugas
                                                                 </option>
-                                                                @foreach (App\Models\User::where('role_id', '!=', '5')->where('tempat_id', null)->where('desa_id', null)->get() as $role)
+                                                                @foreach (App\Models\User::where('role_id', '!=', '5')->where(['tempat_id' => null, 'desa_id' => null])->get() as $role)
                                                                     <option value="{{ $role->petugas_id }}"> Admin
                                                                         -
                                                                         {{ $role->name }}</option>
