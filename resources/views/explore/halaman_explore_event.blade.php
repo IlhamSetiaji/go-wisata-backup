@@ -127,7 +127,7 @@
                     @endforeach
                     {{ $event->links() }}
                 </div>
-
+                {{--  --}}
                 <div class="col-12 col-lg-3 mb-4">
                     <?php
                     $allevent = App\Models\Event::orderby('created_at', 'DESC')
