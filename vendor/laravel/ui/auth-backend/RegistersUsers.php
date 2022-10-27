@@ -5,11 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use RealRashid\SweetAlert\Facades\Alert;
 
 trait RegistersUsers
 {
@@ -33,21 +29,10 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        $checkValidator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'telp' => ['required', 'numeric', 'min:10'],
-        ]);
-        // dd($checkValidator->errors()->getMessageBag()->all()[0]);
-
-
-        if ($checkValidator->fails()) {
-            Alert::error('Error', $checkValidator->errors()->getMessageBag()->all()[0]);
-            return back()->withInput();
-        }
+        $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
+
         $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
@@ -55,8 +40,8 @@ trait RegistersUsers
         }
 
         return $request->wantsJson()
-            ? new JsonResponse([], 201)
-            : redirect('/email/verify');
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
     }
 
     /**
