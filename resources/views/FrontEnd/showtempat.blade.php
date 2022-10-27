@@ -133,8 +133,8 @@
         <section class="about_section">
             <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
 
-            <div class="text_tengah">
-                <h3>{{ $tempat->deskripsi }}</h3>
+            <div class="container">
+                <p class="about__container">{{ $tempat->deskripsi }}</p>
             </div>
         </section>
 

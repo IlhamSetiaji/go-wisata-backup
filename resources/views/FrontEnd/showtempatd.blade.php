@@ -36,23 +36,23 @@
             let jml_org = jml_anak + jml_dewasa
             let harga_tiket_wisata = 30000
             let harga_tiket_wahana = 20000
-            let itung_tiket_wisata = jml_org*harga_tiket_wisata
-            let itung_tiket_wahana = jml_org*harga_tiket_wahana
-            
-            
-            $('#close-budgeting').click(function () {
+            let itung_tiket_wisata = jml_org * harga_tiket_wisata
+            let itung_tiket_wahana = jml_org * harga_tiket_wahana
+
+
+            $('#close-budgeting').click(function() {
                 location.reload()
             })
 
-            
+
             $('#e-budgeting').empty()
 
 
-            
+
 
             if (jml_hari >= 2) {
                 let harga_penginapan = 200000
-                let itung_inap = jml_org*harga_penginapan
+                let itung_inap = jml_org * harga_penginapan
                 let temp_html = `<table class="table">
                 <thead>
                     <tr>
@@ -116,10 +116,10 @@
                     </tbody>
                 </table>`;
                 $('#e-budgeting').append(temp_html)
-                
+
             }
-            
-            
+
+
 
         }
     </script>
@@ -231,8 +231,8 @@
         <section class="about_section">
             <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
 
-            <div class="text_tengah">
-                <h4>{{ $tempat->deskripsi }}</h4>
+            <div class="container">
+                <p class="about__description">{{ $tempat->deskripsi }}</p>
             </div>
         </section>
 
@@ -285,34 +285,39 @@
         @if (count($wisata) > 0)
             <section class="place section" id="place">
                 <h2 class="section__title">Destinasi wisata di {{ $tempat->name }}</h2>
-                <div class="place__container container grid">
+                <div class="container">
+                    <div class="row">
 
-                    @foreach ($wisata as $key => $tempat2)
-                        <!--==================== PLACES CARD 1 ====================-->
-                        <div class="place__card">
-                            <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
-                                class="place__img">
+                        @foreach ($wisata as $key => $tempat2)
+                            <div class="col-lg-3 col-md-6 col-sm-12 mt-2">
+                                <!--==================== PLACES CARD 1 ====================-->
 
-                            <div class="place__content">
-                                <span class="place__rating">
-                                    <i class="ri-star-line place__rating-icon"></i>
-                                    <!--<span class="place__rating-number">4,8</span>-->
-                                </span>
+                                <div class="place__card">
+                                    <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                        class="place__img">
 
-                                <div class="place__data">
-                                    <h3 class="place__title">{{ $tempat2->name }}</h3>
-                                    {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
-                                    <span class="place__price">{{ $tempat2->kategori }}</span>
+                                    <div class="place__content">
+                                        <span class="place__rating">
+                                            <i class="ri-star-line place__rating-icon"></i>
+                                            <!--<span class="place__rating-number">4,8</span>-->
+                                        </span>
+
+                                        <div class="place__data">
+                                            <h3 class="place__title">{{ $tempat2->name }}</h3>
+                                            {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
+                                            <span class="place__price">{{ $tempat2->kategori }}</span>
+                                        </div>
+                                    </div>
+                                    <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
+                                        <button class="button button--flex place__button">
+                                            <i class="ri-arrow-right-line"></i>
+                                        </button>
+                                    </a>
+
                                 </div>
                             </div>
-                            <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
-                                <button class="button button--flex place__button">
-                                    <i class="ri-arrow-right-line"></i>
-                                </button>
-                            </a>
-
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
 
                 </div>
             </section>
@@ -648,7 +653,8 @@
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
-                                        <input type="number" class="form-control" name="jmlh_hari" required id="jml_hari">
+                                        <input type="number" class="form-control" name="jmlh_hari" required
+                                            id="jml_hari">
                                     </div>
                                 </div>
                             @else
@@ -656,33 +662,38 @@
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
                                         <input type="number" class="form-control" name="jmlh_hari"
-                                            placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled id="jml_hari">
+                                            placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled
+                                            id="jml_hari">
                                     </div>
                                 </div>
                             @endif
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
-                                    <input type="number" class="form-control" name="dewasa" required id="jml_dewasa">
+                                    <input type="number" class="form-control" name="dewasa" required
+                                        id="jml_dewasa">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa anak-anak yang Ikut?</label>
-                                    <input type="number" class="form-control" name="anak" required id="jml_anak">
+                                    <input type="number" class="form-control" name="anak" required
+                                        id="jml_anak">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
                                         Hitung</label>
-                                    <input type="number" class="form-control" name="budget" required id="jml_budget">
+                                    <input type="number" class="form-control" name="budget" required
+                                        id="jml_budget">
                                 </div>
                             </div>
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close-budgeting">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        id="close-budgeting">Close</button>
                     <button type="button" class="btn btn-primary" onclick="budgeting()">Submit</button>
                 </div>
                 </form>
