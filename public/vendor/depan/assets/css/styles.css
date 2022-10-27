@@ -225,6 +225,10 @@ input {
     grid-template-columns: repeat(2, max-content);
     justify-content: center;
   }
+  .list-event {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 }
 
 @media screen and (max-width: 767px) {
