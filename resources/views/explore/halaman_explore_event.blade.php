@@ -37,7 +37,7 @@
         </section>
         <div class="container">
             {!! Toastr::message() !!}
-            <section class="row">
+            <section class="row list-event">
                 <div class="col-12 col-lg-9">
                     @foreach ($event as $key => $value)
                         <?php
@@ -52,7 +52,7 @@
                         }
                         ?>
                         <div class="row">
-                            <div class="col-12 col-xl-3">
+                            <div class="col-xl-3">
                             </div>
                             <div class="col-12 col-xl-9">
                                 <div class="card">
@@ -127,8 +127,8 @@
                     @endforeach
                     {{ $event->links() }}
                 </div>
-
-                <div class="col-12 col-lg-3">
+                {{--  --}}
+                <div class="col-12 col-lg-3 mb-4">
                     <?php
                     $allevent = App\Models\Event::orderby('created_at', 'DESC')
                         ->where('status', 1)

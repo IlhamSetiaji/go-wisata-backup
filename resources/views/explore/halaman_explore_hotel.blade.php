@@ -16,7 +16,7 @@
 
             <div class="home__container container grid">
                 <div class="home__data">
-                    <h1 class="home__data-title">{{ $hotel->nama }}<br> <b>{{ $hotel->tempat->name }}</b></h1>
+                    <h1 class="home__data-title">{{ $hotel->nama }}<br> <b>{{ $hotel->name }}</b></h1>
                     <form action="/explore-hotel/{{ $hotel->id }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="input-group mb-3">

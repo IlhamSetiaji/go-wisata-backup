@@ -1,7 +1,7 @@
 @extends('FrontEnd.main')
 @section('content')
 
-    <main class="main">
+    <main class="main" onload="myFunction()">
         <!--==================== HOME ====================-->
         <section class="home" id="home">
             @if ($setting->home1 == null)
@@ -42,10 +42,8 @@
                         </div>
                     </div>
                 @endif
-
-
-        </div>
-    </section>
+            </div>
+        </section>
 
         <!--==================== ABOUT ====================-->
         <section class="about section" id="about">
@@ -87,35 +85,44 @@
             <h2 class="section__title">Temukan Tempat Wisata <br> Di Desa Wisata Paling Menarik</h2>
 
             <div class="card-group mx-5">
-                    @if (count($tempat) > 0)
+                @if (count($tempat) > 0)
                     @foreach ($tempat as $key => $tempat)
-                    <div class="card mx-3">
-                                <!--==================== DISCOVER 1 ====================-->
-                                    @if ($tempat->image == null)
-                                        Gambar Tidak Tersedia
-                                    @else
-                                        <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
-                                            class="discover__img">
-                                    @endif
-                                    <div class="discover__data">
-                                        <h2 class="discover__title">{{ $tempat->name }}</h2>
-                                    </div>
-                                    <a href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}">
-                                        <button class="button button--flex place__button">
-                                            <i class="ri-arrow-right-line"></i>
-                                        </button>
-                                    </a>
+                        <div class="card mx-3">
+                            <!--==================== DISCOVER 1 ====================-->
+                            @if ($tempat->image == null)
+                                Gambar Tidak Tersedia
+                            @else
+                                <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
+                                    class="discover__img">
+                            @endif
+                            <div class="discover__data">
+                                <h2 class="discover__title">{{ $tempat->name }}</h2>
                             </div>
-                            @endforeach
-                    @else
+                            {{-- {{ dd($tempat) }} --}}
+                            <a href="{{ url('./' . $tempat->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+                        </div>
+                    @endforeach
+                @else
                     <img src="{{ asset('images/setting') }}/{{ $setting->about1 }}" alt="" class="about__img-one">
-                    @endif
-                </div>
-
+                @endif
             </div>
-        </div>
-    </section>
+        </section>
 
+
+        {{-- <section class="budgeting mt-3">
+            <h2 class="section__title">Sesuaikan Liburan Dengan Budget Anda</h2>
+            <!-- Button trigger modal -->
+            <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Tekan disini
+                </button>
+            </div>
+
+        </section> --}}
 
 
         @if (!$setting->video == null)
@@ -129,7 +136,7 @@
                     </p>
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
                             @if ($setting->video == null)
                                 Video Tidak Tersedia
                             @else
@@ -146,7 +153,7 @@
             <section class="video section">
                 <div class="video__container container">
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" autoplay>
                         </video>
                         <button class="button button--flex video__button" id="video-button" type="hidden">
                         </button>
@@ -157,4 +164,29 @@
         </section>
     </main>
 
+    <!-- Modal -->
+    {{-- <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Lihat Perkiraan Biaya yang Diperlukan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
 @endsection
+<script>
+    function myFunction() {
+        var x = document.getElementById("video-file").autoplay;
+        return x;
+    }
+</script>

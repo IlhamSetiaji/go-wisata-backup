@@ -78,7 +78,7 @@
                                         </td>
                                         <td  class="name" >
                                             @if($users->image == null)
-                                            <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images')}}/user.jpg">
+                                            <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images')}}/user.png">
                                             @else
                                             <div class="avatar avatar-xl">
                                                 <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images')}}/{{$users->image}}">

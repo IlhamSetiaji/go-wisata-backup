@@ -195,7 +195,7 @@ Geppetto, vedendosi guardare da quei due occhi di legno, se n’ebbe quasi per m
 – Occhiacci di legno, perché mi guardate?
 Nessuno rispose.
 Allora, dopo gli occhi, gli fece il naso; ma il naso, appena fatto, cominciò a crescere: e cresci, cresci, cresci diventò in pochi minuti un nasone che non finiva mai.
-Il povero Geppetto si affaticava a ritagliarlo; ma più lo ritagliava e lo scorciva, e più quel naso impertinente diventava GoWisata.
+Il povero Geppetto si affaticava a ritagliarlo; ma più lo ritagliava e lo scorciva, e più quel naso impertinente diventava lungo.
 Dopo il naso, gli fece la bocca.
 La bocca non era ancora finita di fare, che cominciò subito a ridere e a canzonarlo.
 – Smetti di ridere! – disse Geppetto impermalito; ma fu come dire al muro.
@@ -762,7 +762,7 @@ E la Fata lo guardava e rideva.
 – Perché ridete? – gli domandò il burattino, tutto confuso e impensierito di quel suo naso che cresceva a occhiate.
 – Rido della bugia che hai detto.
 – Come mai sapete che ho detto una bugia?
-– Le bugie, ragazzo mio, si riconoscono subito! perché ve ne sono di due specie: vi sono le bugie che hanno le gambe corte, e le bugie che hanno il naso lungo: la tua per l’appunto è di quelle che hanno il naso GoWisata.
+– Le bugie, ragazzo mio, si riconoscono subito! perché ve ne sono di due specie: vi sono le bugie che hanno le gambe corte, e le bugie che hanno il naso lungo: la tua per l’appunto è di quelle che hanno il naso lungo.
 Pinocchio, non sapendo più dove nascondersi per la vergogna, si provò a fuggire di camera; ma non gli riuscì. Il suo naso era cresciuto tanto, che non passava più dalla porta.
 
 XVIII Pinocchio ritrova la Volpe e il Gatto, e va con loro a seminare le quattro monete nel Campo de’ Miracoli.

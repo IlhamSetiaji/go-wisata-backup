@@ -12,6 +12,8 @@
 
     <!--=============== SWIPER CSS ===============-->
     <link rel="stylesheet" href="{{ asset('./vendor/depan/assets/css/swiper-bundle.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
     <!--=============== CSS ===============-->
     <script src="https://kit.fontawesome.com/ad6395cc9e.js" crossorigin="anonymous"></script>
@@ -22,11 +24,110 @@
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
 
     <title>GoWisata.</title>
+
+    <script>
+        $(document).ready(function() {});
+
+        function budgeting() {
+            let jml_dewasa = parseInt($('#jml_dewasa').val())
+            let jml_anak = parseInt($('#jml_anak').val())
+            let jml_budget = $('#jml_budget').val()
+            let jml_hari = parseInt($('#jml_hari').val())
+            let jml_org = jml_anak + jml_dewasa
+            let harga_tiket_wisata = 30000
+            let harga_tiket_wahana = 20000
+            let itung_tiket_wisata = jml_org * harga_tiket_wisata
+            let itung_tiket_wahana = jml_org * harga_tiket_wahana
+
+
+            $('#close-budgeting').click(function() {
+                location.reload()
+            })
+
+
+            $('#e-budgeting').empty()
+
+
+
+
+            if (jml_hari >= 2) {
+                let harga_penginapan = 200000
+                let itung_inap = jml_org * harga_penginapan
+                let temp_html = `<table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Harga</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Tiket Wisata</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wisata}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">Tiket Wahana</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wahana}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row">Penginapan</th>
+                            <td>${jml_hari} hari</td>
+                            <td>Rp.${itung_inap}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Budget</th>
+                            <td>Rp.${jml_budget}</td>
+                        </tr>
+                    </tbody>
+                </table>`;
+
+                $('#e-budgeting').append(temp_html)
+            } else {
+                let temp_html = `<table class="table">
+                <thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Jumlah</th>
+                    <th scope="col">Harga</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Tiket Wisata</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wisata}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row" >Tiket Wahana</th>
+                            <td>${jml_org} tiket</td>
+                            <td>Rp.${itung_tiket_wahana}</td>
+                            
+                        </tr>
+                        <tr>
+                            <th scope="row" colspan="2">Budget</th>
+                            <td>Rp.${jml_budget}</td>
+                        </tr>
+                    </tbody>
+                </table>`;
+                $('#e-budgeting').append(temp_html)
+
+            }
+
+
+
+        }
+    </script>
 </head>
 
-<body>
+<body onload="myFunction()">
 
-    <header class="header" id="header">
+    <header class="header" id="header" onload="myFunction()">
         <nav class="nav container">
             <a href="{{ url('/') }}" class="nav__logo">GoWisata.</a>
 
@@ -71,7 +172,7 @@
                     @endguest
                 </ul>
 
-                <div class="nav__dark">
+                <div class="nav__dark mb-2">
                     <!-- Theme change button -->
                     <span class="change-theme-name">Dark mode</span>
                     <i class="ri-moon-line change-theme" id="theme-button"></i>
@@ -125,6 +226,16 @@
             </div>
         </section>
 
+        <!--==================== ABOUT ====================-->
+        {{-- DESKRIPSI --}}
+        <section class="about_section">
+            <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
+
+            <div class="container">
+                <p class="about__description">{{ $tempat->deskripsi }}</p>
+            </div>
+        </section>
+
         <!--==================== EXPERIENCE ====================-->
         <section class="experience section">
             {{-- <h2 class="section__title"> {{ $tempat->name }}  <br> </h2> --}}
@@ -150,71 +261,141 @@
                             Pesan Tiket
                         </button>
                     </h5>
-
-
-
-
-
-
                 </form>
             @endif
-            <div class="experience__container container grid">
-                <div class="experience__content grid">
-                    <div class="experience__data">
-                        <h2 class="experience__number">
-                            {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'wisata')->count() }}+
-                        </h2>
-                        <span class="experience__description">Tempat <br> Wisata</span>
-                    </div>
-                    <div class="experience__data">
-                        <h2 class="experience__number">
-                            {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'kuliner')->count() }}+
-                        </h2>
-                        <span class="experience__description">Tempat <br> Kuliner</span>
-                    </div>
-
-                    <div class="experience__data">
-                        <h2 class="experience__number">
-                            {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'hotel')->count() }}+
-                        </h2>
-                        <span class="experience__description">Tempat <br> Penginapan</span>
-                    </div>
-
-
-                </div>
-
-
-            </div>
         </section>
 
+        <h2 class="section__title"> Sesuaikan wisatamu dengan budgetmu! </h2>
+        <div class="d-flex justify-content-center">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form-budgeting">
+                Klik di Sini
+            </button>
+        </div>
+
+        <?php
+        $wisata = App\Models\Tempat::where('induk_id', $tempat->id)
+            ->where('kategori', 'wisata')
+            ->get();
+        
+        // dd($wisata)
+        
+        ?>
+
+        @if (count($wisata) > 0)
+            <section class="place section" id="place">
+                <h2 class="section__title">Destinasi wisata di {{ $tempat->name }}</h2>
+                <div class="container">
+                    <div class="row">
+
+                        @foreach ($wisata as $key => $tempat2)
+                            <div class="col-lg-3 col-md-6 col-sm-12 mt-2">
+                                <!--==================== PLACES CARD 1 ====================-->
+
+                                <div class="place__card">
+                                    <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                        class="place__img">
+
+                                    <div class="place__content">
+                                        <span class="place__rating">
+                                            <i class="ri-star-line place__rating-icon"></i>
+                                            <!--<span class="place__rating-number">4,8</span>-->
+                                        </span>
+
+                                        <div class="place__data">
+                                            <h3 class="place__title">{{ $tempat2->name }}</h3>
+                                            {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
+                                            <span class="place__price">{{ $tempat2->kategori }}</span>
+                                        </div>
+                                    </div>
+                                    <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
+                                        <button class="button button--flex place__button">
+                                            <i class="ri-arrow-right-line"></i>
+                                        </button>
+                                    </a>
+
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                </div>
+            </section>
+        @endif
 
 
-        <!--==================== ABOUT ====================-->
-        <!--<section class="about section" id="camp">-->
-        <!--    <div class="about__container container grid">-->
-        <!--        <div class="about__data">-->
-        <!--            <h2 class="section__title about__title">  {{ $tempat->name }}<br> </h2>-->
-        <!--            <p class="about__description"> {{ $tempat->deskripsi }}-->
-        <!--            </p>-->
-        <!--            <a href="#place" class="button">Disekitar</a>-->
+        @if (count($kuliner) > 0)
+            <section class="place section" id="place">
+                <h2 class="section__title">Kuliner di {{ $tempat->name }}</h2>
+                <div class="place__container container grid">
 
-        <!--        </div>-->
+                    @foreach ($kuliner as $kuliner)
+                        <!--==================== PLACES CARD 1 ====================-->
+                        <div class="place__card">
+                            <img src="{{ asset('images') }}/{{ $kuliner->image }}" alt=""
+                                class="place__img">
 
-        <!--        <div class="about__img">-->
+                            <div class="place__content">
+                                <span class="place__rating">
+                                    <i class="ri-star-line place__rating-icon"></i>
+                                    <!--<span class="place__rating-number">4,8</span>-->
+                                </span>
 
-        <!--            {{-- <div class="about__img-overlay">-->
-            <!--                <img src="{{ asset('./vendor/depan/assets/img/camping.jpg') }}" alt="" class="about__img-one">-->
-            <!--            </div> --}}-->
+                                <div class="place__data">
+                                    <h3 class="place__title">{{ $kuliner->name }}</h3>
+                                    {{-- <span class="place__subtitle">{{ $kuliner->kategori }}</span> --}}
+                                    <span class="place__price">{{ $kuliner->kategori }}</span>
+                                </div>
+                            </div>
+                            <a href="{{ url('./' . $kuliner->kategori . '/' . $kuliner->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
 
-        <!--            <div class="about__img-overlay">-->
-        <!--                <img src="{{ asset('./vendor/depan/assets/img/camping.jpg') }}" alt="" class="about__img-two">-->
-        <!--            </div>-->
-        <!--        </div>-->
-        <!--    </div>-->
-        <!--</section>-->
+                        </div>
+                    @endforeach
+
+                </div>
+            </section>
+        @endif
 
 
+        @if (count($penginapan) > 0)
+            <section class="place section" id="place">
+                <h2 class="section__title">penginapan di {{ $tempat->name }}</h2>
+                <div class="place__container container grid">
 
+                    @foreach ($penginapan as $penginapan)
+                        <!--==================== PLACES CARD 1 ====================-->
+                        <div class="place__card">
+                            <img src="{{ asset('images') }}/{{ $penginapan->image }}" alt=""
+                                class="place__img">
+
+                            <div class="place__content">
+                                <span class="place__rating">
+                                    <i class="ri-star-line place__rating-icon"></i>
+                                    <!--<span class="place__rating-number">4,8</span>-->
+                                </span>
+
+                                <div class="place__data">
+                                    <h3 class="place__title">{{ $penginapan->name }}</h3>
+                                    {{-- <span class="place__subtitle">{{ $penginapan->kategori }}</span> --}}
+                                    <span class="place__price">{{ $penginapan->kategori }}</span>
+                                </div>
+                            </div>
+                            <a href="{{ url('./' . $penginapan->kategori . '/' . $penginapan->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+
+                        </div>
+                    @endforeach
+
+                </div>
+            </section>
+        @endif
 
 
         @if (!$tempat->video == null)
@@ -228,7 +409,7 @@
                     </p>
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
 
                             {{-- <source src="https://www.youtube.com/watch?v=zJNIFyVAmQw" type="video/mp4"> --}}
                             <source src="{{ asset('videos') }}/{{ $tempat->video }}" type="video/mp4">
@@ -251,7 +432,7 @@
                     </p> --}}
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
                             {{-- <source src="{{ asset('./vendor/depan/assets/video/video.mp4') }}" type="video/mp4"> --}}
                         </video>
 
@@ -270,41 +451,7 @@
 
         <!--==================== KULINER ====================-->
 
-        @if (count($ez) > 0)
-            <section class="place section" id="place">
-                <h2 class="section__title">Tempat di {{ $tempat->name }}</h2>
-                <div class="place__container container grid">
 
-                    @foreach ($ez as $key => $tempat2)
-                        <!--==================== PLACES CARD 1 ====================-->
-                        <div class="place__card">
-                            <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
-                                class="place__img">
-
-                            <div class="place__content">
-                                <span class="place__rating">
-                                    <i class="ri-star-line place__rating-icon"></i>
-                                    <!--<span class="place__rating-number">4,8</span>-->
-                                </span>
-
-                                <div class="place__data">
-                                    <h3 class="place__title">{{ $tempat2->name }}</h3>
-                                    {{-- <span class="place__subtitle">{{ $tempat2->kategori }}</span> --}}
-                                    <span class="place__price">{{ $tempat2->kategori }}</span>
-                                </div>
-                            </div>
-                            <a href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
-                                <button class="button button--flex place__button">
-                                    <i class="ri-arrow-right-line"></i>
-                                </button>
-                            </a>
-
-                        </div>
-                    @endforeach
-
-                </div>
-            </section>
-        @endif
         <!--==================== HOTEL ====================-->
         {{-- <section class="place section" id="penginapan">
                 <h2 class="section__title">Penginapan Disekitar {{ $tempat->name }}</h2>
@@ -364,6 +511,30 @@
                     </div>
             </div>
             </section> --}}
+
+        <div class="experience__container container grid">
+            <div class="experience__content grid">
+                <div class="experience__data">
+                    <h2 class="experience__number">
+                        {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'wisata')->count() }}+
+                    </h2>
+                    <span class="experience__description">Tempat <br> Wisata</span>
+                </div>
+                <div class="experience__data">
+                    <h2 class="experience__number">
+                        {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'kuliner')->count() }}+
+                    </h2>
+                    <span class="experience__description">Tempat <br> Kuliner</span>
+                </div>
+
+                <div class="experience__data">
+                    <h2 class="experience__number">
+                        {{ App\Models\Tempat::where('induk_id', $tempat->id)->where('kategori', 'hotel')->count() }}+
+                    </h2>
+                    <span class="experience__description">Tempat <br> Penginapan</span>
+                </div>
+            </div>
+        </div>
         <!--==================== SPONSORS ====================-->
         <section class="sponsor section">
             <div class="sponsor__container container grid">
@@ -450,7 +621,108 @@
             </div>
         </div>
     </footer>
+    @if ($tempat->name != '')
+        <script>
+            $(document).ready(function() {
+                $('#firstModal').modal('show');
+            });
+        </script>
+    @endif
 
+    <!-- Modal -->
+    <div class="modal fade" id="form-budgeting" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">E-Budgeting</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="e-budgeting">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
+                                    <input type="text" class="form-control" name="desa"
+                                        value="{{ $tempat->name }}" disabled>
+                                </div>
+                            </div>
+                            {{-- {{ dd($penginapan) }} --}}
+                            @if ($penginapan == null)
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
+                                        <input type="number" class="form-control" name="jmlh_hari" required
+                                            id="jml_hari">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="col-lg-12">
+                                    <div class="mb-3">
+                                        <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
+                                        <input type="number" class="form-control" name="jmlh_hari"
+                                            placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled
+                                            id="jml_hari">
+                                    </div>
+                                </div>
+                            @endif
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
+                                    <input type="number" class="form-control" name="dewasa" required
+                                        id="jml_dewasa">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa anak-anak yang Ikut?</label>
+                                    <input type="number" class="form-control" name="anak" required
+                                        id="jml_anak">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
+                                        Hitung</label>
+                                    <input type="number" class="form-control" name="budget" required
+                                        id="jml_budget">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        id="close-budgeting">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="budgeting()">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="firstModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Coba Fitur Baru Kami!!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="fs-6" style="text-align: justify">E-Budgeting adalah fitur untuk membantu anda
+                        mengalokasikan dana yang
+                        tersedia ke
+                        suatu desa pilihan anda!</p>
+                    <p class="fs-6">Coba fitur ini gratis!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#form-budgeting">Coba!</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--========== SCROLL UP ==========-->
     <a href="#" class="scrollup" id="scroll-up">
         <i class="ri-arrow-up-line scrollup__icon"></i>
@@ -464,6 +736,17 @@
 
     <!--=============== MAIN JS ===============-->
     <script src="{{ asset('./vendor/depan/assets/js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
+<script>
+    function myFunction() {
+        var x = document.getElementById("video-file").autoplay;
+        return x;
+    }
+</script>
