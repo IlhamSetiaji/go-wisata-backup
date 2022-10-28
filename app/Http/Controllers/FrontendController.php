@@ -239,7 +239,10 @@ class FrontendController extends Controller
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
             // dd($kuliner);
 
-            $penginapan = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
+            $penginapan = Tempat::where([
+                'induk_id' => $tempatini,
+                'kategori' => 'penginapan'
+            ])->get();
 
             $ez = Tempat::where('induk_id', $tempatini)->get();
 
@@ -248,6 +251,9 @@ class FrontendController extends Controller
             $camp1 = Camp::where('tempat_id', $tempatini)->where('status', 1)->get();
 
             $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
+
+            // $penginapanSekitars = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
+            // dd($penginapan);
 
             return view('FrontEnd/showtempat', compact('setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
         }
@@ -259,7 +265,7 @@ class FrontendController extends Controller
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
             // dd($kuliner);
-            $penginapan = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
+            $penginapan = Tempat::where(['induk_id' => $tempatini, 'status' => 1])->where('kategori', 'penginapan')->get();
             $ez = Tempat::where('induk_id', $tempatini)->where('status', 1)->get();
             $camp = Camp::where('tempat_id', $tempatini)->where('status', 1)->where('kategori', 'alat')->get();
             // dd($camp);

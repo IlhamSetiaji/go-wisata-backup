@@ -280,13 +280,29 @@
             <?php
             
             $ez2 = App\Models\Tempat::where('induk_id', $tempat->induk_id)
-                ->where('status', 1)
+                ->where(['status' => 1, 'kategori' => 'wisata'])
                 ->get();
-            // dd($ez2);
+            $penginapan = App\Models\Tempat::where([
+                'induk_id' => $tempat->induk_id,
+                'kategori' => 'penginapan',
+                'status' => 1,
+            ])->get();
+            $kuliner = App\Models\Tempat::where([
+                'induk_id' => $tempat->induk_id,
+                'kategori' => 'kuliner',
+                'status' => 1,
+            ])->get();
+            $event = App\Models\Tempat::where([
+                'induk_id' => $tempat->induk_id,
+                'kategori' => 'event & sewa tempat',
+                'status' => 1,
+            ])->get();
+            
             ?>
+            {{-- {{ dd($penginapan) }} --}}
             @if (count($ez2) > 0)
                 <section class="place section" id="place">
-                    <h2 class="section__title">Tempat Disekitar {{ $tempat->name }}</h2>
+                    <h2 class="section__title">Tempat Wisata Disekitar {{ $tempat->name }}</h2>
                     <div class="place__container container grid">
 
                         @foreach ($ez2 as $key => $tempat2)
@@ -319,6 +335,114 @@
                     </div>
                 </section>
             @endif
+            @if (count($event) > 0)
+                <section class="place section" id="place">
+                    <h2 class="section__title">Event Disekitar {{ $tempat->name }}</h2>
+                    <div class="place__container container grid">
+
+                        @foreach ($event as $key => $tempat2)
+                            <!--==================== PLACES CARD 1 ====================-->
+                            <div class="place__card">
+                                <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                    class="place__img">
+
+                                <div class="place__content">
+                                    <span class="place__rating">
+                                        <i class="ri-star-line place__rating-icon"></i>
+                                        <!--<span class="place__rating-number">4,8</span>-->
+                                    </span>
+
+                                    <div class="place__data">
+                                        <h3 class="place__title">{{ $tempat2->name }}</h3>
+
+                                        <span class="place__price">{{ $tempat2->kategori }}</span>
+                                    </div>
+                                </div>
+                                <a href="/{{ $tempat2->kategori }}/{{ $tempat2->slug }}">
+                                    <button class="button button--flex place__button">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </a>
+
+                            </div>
+                        @endforeach
+
+                    </div>
+                </section>
+            @endif
+
+            @if (count($penginapan) > 0)
+                <section class="place section" id="place">
+                    <h2 class="section__title">Penginapan Disekitar {{ $tempat->name }}</h2>
+                    <div class="place__container container grid">
+
+                        @foreach ($penginapan as $key => $tempat2)
+                            <!--==================== PLACES CARD 1 ====================-->
+                            <div class="place__card">
+                                <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                    class="place__img">
+
+                                <div class="place__content">
+                                    <span class="place__rating">
+                                        <i class="ri-star-line place__rating-icon"></i>
+                                        <!--<span class="place__rating-number">4,8</span>-->
+                                    </span>
+
+                                    <div class="place__data">
+                                        <h3 class="place__title">{{ $tempat2->name }}</h3>
+
+                                        <span class="place__price">{{ $tempat2->kategori }}</span>
+                                    </div>
+                                </div>
+                                <a href="/{{ $tempat2->kategori }}/{{ $tempat2->slug }}">
+                                    <button class="button button--flex place__button">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </a>
+
+                            </div>
+                        @endforeach
+
+                    </div>
+                </section>
+            @endif
+            @if (count($kuliner) > 0)
+                <section class="place section" id="place">
+                    <h2 class="section__title">Kuliner Disekitar {{ $tempat->name }}</h2>
+                    <div class="place__container container grid">
+
+                        @foreach ($kuliner as $key => $tempat2)
+                            <!--==================== PLACES CARD 1 ====================-->
+                            <div class="place__card">
+                                <img src="{{ asset('images') }}/{{ $tempat2->image }}" alt=""
+                                    class="place__img">
+
+                                <div class="place__content">
+                                    <span class="place__rating">
+                                        <i class="ri-star-line place__rating-icon"></i>
+                                        <!--<span class="place__rating-number">4,8</span>-->
+                                    </span>
+
+                                    <div class="place__data">
+                                        <h3 class="place__title">{{ $tempat2->name }}</h3>
+
+                                        <span class="place__price">{{ $tempat2->kategori }}</span>
+                                    </div>
+                                </div>
+                                <a href="/{{ $tempat2->kategori }}/{{ $tempat2->slug }}">
+                                    <button class="button button--flex place__button">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </a>
+
+                            </div>
+                        @endforeach
+
+                    </div>
+                </section>
+            @endif
+
+
 
         </section>
 
