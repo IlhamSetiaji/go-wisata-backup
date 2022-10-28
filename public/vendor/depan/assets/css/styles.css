@@ -1185,3 +1185,75 @@ input {
   display: block;
 
 }
+
+/*=============== PENGINAPAN ===============*/
+.penginapan__img {
+  height: 250px;
+}
+.penginapan__container {
+  grid-template-columns: repeat(4, max-content);
+  justify-content: center;
+}
+
+.penginapan__card {
+  position: relative;
+  width: 250px;
+  overflow: var(--img-hidden);
+}
+
+.penginapan__card:hover .penginapan__img {
+  transform: var(--img-scale);
+}
+
+.penginapan__img {
+  transition: var(--img-transition);
+}
+
+.penginapan__title {
+  color: var(--black-color);
+  text-align: center;
+  font-size: var(--h2-font-size);
+  margin-bottom: var(--mb-0-25);
+}
+
+.penginapan__subtitle {
+  color: var(--white-color);
+}
+
+.penginapan__content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: .75rem .75rem 1rem;
+}
+
+.penginapan__price {
+  display: block;
+}
+
+.penginapan__button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: .75rem 1rem;
+}
+
+.penginapan__rating {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+}
+
+.penginapan__rating-icon {
+  font-size: .75rem;
+  margin-right: var(--mb-0-25);
+}
+
+.penginapan__rating-number {
+  font-size: var(--small-font-size);
+}

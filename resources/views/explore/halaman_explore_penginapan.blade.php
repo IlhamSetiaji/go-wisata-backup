@@ -209,28 +209,27 @@
         </section>
         @isset($penginapan)
             @if (count($penginapan) > 0)
-                <section class="place section" id="place">
-                    <h2 class="section__title">Hotel Disekitar</h2>
-                    <div class="place__container container grid">
+                <section class="penginapan section" id="penginapan">
+                    <h2 class="penginapan__title">Hotel Disekitar</h2>
+                    <div class="penginapan__container container grid">
                         @foreach ($penginapan as $key => $tempat2)
                             <!--==================== PLACES CARD 1 ====================-->
-                            <div class="place__card">
-                                <img src="{{ asset('images') }}/{{ $tempat2->foto }}" style="width:200px;height:600px;"
-                                    class="place__img">
+                            <div class="penginapan__card">
+                                <img src="{{ asset('images') }}/{{ $tempat2->foto }}" class="img-thumbnail" alt="Responsive image">
 
-                                <div class="place__content">
-                                    <span class="place__rating">
-                                        <i class="ri-star-line place__rating-icon"></i>
+                                <div class="penginapan__content">
+                                    <span class="penginapan__rating">
+                                        <i class="ri-star-line penginapan__rating-icon"></i>
                                     </span>
 
-                                    <div class="place__data">
-                                        <h3 class="place__title">{{ $tempat2->nama }}</h3>
+                                    <div class="penginapan__data">
+                                        <h3 class="penginapan__subtitle">{{ $tempat2->nama }}</h3>
 
-                                        <span class="place__price">{{ $tempat2->name }}</span>
+                                        <span class="penginapan__price">{{ $tempat2->name }}</span>
                                     </div>
                                 </div>
                                 <a target="_blank" href="/explore-hotel/{{ $tempat2->id }}">
-                                    <button class="button button--flex place__button">
+                                    <button class="button button--flex penginapan__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
                                 </a>
