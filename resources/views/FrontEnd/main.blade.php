@@ -69,7 +69,7 @@
             @endif
             @if (!$setting->sponsor4 == null)
                 <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor4 }}" alt=""
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor4 }}" style="width: 140px;" alt=""
                         class="sponsor__img">
                 </div>
             @endif
