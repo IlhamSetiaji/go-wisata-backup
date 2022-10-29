@@ -130,6 +130,10 @@
 
 
         {{-- DESKRIPSI --}}
+
+        @if ($tempat->deskripsi == "")
+            
+        @else
         <section class="about_section">
             <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
 
@@ -138,7 +142,13 @@
             </div>
         </section>
 
+        @endif
+
+
         {{-- SEJARAH --}}
+        @if ($tempat->sejarah == "")
+            
+        @else
         <section class="about_section">
             <h2 class="section__title">Sejarah {{ $tempat->name }}</h2>
 
@@ -146,8 +156,19 @@
                 <p class="about__container">{{ $tempat->sejarah }}</p>
             </div>
         </section>
+            
+        @endif
+
+        
+            
+        
 
         {{-- akses --}}
+
+        @if ($tempat->akses == "")
+            
+        @else
+
         <section class="about_section">
             <h2 class="section__title">Akses ke {{ $tempat->name }}</h2>
 
@@ -155,8 +176,15 @@
                 <p class="about__container">{{ $tempat->akses }}</p>
             </div>
         </section>
+        @endif
+
 
         {{-- atraksi --}}
+
+        @if ($tempat->atraksi == "")
+            
+        @else
+
         <section class="about_section">
             <h2 class="section__title">Atraksi di {{ $tempat->name }}</h2>
 
@@ -164,6 +192,8 @@
                 <p class="about__container">{{ $tempat->atraksi }}</p>
             </div>
         </section>
+        @endif
+
 
         <!--==================== EXPERIENCE ====================-->
         <section class="experience section">

@@ -45,6 +45,7 @@ class FrontendController extends Controller
     public function index()
     {
         $tempat  = Tempat::where('kategori', 'desa')->orderby('id', 'DESC')->where('status', '1')->get();
+        $unggulan  = Tempat::where('unggulan', '1')->where('status', '1')->get();
         $setting =  Setting::first();
         $kegiatan = Kegiatan::latest()->get();
         // return $kegiatan;
@@ -53,6 +54,7 @@ class FrontendController extends Controller
             "tempat" => $tempat,
             "setting" => $setting,
             "kegiatan" => $kegiatan,
+            "unggulan" => $unggulan
         ]);
     }
     public function explore()

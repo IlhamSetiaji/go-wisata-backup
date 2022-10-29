@@ -23,7 +23,7 @@
                     <a href="https://twitter.com/" target="_blank" class="home__social-link">
                         <i class="ri-twitter-fill"></i></a>
                 </div>
-                @php $kegi = App\Models\Event::where('status', 1)->count(); @endphp
+                {{-- @php $kegi = App\Models\Event::where('status', 1)->count(); @endphp
                 @if ($kegi > 0)
                     <div class="home__info">
                         <div>
@@ -41,7 +41,7 @@
                             <img src="{{ asset('images') }}/{{ $keg->foto }}" alt="" class="home__info-img">
                         </div>
                     </div>
-                @endif
+                @endif --}}
             </div>
         </section>
 
@@ -112,6 +112,72 @@
             </div>
         </section>
 
+        {{-- <section class="discover section" id="discover">
+            <h2 class="section__title">Destinasi Unggulan</h2>
+            <div class="card-group mx-5">
+
+                @foreach ($unggulan as $key => $unggulan)
+                <div class="card mx-3">
+                            <!--==================== DISCOVER 1 ====================-->
+                            @if ($unggulan->image == null)
+                                Gambar Tidak Tersedia
+                                @else
+                                <img src="{{ asset('images') }}/{{ $unggulan->image }}" alt=""
+                                    class="discover__img">
+                            @endif
+                            <div class="discover__data">
+                                <h2 class="discover__title">{{ $unggulan->name }}</h2>
+                            </div>
+                            {{-- {{ dd($unggulan) }} --}}
+                            {{-- <a href="{{ url('./' . $unggulan->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+                        </div>
+                        @endforeach
+            </div>
+        </section>  --}}
+
+        
+        <section class="place section" id="place">
+            <h2 class="section__title">Destinasi Unggulan</h2>
+            <div class="place__container container grid">
+                {{-- <div class="row"> --}}
+
+                @foreach ($unggulan as $unggulan)
+                    {{-- <div class="col-lg-4 col-md-6 col-sm-12 mt-2"> --}}
+                    <!--==================== PLACES CARD 1 ====================-->
+
+                    <div class="place__card">
+                        <img src="{{ asset('images') }}/{{ $unggulan->image }}" alt=""
+                            class="place__img">
+
+                        <div class="place__content">
+                            <span class="place__rating">
+                                <i class="ri-star-line place__rating-icon"></i>
+                                <!--<span class="place__rating-number">4,8</span>-->
+                            </span>
+
+                            <div class="place__data">
+                                <h3 class="place__title">{{ $unggulan->name }}</h3>
+                                {{-- <span class="place__subtitle">{{ $unggulan->kategori }}</span> --}}
+                                <span class="place__price">{{ $unggulan->kategori }}</span>
+                            </div>
+                        </div>
+                        <a href="{{ url('./' . $unggulan->kategori . '/' . $unggulan->slug) }}">
+                            <button class="button button--flex place__button">
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </a>
+
+                    </div>
+                    {{-- </div> --}}
+                @endforeach
+                {{-- </div> --}}
+
+            </div>
+        </section>
 
         {{-- <section class="budgeting mt-3">
             <h2 class="section__title">Sesuaikan Liburan Dengan Budget Anda</h2>

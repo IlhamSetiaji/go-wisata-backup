@@ -135,6 +135,20 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-4">
+                                            <label>Unggulan</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input class="form-check-input" id="flexCheckDefault" type="checkbox" name="unggulan" value="1" 
+                                                    >
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-md-4">
                                             <label>Mobile</label>
                                         </div>

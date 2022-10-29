@@ -411,7 +411,7 @@
 
         @if (count($event) > 0)
         <section class="place section" id="place">
-            <h2 class="section__title">Event menarik di {{ $tempat->name }}</h2>
+            <h2 class="section__title">Wisata Budaya di {{ $tempat->name }}</h2>
             <div class="place__container container grid">
 
                 @foreach ($event as $event)

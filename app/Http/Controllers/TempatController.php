@@ -139,7 +139,8 @@ class TempatController extends Controller
         $data['image2'] = $name2;
         $data['atraksi'] = $request->atraksi;
         $data['akses'] = $request->akses;
-        $data['sejarah'] =$request->sejarah;
+        $data['sejarah'] = $request->sejarah;
+        $data['unggulan'] = $request->unggulan;
 
         $slug = Str::slug($request->name, '-');
         $data['slug'] = $slug;
