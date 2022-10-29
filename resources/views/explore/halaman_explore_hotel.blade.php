@@ -126,14 +126,13 @@
             <section class="discover section" id="kamar">
                 <h2 class="section__title">Kamar <br> Yang Tersedia</h2>
 
-                <div class="discover__container container swiper-container">
-                    <div class="swiper-wrapper">
+                <div class="card-group">
                         @if (count($kamar) > 0)
                             @foreach ($kamar as $key => $whn)
                                 <!--==================== DISCOVER 1 ====================-->
-                                <div class="discover__card swiper-slide">
-                                    <img src="{{ asset('images') }}/{{ $whn->image }}" alt=""
-                                        class="discover__img">
+                                <div class="card mx-2">
+                                    <img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image"
+                                        class="img-thumbnail">
                                     <div class="discover__data">
 
                                         <h2 class="discover__title">{{ $whn->name }}</h2>
@@ -154,7 +153,6 @@
                             @endforeach
                         @else
                         @endif
-                    </div>
                 </div>
             </section>
         </div>
