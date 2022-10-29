@@ -76,6 +76,66 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
+                                            <label>Deskripsi</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <textarea type="text" class="form-control" name="deskripsi"
+                                                         id="deskripsi" value="{{ $users->deskripsi }}" required>
+                                                    </textarea>
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Atraksi</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" name="atraksi"
+                                                         id="deskripsi" value="{{ $users->atraksi }}" required>
+                                                    
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Akses</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" name="akses"
+                                                         id="deskripsi" value="{{ $users->akses }}" required>
+                                                    
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label>Sejarah</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <textarea type="text" class="form-control" name="sejarah"
+                                                         id="deskripsi" value="{{ $users->sejarah }}" required>
+                                                    </textarea>
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label>Mobile</label>
                                         </div>
                                         <div class="col-md-8">

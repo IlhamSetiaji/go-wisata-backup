@@ -119,12 +119,60 @@
                                                     <div class="form-control-icon">
                                                         <i class="fas fa-pen"></i>
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
                                         </div>
+
+                                        <div class="col-md-4">
+                                            <label>Akses</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input class="form-control" name="akses" value="{{ old('akses') }}">
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="col-md-4">
+                                            <label>Sejarah</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <textarea class="form-control" name="sejarah" value="{{ old('sejarah') }}">
+
+                                                    </textarea>
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <label>Atraksi</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input class="form-control" name="atraksi" value="{{ old('atraksi') }}">
+
+                                                    
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <div class="col-md-4">
                                             <label>Video Max(35mb)</label>
                                         </div>
