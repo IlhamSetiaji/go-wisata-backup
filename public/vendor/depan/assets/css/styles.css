@@ -1257,3 +1257,8 @@ input {
 .penginapan__rating-number {
   font-size: var(--small-font-size);
 }
+
+.penginapan__description {
+  display: block;
+  font-size: var(--smaller-font-size);
+}
