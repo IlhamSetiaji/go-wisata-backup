@@ -276,6 +276,7 @@
         <?php
         $wisata = App\Models\Tempat::where('induk_id', $tempat->id)
             ->where('kategori', 'wisata')
+            ->where('status', 1)
             ->get();
         
         // dd($wisata)
