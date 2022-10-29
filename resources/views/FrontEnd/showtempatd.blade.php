@@ -397,6 +397,54 @@
                 </div>
             </section>
         @endif
+        
+
+        <?php
+        $event = App\Models\Tempat::where('induk_id', $tempat->id)
+            ->where('kategori', 'event & sewa tempat')
+            ->get();
+        
+        // dd($wisata)
+        
+        ?>
+
+
+        @if (count($event) > 0)
+        <section class="place section" id="place">
+            <h2 class="section__title">Event menarik di {{ $tempat->name }}</h2>
+            <div class="place__container container grid">
+
+                @foreach ($event as $event)
+                    <!--==================== PLACES CARD 1 ====================-->
+                    <div class="place__card">
+                        <img src="{{ asset('images') }}/{{ $event->image }}" alt=""
+                            class="place__img">
+
+                        <div class="place__content">
+                            <span class="place__rating">
+                                <i class="ri-star-line place__rating-icon"></i>
+                                <!--<span class="place__rating-number">4,8</span>-->
+                            </span>
+
+                            <div class="place__data">
+                                <h3 class="place__title">{{ $event->name }}</h3>
+                                {{-- <span class="place__subtitle">{{ $event->kategori }}</span> --}}
+                                <span class="place__price">{{ $event->kategori }}</span>
+                            </div>
+                        </div>
+                        <a href="{{ url('./' . $event->kategori . '/' . $event->slug) }}">
+                            <button class="button button--flex place__button">
+                                <i class="ri-arrow-right-line"></i>
+                            </button>
+                        </a>
+
+                    </div>
+                @endforeach
+
+            </div>
+        </section>
+    @endif
+
 
 
         @if (!$tempat->video == null)

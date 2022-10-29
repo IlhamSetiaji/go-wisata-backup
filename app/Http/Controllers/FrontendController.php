@@ -238,6 +238,7 @@ class FrontendController extends Controller
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
             // dd($kuliner);
+            $event = Tempat::where('induk_id', $tempatini)->where('kategori', 'event & sewa tempat')->get();
 
             $penginapan = Tempat::where([
                 'induk_id' => $tempatini,
@@ -252,6 +253,7 @@ class FrontendController extends Controller
 
             $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
 
+            return view('FrontEnd/showtempat', compact('event', 'setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
             // $penginapanSekitars = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
             // dd($penginapan);
 
