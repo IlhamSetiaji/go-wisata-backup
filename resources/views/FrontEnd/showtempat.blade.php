@@ -138,6 +138,33 @@
             </div>
         </section>
 
+        {{-- SEJARAH --}}
+        <section class="about_section">
+            <h2 class="section__title">Sejarah {{ $tempat->name }}</h2>
+
+            <div class="container">
+                <p class="about__container">{{ $tempat->sejarah }}</p>
+            </div>
+        </section>
+
+        {{-- akses --}}
+        <section class="about_section">
+            <h2 class="section__title">Akses ke {{ $tempat->name }}</h2>
+
+            <div class="container">
+                <p class="about__container">{{ $tempat->akses }}</p>
+            </div>
+        </section>
+
+        {{-- atraksi --}}
+        <section class="about_section">
+            <h2 class="section__title">Atraksi di {{ $tempat->name }}</h2>
+
+            <div class="container">
+                <p class="about__container">{{ $tempat->atraksi }}</p>
+            </div>
+        </section>
+
         <!--==================== EXPERIENCE ====================-->
         <section class="experience section">
             {{-- <h2 class="section__title"> {{ $tempat->name }}  <br> </h2> --}}
