@@ -6,6 +6,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use RealRashid\SweetAlert\Facades\Alert;
 
 trait AuthenticatesUsers
 {
@@ -29,9 +30,19 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    public function checkIsUser($param)
+    {
+        $data = User::where('email', $param)->pluck('role_id')->first();
+        return $data;
+    }
     public function login(Request $request)
     {
         $this->validateLogin($request);
+        $roleId = $this->checkIsUser($request->email);
+        if ($roleId != 5) {
+            Alert::error('Error', 'Use Admin Login Page');
+            return back();
+        }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
