@@ -220,20 +220,18 @@ class FrontendController extends Controller
      */
     
     public function budgeting(Request $request) {
+        
+        $budget = $request->budget;
 
         $paket = DB::table("tb_pakets")
         ->select("tb_pakets.*")
-        ->where("tb_pakets.harga", "<=", $request->budget)
+        ->where("tb_pakets.harga", "<=", $budget)
         ->get();
-
-       $data['orang'] = $request->dewasa;
-       
-       $data['budget'] = $request->budget;
         
         return view('FrontEnd.budgeting', [
             'paket' => $paket,
-            'orang' => $data['orang'],
-            'budget' => $data['budget'],
+            'budget' => $budget
+            
         ]);
     }
 

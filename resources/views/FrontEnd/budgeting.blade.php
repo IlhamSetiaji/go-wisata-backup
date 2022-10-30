@@ -51,8 +51,8 @@
             <div class="col-md-5">
                 <h3>{{ $paket->nama_paket }}</h3>
                 <p>Harga : Rp{{ $paket->harga }},00 </p>
-                <p>Penginapan : {{ $paket->id_villa }}</p>
-                <p>Kamar : {{ $paket->id_kamar }} </p>
+                {{-- <p>Penginapan : {{ $paket->id_villa }}</p>
+                <p>Kamar : {{ $paket->id_kamar }} </p> --}}
 
                 <a class="btn btn-primary" href="#">Pesan</a>
             </div>
