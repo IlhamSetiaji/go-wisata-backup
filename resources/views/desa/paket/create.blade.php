@@ -123,6 +123,50 @@
                                         </div>
 
                                         <div class="col-md-4">
+                                            <label>Villa</label>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <fieldset class="form-group">
+                                                        <select class="form-select" id="basicSelect"  name="id_villa">
+
+                                                            <option selected value=''>Pilih Villa</option>
+                                                            @foreach($villa as $villa)
+                                                                <option value="{{$villa->id}}">{{$villa->nama}}</option>
+                                                            @endforeach
+
+                                                        </select>
+                                                    
+                                                    </fieldset>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>Kamar</label>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <fieldset class="form-group">
+                                                        <select class="form-select" id="basicSelect"  name="id_kamar">
+
+                                                            <option selected value=''>Pilih kamar</option>
+                                                            @foreach($kamar as $kamar)
+                                                                <option value="{{$kamar->id}}">{{$kamar->name}}</option>
+                                                            @endforeach
+
+                                                        </select>
+                                                    
+                                                    </fieldset>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
                                             <label>Jumlah Orang</label>
                                         </div>
                                         <div class="col-md-6 ">

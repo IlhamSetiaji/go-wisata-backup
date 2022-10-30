@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
 use App\Models\tb_kategoriwisata;
 use App\Models\tb_paket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Tempat;
+use App\Models\Villa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -264,12 +266,15 @@ class AdminController extends Controller
 
         $desa = Tempat::where('kategori', 'desa')->get();
         $kategori_paket = tb_kategoriwisata::all();
-
+        $villa = Villa::all();
+        $kamar = Kamar::all();
        
 
         return(view('/desa/paket/create', [
             'desa' => $desa,
             'kategori' => $kategori_paket,
+            'villa' => $villa,
+            'kamar' => $kamar,
         ]));
     }
 
@@ -277,10 +282,13 @@ class AdminController extends Controller
 
         $data['id_desa'] = $request->id_desa;
         $data['id_kategori'] = $request->id_kategori;
+        $data['id_kamar'] = $request->id_kamar;
+        $data['id_villa'] = $request->id_villa;
         $data['nama_paket'] = $request->nama_paket;
         $data['harga'] = $request->harga;
         $data['jml_hari'] = $request->jml_hari;
         $data['jml_orang'] = $request->jml_orang;
+       
 
         tb_paket::create($data);
 

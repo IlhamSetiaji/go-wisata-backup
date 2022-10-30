@@ -222,7 +222,7 @@ class FrontendController extends Controller
     public function budgeting(Request $request) {
 
         $paket = DB::table("tb_pakets")
-        ->select("*", "tb_pakets.*")
+        ->select("tb_pakets.*")
         ->where("tb_pakets.harga", "<=", $request->budget)
         ->get();
 

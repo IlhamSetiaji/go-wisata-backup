@@ -44,16 +44,17 @@
         <div class="row">
             <div class="col-md-7">
                 <a href="#">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="https://via.placeholder.com/700x300"
+                    <img class="img-fluid rounded mb-3 mb-md-0" src="https://source.unsplash.com/700x300/?{{ $paket->nama_paket }}"
                         alt="">
                 </a>
             </div>
             <div class="col-md-5">
                 <h3>{{ $paket->nama_paket }}</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita
-                    laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos
-                    perspiciatis atque eveniet unde.</p>
-                <a class="btn btn-primary" href="#">View Project</a>
+                <p>Harga : Rp{{ $paket->harga }},00 </p>
+                <p>Penginapan : {{ $paket->id_villa }}</p>
+                <p>Kamar : {{ $paket->id_kamar }} </p>
+
+                <a class="btn btn-primary" href="#">Pesan</a>
             </div>
         </div>
         <hr>
