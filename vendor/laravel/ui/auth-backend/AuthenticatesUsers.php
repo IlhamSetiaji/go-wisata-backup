@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -37,7 +38,14 @@ trait AuthenticatesUsers
     }
     public function login(Request $request)
     {
-        $this->validateLogin($request);
+        // $request->validate([
+        //     $this->username() => 'required|string',
+        //     'password' => 'required|string',
+        // ]);
+        $checkValid = Validator::make($request->all(), [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ]);
         $roleId = $this->checkIsUser($request->email);
         if ($roleId != 5) {
             Alert::error('Error', 'Use Admin Login Page');
@@ -69,7 +77,14 @@ trait AuthenticatesUsers
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
 
-        return $this->sendFailedLoginResponse($request);
+        Alert::error('Error', 'Email and/or password invalid.');
+        return back()->withInput();
+        if ($checkValid->fails() == false) {
+            Alert::error('Error', 'Email and/or password invalid.');
+            return back();
+        }
+
+        // return $this->sendFailedLoginResponse($request);
     }
 
     /**
