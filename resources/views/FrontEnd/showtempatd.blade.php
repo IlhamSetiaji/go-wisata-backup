@@ -25,7 +25,7 @@
 
     <title>GoWisata.</title>
 
-    <script>
+    {{-- <script>
         $(document).ready(function() {});
 
         function budgeting() {
@@ -48,9 +48,7 @@
             $('#e-budgeting').empty()
 
 
-
-
-            if (jml_hari >= 2) {
+            if (jml_budget < {{ $paket->harga }}) {
                 let harga_penginapan = 200000
                 let itung_inap = jml_org * harga_penginapan
                 let temp_html = `<table class="table">
@@ -62,9 +60,10 @@
                     </tr>
                 </thead>
                     <tbody>
+                        
                         <tr>
                             <th scope="row">Tiket Wisata</th>
-                            <td>${jml_org} tiket</td>
+                            <td></td>
                             <td>Rp.${itung_tiket_wisata}</td>
                             
                         </tr>
@@ -83,38 +82,20 @@
                             <th scope="row">Budget</th>
                             <td>Rp.${jml_budget}</td>
                         </tr>
+                       
                     </tbody>
                 </table>`;
 
                 $('#e-budgeting').append(temp_html)
             } else {
-                let temp_html = `<table class="table">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Jumlah</th>
-                    <th scope="col">Harga</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">Tiket Wisata</th>
-                            <td>${jml_org} tiket</td>
-                            <td>Rp.${itung_tiket_wisata}</td>
-                            
-                        </tr>
-                        <tr>
-                            <th scope="row" >Tiket Wahana</th>
-                            <td>${jml_org} tiket</td>
-                            <td>Rp.${itung_tiket_wahana}</td>
-                            
-                        </tr>
-                        <tr>
-                            <th scope="row" colspan="2">Budget</th>
-                            <td>Rp.${jml_budget}</td>
-                        </tr>
-                    </tbody>
-                </table>`;
+                let temp_html = `
+                    
+                    @foreach($paket as $paket)
+                        <h3>{{ $paket->nama_paket }}</h3>
+                        <h3>${jml_budget}</h3>
+                    @endforeach
+                   
+                `;
                 $('#e-budgeting').append(temp_html)
 
             }
@@ -122,10 +103,11 @@
 
 
         }
-    </script>
+    </script> --}}
 </head>
 
 <body onload="myFunction()">
+    
 
     <header class="header" id="header" onload="myFunction()">
         <nav class="nav container">
@@ -688,7 +670,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="e-budgeting">
-                    <form>
+                    <form action="{{ route('front.budget', [$tempat->slug]) }}" method="post">
+                        @csrf
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
@@ -716,20 +699,14 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <label for="budget" class="form-label">Berapa Orang Dewasa yang Ikut?</label>
-                                    <input type="number" class="form-control" name="dewasa" required
+                                    <label for="budget" class="form-label">Berapa Orang?</label>
+                                    <input type="number" class="form-control" name="orang" required
                                         id="jml_dewasa">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <label for="budget" class="form-label">Berapa anak-anak yang Ikut?</label>
-                                    <input type="number" class="form-control" name="anak" required
-                                        id="jml_anak">
-                                </div>
-                            </div>
+                           
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
@@ -743,7 +720,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                         id="close-budgeting">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="budgeting()">Submit</button>
+                    <button type="submit" class="btn btn-primary" >Submit</button>
                 </div>
                 </form>
             </div>

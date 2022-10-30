@@ -437,6 +437,8 @@ Route::group([
     Route::get('/reviewtempatsewa/hapus/{id}', [TempatSewaController::class, 'review_delete']);
 });
 
+// BUDGETING
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('verified')->name('dashboard');
@@ -453,6 +455,7 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
+Route::post('/budgeting/{slug}', [FrontendController::class, 'budgeting'])->name('front.budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');
 Route::get('/kuliner/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showk');
@@ -487,3 +490,4 @@ Route::any('video-upload2',  [App\Http\Controllers\TempatController::class, 'vid
 Route::post('crop-image-before-upload-using-croppie', [App\Http\Controllers\CropImageController::class, 'uploadCropImage2'])->name('croppie.upload-image');
 Route::resource('/kegiatan', KegiatanController::class)->middleware('verified');
 Route::get('/status/update/kegiatan/{kode}', [KegiatanController::class, 'toggleStatus'])->name('update.status.kegiatan')->middleware('verified');
+

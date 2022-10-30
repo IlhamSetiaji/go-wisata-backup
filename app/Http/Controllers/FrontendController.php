@@ -26,6 +26,7 @@ use App\Models\Villa;
 use App\Models\ReviewEvent;
 use App\Models\ReviewTempatSewa;
 use App\Models\ReviewVilla;
+use App\Models\tb_paket;
 use App\Models\TempatSewa;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -217,10 +218,26 @@ class FrontendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    
+    public function budgeting(Request $request) {
+
+        $paket = DB::table("tb_pakets")
+        ->select("*", "tb_pakets.*")
+        ->where("tb_pakets.harga", "<=", $request->budget)
+        ->get();
+
+       $data['orang'] = $request->dewasa;
+       
+       $data['budget'] = $request->budget;
+        
+        return view('FrontEnd.budgeting', [
+            'paket' => $paket,
+            'orang' => $data['orang'],
+            'budget' => $data['budget'],
+        ]);
     }
+
+
     public function tempatshow($slug)
     {
         session()->forget("camping");
@@ -269,15 +286,21 @@ class FrontendController extends Controller
 
             $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
             // dd($kuliner);
+
             $penginapan = Tempat::where(['induk_id' => $tempatini, 'status' => 1])->where('kategori', 'penginapan')->get();
             $ez = Tempat::where('induk_id', $tempatini)->where('status', 1)->get();
             $camp = Camp::where('tempat_id', $tempatini)->where('status', 1)->where('kategori', 'alat')->get();
             // dd($camp);
+
             $camp1 = Camp::where('tempat_id', $tempatini)->where('status', 1)->get();
             $nama = $tempat2['name'];
+
             // Tempat Kuliner makanan
             $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
-            return view('FrontEnd/showtempatd', compact('setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+
+            $paket = tb_paket::all();
+            
+            return view('FrontEnd/showtempatd', compact('paket','setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
         }
 
 
