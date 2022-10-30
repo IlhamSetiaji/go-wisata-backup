@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/48943e5573.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -62,12 +63,20 @@
                                 </a>
                             </li>
 
-                            <li class="sidebar-item  {{ request()->is('adesa/admind*') ? 'active' : '' }}">
+                            <li class="sidebar-item  {{ request()->is('adesa/admind/*') ? 'active' : '' }}">
                                 <a href="{{ route('admind.index') }}" class='sidebar-link'>
                                     <i class="fas fa-user-tie"></i>
                                     <span>Admin</span>
                                 </a>
                             </li>
+
+                            <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
+                                <a href="{{ route('paketd.index') }}" class='sidebar-link'>
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span>Paket</span>
+                                </a>
+                            </li>
+
                             <hr>
                             <li class="sidebar-item  {{ request()->is('adesa/rekapd*') ? 'active' : '' }}">
                                 <a href="{{ route('rekapd.index') }}" class='sidebar-link'>

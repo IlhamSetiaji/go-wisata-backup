@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tb_paket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -12,8 +13,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-
-
         $users  = User::with(['role'])->where('role_id', '!=', 5)->get();
         // dd($users);
         return view('admin.admin.index', compact('users'));
@@ -239,5 +238,30 @@ class AdminController extends Controller
         $users  = User::where('role_id', 1)->get();
         // dd($users);
         return view('admin.admin.index', compact('users'));
+    }
+
+    //BUDGETING
+    
+    public function paketIndex(Request $request) {
+        $data = tb_paket::all();
+
+       return(view('/desa/paket/index', [
+        "paket" => $data,
+       ]));
+    }
+
+    public function paketCreate(Request $request) {
+
+        $desa = Tempat::where('kategori', 'desa')->get();
+
+        $data['nama_paket'] = $request->nama_paket;
+        $data['harga'] = $request->harga;
+        $data['jml_hari'] = $request->jml_hari;
+        $data['jml_orang'] = $request->jml_orang;
+
+
+        return(view('/desa/paket/create', [
+            'desa' => $desa,
+        ]));
     }
 }

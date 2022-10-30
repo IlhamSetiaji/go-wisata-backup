@@ -82,7 +82,8 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <textarea type="text" class="form-control" name="deskripsi"
-                                                         id="deskripsi" value="{{ $users->deskripsi }}" required>
+                                                         id="deskripsi">
+                                                         {{ $users->deskripsi }}
                                                     </textarea>
                                                     <div class="form-control-icon">
                                                         <i class="fas fa-pen"></i>
@@ -97,7 +98,7 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" name="atraksi"
-                                                         id="deskripsi" value="{{ $users->atraksi }}" required>
+                                                         id="deskripsi" value="{{ $users->atraksi }}">
                                                     
                                                     <div class="form-control-icon">
                                                         <i class="fas fa-pen"></i>
@@ -112,7 +113,7 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control" name="akses"
-                                                         id="deskripsi" value="{{ $users->akses }}" required>
+                                                         id="deskripsi" value="{{ $users->akses }}" >
                                                     
                                                     <div class="form-control-icon">
                                                         <i class="fas fa-pen"></i>
@@ -127,7 +128,8 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <textarea type="text" class="form-control" name="sejarah"
-                                                         id="deskripsi" value="{{ $users->sejarah }}" required>
+                                                         id="deskripsi">
+                                                         {{ $users->sejarah }}
                                                     </textarea>
                                                     <div class="form-control-icon">
                                                         <i class="fas fa-pen"></i>
@@ -142,8 +144,8 @@
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input class="form-check-input" id="flexCheckDefault" type="checkbox" name="unggulan" value="1" 
-                                                    >
+                                                    <input class="form-check-input" id="flexCheckDefault" 
+                                                    type="checkbox" name="unggulan" value="1">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                 </div>
                                             </div>

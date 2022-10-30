@@ -268,6 +268,10 @@ Route::group([
     Route::get('/rekapd', [RekapWController::class, 'rekapdesa'])->name('rekapd.index');
     Route::post('/rekapd', [RekapWController::class, 'sortd']);
     Route::get('/rekapd/print/{date}', [RekapWController::class, 'printdesa'])->name('print.rekapd');
+
+    // BUDGETING
+    Route::get('/paketd/index', [AdminController::class, 'paketIndex'])->name('paketd.index');
+    Route::get('/paketd/create', [AdminController::class, 'paketCreate'])->name('paketd.create');
 });
 
 Route::group([
