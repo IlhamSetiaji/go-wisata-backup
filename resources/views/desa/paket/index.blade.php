@@ -89,6 +89,12 @@
                                         <td>
                                             {{ $paket->harga }}
                                         </td>
+                                        <td>
+                                            {{ $paket->name }}
+                                        </td>
+                                        <td>
+                                            {{ $paket->nama_kategori }}
+                                        </td>
                                     </tr>
                                     @endforeach
                                     @else

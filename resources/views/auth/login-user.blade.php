@@ -91,7 +91,7 @@
                                                 @if (Route::has('password.request'))
                                                     <a href="{{ route('password.request') }}"> Lupa Password?</a>
                                                 @endif
-                                                <input type="submit" class="btn btn-primary" value="Sign up" />
+                                                <input type="submit" class="btn btn-primary" value="Sign in" />
                                             </div>
 
                                         </div>

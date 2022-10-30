@@ -12,31 +12,7 @@ class Tempat extends Model
     use HasFactory;
     protected $table = "tb_tempat";
     protected $guarded = ['id'];
-    // protected $fillable = [
-    //     'user_id',
-    //     'kategori',
-    //     'name',
-    //     'deskripsi',
-    //     'alamat',
-    //     'email',
-    //     'telp',
-    //     'sosmed',
-    //     'galeri',
-    //     'status',
-    //     'kategori',
-    //     'htm',
-    //     'image',
-    //     'image2',
-    //     'jambuka',
-    //     'jamtutup',
-    //     'gmaps',
-    //     'dana',
-    //     'induk_id',
-    //     'open',
-    //     'video',
-    //     'slug',
-
-    // ];
+    
 
     public function tempatAvatar($request)
     {
@@ -114,8 +90,5 @@ class Tempat extends Model
         $image->move($destination, $name);
         return $name;
     }
-    // public function Pesanan($request)
-    // {
-    //     return $this->HasMany(Detail_transaksi::class, 'tempat_id');
-    // }
+    
 }

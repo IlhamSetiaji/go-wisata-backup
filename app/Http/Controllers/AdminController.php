@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\tb_kategoriwisata;
 use App\Models\tb_paket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Tempat;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -243,25 +245,45 @@ class AdminController extends Controller
     //BUDGETING
     
     public function paketIndex(Request $request) {
-        $data = tb_paket::all();
+        $data = DB::table("tb_pakets")
+        ->Join("tb_tempat", function($join){
+            $join->on("tb_pakets.id_desa", "=", "tb_tempat.id");
+        })
+        ->Join("tb_kategoriwisatas", function($join){
+            $join->on("tb_pakets.id_kategori", "=", "tb_kategoriwisatas.id");
+        })
+        ->select("tb_pakets.*", "tb_tempat.name", "tb_kategoriwisatas.nama_kategori")
+        ->get();
 
        return(view('/desa/paket/index', [
         "paket" => $data,
        ]));
     }
 
-    public function paketCreate(Request $request) {
+    public function paketCreate() {
 
         $desa = Tempat::where('kategori', 'desa')->get();
+        $kategori_paket = tb_kategoriwisata::all();
 
+       
+
+        return(view('/desa/paket/create', [
+            'desa' => $desa,
+            'kategori' => $kategori_paket,
+        ]));
+    }
+
+    public function paketCreated(Request $request) {
+
+        $data['id_desa'] = $request->id_desa;
+        $data['id_kategori'] = $request->id_kategori;
         $data['nama_paket'] = $request->nama_paket;
         $data['harga'] = $request->harga;
         $data['jml_hari'] = $request->jml_hari;
         $data['jml_orang'] = $request->jml_orang;
 
+        tb_paket::create($data);
 
-        return(view('/desa/paket/create', [
-            'desa' => $desa,
-        ]));
+        return redirect()->route('paketd.index');
     }
 }
