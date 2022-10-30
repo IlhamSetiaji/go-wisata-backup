@@ -75,6 +75,12 @@
                                     <span>Rekap Data</span>
                                 </a>
                             </li>
+                            <li class="sidebar-item  {{ request()->is('adesa/budgeting*') ? 'active' : '' }}">
+                                <a href="{{ route('budget.index') }}" class='sidebar-link'>
+                                    <i class="bi bi-cash"></i>
+                                    <span>E-Budgeting</span>
+                                </a>
+                            </li>
                         @endif
 
                         @if (auth()->check() && auth()->user()->role->name === 'kuliner')
@@ -174,7 +180,7 @@
                             </li>
                             <hr>
                             Pengecekan
-                            
+
                             <li class="sidebar-item  {{ request()->is('wisata/checkw*') ? 'active' : '' }}">
                                 <a href="{{ route('checkw.index') }}" class='sidebar-link'>
                                     <i class="fas fa-clipboard-check"></i>
