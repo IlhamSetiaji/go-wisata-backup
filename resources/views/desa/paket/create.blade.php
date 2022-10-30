@@ -56,14 +56,14 @@
                     <div class="card-content">
                         <div class="card-body">
 
-                                <form action="{{ route('tempat.stored')}} " method="POST" enctype="multipart/form-data" class="form form-vertical">
+                                <form action="{{ route('paket.create')}} " method="POST" enctype="multipart/form-data" class="form form-vertical">
                                     @csrf
                                 <div class="form-body">
                                     <div class="row">
 
 
                                         <div class="col-md-4">
-                                            <label for="first-name-icon">Nama Tempat</label>
+                                            <label for="first-name-icon">Nama Paket</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -88,11 +88,9 @@
                                                     <fieldset class="form-group">
                                                         <select class="form-select" name="kategori" required>
                                                             <option value="" >Pilih Kategori</option>
-                                                            <option value="wisata"> Tempat Wisata</option>
-                                                            <option value="hotel"> Tempat Penginapan</option>
-                                                            <option value="kuliner"> Tempat Kuliner</option>
-
-
+                                                            <option value="alam">Alam</option>
+                                                            <option value="buatan">Buatan</option>
+                                                            <option value="budaya">Budaya</option>
                                                         </select>
                                                     </fieldset>
 
