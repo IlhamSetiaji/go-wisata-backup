@@ -3,9 +3,12 @@
 namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Support\MessageBag;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 trait RegistersUsers
 {
@@ -29,19 +32,37 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        // $this->validator($request->all())->validate();
+        $checkValid = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+            'telp' => ['required', 'numeric', 'min:10'],
+        ]);
+        // $checkValid = $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'string', 'min:6', 'confirmed'],
+        //     'telp' => ['required', 'numeric', 'min:10'],
+        // ]);
+        // dd($checkValid->getMessageBag()->first());
+        if ($checkValid->failed() != '') {
+            Alert::error('Error', $checkValid->getMessageBag()->first());
+
+            return redirect()->back()->withInput();
+        }
 
         event(new Registered($user = $this->create($request->all())));
-
         $this->guard()->login($user);
+
 
         if ($response = $this->registered($request, $user)) {
             return $response;
-    }
+        }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 201)
-                    : redirect('');
+            ? new JsonResponse([], 201)
+            : redirect('email/verify');
     }
 
     /**
