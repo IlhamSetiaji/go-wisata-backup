@@ -8,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class tb_paket extends Model
 {
     use HasFactory;
+
     protected $table = "tb_pakets";
-    protected $guarded = [];
+    protected $guarded = ['id'];
+
 
     public function menu()
     {

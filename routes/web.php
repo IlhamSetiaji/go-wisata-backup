@@ -38,6 +38,7 @@ use App\Http\Controllers\TempatSewaController;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\BookingTempatSewaController;
+use App\Http\Controllers\BudgetingController;
 use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\TopUpController;
 use Illuminate\Auth\Events\Login;
@@ -272,6 +273,8 @@ Route::group([
     // BUDGETING
     Route::get('/paketd/index', [AdminController::class, 'paketIndex'])->name('paketd.index');
     Route::get('/paketd/create', [AdminController::class, 'paketCreate'])->name('paketd.create');
+    Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budget.index');
+    Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
 });
 
 Route::group([
