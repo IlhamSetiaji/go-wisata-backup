@@ -13,6 +13,17 @@ class tb_paket extends Model
     protected $guarded = ['id'];
 
 
+    public function desa()
+    {
+        return $this->belongsTo(Tempat::class);
+    }
+
+    public function kategori()
+    {
+        return $this->hasOne(tb_kategoriwisata::class);
+    }
+
+
     public function menu()
     {
         return $this->belongsToMany(Kuliner::class);

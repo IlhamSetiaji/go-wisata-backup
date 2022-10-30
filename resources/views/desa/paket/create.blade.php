@@ -56,7 +56,7 @@
                     <div class="card-content">
                         <div class="card-body">
 
-                                <form action="{{ route('paket.create')}} " method="POST" enctype="multipart/form-data" class="form form-vertical">
+                            <form action="{{ route('paketd.created')}} " method="POST"  class="form form-vertical">
                                     @csrf
                                 <div class="form-body">
                                     <div class="row">
@@ -68,8 +68,8 @@
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                                        placeholder="Name" id="first-name-icon" value="{{ old('name') }}" required>
+                                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="nama_paket"
+                                                        placeholder="Name" id="first-name-icon" required>
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-people"></i>
                                                         </div>
@@ -86,81 +86,19 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <fieldset class="form-group">
-                                                        <select class="form-select" name="kategori" required>
+                                                        <select class="form-select" name="id_kategori" required>
                                                             <option value="" >Pilih Kategori</option>
-                                                            <option value="alam">Alam</option>
-                                                            <option value="buatan">Buatan</option>
-                                                            <option value="budaya">Budaya</option>
+                                                            @foreach ($kategori as $kategori)
+                                                            <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori}}</option>
+                                                            @endforeach
+                                                            
                                                         </select>
                                                     </fieldset>
 
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label>Deskripsi</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <textarea class="form-control" name="deskripsi"
-                                                        value="{{ old('deskripsi')}}" >
-
-                                                    </textarea>
-                                                    <div class="form-control-icon">
-                                                    <i class="fas fa-pen"></i>
-                                                    </div>
-
-                                                </div>
-
-                                                </div>
-
-                                        </div>
-
-
-
-                                        <div class="col-md-4">
-                                            <label>Image (400x600 p)</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input class="form-control @error('image') is-invalid @enderror" name="image" type="file" id="image" multiple="" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-person-square"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Image (2200x1280 p)</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input class="form-control @error('image2') is-invalid @enderror" name="image2" type="file" id="image2" multiple="" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-person-square"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label>Email</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input type="email" class="form-control" name="email"
-                                                        placeholder="Email" id="first-name-icon" value="{{ old('email') }}" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-envelope"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                                    
                                       
                                         <div class="col-md-4">
                                             <label>Desa</label>
@@ -169,7 +107,7 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <fieldset class="form-group">
-                                                        <select class="form-select" id="basicSelect"  name="user_id" >
+                                                        <select class="form-select" id="basicSelect"  name="id_desa">
 
                                                             <option selected value=''>Pilih Desa</option>
                                                             @foreach($desa as $desa)
@@ -177,21 +115,46 @@
                                                             @endforeach
 
                                                         </select>
-                                                        {{-- <div class="form-control-icon">
-                                                            <i class="bi bi-exclude"></i>
-                                                        </div> --}}
+                                                    
                                                     </fieldset>
 
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <div class="col-md-4">
+                                            <label>Jumlah Orang</label>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" name="jml_orang">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <label>Jumlah Hari</label>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" name="jml_hari">
+                                                </div>
+                                            </div>
+                                        </div>
 
-
-
-
-
-
+                                        
+                                        <div class="col-md-4">
+                                            <label>Harga Paket</label>
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="form-group">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control" name="harga">
+                                                </div>
+                                            </div>
+                                        </div>
 
                                      </div>
 
@@ -212,8 +175,6 @@
             </div>
         </div>
     </section>
-    <!-- Hoverable rows end -->
-    <a class=" nav-link" href="{{ route('tempat.index') }}"><span>List Tempat</span></a>
 
 </div>
 

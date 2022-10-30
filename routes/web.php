@@ -273,6 +273,9 @@ Route::group([
     // BUDGETING
     Route::get('/paketd/index', [AdminController::class, 'paketIndex'])->name('paketd.index');
     Route::get('/paketd/create', [AdminController::class, 'paketCreate'])->name('paketd.create');
+    
+    Route::post('/paketd/created', [AdminController::class, 'paketCreated'])->name('paketd.created');
+
     Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
 });
