@@ -9,7 +9,7 @@ class tb_paket extends Model
 {
     use HasFactory;
     protected $table = "tb_paket";
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function menu()
     {
