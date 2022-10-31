@@ -57,8 +57,46 @@
             </div>
         </section>
 
+        {{-- @if (!$setting->video == null) --}}
+        <!--==================== VIDEO ====================-->
+        <section class="video section">
+            {{-- <h2 class="section__title">Video Tour</h2> --}}
+
+            <div class="video__container container">
+                {{-- <p class="video__description">Cari tahu lebih lanjut dengan video kami ini dan cari
+                    tempat yang menyenangkan untuk Anda dan keluarga.
+                </p> --}}
+
+                {{-- <div class="video__content">
+                    <video id="video-file" controls autoplay muted>
+                        @if ($setting->video == null)
+                            Video Tidak Tersedia
+                        @else
+                            <source src="{{ asset('videos') }}/{{ $setting->video }}" type="video/mp4">
+                        @endif
+                    </video>
+                    <button class="button button--flex video__button" id="video-button">
+                        <i class="ri-play-line video__button-icon" id="video-icon"></i>
+                    </button>
+                </div>
+                 --}}
+            </div>
+        </section>
+    {{-- @else
+        <section class="video section">
+            <div class="video__container container">
+                <div class="video__content">
+                    <video id="video-file" autoplay>
+                    </video>
+                    <button class="button button--flex video__button" id="video-button" type="hidden">
+                    </button>
+                </div>
+            </div>
+        </section>
+    @endif --}}
+
         <!--==================== ABOUT ====================-->
-        <section class="about section" id="about">
+        <section class="about section" id="about" style="margin-bottom: 100px">
             <div class="about__container container grid">
                 <div class="about__data">
                     <h2 class="section__title about__title">Apa itu<br> GoWisata.</h2>
@@ -71,7 +109,19 @@
                 </div>
 
                 <div class="about__img">
-                    <div class="about__img-overlay">
+                    <div class="video__content">
+                        <video id="video-file" controls autoplay muted>
+                            @if ($setting->video == null)
+                                Video Tidak Tersedia
+                            @else
+                                <source src="{{ asset('videos') }}/{{ $setting->video }}" type="video/mp4">
+                            @endif
+                        </video>
+                        <button class="button button--flex video__button" id="video-button">
+                            <i class="ri-play-line video__button-icon" id="video-icon"></i>
+                        </button>
+                    </div>
+                    {{-- <div class="about__img-overlay">
                         @if ($setting->about1 == null)
                             Gambar Tidak Tersedia
                         @else
@@ -86,7 +136,7 @@
                         @else
                             <img src="{{ asset('images/setting') }}/{{ $setting->about2 }}" alt=""
                                 class="about__img-two">
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
             </div>
@@ -202,44 +252,7 @@
 
         </section> --}}
 
-
-        @if (!$setting->video == null)
-            <!--==================== VIDEO ====================-->
-            <section class="video section">
-                <h2 class="section__title">Video Tour</h2>
-
-                <div class="video__container container">
-                    <p class="video__description">Cari tahu lebih lanjut dengan video kami ini dan cari
-                        tempat yang menyenangkan untuk Anda dan keluarga.
-                    </p>
-
-                    <div class="video__content">
-                        <video id="video-file" controls autoplay muted>
-                            @if ($setting->video == null)
-                                Video Tidak Tersedia
-                            @else
-                                <source src="{{ asset('videos') }}/{{ $setting->video }}" type="video/mp4">
-                            @endif
-                        </video>
-                        <button class="button button--flex video__button" id="video-button">
-                            <i class="ri-play-line video__button-icon" id="video-icon"></i>
-                        </button>
-                    </div>
-                </div>
-            </section>
-        @else
-            <section class="video section">
-                <div class="video__container container">
-                    <div class="video__content">
-                        <video id="video-file" autoplay>
-                        </video>
-                        <button class="button button--flex video__button" id="video-button" type="hidden">
-                        </button>
-                    </div>
-                </div>
-            </section>
-        @endif
-        </section>
+    </section>
 
 
         <!-- Modal -->
