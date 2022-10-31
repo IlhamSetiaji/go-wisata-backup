@@ -9,10 +9,10 @@
             @else
                 <img src="{{ asset('images/setting') }}/{{ $setting->home1 }}" alt="" class="home__img">
             @endif
-            <div class="home__container container grid">
-                <div class="home__data">
-                    <span class="home__data-subtitle">Temukan liburan Anda</span>
-                    <h1 class="home__data-title">Ayo Liburan<br> <b>Bersama Kami</b></h1>
+            <div class="home__container container grid" >
+                <div class="home__data" >
+                    <span class="home__data-subtitle" >Temukan liburan Anda</span>
+                    <h1 class="home__data-title" >Ayo Liburan<br> <b>Bersama Kami</b></h1>
                     <a href="{{ url('/explore') }}" class="button">Explore</a>
                 </div>
                 <div class="home__social">
@@ -23,25 +23,34 @@
                     <a href="https://twitter.com/" target="_blank" class="home__social-link">
                         <i class="ri-twitter-fill"></i></a>
                 </div>
-                {{-- @php $kegi = App\Models\Event::where('status', 1)->count(); @endphp
-                @if ($kegi > 0)
-                    <div class="home__info">
-                        <div>
+                {{-- @php $kegi = App\Models\Event::where('status', 1)->count(); @endphp --}}
+                {{-- @if ($kegi > 0) --}}
+                    <div style="margin-bottom: 100px">
+                        <div >
                             <?php
-                            $keg = App\Models\Event::where('status', 1)
-                                ->orderby('id', 'DESC')
-                                ->first();
+                            // $keg = App\Models\Event::where('status', 1)
+                            //     ->orderby('id', 'DESC')
+                            //     ->first();
                             ?>
-                            <span class="home__info-title">Event yang seru </span>
+                            <h2 class="section__title" style="color: white"> Sesuaikan wisatamu dengan budgetmu! </h2>
+                            <div class="d-flex justify-content-center">
+                                <!-- Button trigger modal -->
+                                <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#form-budgeting">
+                                    Klik di Sini
+                                </button>
+                            </div>
+
+
+                            {{-- <span class="home__info-title">Event yang seru </span>
                             <a href="{{ url('/explore-event') }}"
                                 class="button button--flex button--link home__info-button">
-                                More <i class="ri-arrow-right-line"></i></a>
+                                More <i class="ri-arrow-right-line"></i></a> --}}
                         </div>
-                        <div class="home__info-overlay">
+                        {{-- <div class="home__info-overlay">
                             <img src="{{ asset('images') }}/{{ $keg->foto }}" alt="" class="home__info-img">
-                        </div>
+                        </div> --}}
                     </div>
-                @endif --}}
+                {{-- @endif --}}
             </div>
         </section>
 
@@ -228,6 +237,75 @@
             </section>
         @endif
         </section>
+
+
+        <!-- Modal -->
+    <div class="modal fade" id="form-budgeting" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">E-Budgeting</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="e-budgeting">
+                <form action="{{ route('front.budget', [$tempat->slug]) }}" method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
+                                <input type="text" class="form-control" name="desa"
+                                    value="Desa Wisata Kare" disabled>
+                            </div>
+                        </div>
+                        {{-- {{ dd($penginapan) }} --}}
+                        {{-- @if ($penginapan == null)
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
+                                    <input type="number" class="form-control" name="jmlh_hari" required
+                                        id="jml_hari">
+                                </div>
+                            </div>
+                        @else --}}
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
+                                    <input type="number" class="form-control" name="jmlh_hari"
+                                        placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled
+                                        id="jml_hari">
+                                </div>
+                            </div>
+                        {{-- @endif --}}
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label for="budget" class="form-label">Berapa Orang?</label>
+                                <input type="number" class="form-control" name="orang" required
+                                    id="jml_dewasa">
+                            </div>
+                        </div>
+                       
+                        <div class="col-lg-12">
+                            <div class="mb-3">
+                                <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
+                                    Hitung</label>
+                                <input type="number" class="form-control" name="budget" required
+                                    id="jml_budget">
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    id="close-budgeting">Close</button>
+                <button type="submit" class="btn btn-primary" >Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     </main>
 
     <!-- Modal -->
