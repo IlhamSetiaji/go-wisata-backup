@@ -32,29 +32,22 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        // $this->validator($request->all())->validate();
-        $checkValid = Validator::make($request->all(), [
+        $checkValidator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'telp' => ['required', 'numeric', 'min:10'],
         ]);
-        // $checkValid = $request->validate([
-        //     'name' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'password' => ['required', 'string', 'min:6', 'confirmed'],
-        //     'telp' => ['required', 'numeric', 'min:10'],
-        // ]);
-        // dd($checkValid->getMessageBag()->first());
-        if ($checkValid->failed() != '') {
-            Alert::error('Error', $checkValid->getMessageBag()->first());
+        // dd($checkValidator->errors()->getMessageBag()->all()[0]);
 
-            return redirect()->back()->withInput();
+
+        if ($checkValidator->fails()) {
+            Alert::error('Error', $checkValidator->errors()->getMessageBag()->all()[0]);
+            return back()->withInput();
         }
 
         event(new Registered($user = $this->create($request->all())));
         $this->guard()->login($user);
-
 
         if ($response = $this->registered($request, $user)) {
             return $response;
@@ -63,6 +56,7 @@ trait RegistersUsers
         return $request->wantsJson()
             ? new JsonResponse([], 201)
             : redirect('email/verify');
+
     }
 
     /**
