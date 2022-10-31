@@ -55,12 +55,12 @@
                                     <li class="nav-item flex-fill" role="presentation">
                                         <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab"
                                             data-bs-target="#home-justified" type="button" role="tab"
-                                            aria-controls="home" aria-selected="true">Login</button>
+                                            aria-controls="home" aria-selected="true">Masuk</button>
                                     </li>
                                     <li class="nav-item flex-fill" role="presentation">
                                         <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab"
                                             data-bs-target="#profile-justified" type="button" role="tab"
-                                            aria-controls="profile" aria-selected="false">Register</button>
+                                            aria-controls="profile" aria-selected="false">Daftar</button>
                                     </li>
 
                                 </ul>
@@ -74,7 +74,7 @@
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <b>
-                                                    <h2 class="fw-bolder">Login</h2>
+                                                    <h2 class="fw-bolder">Masuk</h2>
                                                 </b>
                                             </div>
                                             <span class="form-label">Email</span>
@@ -91,7 +91,7 @@
                                                 @if (Route::has('password.request'))
                                                     <a href="{{ route('password.request') }}"> Lupa Password?</a>
                                                 @endif
-                                                <input type="submit" class="btn btn-primary" value="Sign in" />
+                                                <input type="submit" class="btn btn-primary" value="Masuk" />
                                             </div>
 
                                         </div>
@@ -105,7 +105,7 @@
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <b>
-                                                    <h2 class="fw-bolder">Register</h2>
+                                                    <h2 class="fw-bolder">Daftar</h2>
                                                 </b>
                                             </div>
                                             <div class="mt-3">
@@ -141,7 +141,7 @@
                                                     value="{{ old('telp') }}">
                                             </div>
                                             <div class="d-flex justify-content-end mt-4">
-                                                <input type="submit" class="btn btn-primary" value="Sign up" />
+                                                <input type="submit" class="btn btn-primary" value="Daftar" />
                                             </div>
                                         </div>
 
