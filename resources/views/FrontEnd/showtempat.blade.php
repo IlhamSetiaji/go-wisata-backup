@@ -131,67 +131,60 @@
 
         {{-- DESKRIPSI --}}
 
-        @if ($tempat->deskripsi == "")
-            
+
+        @if ($tempat->deskripsi == '')
         @else
-        <section class="about_section">
-            <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
+            <section class="about_section">
+                <h2 class="section__title">Tentang {{ $tempat->name }}</h2>
 
-            <div class="container">
-                <p class="about__container">{{ $tempat->deskripsi }}</p>
-            </div>
-        </section>
-
+                <div class="container">
+                    <p class="about__container">{{ $tempat->deskripsi }}</p>
+                </div>
+            </section>
         @endif
 
 
         {{-- SEJARAH --}}
-        @if ($tempat->sejarah == "")
-            
+        @if ($tempat->sejarah == '')
         @else
-        <section class="about_section">
-            <h2 class="section__title">Sejarah {{ $tempat->name }}</h2>
+            <section class="about_section">
+                <h2 class="section__title">Sejarah {{ $tempat->name }}</h2>
 
-            <div class="container">
-                <p class="about__container">{{ $tempat->sejarah }}</p>
-            </div>
-        </section>
-            
+                <div class="container">
+                    <p class="about__container">{{ $tempat->sejarah }}</p>
+                </div>
+            </section>
         @endif
 
-        
-            
-        
+
+
+
 
         {{-- akses --}}
 
-        @if ($tempat->akses == "")
-            
+        @if ($tempat->akses == '')
         @else
+            <section class="about_section">
+                <h2 class="section__title">Akses ke {{ $tempat->name }}</h2>
 
-        <section class="about_section">
-            <h2 class="section__title">Akses ke {{ $tempat->name }}</h2>
-
-            <div class="container">
-                <p class="about__container">{{ $tempat->akses }}</p>
-            </div>
-        </section>
+                <div class="container">
+                    <p class="about__container">{{ $tempat->akses }}</p>
+                </div>
+            </section>
         @endif
 
 
         {{-- atraksi --}}
 
-        @if ($tempat->atraksi == "")
-            
+        @if ($tempat->atraksi == '')
         @else
+            <section class="about_section">
+                <h2 class="section__title">Atraksi di {{ $tempat->name }}</h2>
 
-        <section class="about_section">
-            <h2 class="section__title">Atraksi di {{ $tempat->name }}</h2>
-
-            <div class="container">
-                <p class="about__container">{{ $tempat->atraksi }}</p>
-            </div>
-        </section>
+                <div class="container">
+                    <p class="about__container">{{ $tempat->atraksi }}</p>
+                </div>
+            </section>
         @endif
 
 
@@ -392,6 +385,7 @@
                     </div>
                 </section>
             @endif
+
             @if (count($event) > 0)
                 <section class="place section" id="place">
                     <h2 class="section__title">Event Disekitar {{ $tempat->name }}</h2>
@@ -502,9 +496,10 @@
 
 
         </section>
+        {{-- {{ dd($tempat2) }} --}}
 
 
-        @if (!$tempat2->video == null)
+        @if (!$tempat2->video == '')
             <!--==================== VIDEO ====================-->
             <section class="video section">
                 <h2 class="section__title">Video Tour</h2>
@@ -515,10 +510,10 @@
                     </p>
 
                     <div class="video__content">
-                        <video id="video-file">
+                        <video id="video-file" controls autoplay muted>
 
                             {{-- <source src="https://www.youtube.com/watch?v=zJNIFyVAmQw" type="video/mp4"> --}}
-                            <source src="{{ asset('videos') }}/{{ $tempat2->video }}" type="video/mp4">
+                            <source src="{{ asset('videos') . '/' . $tempat2->video }}" type="video/mp4">
                             {{-- <source src="{{ asset('./vendor/depan/assets/video/video.mp4') }}" type="video/mp4"> --}}
                         </video>
 

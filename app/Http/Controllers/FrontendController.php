@@ -270,11 +270,12 @@ class FrontendController extends Controller
 
             $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
 
+            // dd($tempat2->video);
             return view('FrontEnd/showtempat', compact('event', 'setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
             // $penginapanSekitars = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
             // dd($penginapan);
 
-            return view('FrontEnd/showtempat', compact('setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+            // return view('FrontEnd/showtempat', compact('setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
         }
 
         if ($tempat->kategori == "desa") {
