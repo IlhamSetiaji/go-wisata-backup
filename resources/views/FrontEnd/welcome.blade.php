@@ -13,7 +13,7 @@
                 <div class="home__data" >
                     <span class="home__data-subtitle" >Temukan liburan Anda</span>
                     <h1 class="home__data-title" >Ayo Liburan<br> <b>Bersama Kami</b></h1>
-                    <a href="{{ url('/explore') }}" class="button">Explore</a>
+                    <a href="{{ url('/explore') }}" class="btn btn-primary btn-lg">Explore</a>
                 </div>
                 <div class="home__social">
                     <a href="https://www.facebook.com/" target="_blank" class="home__social-link"><i
@@ -25,8 +25,11 @@
                 </div>
                 {{-- @php $kegi = App\Models\Event::where('status', 1)->count(); @endphp --}}
                 {{-- @if ($kegi > 0) --}}
-                    <div style="margin-bottom: 100px">
-                        <div >
+                        <div style="
+                        position: absolute;
+                        top: 300px;
+                        left: 600px;
+                        ">
                             <?php
                             // $keg = App\Models\Event::where('status', 1)
                             //     ->orderby('id', 'DESC')
