@@ -51,6 +51,13 @@
             <div class="col-md-5">
                 <h3>{{ $paket->nama_paket }}</h3>
                 <p>Harga : Rp{{ $paket->harga }},00 </p>
+                <p>Detail:</p>
+                <ul>
+                    <li>Vila: </li>
+                    <li>Kamar: </li>
+                    <li>Hari: {{ $paket->jml_hari }} </li>
+                    <li>Orang:{{ $paket->jml_orang }} </li>
+                </ul>
                 {{-- <p>Penginapan : {{ $paket->id_villa }}</p>
                 <p>Kamar : {{ $paket->id_kamar }} </p> --}}
 
