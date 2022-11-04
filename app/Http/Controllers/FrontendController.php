@@ -46,6 +46,7 @@ class FrontendController extends Controller
     public function index()
     {
         $tempat  = Tempat::where('kategori', 'desa')->orderby('id', 'ASC')->where('status', '1')->get();
+        $desa  = Tempat::where('kategori', 'desa')->orderby('id', 'ASC')->where('status', '1')->get();
         $unggulan  = Tempat::where('unggulan', '1')->where('status', '1')->get();
         $setting =  Setting::first();
         $kegiatan = Kegiatan::latest()->get();
@@ -55,8 +56,21 @@ class FrontendController extends Controller
             "tempat" => $tempat,
             "setting" => $setting,
             "kegiatan" => $kegiatan,
-            "unggulan" => $unggulan
+            "unggulan" => $unggulan,
+            "desas" => $desa
         ]);
+    }
+
+    public function getPenginapan(Request $request)
+    {
+        $desa_id = $request->desa_id;
+        $penginapans = count(Tempat::where('induk_id', $desa_id)->where('kategori', 'penginapan')->where('status', 1)->get());
+        // dd($penginapans);
+        if ($penginapans != null) {
+            echo "<input type='number' class='form-control' name='jml_hari' id='jml_hari' required>";
+        } else {
+            echo "<input type='number' class='form-control' name='jml_hari' placeholder='Mohon maaf tidak ada penginapan disekitar sini' disabled id='jml_hari'>";
+        }
     }
     public function explore()
     {
@@ -218,20 +232,47 @@ class FrontendController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
-    public function budgeting(Request $request) {
-        
-        $budget = $request->budget;
 
-        $paket = DB::table("tb_pakets")
-        ->select("tb_pakets.*")
-        ->where("tb_pakets.harga", "<=", $budget)
-        ->get();
-        
+    public function budgeting(Request $request)
+    {
+        // dd($request->jml_hari);
+
+        $budget = $request->jml_budget;
+        $hari = $request->jml_hari;
+        $desa = $request->desa;
+        $jumlahOrang = $request->jml_orang;
+
+        if ($hari != null) {
+            $pakets = DB::table("tb_pakets")
+                ->select("tb_pakets.*")
+                ->where("tb_pakets.harga", "<=", $budget)
+                ->where('id_desa', '=', $desa)
+                ->where('jml_hari', '<=', $hari)
+                ->where('jml_orang', "<=", $jumlahOrang)
+                ->get();
+        } else {
+            $pakets = DB::table("tb_pakets")
+                ->select("tb_pakets.*")
+                ->where("tb_pakets.harga", "<=", $budget)
+                ->where('id_desa', '=', $desa)
+                ->where('jml_orang', "<=", $jumlahOrang)
+                ->get();
+        }
+        // foreach ($pakets as $paket) {
+        // echo '<tr>
+        // <th scope="row">{{$paket->nama_paket}}</th> <td>{{$paket->harga}}</td><td><button type="button" class="btn btn-success">Detail</button><button type="button" class="btn btn-primary">Beli</button></td></tr>';
+        // }
+        // if ($penginapans != null) {
+        //     echo "<input type='number' class='form-control' name='jmlh_hari' id='jml_hari' required>";
+        // } else {
+        //     echo "<input type='number' class='form-control' name='jmlh_hari' placeholder='Mohon maaf tidak ada penginapan disekitar sini' disabled id='jml_hari'>";
+        // }
+
+        // return response()->json(['pakets' => $pakets]);
+        // return response()->json(['pakets' => $pakets]);
         return view('FrontEnd.budgeting', [
-            'paket' => $paket,
+            'paket' => $pakets,
             'budget' => $budget
-            
         ]);
     }
 
@@ -298,8 +339,8 @@ class FrontendController extends Controller
             $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
 
             $paket = tb_paket::all();
-            
-            return view('FrontEnd/showtempatd', compact('paket','setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+
+            return view('FrontEnd/showtempatd', compact('paket', 'setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
         }
 
 

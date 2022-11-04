@@ -61,6 +61,7 @@ use Illuminate\Auth\Events\Login;
 
 Auth::routes(['verify' => true]);
 Route::resource('/', FrontendController::class);
+Route::post('/get-penginapan', [FrontendController::class, 'getPenginapan'])->name('get-penginapan');
 //event
 Route::get('/explore', [FrontendController::class, 'explore']);
 Route::get('/explore-event', [FrontendController::class, 'explore_event']);
@@ -273,7 +274,7 @@ Route::group([
     // BUDGETING
     Route::get('/paketd/index', [AdminController::class, 'paketIndex'])->name('paketd.index');
     Route::get('/paketd/create', [AdminController::class, 'paketCreate'])->name('paketd.create');
-    
+
     Route::post('/paketd/created', [AdminController::class, 'paketCreated'])->name('paketd.created');
 
     Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budget.index');
@@ -459,6 +460,7 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
 Route::post('/budgeting/{slug}', [FrontendController::class, 'budgeting'])->name('front.budget');
+Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');
 Route::get('/kuliner/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showk');
@@ -493,4 +495,3 @@ Route::any('video-upload2',  [App\Http\Controllers\TempatController::class, 'vid
 Route::post('crop-image-before-upload-using-croppie', [App\Http\Controllers\CropImageController::class, 'uploadCropImage2'])->name('croppie.upload-image');
 Route::resource('/kegiatan', KegiatanController::class)->middleware('verified');
 Route::get('/status/update/kegiatan/{kode}', [KegiatanController::class, 'toggleStatus'])->name('update.status.kegiatan')->middleware('verified');
-
