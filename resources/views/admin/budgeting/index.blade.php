@@ -77,17 +77,51 @@
                                     <table class="table table-hover" id="admin">
                                         <thead>
                                             <tr>
-                                                <th></th>
                                                 <th scope="col">No</th>
                                                 <th scope="col">Nama Paket</th>
                                                 <th scope="col">Jumlah Orang</th>
                                                 <th scope="col">Jumlah Hari</th>
                                                 <th scope="col">Status</th>
+                                                <th scope="col">Harga</th>
                                                 <th scope="col">Aksi</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($pakets as $paket)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $paket->nama_paket }}</td>
+                                                    <td>{{ $paket->jml_orang }}</td>
+                                                    <td>{{ $paket->jml_hari }}</td>
+                                                    @if ($paket->status == 1)
+                                                        <td>Aktif</td>
+                                                    @else
+                                                        <td>Tidak Aktif</td>
+                                                    @endif
+                                                    <td>{{ $paket->harga }}</td>
+                                                    <td>
+                                                        <form action="{{ route('update-status') }}" method="POST"
+                                                            class="d-inline">
+                                                            @csrf
+                                                            @if ($paket->status == 1)
+                                                                <input type="text" name="id"
+                                                                    value="{{ $paket->id }}" hidden>
+                                                                <input type="text" name="status" id="status"
+                                                                    value="0" hidden>
+                                                                <button class="btn btn-secondary">Nonaktifkan</button>
+                                                            @else
+                                                                <input type="text" name="id"
+                                                                    value="{{ $paket->id }}" hidden>
+                                                                <input type="text" name="status" id="status"
+                                                                    value="1" hidden>
+                                                                <button class="btn btn-success">Aktifkan</button>
+                                                            @endif
+                                                        </form>
+                                                        <a href="" class="btn btn-warning">Edit</a>
+                                                        <a href="" class="btn btn-info">Detail</a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

@@ -82,14 +82,14 @@ Route::get('/explore_desa_wisata', [FrontendController::class, 'explore_desa_wis
 Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
-Route::resource('/profile', ProfileController::class)->middleware('verified');
+Route::resource('/profile', ProfileController::class)->middleware(['verified', 'customer']);
 Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
 
 //login admin
-Route::get('/login-admin', [LoginAdminController::class, 'index']);
+Route::get('/login-admin', [LoginAdminController::class, 'index'])->middleware('guest');
 Route::post('/post-login', [LoginAdminController::class, 'login']);
 
 Route::group([
@@ -279,6 +279,8 @@ Route::group([
 
     Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
+    Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
+    Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
 });
 
 Route::group([

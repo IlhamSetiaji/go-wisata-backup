@@ -71,6 +71,7 @@ class Kernel extends HttpKernel
         'penginapan' => \App\Http\Middleware\Penginapan::class,
         'desa' => \App\Http\Middleware\Desa::class,
         'event.sewatempat' => \App\Http\Middleware\Event::class,
+        'customer' => \App\Http\Middleware\Customer::class
 
     ];
 }

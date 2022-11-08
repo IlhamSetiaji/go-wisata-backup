@@ -17,6 +17,7 @@ class CreateTbPaketsTable extends Migration
             $table->id();
             $table->foreignId('id_kamar')->constrained('tb_kamar')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('id_villa')->constrained('tb_villa')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('id_desa');
             $table->string('nama_paket');
             $table->string('jml_hari')->nullable();
             $table->string('jml_orang')->nullable();

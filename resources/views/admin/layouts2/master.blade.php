@@ -70,24 +70,24 @@
                                 </a>
                             </li>
 
-                            <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
+                            <li class="sidebar-item  {{ request()->is('adesa/budgeting*') ? 'active' : '' }}">
+                                <a href="{{ route('budget.index') }}" class='sidebar-link'>
+                                    <i class="bi bi-cash"></i>
+                                    <span>E-Budgeting</span>
+                                </a>
+                            </li>
+                            {{-- <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
                                 <a href="{{ route('paketd.index') }}" class='sidebar-link'>
                                     <i class="fa-solid fa-boxes-stacked"></i>
                                     <span>Paket</span>
                                 </a>
-                            </li>
+                            </li> --}}
 
                             <hr>
                             <li class="sidebar-item  {{ request()->is('adesa/rekapd*') ? 'active' : '' }}">
                                 <a href="{{ route('rekapd.index') }}" class='sidebar-link'>
                                     <i class="far fa-file"></i>
                                     <span>Rekap Data</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item  {{ request()->is('adesa/budgeting*') ? 'active' : '' }}">
-                                <a href="{{ route('budget.index') }}" class='sidebar-link'>
-                                    <i class="bi bi-cash"></i>
-                                    <span>E-Budgeting</span>
                                 </a>
                             </li>
                         @endif

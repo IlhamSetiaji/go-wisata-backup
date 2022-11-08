@@ -31,9 +31,11 @@
                             <a href="{{ route('pesananku') }}" class="nav__link">Pesananku</a>
                         </li>
                     @endif
-                    <li class="nav__item">
-                        <a href="{{ url('/profile') }}" class="nav__link">Profile</a>
-                    </li>
+                    @can('customer')
+                        <li class="nav__item">
+                            <a href="{{ url('/profile') }}" class="nav__link">Profile</a>
+                        </li>
+                    @endcan
                     <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav__link"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();">
