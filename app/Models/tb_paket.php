@@ -33,4 +33,17 @@ class tb_paket extends Model
     {
         return $this->belongsToMany(Wahana::class);
     }
+
+    public function paketwisata()
+    {
+        return $this->hasMany(tb_paketwisata::class);
+    }
+    public function paketwahana()
+    {
+        return $this->hasMany(tb_paketwahana::class);
+    }
+    public function paketpenginapan()
+    {
+        return $this->hasMany(tb_paketpenginapan::class);
+    }
 }
