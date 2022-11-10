@@ -281,6 +281,7 @@ Route::group([
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
     Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
     Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
+    Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
 });
 
 Route::group([

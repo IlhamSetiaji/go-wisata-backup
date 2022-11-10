@@ -82,7 +82,7 @@
                                                             value="{{ $dataDesa->name }}" required readonly>
                                                         <input type="text"
                                                             class="form-control"
-                                                            name='id_desa' value="{{ $dataDesa->id }}" required hidden>
+                                                            name='id_desa' value="{{ $dataDesa->tempat_id }}" required hidden>
                                                     </div>
                                                 </div>
                                             </div>

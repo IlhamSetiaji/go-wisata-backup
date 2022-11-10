@@ -16,4 +16,8 @@ class tb_paketwisata extends Model
     {
         return $this->belongsTo(tb_paket::class);
     }
+    public function tempat()
+    {
+        return $this->belongsTo(Tempat::class);
+    }
 }
