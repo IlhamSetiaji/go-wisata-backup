@@ -263,13 +263,14 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body" id="e-budgeting">
-                        <form action="{{ route('front.budget', [$tempat->slug]) }}" method="post">
+                        <form action="{{ route('front.budget', Crypt::encrypt(rand())) }}" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
-                                        <select class="form-select" aria-label="Default select example" id="desa" name="desa">
+                                        <select class="form-select" aria-label="Default select example" id="desa"
+                                            name="desa">
                                             <option selected>Pilih desa</option>
                                             @foreach ($desas as $desa)
                                                 <option value="{{ $desa->id }}">{{ $desa->name }}</option>

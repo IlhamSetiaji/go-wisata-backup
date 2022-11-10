@@ -238,6 +238,22 @@ class FrontendController extends Controller
 
     public function budgeting(Request $request)
     {
+        //validation request
+        if ($request->jml_hari != '') {
+            $request->validate([
+                'jml_budget' => 'required|integer',
+                'desa' => 'required',
+                'jml_hari' => 'required|integer',
+                'jml_orang' => 'required|integer',
+            ]);
+        } else {
+            $request->validate([
+                'jml_budget' => 'required|integer',
+                'desa' => 'required',
+                'jml_orang' => 'required|integer',
+            ]);
+        }
+
         $budget = $request->jml_budget;
         $hari = $request->jml_hari;
         $desa = $request->desa;
@@ -318,6 +334,8 @@ class FrontendController extends Controller
                 array_push($dataPaketWahana, $tempPaketWahana);
             }
         }
+
+        // dd(count($pakets));
 
         return view('FrontEnd.budgeting', [
             'paket' => $pakets,
