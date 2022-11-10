@@ -277,10 +277,11 @@ Route::group([
 
     Route::post('/paketd/created', [AdminController::class, 'paketCreated'])->name('paketd.created');
 
-    Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budget.index');
+    Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
     Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
     Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
+    Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
 });
 
 Route::group([
@@ -461,7 +462,7 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
-Route::post('/budgeting/{slug}', [FrontendController::class, 'budgeting'])->name('front.budget');
+Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');

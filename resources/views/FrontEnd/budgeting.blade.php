@@ -28,7 +28,7 @@
 
 </head>
 
-<body onload="myFunction()">
+<body>
 
     <!-- Page Content -->
     <div class="container">
@@ -39,33 +39,71 @@
         </h1>
 
         <!-- Project One -->
-        @foreach ($paket as $paket)
-            
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="https://source.unsplash.com/700x300/?{{ $paket->nama_paket }}"
-                        alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>{{ $paket->nama_paket }}</h3>
-                <p>Harga : Rp{{ $paket->harga }},00 </p>
-                <p>Detail:</p>
-                <ul>
-                    <li>Vila: </li>
-                    <li>Kamar: </li>
-                    <li>Hari: {{ $paket->jml_hari }} </li>
-                    <li>Orang:{{ $paket->jml_orang }} </li>
-                </ul>
-                {{-- <p>Penginapan : {{ $paket->id_villa }}</p>
-                <p>Kamar : {{ $paket->id_kamar }} </p> --}}
+        @if (count($paket) != '')
 
-                <a class="btn btn-primary" href="#">Pesan</a>
-            </div>
-        </div>
-        <hr>
-        @endforeach
+            @foreach ($paket as $paket)
+                <div class="row">
+                    <div class="col-md-7">
+                        <a href="#">
+                            <img class="img-fluid rounded mb-3 mb-md-0"
+                                src="https://source.unsplash.com/700x300/?{{ $paket->nama_paket }}" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-5">
+                        <h3>{{ $paket->nama_paket }}</h3>
+                        <p>Harga : Rp{{ $paket->harga }},00 </p>
+                        <p>Detail:</p>
+                        <ul>
+                            <li>Hari: {{ $paket->jml_hari }} </li>
+                            <li>Orang:{{ $paket->jml_orang }} </li>
+                            <li>
+                                <h5>Wisata</h5>
+                                <ul>
+                                    @foreach ($wisatas as $items)
+                                        @foreach ($items as $wisata)
+                                            @if ($wisata->paket_id == $paket->id)
+                                                <li>{{ $wisata->tempat->name }}</li>
+                                            @else
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>Penginapan</h5>
+                                <ul>
+                                    @foreach ($penginapans as $items)
+                                        @foreach ($items as $penginapan)
+                                            @if ($penginapan->paket_id == $paket->id)
+                                                <li>{{ $penginapan->tempat->name }}</li>
+                                            @else
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>Wahana</h5>
+                                <ul>
+                                    @foreach ($wahanas as $items)
+                                        @foreach ($items as $wahana)
+                                            @if ($wahana->paket_id == $paket->id)
+                                                <li>{{ $wahana->tempat->name }}</li>
+                                            @else
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                </ul>
+                            </li>
+                        </ul>
+                        {{-- <p>Kamar : {{ $paket->id_kamar }} </p> --}}
+
+                        <a class="btn btn-primary" href="#">Pesan</a>
+                    </div>
+                </div>
+                <hr>
+            @endforeach
+        @endif
 
         <!-- Pagination -->
         {{-- <ul class="pagination justify-content-center">

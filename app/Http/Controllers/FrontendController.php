@@ -27,6 +27,9 @@ use App\Models\ReviewEvent;
 use App\Models\ReviewTempatSewa;
 use App\Models\ReviewVilla;
 use App\Models\tb_paket;
+use App\Models\tb_paketpenginapan;
+use App\Models\tb_paketwahana;
+use App\Models\tb_paketwisata;
 use App\Models\TempatSewa;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -235,44 +238,111 @@ class FrontendController extends Controller
 
     public function budgeting(Request $request)
     {
-        // dd($request->jml_hari);
+        //validation request
+        if ($request->jml_hari != '') {
+            $request->validate([
+                'jml_budget' => 'required|integer',
+                'desa' => 'required',
+                'jml_hari' => 'required|integer',
+                'jml_orang' => 'required|integer',
+            ]);
+        } else {
+            $request->validate([
+                'jml_budget' => 'required|integer',
+                'desa' => 'required',
+                'jml_orang' => 'required|integer',
+            ]);
+        }
 
         $budget = $request->jml_budget;
         $hari = $request->jml_hari;
         $desa = $request->desa;
         $jumlahOrang = $request->jml_orang;
+        $highestHarga = tb_paket::where('id_desa', '=', $desa)->where('status', 1)->max('harga');
 
+        //get data from database
         if ($hari != null) {
-            $pakets = DB::table("tb_pakets")
-                ->select("tb_pakets.*")
-                ->where("tb_pakets.harga", "<=", $budget)
-                ->where('id_desa', '=', $desa)
-                ->where('jml_hari', '<=', $hari)
-                ->where('jml_orang', "<=", $jumlahOrang)
-                ->get();
+            if ($budget >= $highestHarga) {
+                $pakets = tb_paket::where('id_desa', '=', $desa)
+                    ->where('jml_hari', '>=', $hari)
+                    ->where('jml_orang', ">=", $jumlahOrang)
+                    ->orderBy('harga', 'desc')
+                    ->where('status', 1)
+                    ->get();
+            } else {
+                $pakets = tb_paket::where('id_desa', '=', $desa)
+                    ->where('jml_hari', '>=', $hari)
+                    ->where('jml_orang', ">=", $jumlahOrang)
+                    ->where("tb_pakets.harga", "<=", $budget)
+                    ->where('status', 1)
+                    ->orderBy('harga', 'desc')
+                    ->where('status', 1)
+                    ->get();
+            }
         } else {
-            $pakets = DB::table("tb_pakets")
-                ->select("tb_pakets.*")
-                ->where("tb_pakets.harga", "<=", $budget)
-                ->where('id_desa', '=', $desa)
-                ->where('jml_orang', "<=", $jumlahOrang)
-                ->get();
+            if ($budget >= $highestHarga) {
+                $pakets = tb_paket::where('id_desa', '=', $desa)
+                    ->where('jml_hari', '>=', $hari)
+                    ->where('jml_orang', ">=", $jumlahOrang)
+                    ->orderBy('harga', 'desc')
+                    ->where('status', 1)
+                    ->get();
+            } else {
+                $pakets = DB::table("tb_pakets")
+                    ->select("tb_pakets.*")
+                    ->where('id_desa', '=', $desa)
+                    ->where('jml_orang', ">=", $jumlahOrang)
+                    ->where("tb_pakets.harga", "<=", $budget)
+                    ->where('status', 1)
+                    ->get();
+            }
         }
-        // foreach ($pakets as $paket) {
-        // echo '<tr>
-        // <th scope="row">{{$paket->nama_paket}}</th> <td>{{$paket->harga}}</td><td><button type="button" class="btn btn-success">Detail</button><button type="button" class="btn btn-primary">Beli</button></td></tr>';
-        // }
-        // if ($penginapans != null) {
-        //     echo "<input type='number' class='form-control' name='jmlh_hari' id='jml_hari' required>";
-        // } else {
-        //     echo "<input type='number' class='form-control' name='jmlh_hari' placeholder='Mohon maaf tidak ada penginapan disekitar sini' disabled id='jml_hari'>";
-        // }
 
-        // return response()->json(['pakets' => $pakets]);
-        // return response()->json(['pakets' => $pakets]);
+        //get id setiap paket
+        $dataIdPaktes = [];
+        foreach ($pakets as $paket) {
+            array_push($dataIdPaktes, $paket->id);
+        }
+
+        //get paket wisata setiap paket
+        $dataPaketWisata = [];
+        foreach ($dataIdPaktes as $id) {
+            $cekIdPaketWisata = tb_paketwisata::where('paket_id', $id)->first();
+            if ($cekIdPaketWisata != '') {
+                $tempPaketWisata = tb_paketwisata::where('paket_id', $id)->get();
+                array_push($dataPaketWisata, $tempPaketWisata);
+            }
+        }
+
+        //get paket penginapan setiap paket
+        $dataPaketPenginapan = [];
+        foreach ($dataIdPaktes as $id) {
+            $cekIdPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->first();
+            if ($cekIdPaketPenginapan != '') {
+                $tempPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
+                array_push($dataPaketPenginapan, $tempPaketPenginapan);
+            }
+        }
+        // dd($dataPaketPenginapan);
+
+        //get paket wahana setiap paket
+        $dataPaketWahana = [];
+        foreach ($dataIdPaktes as $id) {
+            $cekIdPaketWahana = tb_paketwahana::where('paket_id', $id)->first();
+            if ($cekIdPaketWahana != '') {
+                $tempPaketWahana = tb_paketwahana::where('paket_id', $id)->get();
+                array_push($dataPaketWahana, $tempPaketWahana);
+            }
+        }
+
+        // dd(count($pakets));
+
         return view('FrontEnd.budgeting', [
             'paket' => $pakets,
-            'budget' => $budget
+            'budget' => $budget,
+            'wisatas' => $dataPaketWisata,
+            'penginapans' => $dataPaketPenginapan,
+            'wahanas' => $dataPaketWahana
         ]);
     }
 

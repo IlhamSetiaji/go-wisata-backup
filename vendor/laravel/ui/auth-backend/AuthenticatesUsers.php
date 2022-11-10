@@ -20,6 +20,7 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
+        $this->middleware('guest');
         return view('auth.login-user');
     }
 

@@ -132,4 +132,20 @@ class BudgetingController extends Controller
         tb_paket::where('id', $request->id)->update(['status' => $request->status]);
         return redirect(route('budget.index'));
     }
+
+    public function getPaket(Request $request)
+    {
+        // $dataPaket = tb_paket::where('id', $request->paket_id)->pluck('id')->first();
+        $paketWisata = tb_paketwisata::where('paket_id', $request->paket_id)->get();
+        $paketWahana = tb_paketwisata::where('paket_id', $request->paket_id)->get();
+        // $response = '<p>PPPPPPPPPPPPPPPP</p>';
+        $response = '';
+        $response .= '<p>' . $paketWisata . '<p>';
+        // if (count($paketWisata) > 0) {
+        //     foreach ($paketWisata as $paket) {
+        //     }
+        // }
+
+        echo $request->paket_id;
+    }
 }

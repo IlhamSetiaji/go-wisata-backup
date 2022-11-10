@@ -10,9 +10,13 @@ class tb_paketpenginapan extends Model
     use HasFactory;
     protected $table = "tb_paketpenginapan";
     protected $guarded = ['id'];
-    
+
     public function paket()
     {
         return $this->belongsTo(tb_paket::class);
+    }
+    public function tempat()
+    {
+        return $this->belongsTo(Tempat::class);
     }
 }

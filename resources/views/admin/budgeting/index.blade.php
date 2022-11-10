@@ -108,17 +108,25 @@
                                                                     value="{{ $paket->id }}" hidden>
                                                                 <input type="text" name="status" id="status"
                                                                     value="0" hidden>
-                                                                <button class="btn btn-secondary">Nonaktifkan</button>
+                                                                <button class="btn btn-secondary mb-1">Nonaktifkan</button>
                                                             @else
                                                                 <input type="text" name="id"
                                                                     value="{{ $paket->id }}" hidden>
                                                                 <input type="text" name="status" id="status"
                                                                     value="1" hidden>
-                                                                <button class="btn btn-success">Aktifkan</button>
+                                                                <button class="btn btn-success mb-1">Aktifkan</button>
                                                             @endif
                                                         </form>
-                                                        <a href="" class="btn btn-warning">Edit</a>
-                                                        <a href="" class="btn btn-info">Detail</a>
+                                                        {{-- <input type="text" id="id_paket" value="{{ $paket->id }}" --}}
+                                                        {{-- hidden> --}}
+                                                        <button class="btn btn-warning mb-1">Edit</button>
+                                                        <button id="detail" class="btn btn-info"data-bs-toggle="modal"
+                                                            data-bs-target="#modal-detail" data-id="{{ $paket->id }}"
+                                                            data-nama="{{ $paket->nama_paket }}"
+                                                            data-orang="{{ $paket->jml_orang }}"
+                                                            data-status="{{ $paket->status }}"
+                                                            data-harga="{{ $paket->harga }}"
+                                                            data-hari="{{ $paket->jml_hari }}">Detail</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -131,15 +139,171 @@
                 </div>
             </section>
             <!-- Hoverable rows end -->
+            <div class="modal fade" id="modal-detail" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Detail Paket</h5>
+                            <button type="button" class="btn-close" id="close-budgeting" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="budget">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Name Paket</label>
+                                <input type="text" id="nama-paket" class="form-control" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Jumlah Orang</label>
+                                <input type="text" id="jml_orang" class="form-control" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Jumlah Hari</label>
+                                <input type="text" id="jml_hari" class="form-control" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Status</label>
+                                <input type="text" id="status_budget" class="form-control" disabled>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Harga</label>
+                                <input type="text" id="harga_budget" class="form-control" disabled>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" id="close-budgeting" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <script></script>
         <script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
         {{-- <script src="{{asset('assets/vendors/fontawesome/all.min.js')}}"></script> --}}
         <script>
-            // Simple Datatable
+            $(document).ready(function() {
+                $(document).on('click', '#detail', function() {
+                    var nama_paket = $(this).data('nama');
+                    var jml_orang = $(this).data('orang');
+                    var jml_hari = $(this).data('hari');
+                    var status = $(this).data('status');
+                    var harga = $(this).data('harga');
+                    var id = $(this).data('id_paket1');
+                    $('#nama-paket').val(nama_paket);
+                    $('#jml_orang').val(jml_orang);
+                    $('#jml_hari').val(jml_hari);
+                    if (status == 1) {
+                        $('#status_budget').val("Aktif");
+                    } else {
+                        $('#status_budget').val("Tidak Aktif");
+                    }
+                    $('#harga_budget').val(harga);
+                });
+            });
+            // // Simple Datatable
             let table1 = document.querySelector('#admin');
             let dataTable = new simpleDatatables.DataTable(table1);
+        </script>
+        <script>
+            $(document).ready(function() {
+                $(function() {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                });
+
+
+                $('#detail').on('click', function() {
+                    let id = $(this).data('id');;
+                    console.log(id);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('get-data-paket') }}",
+                        data: {
+                            paket_id: id
+                        },
+                        cache: false,
+
+                        success: function(msg) {
+                            console.log(msg);
+                            $('#budget').append(msg);
+                        },
+                        error: function(data) {
+                            console.log('error: ', data)
+                        }
+                    });
+                    $('#close-budgeting').on('click', function() {
+                        id = '';
+                    });
+                })
+            });
+        </script>
+        <script>
+            // $(document).ready(function() {
+            //     $(function() {
+            //         $.ajaxSetup({
+            //             headers: {
+            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //             }
+            //         });
+            //     });
+
+            //     $('#detail').on('click', function() {
+            //         let id = $(this).attr('data-id');
+
+            //         $.ajax({
+            //             type: 'POST',
+            //             url: "{{ route('get-data-paket') }}",
+            //             data: {
+            //                 paket_id: id
+            //             },
+            //             cache: false,
+
+            //             success: function(msg) {
+            //                 $('.modal-body').html(msg)
+            //                 // id = '';
+            //                 $('#modal-detail').modal('show');
+            //             },
+            //             error: function(data) {
+            //                 console.log('error: ', data)
+            //             }
+            //         });
+            //     })
+            // });
+            // $(function() {
+            // $.ajaxSetup({
+            //     headers: {
+            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //     }
+            // });
+            //     $(function() {
+            //         $('#detail').on('click', function() {
+            //             let id = $(this).attr('data-id');
+
+            //             $.ajax({
+            //                 type: 'POST',
+            //                 url: "{{ route('get-data-paket') }}",
+            //                 data: {
+            //                     paket_id: id
+            //                 },
+            //                 cache: false,
+
+            //                 success: function(msg) {
+            //                     $('.modal-body').html(msg)
+            //                     // id = '';
+            //                     $('#modal-detail').modal('show');
+            //                 },
+            //                 error: function(data) {
+            //                     console.log('error: ', data)
+            //                 }
+            //             });
+            //         })
+            //     })
+            // });
         </script>
         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
