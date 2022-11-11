@@ -27,7 +27,7 @@
             {!! Toastr::message() !!}
 
             <!--==================== DISCOVER ====================-->
-            <section class="discover section" id="discover">
+            <section class="discover section" id="explore_kuliner">
                 <h2 class="section__title" id="#explore_kuliner">Temukan Tempat Kuliner <br> Di Restoran Paling Menarik</h2>
 
                 <div class="card-group">
@@ -39,7 +39,7 @@
                                     Gambar Tidak Tersedia
                                 @else
                                     <img src="{{ asset('images') }}/{{ $tempat->image }}" alt="Responsive image"
-                                        class="discover__img">
+                                        class="">
                                 @endif
                                 <div class="discover__data">
                                     <h2 class="discover__title">{{ $tempat->name }}</h2>
