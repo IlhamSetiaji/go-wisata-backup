@@ -90,7 +90,7 @@
             } else {
                 let temp_html = `
                     
-                    @foreach($paket as $paket)
+                    @foreach ($paket as $paket)
                         <h3>{{ $paket->nama_paket }}</h3>
                         <h3>${jml_budget}</h3>
                     @endforeach
@@ -107,7 +107,7 @@
 </head>
 
 <body onload="myFunction()">
-    
+
 
     <header class="header" id="header" onload="myFunction()">
         <nav class="nav container">
@@ -379,7 +379,7 @@
                 </div>
             </section>
         @endif
-        
+
 
         <?php
         $event = App\Models\Tempat::where('induk_id', $tempat->id)
@@ -392,40 +392,39 @@
 
 
         @if (count($event) > 0)
-        <section class="place section" id="place">
-            <h2 class="section__title">Wisata Budaya di {{ $tempat->name }}</h2>
-            <div class="place__container container grid">
+            <section class="place section" id="place">
+                <h2 class="section__title">Wisata Budaya di {{ $tempat->name }}</h2>
+                <div class="place__container container grid">
 
-                @foreach ($event as $event)
-                    <!--==================== PLACES CARD 1 ====================-->
-                    <div class="place__card">
-                        <img src="{{ asset('images') }}/{{ $event->image }}" alt=""
-                            class="place__img">
+                    @foreach ($event as $event)
+                        <!--==================== PLACES CARD 1 ====================-->
+                        <div class="place__card">
+                            <img src="{{ asset('images') }}/{{ $event->image }}" alt="" class="place__img">
 
-                        <div class="place__content">
-                            <span class="place__rating">
-                                <i class="ri-star-line place__rating-icon"></i>
-                                <!--<span class="place__rating-number">4,8</span>-->
-                            </span>
+                            <div class="place__content">
+                                <span class="place__rating">
+                                    <i class="ri-star-line place__rating-icon"></i>
+                                    <!--<span class="place__rating-number">4,8</span>-->
+                                </span>
 
-                            <div class="place__data">
-                                <h3 class="place__title">{{ $event->name }}</h3>
-                                {{-- <span class="place__subtitle">{{ $event->kategori }}</span> --}}
-                                <span class="place__price">{{ $event->kategori }}</span>
+                                <div class="place__data">
+                                    <h3 class="place__title">{{ $event->name }}</h3>
+                                    {{-- <span class="place__subtitle">{{ $event->kategori }}</span> --}}
+                                    <span class="place__price">{{ $event->kategori }}</span>
+                                </div>
                             </div>
+                            <a href="{{ url('./' . $event->kategori . '/' . $event->slug) }}">
+                                <button class="button button--flex place__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+
                         </div>
-                        <a href="{{ url('./' . $event->kategori . '/' . $event->slug) }}">
-                            <button class="button button--flex place__button">
-                                <i class="ri-arrow-right-line"></i>
-                            </button>
-                        </a>
+                    @endforeach
 
-                    </div>
-                @endforeach
-
-            </div>
-        </section>
-    @endif
+                </div>
+            </section>
+        @endif
 
 
 
@@ -670,22 +669,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="e-budgeting">
-                    <form action="{{ route('front.budget', [$tempat->slug]) }}" method="post">
+                    <form action="{{ route('front.budget', Crypt::encrypt(rand())) }}" method="post">
                         @csrf
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
-                                    <input type="text" class="form-control" name="desa"
-                                        value="{{ $tempat->name }}" disabled>
+                                    <input type="text" class="form-control" value="{{ $tempat->name }}" disabled>
+                                    <input type="text" name="desa" id="desa" value="{{ $tempat->id }}"
+                                        hidden>
                                 </div>
                             </div>
-                            {{-- {{ dd($penginapan) }} --}}
-                            @if ($penginapan == null)
+
+                            @if ($penginapan != null)
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
-                                        <input type="number" class="form-control" name="jmlh_hari" required
+                                        <input type="number" class="form-control" name="jml_hari" required
                                             id="jml_hari">
                                     </div>
                                 </div>
@@ -693,7 +693,7 @@
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Rencana Liburan Berapa Hari?</label>
-                                        <input type="number" class="form-control" name="jmlh_hari"
+                                        <input type="number" class="form-control" name="jml_hari"
                                             placeholder="Mohon maaf tidak ada penginapan disekitar sini" disabled
                                             id="jml_hari">
                                     </div>
@@ -702,16 +702,16 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Orang?</label>
-                                    <input type="number" class="form-control" name="orang" required
-                                        id="jml_dewasa">
+                                    <input type="number" class="form-control" name="jml_orang" required
+                                        id="jml_orang">
                                 </div>
                             </div>
-                           
+
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
                                         Hitung</label>
-                                    <input type="number" class="form-control" name="budget" required
+                                    <input type="number" class="form-control" name="jml_budget" required
                                         id="jml_budget">
                                 </div>
                             </div>
@@ -720,7 +720,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                         id="close-budgeting">Close</button>
-                    <button type="submit" class="btn btn-primary" >Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
                 </form>
             </div>
