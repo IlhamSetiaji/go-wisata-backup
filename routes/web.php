@@ -279,9 +279,11 @@ Route::group([
 
     Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
+    Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
     Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
     Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
+    Route::post('/edit-paket', [BudgetingController::class, 'updatePaket'])->name('update-paket');
 });
 
 Route::group([

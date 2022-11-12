@@ -119,14 +119,16 @@
                                                         </form>
                                                         {{-- <input type="text" id="id_paket" value="{{ $paket->id }}" --}}
                                                         {{-- hidden> --}}
-                                                        <button class="btn btn-warning mb-1">Edit</button>
-                                                        <button id="detail" class="btn btn-info"data-bs-toggle="modal"
+                                                        <a href="{{ route('budget.edit', $paket->id) }}"
+                                                            class="btn btn-info mb-1">Detail</a>
+                                                        {{-- <button id="detail" class="btn btn-info"data-bs-toggle="modal"
                                                             data-bs-target="#modal-detail" data-id="{{ $paket->id }}"
                                                             data-nama="{{ $paket->nama_paket }}"
                                                             data-orang="{{ $paket->jml_orang }}"
                                                             data-status="{{ $paket->status }}"
                                                             data-harga="{{ $paket->harga }}"
-                                                            data-hari="{{ $paket->jml_hari }}">Detail</button>
+                                                            data-hari="{{ $paket->jml_hari }}"
+                                                            data-id="{{ $paket->id }}">Detail</button> --}}
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -139,7 +141,8 @@
                 </div>
             </section>
             <!-- Hoverable rows end -->
-            <div class="modal fade" id="modal-detail" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="modal-detail" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+                data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -168,6 +171,7 @@
                                 <label for="" class="form-label">Harga</label>
                                 <input type="text" id="harga_budget" class="form-control" disabled>
                             </div>
+                            <input type="text" id="id_paket" class="form-control" disabled>
                         </div>
 
                         <div class="modal-footer">
@@ -184,13 +188,13 @@
         {{-- <script src="{{asset('assets/vendors/fontawesome/all.min.js')}}"></script> --}}
         <script>
             $(document).ready(function() {
-                $(document).on('click', '#detail', function() {
-                    var nama_paket = $(this).data('nama');
-                    var jml_orang = $(this).data('orang');
-                    var jml_hari = $(this).data('hari');
-                    var status = $(this).data('status');
-                    var harga = $(this).data('harga');
-                    var id = $(this).data('id_paket1');
+                $('#detail').click(function() {
+                    let nama_paket = $(this).data('nama');
+                    let jml_orang = $(this).data('orang');
+                    let jml_hari = $(this).data('hari');
+                    let status = $(this).data('status');
+                    let harga = $(this).data('harga');
+                    let id = $(this).data('id');
                     $('#nama-paket').val(nama_paket);
                     $('#jml_orang').val(jml_orang);
                     $('#jml_hari').val(jml_hari);
@@ -200,6 +204,7 @@
                         $('#status_budget').val("Tidak Aktif");
                     }
                     $('#harga_budget').val(harga);
+                    $('#id_paket').val(id);
                 });
             });
             // // Simple Datatable
@@ -218,7 +223,7 @@
 
 
                 $('#detail').on('click', function() {
-                    let id = $(this).data('id');;
+                    let id = $(this).data('id');
                     console.log(id);
                     $.ajax({
                         type: 'POST',
@@ -236,7 +241,9 @@
                             console.log('error: ', data)
                         }
                     });
+
                     $('#close-budgeting').on('click', function() {
+                        // console.log(id)
                         id = '';
                     });
                 })
@@ -253,7 +260,7 @@
             //     });
 
             //     $('#detail').on('click', function() {
-            //         let id = $(this).attr('data-id');
+            //         var id = $(this).data('id');
 
             //         $.ajax({
             //             type: 'POST',
@@ -264,9 +271,8 @@
             //             cache: false,
 
             //             success: function(msg) {
-            //                 $('.modal-body').html(msg)
-            //                 // id = '';
-            //                 $('#modal-detail').modal('show');
+            //                 $('.modal-body').append(msg)
+            //                 id = '';
             //             },
             //             error: function(data) {
             //                 console.log('error: ', data)
