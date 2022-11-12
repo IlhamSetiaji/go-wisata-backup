@@ -28,7 +28,6 @@ class BudgetingController extends Controller
         $idTempat = $dataDesa->tempat_id;
         $dataWisata = Tempat::where('kategori', 'wisata')->where('status', 1)->where('induk_id', $idTempat)->get();
         $dataWahana = Wahana::where('tempat_id', $idTempat)->where('status', 1)->get();
-        // dd($dataWahana == '');
         $dataPenginapan = Tempat::where('kategori', 'penginapan')->where('status', 1)->where('induk_id', $idTempat)->get();
         $kategoriPakets = tb_kategoriwisata::all();
 
@@ -147,5 +146,53 @@ class BudgetingController extends Controller
         // }
 
         echo $request->paket_id;
+    }
+
+    public function edit($id)
+    {
+        //get data from database
+        $dataDesa = Auth::user();
+        $kategoriPakets = tb_kategoriwisata::all();
+        $idTempat = $dataDesa->tempat_id;
+        $dataWisata = Tempat::where('kategori', 'wisata')->where('status', 1)->where('induk_id', $idTempat)->get();
+        $dataWahana = Wahana::where('tempat_id', $idTempat)->where('status', 1)->get();
+        $dataPenginapan = Tempat::where('kategori', 'penginapan')->where('status', 1)->where('induk_id', $idTempat)->get();
+
+        //get spesific data paket from database 
+        $paket = tb_paket::where('id', $id)->first();
+        $paketWisata = tb_paketwisata::where('paket_id', $id)->get();
+        $paketWahana = tb_paketwahana::where('paket_id', $id)->get();
+        $paketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
+
+        // dd($paketPenginapan);
+
+        return view('admin.budgeting.edit', [
+            'dataDesa' => $dataDesa,
+            'dataWisatas' => $dataWisata,
+            'dataWahanas' => $dataWahana,
+            'dataPenginapans' => $dataPenginapan,
+            'kategoriPakets' => $kategoriPakets,
+            'paket' => $paket,
+            'paketWisatas' => $paketWisata,
+            'paketWahanas' => $paketWahana,
+            'paketPenginapans' => $paketPenginapan,
+        ]);
+    }
+
+    public function updatePaket(Request $request)
+    {
+        dd($request->all());
+        $validateDataPaket = $request->validate([
+            'nama_paket' => 'required|max:255',
+            'id_desa' => 'required',
+            'id_kategori' => 'required',
+            'jml_hari' => 'required|integer',
+            'jml_orang' => 'required|integer',
+            'harga' => 'required|integer'
+        ]);
+
+
+        tb_paket::where('id', $request->id)->update($validateDataPaket);
+        return redirect(route('budget.index'));
     }
 }
