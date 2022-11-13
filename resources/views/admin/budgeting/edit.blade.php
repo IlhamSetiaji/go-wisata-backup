@@ -32,7 +32,7 @@
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('budget.index') }}">Paket</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
                         </ol>
                     </nav>
                 </div>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form action="{{  }}" id="form" method="POST"
+                                <form action="{{ route('update-paket') }}" id="form" method="POST"
                                 enctype="multipart/form-data" class="form form-horizontal">
                                 @csrf
                                 <div class="form-body">
@@ -58,6 +58,7 @@
                                         <div class="col-md-4">
                                             <label>Name Paket</label>
                                         </div>
+                                        <input type="text" name="id" id="" value="{{ $paket->id }}" hidden>
                                         {{-- {{ dd($paket->nama_paket) }} --}}
                                             <div class="col-md-8">
                                                 <div class="form-group">
@@ -98,6 +99,7 @@
                                                                 <option 
                                                                 {{ $paket->id_kategori == $kategori->id ? 'selected' : '' }}
                                                                 value="{{ $kategori->id }}">{{ $kategori->nama_kategori}}</option>
+                                                                
                                                                 @endforeach
                                                                 
                                                             </select>
@@ -143,12 +145,13 @@
                                                                             @if ($wisata->tempat->id == $data->id)
                                                                             <option value="{{ $data->id}}" selected>{{ $data->name }}
                                                                             </option>
-                                                                                @else
-                                                                                <option value="{{ $data->id}}">{{ $data->name }}
+                                                                            @else
+                                                                            <option value="{{ $data->id}}">{{ $data->name }}
                                                                                 
-                                                                                </option>
+                                                                            </option>
                                                                             @endif
-                                                                         @endforeach
+                                                                            @endforeach
+                                                                            <input type="text" name="id_paketWisata[]" value="{{ $wisata->id }}" id="" hidden>
                                                                     </select>
                                                                 </fieldset>
                                                             </div>
@@ -194,6 +197,7 @@
                                                                         </option>
                                                                         @endif
                                                                         @endforeach
+                                                                        <input type="text" name="id_paketWahana[]" value="{{ $wahana->id }}" id="" hidden>
                                                                     </select>
                                                                 </fieldset>
                                                             </div>
@@ -233,12 +237,14 @@
                                                                                 {{ $data->name }}
                                                                             </option>
                                                                             @else
-                                                                            <option value="{{ $data->id }}" selected>
+                                                                            <option value="{{ $data->id }}">
                                                                                 {{ $data->name }}
                                                                             </option>
                                                                                 
                                                                             @endif
                                                                             @endforeach
+                                                                            <input type="text" name="id_paketPenginapan[]" va lue="{{ $penginapan->id }}" id="" hidden>
+
                                                                         </select>
                                                                     </fieldset>
                                                                 </div>
