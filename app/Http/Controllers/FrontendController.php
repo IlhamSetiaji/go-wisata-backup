@@ -313,7 +313,8 @@ class FrontendController extends Controller
                 array_push($dataPaketWisata, $tempPaketWisata);
             }
         }
-
+        // dd($dataPaketWisata[$firstLayer][$secondLayer]->tempat()->first()->image);
+        
         //get paket penginapan setiap paket
         $dataPaketPenginapan = [];
         foreach ($dataIdPaktes as $id) {
@@ -323,7 +324,6 @@ class FrontendController extends Controller
                 array_push($dataPaketPenginapan, $tempPaketPenginapan);
             }
         }
-        // dd($dataPaketPenginapan);
 
         //get paket wahana setiap paket
         $dataPaketWahana = [];
@@ -334,15 +334,26 @@ class FrontendController extends Controller
                 array_push($dataPaketWahana, $tempPaketWahana);
             }
         }
+        
+        // get random image for tb_tempat
+        $arrGambar= [];
+        for($i = 0;$i < count($dataPaketWisata); $i++) {
+            $temp_data = $dataPaketWisata[$i][rand(1, count($dataPaketWisata[$i]) -1 )];
+            array_push($arrGambar, [
+                'paket_id' => $temp_data->paket_id,
+                'gambar' => $temp_data->tempat()->first()->image
+            ]);
+        }
 
-        // dd(count($pakets));
+        // dd($arrGambar[1]['paket_id']);
 
         return view('FrontEnd.budgeting', [
             'paket' => $pakets,
             'budget' => $budget,
             'wisatas' => $dataPaketWisata,
             'penginapans' => $dataPaketPenginapan,
-            'wahanas' => $dataPaketWahana
+            'wahanas' => $dataPaketWahana,
+            'gambar' => $arrGambar
         ]);
     }
 

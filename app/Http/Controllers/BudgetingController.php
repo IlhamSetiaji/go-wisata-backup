@@ -164,8 +164,6 @@ class BudgetingController extends Controller
         $paketWahana = tb_paketwahana::where('paket_id', $id)->get();
         $paketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
 
-        // dd($paketPenginapan);
-
         return view('admin.budgeting.edit', [
             'dataDesa' => $dataDesa,
             'dataWisatas' => $dataWisata,
@@ -222,7 +220,7 @@ class BudgetingController extends Controller
                 }
             }
 
-            //update old data
+            //update old data paket wisata
             for ($i = 0; $i < count($dataPaketWisata); $i++) {
                 tb_paketwisata::where('id', $dataIdPaketWisata[$i])->update(['tempat_id' => $dataPaketWisata[$i]]);
             }
@@ -258,11 +256,12 @@ class BudgetingController extends Controller
                 }
             }
 
-            //update old data
+            //update old data paket wahana
             for ($i = 0; $i < count($dataPaketWahana); $i++) {
                 tb_paketwahana::where('id', $dataIdWahana[$i])->update(['tempat_id' => $dataPaketWahana[$i]]);
             }
         }
+        
         //update data penginapan
         $dataPaketPenginapan = [];
         $dataPaketPenginapanBaru = [];
@@ -291,9 +290,8 @@ class BudgetingController extends Controller
                     );
                 }
             }
-            // dd($dataIdPenginapan);
 
-            //update old data
+            //update old data paket penginapan
             for ($i = 0; $i < count($dataPaketPenginapan); $i++) {
                 tb_paketpenginapan::where('id', $dataIdPenginapan[$i])->update(['tempat_id' => $dataPaketPenginapan[$i]]);
             }

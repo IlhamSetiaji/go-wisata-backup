@@ -20,7 +20,7 @@ class tb_paket extends Model
 
     public function kategori()
     {
-        return $this->hasOne(tb_kategoriwisata::class);
+        return $this->hasOne(tb_kategoriwisata::class, 'id', 'id_kategori');
     }
 
 

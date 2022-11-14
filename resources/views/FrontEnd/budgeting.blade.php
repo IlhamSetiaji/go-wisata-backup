@@ -44,18 +44,32 @@
             @foreach ($paket as $paket)
                 <div class="row">
                     <div class="col-md-7">
-                        <a href="#">
+
+                        @for ($i = 0; $i < count($gambar); $i++)
+                            @if ($gambar[$i]['paket_id'] == $paket->id)
+                                <img class="img-fluid rounded mb-3 mb-md-0"
+                                    src="{{ asset('images') . '/' . $gambar[$i]['gambar'] }}" alt="">
+                            @endif
+                        @endfor
+                        <?php
+                        $cekPaket = App\Models\tb_paketwisata::where('paket_id', $paket->id)->get();
+                        ?>
+
+                        @if (count($cekPaket) == null)
                             <img class="img-fluid rounded mb-3 mb-md-0"
-                                src="https://source.unsplash.com/700x300/?{{ $paket->nama_paket }}" alt="">
-                        </a>
+                                src="{{ 'https://source.unsplash.com/700x300/?' . $paket->kategori()->first()->nama_kategori }}"
+                                alt="">
+                        @else
+                        @endif
                     </div>
                     <div class="col-md-5">
                         <h3>{{ $paket->nama_paket }}</h3>
                         <p>Harga : Rp{{ $paket->harga }},00 </p>
+                        <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p>
                         <p>Detail:</p>
                         <ul>
                             <li>Hari: {{ $paket->jml_hari }} </li>
-                            <li>Orang:{{ $paket->jml_orang }} </li>
+                            <li>Orang: {{ $paket->jml_orang }} </li>
                             <li>
                                 <h5>Wisata</h5>
                                 <ul>
