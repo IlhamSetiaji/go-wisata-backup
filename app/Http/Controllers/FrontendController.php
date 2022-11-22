@@ -26,6 +26,7 @@ use App\Models\Villa;
 use App\Models\ReviewEvent;
 use App\Models\ReviewTempatSewa;
 use App\Models\ReviewVilla;
+use App\Models\tb_kategoriwisata;
 use App\Models\tb_paket;
 use App\Models\tb_paketpenginapan;
 use App\Models\tb_paketwahana;
@@ -53,6 +54,7 @@ class FrontendController extends Controller
         $unggulan  = Tempat::where('unggulan', '1')->where('status', '1')->get();
         $setting =  Setting::first();
         $kegiatan = Kegiatan::latest()->get();
+        $jenis_wisata = tb_kategoriwisata::get();
         // return $kegiatan;
         return view('FrontEnd/welcome', [
             "title" => "Home",
@@ -60,7 +62,8 @@ class FrontendController extends Controller
             "setting" => $setting,
             "kegiatan" => $kegiatan,
             "unggulan" => $unggulan,
-            "desas" => $desa
+            "desas" => $desa,
+            'ctg_wisata' => $jenis_wisata,
         ]);
     }
 
@@ -254,18 +257,31 @@ class FrontendController extends Controller
             ]);
         }
 
-        $budget = $request->jml_budget;
+        $budget = intval($request->jml_budget);
+        $kategori = $request->kategori;
         $hari = $request->jml_hari;
         $desa = $request->desa;
         $jumlahOrang = $request->jml_orang;
         $highestHarga = tb_paket::where('id_desa', '=', $desa)->where('status', 1)->max('harga');
+        // dd(count($kategori));
 
         //get data from database
         if ($hari != null) {
+            $arrKategori = [];
+            for ($i=0; $i < count($kategori) ; $i++) { 
+   
+                array_push($arrKategori, tb_kategoriwisata::where('id', $kategori[$i])->first());
+                       
+            }
+
+            dd($arrKategori);
+
             if ($budget >= $highestHarga) {
+                
                 $pakets = tb_paket::where('id_desa', '=', $desa)
-                    ->where('jml_hari', '>=', $hari)
-                    ->where('jml_orang', ">=", $jumlahOrang)
+                    ->where('id_kategori', '=', $kategori)
+                    ->where('jml_hari', '<=', $hari)
+                    ->where('jml_orang', "<=", $jumlahOrang)
                     ->orderBy('harga', 'desc')
                     ->where('status', 1)
                     ->get();
@@ -276,6 +292,7 @@ class FrontendController extends Controller
                     ->where("tb_pakets.harga", "<=", $budget)
                     ->where('status', 1)
                     ->orderBy('harga', 'desc')
+                    ->while()
                     ->where('status', 1)
                     ->get();
             }
