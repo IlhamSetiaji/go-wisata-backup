@@ -97,12 +97,14 @@
                                 </ul>
                             </li>
                             <li>
+                                
                                 <h5>Wahana</h5>
                                 <ul>
                                     @foreach ($wahanas as $items)
                                         @foreach ($items as $wahana)
                                             @if ($wahana->paket_id == $paket->id)
                                                 <li>{{ $wahana->tempat->name }}</li>
+
                                             @else
                                             @endif
                                         @endforeach
@@ -111,8 +113,12 @@
                             </li>
                         </ul>
                         {{-- <p>Kamar : {{ $paket->id_kamar }} </p> --}}
-
-                        <a class="btn btn-primary" href="#">Pesan</a>
+                        <form action="{{ url('/cart/tambah/budgeting/' . $paket->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <input type="text" value="{{ $paket->id }}" type="hidden" name="paket_id">
+    
+                            <button class="btn btn-primary" type="submit">Pesan</button>
+                        </form>
                     </div>
                 </div>
                 <hr>
