@@ -378,6 +378,7 @@ class API extends Controller
         $user->email = $request->email;
         $user->password = $password;
         $user->telp = $request->telp;
+        $user->email_verified_at = date('Y-m-d H:i:s');
         try {
             if ($user->save()) {
                 $login = User::where('email', $request->email)->first();
