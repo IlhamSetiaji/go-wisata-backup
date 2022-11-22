@@ -355,7 +355,7 @@ class API extends Controller
     {
         $login = User::where('email', $request->email)->first();
         if ($login != null) {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'email_verified_at' != null])) {
                 // $token = $user->createToken($signInRequest->input('device_name'))->plainTextToken;
                 // $token = $login->createToken('authToken')->accessToken;
                 return response()->json(['data' => $login]);
@@ -388,6 +388,13 @@ class API extends Controller
             return response()->json(['data' => 'Gagal register'], 500);
         }
     }
+    // public function verify(Request $request)
+    // {
+    //     $verify = User::where($request->id)->first();
+    //     $verify->update([
+    //         'email_verified_at' => date('Y-m-d H:i:s'),
+    //     ]);
+    // }
     public function checkLogin()
     {
         $check = Auth::check();
