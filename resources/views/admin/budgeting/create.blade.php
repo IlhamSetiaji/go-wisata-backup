@@ -51,7 +51,7 @@
                         <div class="card-content">
                             <div class="card-body">
 
-                                <form action="{{ route('store-budget') }}" id="form" method="POST"
+                                <form action="{{ route('budget.detail.create') }}" id="form" method="GET"
                                     enctype="multipart/form-data" class="form form-horizontal">
                                     @csrf
                                     <div class="form-body">
@@ -79,7 +79,7 @@
                                                         <input type="text"
                                                             class="form-control @error('id_desa') is-invalid @enderror"
                                                             placeholder="Nama paket wisata"
-                                                            value="{{ $dataDesa->name }}" required readonly>
+                                                            value="{{ $dataDesa->tempat->name }}" required readonly>
                                                         <input type="text"
                                                             class="form-control"
                                                             name='id_desa' value="{{ $dataDesa->tempat_id }}" required hidden>
@@ -93,13 +93,21 @@
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
                                                         <fieldset class="form-group">
-                                                            <select class="form-select" name="id_kategori" required>
+                                                            {{-- <select class="form-select" name="id_kategori" required>
                                                                 <option value="" >Pilih Kategori</option>
                                                                 @foreach ($kategoriPakets as $kategori)
                                                                 <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori}}</option>
                                                                 @endforeach
                                                                 
-                                                            </select>
+                                                            </select> --}}
+                                                            @foreach ($kategoriPakets as $kategori)
+                                                            {{-- <div class="form-check"> --}}
+                                                                <input class="form-check-input" type="checkbox" value="{{ $kategori->id }}" id="flexCheckDefault" name="kategori[]">
+                                                                <label class="form-check-label" for="flexCheckDefault">
+                                                                  {{ $kategori->nama_kategori }}
+                                                                </label>
+                                                              {{-- </div> --}}
+                                                            @endforeach
                                                         </fieldset>
     
                                                     </div>
@@ -112,7 +120,7 @@
                                                 <div class="form-group">
                                                     <div class="position-relative">
                                                         <input type="text" class="form-control" name="jml_orang"
-                                                            id="jml_orang" value="{{ old('jml_orang') }}" required>
+                                                            id="jml_orang" value="1" readonly required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,7 +131,7 @@
                                                 <div class="form-group">
                                                     <div class="position-relative">
                                                         <input type="text" class="form-control" name="jml_hari"
-                                                            id="jml_hari" value="{{ old('jml_hari') }}" required>
+                                                            id="jml_hari" value="1" readonly required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,7 +145,7 @@
                                                             <select class="form-select" name="data_wisata[]" id="data-wisata">
                                                                 <option value="">Please select data wisata</option>
                                                                 @foreach ($dataWisatas as $data)
-                                                                    <option value="{{ $data->id }}">{{ $data->name }}
+                                                                    <option value="{{ $data->id }}">{{ $data->name }} - {{ $data->dana != ''? $data->dana : 'Rp. 0' }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -155,10 +163,40 @@
                                                             <select class="form-select" name="data_wahana[]" id='data-wahana'>
                                                                 <option value="">Please select data Wahana</option>
                                                                 @foreach ($dataWahanas as $data)
+                                                                    <option value="{{ $data->id }} ">
+                                                                        {{ $data->name }} - {{ $data->harga != ''? $data->harga : 'Rp. 0' }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Kuliner</label>
+                                            </div>
+                                            <div class="col-md-4" id="restoran">
+                                                <div class="form-group">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" name="resto" id='resto'>
+                                                                <option value="">Please select Restoran</option>
+                                                                @foreach ($dataKuliners as $data)
                                                                     <option value="{{ $data->id }}">
                                                                         {{ $data->name }}
                                                                     </option>
                                                                 @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4" id="paketrestoran">
+                                                <div class="form-group">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" name="paketresto" id='paketresto'>
+                                                                <option value="">Pilih paket dari restoran</option>
                                                             </select>
                                                         </fieldset>
                                                     </div>
@@ -167,25 +205,46 @@
                                             <div class="col-md-4">
                                                 <label>Penginapan</label>
                                             </div>
-                                            <div class="col-md-8" id="penginapan">
-                                                <div class="form-group">
-                                                    <div class="position-relative">
-                                                        <fieldset class="form-group">
-                                                            <select class="form-select" name="data_penginapan[]"
-                                                                id='data-penginapan'>
-                                                                <option value="">Please select data Penginapan
-                                                                </option>
-                                                                @foreach ($dataPenginapans as $data)
-                                                                    <option value="{{ $data->id }}">
-                                                                        {{ $data->name }}
+                                            <div class="col-md-8">
+                                                <div id="hotel">
+                                                    <div class="form-group">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select" name="data_penginapanhotel[]"
+                                                                    id='data-penginapan-hotel'>
+                                                                    <option value="">Pilih Hotel
                                                                     </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </fieldset>
+                                                                    @foreach ($dataPenginapanHotel as $data)
+                                                                        <option value="{{ $data->id }}">
+                                                                            {{ $data->nama }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="villa">
+                                                    <div class="form-group">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select" name="data_penginapanvilla[]"
+                                                                    id='data-penginapan-villa'>
+                                                                    <option value="">Pilih villa
+                                                                    </option>
+                                                                    @foreach ($dataPenginapanVilla as $data)
+                                                                        <option value="{{ $data->id }}">
+                                                                            {{ $data->nama }} - {{ $data->harga }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            
+                                            {{-- <div class="col-md-4">
                                                 <label>Total</label>
                                             </div>
                                             <div class="col-md-8">
@@ -196,7 +255,7 @@
                                                             required>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
 
@@ -230,38 +289,91 @@
                             return allGood = false;
                         }
                         if (allGood) {
-                            $('#wahana').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wahana[]" id = "data-wahana">  <option value = "" > Please select data Wahana </option>@foreach ($dataWahanas as $data)<option value="{{ $data->id }}">{{ $data->name }}</option>@endforeach</select> </fieldset> </div> </div>'));
-                                }
-
-                            });
+                            $('#wahana').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wahana[]" id = "data-wahana">  <option value = "" > Please select data Wahana </option>@foreach ($dataWahanas as $data)<option value="{{ $data->id }}" >{{ $data->name }}- {{ $data->harga != ''? $data->harga : "Rp. 0" }} </option>@endforeach</select> </fieldset> </div> </div>'));
+                        }
+                    });
                     
 
-                            $(document).on('change', '#data-wisata', function() {
-                            var allGood = true;
-                            // var lastInputField = ;
+                    $(document).on('change', '#data-wisata', function() {
+                        var allGood = true;
+                        // var lastInputField = ;
     
-                            if ($(this).val() == "") {
-                                console.log('false');
-                                return allGood = false;
-                            }
-                            if (allGood) {
-                                $('#wisata').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wisata[]" id = "data-wisata" >  <option value = "" > Please select data Wisata </option>@foreach ($dataWisatas as $data)<option value="{{ $data->id }}">{{ $data->name }}</option>@endforeach</select> </fieldset> </div> </div>'));
-                                    }
-                                });
+                        if ($(this).val() == "") {
+                            console.log('false');
+                            return allGood = false;
+                        }
+                            
+                        if (allGood) {
+                            $('#wisata').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wisata[]" id = "data-wisata" >  <option value = "" > Please select data Wisata </option>@foreach ($dataWisatas as $data)<option value="{{ $data->id }}">{{ $data->name }} - {{ $data->dana != ''? $data->dana : "Rp. 0" }}</option>@endforeach</select> </fieldset> </div> </div>'));
+                        }
+                    });
+                    // $(document).on('change', '#paketresto', function() {
+                    //     var allGood = true;
+                    //     // var lastInputField = ;
+    
+                    //     if ($(this).val() == "") {
+                    //         console.log('false');
+                    //         return allGood = false;
+                    //     }
+                            
+                    //     if (allGood) {
+                    //         $('#paketrestoran').append($('<div class="form-group"><div class="position-relative"><fieldset class="form-group"><select class="form-select" name="paketresto" id="paketresto"><option value="">Pilih paket dari restoran</option><option value="$data->id> $data->nama_paket - $data->harga</option></select></fieldset></div></div>'));
+                    //     }
+                    // });
 
-                            $(document).on('change', '#data-penginapan', function() {
-                            var allGood = true;
-                            // var lastInputField = ;
-    
-                            if ($(this).val() == "") {
-                                console.log('false');
-                                return allGood = false;
-                            }
-                            if (allGood) {
-                                $('#penginapan').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapan[]" id = "data-penginapan">  <option value = "" > Please select data Penginapan </option>@foreach ($dataPenginapans as $data)<option value="{{ $data->id }}">{{ $data->name }}</option>@endforeach</select> </fieldset> </div> </div>'));
-                                    }
-                                });
-                        });
-                    
+                    // $(document).on('change', '#data-penginapan-hotel', function() {    
+                    //     var allGood = true;
+                    //     // var lastInputField = ;
+                    //     if ($(this).val() == "") {
+                    //         console.log('false');
+                    //         return allGood = false;    
+                    //     }    
+                    //     if (allGood) {    
+                    //         $('#hotel').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapanhotel[]" id = "data-penginapan-hotel">  <option value = "" > Pilih Hotel </option>@foreach ($dataPenginapanHotel as $data)<option value="{{ $data->id }}">{{ $data->nama }}</option>@endforeach</select> </fieldset> </div> </div>'));
+                    //     }    
+                    // });
+                    // $(document).on('change', '#data-penginapan-villa', function() {
+                    //     var allGood = true;    
+                    //     // var lastInputField = ;
+                    //     if ($(this).val() == "") {
+                    //         console.log('false');
+                    //         return allGood = false;
+                    //     }
+                    //     if (allGood) { 
+                    //         $('#villa').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapanvilla[]" id = "data-penginapan-villa">  <option value = "" > Pilih Villa </option>@foreach ($dataPenginapanVilla as $data)<option value="{{ $data->id }}">{{ $data->nama }} - {{ $data->harga }}</option>@endforeach</select> </fieldset> </div> </div>'));            
+                    //     }
+                    // }); 
+                });
+    </script>
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(function() {
+                $('#resto').on('change', function() {
+                    let resto = $('#resto').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('get-data-menu') }}",
+                        data: {
+                            resto_id: resto
+                        },
+                        cache: false,
+
+                        success: function(msg) {
+                            // console.log(msg);
+                            $('#paketresto').append(msg);
+                        },
+                        error: function(data) {
+                            console.log('error: ', data)
+                        }
+                    });
+                })
+            })
+        });
     </script>
 @endsection
