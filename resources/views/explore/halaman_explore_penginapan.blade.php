@@ -97,7 +97,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                        <div id="carouselExampleIndicators2" class="" data-ride="">
                             <div class="carousel-inner">
                                 @php $i=1; @endphp
                                 @isset($tempat_baru)
