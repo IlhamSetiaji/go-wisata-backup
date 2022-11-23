@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use App\Models\Detail_transaksi;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\Penginapan;
+use App\Models\Homestay;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -651,12 +652,10 @@ class API extends Controller
         return response()->json($listevent);
     }
 
-   public function hotel()
-   {
-    $hotel = new Hotel();
-    $villa = new Villa();
-    $hotel = $hotel->get();
-    $villa = $villa->get();
-    return response()->json($hotel, $villa);
-   }
+    public function homestay()
+    {
+        $homestay = new Homestay();
+        $homestay = $homestay->get();
+        return response()->json($homestay);
+    }
 }
