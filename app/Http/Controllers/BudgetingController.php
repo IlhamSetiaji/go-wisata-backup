@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataPaketKuliner;
+use App\Models\Hotel;
+use App\Models\Kamar;
+use App\Models\Kuliner;
 use App\Models\tb_kategoriwisata;
 use App\Models\tb_paket;
 use App\Models\tb_paketpenginapan;
 use App\Models\tb_paketwahana;
 use App\Models\tb_paketwisata;
 use App\Models\Tempat;
+use App\Models\Villa;
 use App\Models\Wahana;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BudgetingController extends Controller
 {
@@ -28,16 +35,119 @@ class BudgetingController extends Controller
         $idTempat = $dataDesa->tempat_id;
         $dataWisata = Tempat::where('kategori', 'wisata')->where('status', 1)->where('induk_id', $idTempat)->get();
         $dataWahana = Wahana::where('tempat_id', $idTempat)->where('status', 1)->get();
-        $dataPenginapan = Tempat::where('kategori', 'penginapan')->where('status', 1)->where('induk_id', $idTempat)->get();
+        $dataPenginapanHotel = DB::table('tb_hotel')->select('tb_hotel.*')->join('tb_tempat', 'tb_hotel.tempat_id', '=', 'tb_tempat.id')->where('tb_tempat.induk_id', $idTempat)->where('tb_tempat.status', 1)
+            ->get();
+        $dataPenginapanVilla = DB::table('tb_villa')->select('tb_villa.*')->join('users', 'tb_villa.user_id', '=', 'users.id')->where('users.desa_id', $idTempat)->get();
         $kategoriPakets = tb_kategoriwisata::all();
+        // $dataKuliner = Tempat::where('kategori', 'kuliner')->where('status', 1)->where('induk_id', $idTempat)->get();
+        $dataKuliner = DB::table('tb_tempat')->join('tb_kuliner', 'tb_tempat.id', 'tb_kuliner.tempat_id')->join('tb_paketkuliners',  'tb_paketkuliners.tb_kuliner_id', 'tb_kuliner.id')->where('tb_tempat.status', 1)->where('tb_tempat.induk_id', $idTempat)->select('tb_tempat.name', 'tb_tempat.id')->distinct()->get();
+        // dd($dataKuliner);
+        $arrPenginapan = [];
+        foreach ($dataPenginapanHotel as $hotel) {
+            if (Kamar::where('hotel_id', $hotel->id)->first() != '') {
+                array_push($arrPenginapan, $hotel);
+            }
+        }
 
-        // dd($dataWahana);
+
         return view('admin.budgeting.create', [
             'dataDesa' => $dataDesa,
             'dataWisatas' => $dataWisata,
             'dataWahanas' => $dataWahana,
-            'dataPenginapans' => $dataPenginapan,
+            'dataPenginapanHotel' => $arrPenginapan,
+            'dataPenginapanVilla' => $dataPenginapanVilla,
+            'dataKuliners' => $dataKuliner,
             'kategoriPakets' => $kategoriPakets
+        ]);
+    }
+
+    public function getMenu(Request $request)
+    {
+        // $data = Kuliner::where('tempat_id', $request->resto_id)->get();
+        $datas = DataPaketKuliner::where('tempat_id', $request->resto_id)->get();
+        foreach ($datas as $data) {
+            echo "<option value='$data->id'> $data->nama_paket - $data->harga</option>";
+        }
+        // echo $data;
+    }
+
+    public function detailPaket(Request $request)
+    {
+        $validateDataPaket = $request->validate([
+            'nama_paket' => 'required|max:255',
+            'id_desa' => 'required',
+            'kategori' => 'required',
+            // 'id_kategori' => 'required',
+            'jml_hari' => 'required|integer',
+            'jml_orang' => 'required|integer',
+        ]);
+
+        $arrKategoriPaket = [];
+        for ($i = 0; $i < count($validateDataPaket['kategori']); $i++) {
+            array_push($arrKategoriPaket, tb_kategoriwisata::where('id', $validateDataPaket['kategori'][$i])->first());
+        }
+
+        //get data wisata
+        $arrDataWisata = [];
+        if ($request->data_wisata[0] != null) {
+            for ($i = 0; $i < count($request->data_wisata); $i++) {
+                if ($request->data_wisata[$i] != '') {
+                    array_push($arrDataWisata, Tempat::where('id', $request->data_wisata[$i])->first());
+                }
+            }
+        }
+
+        //get data wisata
+        $arrDataWahana = [];
+        if ($request->data_wahana[0] != null) {
+            for ($i = 0; $i < count($request->data_wahana); $i++) {
+                if ($request->data_wahana[$i] != '') {
+                    array_push($arrDataWahana, Wahana::where('id', $request->data_wahana[$i])->first());
+                }
+            }
+        }
+
+        $arrDataPenginapanHotel = [];
+        if ($request->data_penginapanhotel[0] != null) {
+            for ($i = 0; $i < count($request->data_penginapanhotel); $i++) {
+                if ($request->data_penginapanhotel[$i] != '') {
+                    array_push($arrDataPenginapanHotel, Hotel::where('id', $request->data_penginapanhotel[$i])->first());
+                }
+            }
+        }
+
+        $arrKamarHotel = [];
+        for ($i = 0; $i < count($arrDataPenginapanHotel); $i++) {
+            array_push($arrKamarHotel, Kamar::where('hotel_id', $arrDataPenginapanHotel[$i]->id)->get());
+        }
+
+        $arrDataPenginapanVilla = [];
+        if ($request->data_penginapanvilla[0] != null) {
+            for ($i = 0; $i < count($request->data_penginapanvilla); $i++) {
+                if ($request->data_penginapanvilla[$i] != '') {
+                    array_push($arrDataPenginapanVilla, Villa::where('id', $request->data_penginapanvilla[$i])->first());
+                }
+            }
+        }
+
+        $validateDataPaket['data_kategori'] = [];
+        for ($i = 0; $i < count($validateDataPaket['kategori']); $i++) {
+            array_push($validateDataPaket['data_kategori'], tb_kategoriwisata::where('id', $validateDataPaket['kategori'][$i])->first());
+        }
+
+
+        // $kuliners = DataPaketKuliner::where('data_paket_kuliners.id', $request->paketresto)->join('tb_paketkuliners', 'data_paket_kuliners.id', 'tb_paketkuliners.data_paket_kuliner_id')->get();
+        $kuliners = DataPaketKuliner::where('id', $request->paketresto)->first();
+        // dd($kuliners);
+
+        return view('admin.budgeting.detail', [
+            'paket' => $validateDataPaket,
+            'wisatas' => $arrDataWisata,
+            'wahanas' => $arrDataWahana,
+            'hotels' => $arrDataPenginapanHotel,
+            'villas' => $arrDataPenginapanVilla,
+            'kamars' => $arrKamarHotel,
+            'kuliners' => $kuliners
         ]);
     }
 
@@ -53,75 +163,75 @@ class BudgetingController extends Controller
             'harga' => 'required|integer'
         ]);
 
-        //insert data to tb_paket 
-        tb_paket::create($validateDataPaket);
+        // //insert data to tb_paket 
+        // tb_paket::create($validateDataPaket);
 
-        //get id paket 
-        $idPaket = tb_paket::where([
-            'nama_paket' => $request->nama_paket,
-            'id_kategori' => $request->id_kategori,
-            'jml_hari' =>  $request->jml_hari,
-            'jml_orang' => $request->jml_orang,
-            'id_desa' => $request->id_desa,
-            'harga' => $request->harga
-        ])->pluck('id')->first();
+        // //get id paket 
+        // $idPaket = tb_paket::where([
+        //     'nama_paket' => $request->nama_paket,
+        //     'id_kategori' => $request->id_kategori,
+        //     'jml_hari' =>  $request->jml_hari,
+        //     'jml_orang' => $request->jml_orang,
+        //     'id_desa' => $request->id_desa,
+        //     // 'harga' => $request->harga
+        // ])->pluck('id')->first();
 
-        //insert data_wisata to tb_paketwisata
-        if ($request->data_wisata[0] != null) {
-            $temp_array = array();
-            for ($i = 0; $i < count($request->data_wisata); $i++) {
-                if ($request->data_wisata[$i] != '') {
-                    array_push($temp_array, $request->data_wisata[$i]);
-                }
-            }
+        // //insert data_wisata to tb_paketwisata
+        // if ($request->data_wisata[0] != null) {
+        //     $temp_array = array();
+        //     for ($i = 0; $i < count($request->data_wisata); $i++) {
+        //         if ($request->data_wisata[$i] != '') {
+        //             array_push($temp_array, $request->data_wisata[$i]);
+        //         }
+        //     }
 
-            for ($i = 0; $i < count($temp_array); $i++) {
-                tb_paketwisata::create(
-                    [
-                        'tempat_id' => $temp_array[$i],
-                        'paket_id' => $idPaket
-                    ]
-                );
-            }
-        }
+        //     for ($i = 0; $i < count($temp_array); $i++) {
+        //         tb_paketwisata::create(
+        //             [
+        //                 'tempat_id' => $temp_array[$i],
+        //                 'paket_id' => $idPaket
+        //             ]
+        //         );
+        //     }
+        // }
 
-        //insert data_wahana to tb_paketwahanas
-        if ($request->data_wahana[0] != null) {
-            $temp_array = array();
-            for ($i = 0; $i < count($request->data_wahana); $i++) {
-                if ($request->data_wahana[$i] != '') {
-                    array_push($temp_array, $request->data_wahana[$i]);
-                }
-            }
+        // //insert data_wahana to tb_paketwahanas
+        // if ($request->data_wahana[0] != null) {
+        //     $temp_array = array();
+        //     for ($i = 0; $i < count($request->data_wahana); $i++) {
+        //         if ($request->data_wahana[$i] != '') {
+        //             array_push($temp_array, $request->data_wahana[$i]);
+        //         }
+        //     }
 
-            for ($i = 0; $i < count($temp_array); $i++) {
-                tb_paketwahana::create(
-                    [
-                        'tempat_id' => $temp_array[$i],
-                        'paket_id' => $idPaket
-                    ]
-                );
-            }
-        }
+        //     for ($i = 0; $i < count($temp_array); $i++) {
+        //         tb_paketwahana::create(
+        //             [
+        //                 'tempat_id' => $temp_array[$i],
+        //                 'paket_id' => $idPaket
+        //             ]
+        //         );
+        //     }
+        // }
 
-        //insert data_penginapan to tb_paketpenginapan
-        if ($request->data_penginapan[0] != null) {
-            $temp_array = array();
-            for ($i = 0; $i < count($request->data_penginapan); $i++) {
-                if ($request->data_penginapan[$i] != '') {
-                    array_push($temp_array, $request->data_penginapan[$i]);
-                }
-            }
+        // //insert data_penginapan to tb_paketpenginapan
+        // if ($request->data_penginapan[0] != null) {
+        //     $temp_array = array();
+        //     for ($i = 0; $i < count($request->data_penginapan); $i++) {
+        //         if ($request->data_penginapan[$i] != '') {
+        //             array_push($temp_array, $request->data_penginapan[$i]);
+        //         }
+        //     }
 
-            for ($i = 0; $i < count($temp_array); $i++) {
-                tb_paketpenginapan::create(
-                    [
-                        'tempat_id' => $temp_array[$i],
-                        'paket_id' => $idPaket
-                    ]
-                );
-            }
-        }
+        //     for ($i = 0; $i < count($temp_array); $i++) {
+        //         tb_paketpenginapan::create(
+        //             [
+        //                 'tempat_id' => $temp_array[$i],
+        //                 'paket_id' => $idPaket
+        //             ]
+        //         );
+        //     }
+        // }
 
         //redirect to index budgeting
         return redirect(route('budget.index'));
@@ -261,7 +371,7 @@ class BudgetingController extends Controller
                 tb_paketwahana::where('id', $dataIdWahana[$i])->update(['tempat_id' => $dataPaketWahana[$i]]);
             }
         }
-        
+
         //update data penginapan
         $dataPaketPenginapan = [];
         $dataPaketPenginapanBaru = [];

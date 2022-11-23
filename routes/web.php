@@ -40,6 +40,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BookingTempatSewaController;
 use App\Http\Controllers\BudgetingController;
 use App\Http\Controllers\LoginAdminController;
+use App\Http\Controllers\TbPaketController;
+use App\Http\Controllers\TbPaketkulinerController;
 use App\Http\Controllers\TopUpController;
 use Illuminate\Auth\Events\Login;
 
@@ -279,11 +281,14 @@ Route::group([
 
     Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
-    Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
+    Route::get('/budgeting-create-detail', [BudgetingController::class, 'detailPaket'])->name('budget.detail.create');
     Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
+    Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
     Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
     Route::post('/edit-paket', [BudgetingController::class, 'updatePaket'])->name('update-paket');
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
+    Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
+    Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
 });
 
 Route::group([
@@ -301,6 +306,8 @@ Route::group([
     Route::get('/todaykuliner/selesai/{id}', [TodayController::class, 'updatekulinerselesai'])->name('update.selesai.pesanank');
     Route::get('/todaykuliner/print/{today}', [TodayController::class, 'printkulinertoday'])->name('print.pesanank');
     Route::resource('/kuliner', KulinerController::class);
+    Route::resource('/paket', TbPaketkulinerController::class);
+    // Route::get('/paket/create', [TbPaketController::class, 'createPaket'])->name('paket.create');
     Route::get('/status/update9/{id}', [KulinerController::class, 'toggleStatus'])->name('update.status.kuliner');
 
     Route::get('/orderk', [TiketController::class, 'orderk'])->name('orderk.index');
