@@ -549,17 +549,17 @@ class API extends Controller
         $kuliner  = new Kuliner();
         $kuliner  = $kuliner
             ->join('tb_tempat', 'tb_kuliner.tempat_id', 'tb_tempat.id')
-            ->select(
-                '*',
-                'tb_kuliner.name as kuliner_name',
-                'tb_kuliner.id as kuliner_id',
-                'tb_kuliner.image as kuliner_image',
-                'tb_kuliner.deskripsi as kuliner_deskripsi',
-                'tb_tempat.name as tempat_name',
-                'tb_tempat.deskripsi as tempat_deskripsi',
-                'tb_tempat.image as tempat_image'
-            )
-            ->where('tb_kuliner.status', '1')
+            // ->select(
+            //     '*',
+            //     'tb_kuliner.name as kuliner_name',
+            //     'tb_kuliner.id as kuliner_id',
+            //     'tb_kuliner.image as kuliner_image',
+            //     'tb_kuliner.deskripsi as kuliner_deskripsi',
+            //     'tb_tempat.name as tempat_name',
+            //     'tb_tempat.deskripsi as tempat_deskripsi',
+            //     'tb_tempat.image as tempat_image'
+            // )
+            // ->where('tb_kuliner.status', '1')
             ->get();
         return response()->json($kuliner);
     }
