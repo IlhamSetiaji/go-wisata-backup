@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Homestay extends Model
 {
     use HasFactory;
-    protected $table = "tb_hotel, tb_villa";
+    protected $table = "tb_hotel";
     protected $guarded = [];
 }
