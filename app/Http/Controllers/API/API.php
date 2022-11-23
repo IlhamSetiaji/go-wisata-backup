@@ -11,12 +11,14 @@ use App\Models\Kamar;
 use App\Models\Tiket;
 use App\Models\Tempat;
 use App\Models\Wahana;
+use App\Models\Hotel;
 use App\Models\Kuliner;
 use Illuminate\Support\Str;
 use App\Models\EventBooking;
 use Illuminate\Http\Request;
 use App\Models\Detail_transaksi;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Penginapan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -647,4 +649,11 @@ class API extends Controller
         $listevent = $listevent->get();
         return response()->json($listevent);
     }
+
+   public function hotel()
+   {
+    $hotel = new Hotel();
+    $hotel = $hotel->get();
+    return response()->json($hotel);
+   }
 }
