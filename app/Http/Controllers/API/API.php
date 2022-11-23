@@ -6,6 +6,7 @@ use App\Models\Pay;
 use App\Models\Desa;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\ListEvent;
 use App\Models\Kamar;
 use App\Models\Tiket;
 use App\Models\Tempat;
@@ -638,5 +639,12 @@ class API extends Controller
             ->where('status', '1')
             ->get();
         return response()->json($desa);
+    }
+
+    public function listevent()
+    {
+        $listevent = new ListEvent();
+        $listevent = $listevent->get();
+        return response()->json($listevent);
     }
 }
