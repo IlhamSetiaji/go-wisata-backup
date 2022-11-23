@@ -12,6 +12,7 @@ use App\Models\Tiket;
 use App\Models\Tempat;
 use App\Models\Wahana;
 use App\Models\Hotel;
+use App\Models\Villa;
 use App\Models\Kuliner;
 use Illuminate\Support\Str;
 use App\Models\EventBooking;
@@ -653,7 +654,9 @@ class API extends Controller
    public function hotel()
    {
     $hotel = new Hotel();
+    $villa = new Villa();
     $hotel = $hotel->get();
-    return response()->json($hotel);
+    $villa = $villa->get();
+    return response()->json($hotel, $villa);
    }
 }
