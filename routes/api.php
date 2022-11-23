@@ -46,7 +46,8 @@ Route::get('/tempat/{id}', [API::class, 'wahanabytempat']);
 
 Route::get('/desa', [API::class, 'desa']);
 Route::get('/listevent', [API::class, 'listevent']);
-Route::get('/homestay', [API::class, 'homestay']);
+Route::get('/hotel', [API::class, 'hotel']);
+Route::get('/villa', [API::class, 'villa']);
 
 Route::get('/wahana', [API::class, 'wahana']);
 Route::post('/wahana/create', [API::class, 'createwahana']);
