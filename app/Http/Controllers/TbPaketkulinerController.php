@@ -52,6 +52,10 @@ class TbPaketkulinerController extends Controller
      */
     public function store(Request $request)
     {
+        $validateDataPaket = $request->validate([
+            'nama_paket' => 'required'
+        ]);
+
         //get all data makanan minumaman snack
         $arrMakanan = [];
         if ($request->makan[0] != null) {
@@ -82,9 +86,7 @@ class TbPaketkulinerController extends Controller
         foreach ($arrMakanan as $makan) {
             $harga += Kuliner::where('id', $makan)->pluck('harga')->first();
         }
-        $validateDataPaket = $request->validate([
-            'nama_paket' => 'required'
-        ]);
+
         $validateDataPaket['harga'] = $harga;
         $validateDataPaket['status'] = 1;
         $validateDataPaket['tempat_id'] = Auth::user()->tempat_id;
@@ -158,6 +160,10 @@ class TbPaketkulinerController extends Controller
      */
     public function update(Request $request)
     {
+        $validateDataPaket = $request->validate([
+            'nama_paket' => 'required'
+        ]);
+
         //update data makanan
         $dataMakananBaru = [];
         if ($request->makan != null) {
@@ -176,7 +182,7 @@ class TbPaketkulinerController extends Controller
                     ]);
                 }
             }
-            
+
             //update new data
             for ($i = count($dataIdMakanan); $i < count($request->makan); $i++) {
                 if ($request->makan[$i] != null) {
@@ -193,7 +199,7 @@ class TbPaketkulinerController extends Controller
                 }
             }
         }
-        
+
         //update data mainum
         $dataMinumanBaru = [];
         if ($request->minum != null) {
@@ -212,7 +218,7 @@ class TbPaketkulinerController extends Controller
                     ]);
                 }
             }
-            
+
             //update new data
             for ($i = count($dataIdMinum); $i < count($request->minum); $i++) {
                 if ($request->minum[$i] != null) {
@@ -229,7 +235,7 @@ class TbPaketkulinerController extends Controller
                 }
             }
         }
-        
+
         //update snack
         $dataSnackBaru = [];
         if ($request->snack != null) {
@@ -248,7 +254,7 @@ class TbPaketkulinerController extends Controller
                     ]);
                 }
             }
-            
+
             //update new data
             for ($i = count($dataIdSnack); $i < count($request->snack); $i++) {
                 if ($request->snack[$i] != null) {
@@ -265,6 +271,37 @@ class TbPaketkulinerController extends Controller
                 }
             }
         }
+
+
+        //update harga
+        $arrHarga = [];
+        // foreach ($request->makan as $makan) {
+        // }
+        for ($i = 0; $i < count($request->makan); $i++) {
+            if ($request->makan[$i] != null) {
+                array_push($arrHarga, $request->makan[$i]);
+            }
+        }
+        for ($i = 0; $i < count($request->minum); $i++) {
+            if ($request->minum[$i] != null) {
+                array_push($arrHarga, $request->minum[$i]);
+            }
+        }
+        for ($i = 0; $i < count($request->snack); $i++) {
+            if ($request->snack[$i] != null) {
+                array_push($arrHarga, $request->snack[$i]);
+            }
+        }
+        $hargaTotal = 0;
+        foreach ($arrHarga as $harga) {
+            $hargaTotal = $hargaTotal + Kuliner::where('id', $harga)->pluck('harga')->first();
+        }
+
+        // dd($hargaTotal);
+
+        $validateDataPaket['harga'] = $hargaTotal;
+        DataPaketKuliner::where('id', $request->id_paket)->update($validateDataPaket);
+        // dd($validateDataPaket);
 
 
         return redirect(route('kuliner.index'));
