@@ -268,27 +268,24 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="mb-3">
-                                        <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
-                                        <select class="form-select" aria-label="Default select example" id="desa"
-                                            name="desa">
-                                            <option selected>Pilih desa</option>
-                                            @foreach ($desas as $desa)
-                                                <option value="{{ $desa->id }}">{{ $desa->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
+                                            Hitung</label>
+                                        <input type="number" class="form-control" name="jml_budget" required
+                                            id="jml_budget">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3">
-                                        <label for="budget" class="form-label">Rencana Liburan Berapa
-                                            Hari?</label>
-                                        <div id="form-hari">
-
-                                        </div>
-
+                                        <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
+                                        <select class="form-select" aria-label="Default select example" id="desa"
+                                        name="desa">
+                                        <option selected>Pilih desa</option>
+                                        @foreach ($desas as $desa)
+                                        <option value="{{ $desa->id }}">{{ $desa->name }}</option>
+                                        @endforeach
+                                    </select>
                                     </div>
                                 </div>
-
                                 <div class="col-lg-12">
                                     <div class="mb-3">
                                         <label for="budget" class="form-label">Berapa Orang?</label>
@@ -296,15 +293,28 @@
                                             id="jml_orang">
                                     </div>
                                 </div>
-
                                 <div class="col-lg-12">
                                     <div class="mb-3">
-                                        <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
-                                            Hitung</label>
-                                        <input type="number" class="form-control" name="jml_budget" required
-                                            id="jml_budget">
+                                        <label for="budget" class="form-label">Rencana Liburan Berapa
+                                            Hari?</label>
+                                        <div id="form-hari">
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-12">
+                                    <p>Kategori Wisata</p>
+                                    <div class="row">
+                                        
+                                        @foreach ($ctg_wisata as $item)
+                                        <div class="col">
+                                            <input class="form-check-input" type="checkbox" value="{{ $item->id }}"  name="kategori[]">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                              {{ $item->nama_kategori }}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                  </div>
                             </div>
                     </div>
                     <div class="modal-footer">

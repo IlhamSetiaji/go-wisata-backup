@@ -150,6 +150,11 @@ Route::group([
     Route::get('/transaksi/tambah/booking', [TiketController::class, 'do_tambah_transaksi_booking'])->name('tambah.booking');
     Route::post('/transaksi/tambah/booking', [TiketController::class, 'do_tambah_transaksi_booking']);
 
+    //PESAN BUDGETING
+    Route::get('/cart/budgeting', [TiketController::class, 'cart_budgeting'])->name('cart.budgeting');
+    Route::post('/cart/tambah/budgeting/{id}', [TiketController::class, 'do_tambah_cart_budgeting']);
+    Route::get('/cart/tambah/budgeting/{id}', [TiketController::class, 'do_tambah_cart_budgeting']);
+
     //pesanan
     Route::get('/pesananku', [PaymentController::class, 'pesananku'])->name('pesananku');
     Route::get('/pesanan/detail/{kode}', [PaymentController::class, 'pesananku_detail']);

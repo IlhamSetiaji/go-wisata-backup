@@ -276,7 +276,7 @@
                                                         <input type="text" class="form-control" name="harga"
                                                             id="harga-total" value="{{ old('harga') }}" 
                                                             required>
-                                                    </div>
+                                                    </div>  
                                                 </div>
                                             </div> --}}
                                         </div>

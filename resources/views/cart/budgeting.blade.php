@@ -51,8 +51,9 @@
 </nav>
 
 <div id="main-content">
-    {{-- {{ dd($kuliner) }} --}}
-    @if (empty($kuliner) || count($kuliner) == 0)
+    {{-- {{ dd($budgeting) }} --}}
+
+    @if (empty($budgeting) || count($budgeting) == 0)
 
         <body>
             <nav class="navbar navbar-light">
@@ -104,7 +105,6 @@
                                             <th scope="col">No</th>
                                             <th scope="col">Menu</th>
                                             <th scope="col">Harga</th>
-                                            <th scope="col">Jumlah</th>
                                             <th scope="col">Sub Total</th>
                                             {{-- <th scope="col">Catatan</th> --}}
                                             {{-- <th scope="col">Status</th> --}}
@@ -114,11 +114,10 @@
                                     <tbody>
                                         <?php $no = 1;
                                         $grandtotal = 0; ?>
-                                        @foreach ($kuliner as $key => $kuliner)
-                                            <?php
-                                            $subtotal = $kuliner['harga_produk'] * $kuliner['jumlah'] * $kuliner['durasi'];
-                                            // dd($subtotal);
-                                            ?>
+                                        @foreach ($budgeting as $item)
+                                        <?php
+                                        $subtotal = $item['harga'] * $item['durasi'];
+                                        ?>
                                             <tr>
                                                 <td></td>
                                                 <td>
@@ -126,27 +125,25 @@
                                                     {{ $no++ }}
                                                 </td>
                                                 <td>
-                                                    {{ $kuliner['nama_produk'] }}
+                                                    {{ $item['nama_paket'] }}
                                                 </td>
                                                 <td>
-                                                    Rp. {{ number_format($kuliner['harga_produk']) }}
+                                                    Rp. {{ number_format($item['harga']) }}
                                                 </td>
 
-                                                <td>
-                                                    {{ $kuliner['jumlah'] }}
-                                                </td>
+                                               
 
                                                 <td>
                                                     Rp. {{ number_format($subtotal) }}
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('/cart/hapus/kuliner/' . $key) }}"> Batal </a>
+                                                    {{-- <a href="{{ url('/cart/hapus/kuliner/' . $key) }}"> Batal </a> --}}
                                                 </td>
                                             </tr>
                                             <?php $grandtotal += $subtotal; ?>
                                         @endforeach
                                         <tr>
-                                            <th colspan="5"> Grand Total </th>
+                                            <th colspan="4"> Grand Total </th>
                                             <th> Rp. {{ number_format($grandtotal) }}
                                             <th> </th>
                                         </tr>
