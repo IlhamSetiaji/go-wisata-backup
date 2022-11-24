@@ -145,7 +145,7 @@
                                                             <select class="form-select" name="data_wisata[]" id="data-wisata">
                                                                 <option value="">Please select data wisata</option>
                                                                 @foreach ($dataWisatas as $data)
-                                                                    <option value="{{ $data->id }}">{{ $data->name }} - {{ $data->dana != ''? $data->dana : 'Rp. 0' }}
+                                                                    <option value="{{ $data->id }}">{{ $data->name }} - {{ $data->htm != ''? $data->htm : 'Rp. 0' }}
                                                                     </option>
                                                                 @endforeach
                                                             </select>
@@ -205,12 +205,12 @@
                                             <div class="col-md-4">
                                                 <label>Penginapan</label>
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-4">
                                                 <div id="hotel">
                                                     <div class="form-group">
                                                         <div class="position-relative">
                                                             <fieldset class="form-group">
-                                                                <select class="form-select" name="data_penginapanhotel[]"
+                                                                <select class="form-select" name="data_penginapanhotel"
                                                                     id='data-penginapan-hotel'>
                                                                     <option value="">Pilih Hotel
                                                                     </option>
@@ -224,6 +224,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                
+                                                    <div class="form-group">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select" name="kamar"
+                                                                    id='kamar'>
+                                                                    <option value="">Pilih Kamar
+                                                                    </option>
+                                                                    {{-- @foreach ($dataPenginapanHotel as $data)
+                                                                        <option value="{{ $data->id }}">
+                                                                            {{ $data->nama }}
+                                                                        </option>
+                                                                    @endforeach --}}
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-8">
                                                 <div id="villa">
                                                     <div class="form-group">
                                                         <div class="position-relative">
@@ -304,7 +327,7 @@
                         }
                             
                         if (allGood) {
-                            $('#wisata').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wisata[]" id = "data-wisata" >  <option value = "" > Please select data Wisata </option>@foreach ($dataWisatas as $data)<option value="{{ $data->id }}">{{ $data->name }} - {{ $data->dana != ''? $data->dana : "Rp. 0" }}</option>@endforeach</select> </fieldset> </div> </div>'));
+                            $('#wisata').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wisata[]" id = "data-wisata" >  <option value = "" > Please select data Wisata </option>@foreach ($dataWisatas as $data)<option value="{{ $data->id }}">{{ $data->name }} - {{ $data->htm != ''? $data->htm : "Rp. 0" }}</option>@endforeach</select> </fieldset> </div> </div>'));
                         }
                     });
                     // $(document).on('change', '#paketresto', function() {
@@ -366,7 +389,38 @@
 
                         success: function(msg) {
                             // console.log(msg);
-                            $('#paketresto').append(msg);
+                            $('#paketresto').html(msg);
+                        },
+                        error: function(data) {
+                            console.log('error: ', data)
+                        }
+                    });
+                })
+            })
+        });
+    </script>
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(function() {
+                $('#data-penginapan-hotel').on('change', function() {
+                    let hotel = $('#data-penginapan-hotel').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('get-data-kamar') }}",
+                        data: {
+                            hotel_id: hotel
+                        },
+                        cache: false,
+
+                        success: function(msg) {
+                            console.log(msg);
+                            $('#kamar').html(msg);
                         },
                         error: function(data) {
                             console.log('error: ', data)
