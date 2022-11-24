@@ -84,9 +84,9 @@
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $wisata->name }}</td>
                                                         <td> - </td>
-                                                        <td> {{ $wisata->htm != null ? 'Rp' . $wisata->htm : 'Rp0' }}
+                                                        <td> {{ $wisata->htm != null ? 'Rp' . number_format($wisata->htm) : 'Rp0' }}
                                                         </td>
-                                                        <td> {{ $wisata->htm != null ? 'Rp' . $wisata->htm : 'Rp0' }}
+                                                        <td> {{ $wisata->htm != null ? 'Rp' . number_format($wisata->htm) : 'Rp0' }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -95,9 +95,9 @@
                                                         <td></td>
                                                         <td>{{ $wahana->name }}</td>
                                                         <td> - </td>
-                                                        <td> {{ $wahana->harga != null ? 'Rp' . $wahana->harga : 'Rp0' }}
+                                                        <td> {{ $wahana->harga != null ? 'Rp' .  number_format($wahana->harga) : 'Rp0' }}
                                                         </td>
-                                                        <td> {{ $wahana->harga != null ? 'Rp' . $wahana->harga : 'Rp0' }}
+                                                        <td> {{ $wahana->harga != null ? 'Rp' . number_format($wahana->harga) : 'Rp0' }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -106,9 +106,9 @@
                                                         <td> {{ $i++ }} </td>
                                                         <td>{{ $villa->nama }}</td>
                                                         <td> - </td>
-                                                        <td> {{ $villa->harga != null ? 'Rp' . $villa->harga : 'Rp0' }}
+                                                        <td> {{ $villa->harga != null ? 'Rp' . number_format($villa->harga) : 'Rp0' }}
                                                         </td>
-                                                        <td> {{ $villa->harga != null ? 'Rp' . $villa->harga : 'Rp0' }}
+                                                        <td> {{ $villa->harga != null ? 'Rp' . number_format($villa->harga) : 'Rp0' }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -132,16 +132,16 @@
                                                                     @endforeach
                                                                 @endforeach
                                                             </select> --}}
-                                                    <td> Rp{{ $kamars->harga }} </td>
-                                                    <td> Rp{{ $kamars->harga }} </td>
+                                                    <td> Rp{{ number_format($kamars->harga) }} </td>
+                                                    <td> Rp{{ number_format($kamars->harga) }} </td>
                                                 </tr>
                                                 {{-- @endforeach --}}
                                                 <tr>
                                                     <td>{{ $i++ }}</td>
                                                     <td> Paket Makanan {{ $kuliners->nama_paket }}</td>
                                                     <td>-</td>
-                                                    <td> Rp{{ $kuliners->harga }} </td>
-                                                    <td> Rp{{ $kuliners->harga }} </td>
+                                                    <td> Rp{{ number_format($kuliners->harga) }} </td>
+                                                    <td> Rp{{ number_format($kuliners->harga) }} </td>
                                                 </tr>
 
                                                 <tr>
@@ -151,7 +151,7 @@
                                                     </td>
                                     </div>
                                     <td></td>
-                                    <td>Rp{{ $total }}</td>
+                                    <td>Rp{{ number_format($total) }}</td>
                                     </tr>
                                     </tbody>
                                     </table>
