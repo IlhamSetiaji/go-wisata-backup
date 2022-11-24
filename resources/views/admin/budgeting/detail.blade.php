@@ -111,8 +111,6 @@
                                                         <td> {{ $villa->harga != null ? 'Rp' . $villa->harga : 'Rp0' }}
                                                         </td>
                                                     </tr>
-                                                    <input type="text" id="harga" value="{{ $villa->harga }}"
-                                                        hidden>
                                                 @endforeach
                                                 {{-- {{ dd($kamars) }} --}}
                                                 {{-- @foreach ($hotels as $hotel) --}}
@@ -161,11 +159,10 @@
                             <div class="d-flex justify-content-end">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="number" id="harga" value="{{ $total }}"
-                                            hidden>
                                         <input type="text" name="nama_paket" value="{{ $paket['nama_paket'] }}" hidden>
                                         <input type="text" name="jml_orang" value="{{ $paket['jml_orang'] }}" hidden>
                                         <input type="text" name="jml_hari" value="{{ $paket['jml_hari'] }}" hidden>
+                                        <input type="number" id="hargaAwal" value="{{ $total }}" hidden>
 
                                         @for ($i = 0; $i < count($paket['data_kategori']); $i++)
                                             <input type="text" name="data_kategori[]"
@@ -185,7 +182,7 @@
                                         <input type="text" name="data_hotel" value="{{ $hotels->id }}" hidden>
                                         <input type="text" name="data_kamar" value="{{ $kamars->id }}" hidden>
                                         <input type="text" name="kuliner" value="{{ $kuliners->id }}" hidden>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="row">
@@ -214,8 +211,10 @@
         $(document).ready(function() {
             $(document).on('change', '#diskon', function() {
                 var allGood = true;
-                let diskon = $('#diskon').val();
-                let harga = $('#harga').val();
+                let diskon = parseInt($('#diskon').val());
+                let harga = parseInt($('#hargaAwal').val());
+                // console.log(diskon);
+                console.log(harga);
 
                 if ($(this).val() == "") {
 
@@ -226,9 +225,10 @@
                 }
 
                 if (allGood) {
-                    let totalHarga = harga * (1 - (diskon / 100));
+                    let hargaDiskon = harga * (diskon / 100);
+                    let totalHarga = harga - hargaDiskon;
                     $('#harga-akhir').attr("value", totalHarga);
-                    console.log(totalHarga);
+                    // console.log(totalHarga);
                 }
             });
         });
