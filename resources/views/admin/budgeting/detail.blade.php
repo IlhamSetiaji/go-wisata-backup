@@ -50,7 +50,6 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                {{-- {{ dd($paket["data_kategori"][0]->nama_kategori) }} --}}
                                 <ul>
                                     <li>Nama Paket : {{ $paket['nama_paket'] }}</li>
                                     <li>Kategori Paket :
@@ -63,7 +62,7 @@
                                     <li>Jumlah Orang : {{ $paket['jml_orang'] }}</li>
                                 </ul>
 
-                                <form action="{{ route('budget.detail.create') }}" id="form" method="GET"
+                                <form action="{{ route('store-budget') }}" id="form" method="POST"
                                     enctype="multipart/form-data" class="form">
                                     @csrf
                                     <div class="table-responsive">
@@ -78,7 +77,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php $nomor = count($wisatas) + count($wahanas) + count($hotels) + count($villas); ?>
                                                 {{-- {{ dd($nomor) }} --}}
                                                 <?php $i = 1; ?>
                                                 @foreach ($wisatas as $wisata)
@@ -86,9 +84,9 @@
                                                         <td>{{ $i++ }}</td>
                                                         <td>{{ $wisata->name }}</td>
                                                         <td> - </td>
-                                                        <td> {{ $wisata->dana != null ? 'Rp' . $wisata->dana : 'Rp0' }}
+                                                        <td> {{ $wisata->htm != null ? 'Rp' . $wisata->htm : 'Rp0' }}
                                                         </td>
-                                                        <td> {{ $wisata->dana != null ? 'Rp' . $wisata->dana : 'Rp0' }}
+                                                        <td> {{ $wisata->htm != null ? 'Rp' . $wisata->htm : 'Rp0' }}
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -113,14 +111,16 @@
                                                         <td> {{ $villa->harga != null ? 'Rp' . $villa->harga : 'Rp0' }}
                                                         </td>
                                                     </tr>
+                                                    <input type="text" id="harga" value="{{ $villa->harga }}"
+                                                        hidden>
                                                 @endforeach
                                                 {{-- {{ dd($kamars) }} --}}
-                                                @foreach ($hotels as $hotel)
-                                                    <tr>
-                                                        <td> {{ $i++ }} </td>
-                                                        <td>{{ $hotel->nama }}</td>
-                                                        <td>
-                                                            <select class="form-select" name="data_penginapanvilla[]"
+                                                {{-- @foreach ($hotels as $hotel) --}}
+                                                <tr>
+                                                    <td> {{ $i++ }} </td>
+                                                    <td>{{ $hotels->nama }} - {{ $kamars->name }}</td>
+                                                    <td> - </td>
+                                                    {{-- <select class="form-select" name="data_penginapanvilla[]"
                                                                 id='data-penginapan-villa'>
                                                                 <option value="">Pilih Kamar
                                                                 </option>
@@ -133,27 +133,27 @@
                                                                         @endif
                                                                     @endforeach
                                                                 @endforeach
-                                                            </select>
-                                                        </td>
-                                                        <td> - </td>
-                                                        <td> - </td>
-                                                    </tr>
-                                                @endforeach
+                                                            </select> --}}
+                                                    <td> Rp{{ $kamars->harga }} </td>
+                                                    <td> Rp{{ $kamars->harga }} </td>
+                                                </tr>
+                                                {{-- @endforeach --}}
                                                 <tr>
                                                     <td>{{ $i++ }}</td>
-                                                    <td>{{ $kuliners->nama_paket }}</td>
+                                                    <td> Paket Makanan {{ $kuliners->nama_paket }}</td>
                                                     <td>-</td>
-                                                    <td>-</td>
+                                                    <td> Rp{{ $kuliners->harga }} </td>
+                                                    <td> Rp{{ $kuliners->harga }} </td>
                                                 </tr>
+
                                                 <tr>
-                                                    <td></td>
                                                     <td colspan="2">
                                                     <td class="d-flex justify-content-end">
                                                         <b>Total:</b>
                                                     </td>
                                     </div>
                                     <td></td>
-                                    <td>Rp20000</td>
+                                    <td>Rp{{ $total }}</td>
                                     </tr>
                                     </tbody>
                                     </table>
@@ -161,7 +161,39 @@
                             <div class="d-flex justify-content-end">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="number" class="form-control" placeholder="Harga">
+                                        <input type="number" id="harga" value="{{ $total }}"
+                                            hidden>
+                                        <input type="text" name="nama_paket" value="{{ $paket['nama_paket'] }}" hidden>
+                                        <input type="text" name="jml_orang" value="{{ $paket['jml_orang'] }}" hidden>
+                                        <input type="text" name="jml_hari" value="{{ $paket['jml_hari'] }}" hidden>
+
+                                        @for ($i = 0; $i < count($paket['data_kategori']); $i++)
+                                            <input type="text" name="data_kategori[]"
+                                                value="{{ $paket['data_kategori'][$i]->id }}" hidden>
+                                        @endfor
+
+                                        @foreach ($wisatas as $wisata)
+                                            <input type="text" name="data_wisata[]" value="{{ $wisata->id }}" hidden>
+                                        @endforeach
+                                        @foreach ($wahanas as $wahana)
+                                            <input type="text" name="data_wahana[]" value="{{ $wahana->id }}" hidden>
+                                        @endforeach
+                                        {{-- {{ dd($villas) }} --}}
+                                        @foreach ($villas as $villa)
+                                            <input type="text" name="data_villa" value="{{ $villa->id }}" hidden>
+                                        @endforeach
+                                        <input type="text" name="data_hotel" value="{{ $hotels->id }}" hidden>
+                                        <input type="text" name="data_kamar" value="{{ $kamars->id }}" hidden>
+                                        <input type="text" name="kuliner" value="{{ $kuliners->id }}" hidden>
+                                        
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="number" id="diskon" class="form-control mb-2"
+                                            placeholder="Diskon 0-100">
+                                        <input type="number" class="form-control" id="harga-akhir" name="harga"
+                                            placeholder="Harga Akhir" readonly required>
                                     </div>
                                 </div>
                             </div>
@@ -178,5 +210,27 @@
     <!-- Hoverable rows end -->
 
     </div>
-    <script></script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('change', '#diskon', function() {
+                var allGood = true;
+                let diskon = $('#diskon').val();
+                let harga = $('#harga').val();
+
+                if ($(this).val() == "") {
+
+                    console.log('false');
+
+                    return allGood = false;
+
+                }
+
+                if (allGood) {
+                    let totalHarga = harga * (1 - (diskon / 100));
+                    $('#harga-akhir').attr("value", totalHarga);
+                    console.log(totalHarga);
+                }
+            });
+        });
+    </script>
 @endsection
