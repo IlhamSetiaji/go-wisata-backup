@@ -218,11 +218,81 @@
                                 </div>
                             @endif
                         </div>
+                        {{-- {{ dd($paketKuliner[0]->status) }} --}}
                         <div class="tab-pane fade" id="paket" role="tabpanel" aria-labelledby="profile-tab">
-                            Nesciunt totam et. Consequuntur magnam aliquid eos nulla dolor iure eos quia.
-                            Accusantium distinctio omnis et atque fugiat. Itaque doloremque aliquid sint quasi quia
-                            distinctio similique. Voluptate nihil recusandae mollitia dolores. Ut laboriosam
-                            voluptatum dicta.
+                            {{-- <div class="container"> --}}
+                            <div class="row">
+                                {{-- {{ dd($paketKuliner) }} --}}
+                                @foreach ($paketKuliner as $item)
+                                    <div class="col-md-6">
+                                        <div class="card mt-2" style="background-color: #F2F7FF">
+                                            <div class="card-content">
+                                                <div class="card-body">
+                                                    <h2 class="card-title">{{ $item->nama_paket }}</h2>
+                                                    <h4>Harga {{ number_format($item->harga) }}</h4>
+                                                    @if ($item->status == 1)
+                                                        <p>Aktif</p>
+                                                    @else
+                                                        <p>Tidak Aktif</p>
+                                                    @endif
+                                                    <ul>
+                                                        {{-- {{ dd($dataPaketKuliner) }} --}}
+                                                        @foreach ($dataPaketKuliner as $datas)
+                                                            @foreach ($datas as $data)
+                                                                @if ($data->data_paket_kuliner_id == $item->id)
+                                                                    <li>{{ $data->kuliner->name }}</li>
+                                                                @endif
+                                                            @endforeach
+                                                        @endforeach
+                                                    </ul>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <form action="{{ route('update.status.paket.kuliner') }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @if ($item->status == 1)
+                                                                    <input type="text" name="id"
+                                                                        value="{{ $item->id }}" hidden>
+                                                                    <input type="text" name="status" id="status"
+                                                                        value="0" hidden>
+                                                                    <button
+                                                                        class="btn btn-outline-danger mr-2">Nonaktifkan</button>
+                                                                @else
+                                                                    <input type="text" name="id"
+                                                                        value="{{ $item->id }}" hidden>
+                                                                    <input type="text" name="status" id="status"
+                                                                        value="1" hidden>
+                                                                    <button
+                                                                        class="btn btn-outline-info mr-2">Aktifkan</button>
+                                                                @endif
+                                                            </form>
+                                                            <a href="/akuliner/paket/{{ $item->id }}/edit"
+                                                                class="btn btn-outline-warning">Edit</a>
+
+                                                            {{-- </div> --}}
+                                                        </div>
+                                                    </div>
+
+                                                    <small class="breadcrumb breadcrumb-right">
+                                                        {{-- @if ($kuliner->harga == 0)
+                                                            Free
+                                                        @else
+                                                        <a class="btn disabled  btn-outline-primary"
+                                                        href="#">harga: Rp.
+                                                        {{ $kuliner->harga }}</a>
+                                                        @endif --}}
+                                                    </small>
+                                                    <p class="card-text">
+
+                                                    </p>
+                                                    {{-- <button class="btn btn-primary block">Update now</button> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            {{-- </div> --}}
                         </div>
 
                     </div>

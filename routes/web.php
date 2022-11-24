@@ -43,6 +43,7 @@ use App\Http\Controllers\LoginAdminController;
 use App\Http\Controllers\TbPaketController;
 use App\Http\Controllers\TbPaketkulinerController;
 use App\Http\Controllers\TopUpController;
+use App\Http\Middleware\Kuliner;
 use Illuminate\Auth\Events\Login;
 
 /*
@@ -311,7 +312,10 @@ Route::group([
     Route::get('/todaykuliner/selesai/{id}', [TodayController::class, 'updatekulinerselesai'])->name('update.selesai.pesanank');
     Route::get('/todaykuliner/print/{today}', [TodayController::class, 'printkulinertoday'])->name('print.pesanank');
     Route::resource('/kuliner', KulinerController::class);
+    Route::post('/update-status-kuliner', [KulinerController::class, 'editStatus'])->name('update.status.paket.kuliner');
     Route::resource('/paket', TbPaketkulinerController::class);
+    // Route::get('/paket/{id}/edit', [TbPaketkulinerController::class, 'editPaket']);
+    
     // Route::get('/paket/create', [TbPaketController::class, 'createPaket'])->name('paket.create');
     Route::get('/status/update9/{id}', [KulinerController::class, 'toggleStatus'])->name('update.status.kuliner');
 
