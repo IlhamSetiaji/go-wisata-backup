@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataPaketKuliner;
 use Illuminate\Http\Request;
 use App\Models\Kuliner;
+use App\Models\tb_paketkuliner;
 use App\Models\Tempat;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
@@ -21,7 +23,21 @@ class KulinerController extends Controller
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->pluck('id')->first();
 
         $kuliner = Kuliner::where('tempat_id', $tempat)->get();
-        return view('kuliner.kuliner.index', compact('kuliner'));
+        $paketKuliner = DataPaketKuliner::where('tempat_id', $tempat)->get();
+        $dataPaketKuliner = [];
+        foreach ($paketKuliner as $data) {
+            array_push($dataPaketKuliner, tb_paketkuliner::where('data_paket_kuliner_id', $data->id)->get()); 
+        }
+
+        // dd($dataPaketKuliner[0]);
+        return view('kuliner.kuliner.index', compact('kuliner', 'paketKuliner', 'dataPaketKuliner'));
+        // return view('kuliner.kuliner.index', compact('kuliner'));
+    }
+
+    public function editStatus(Request $request)
+    {
+        DataPaketKuliner::where('id', $request->id)->update(['status' => $request->status]);
+        return redirect(route('kuliner.index'));
     }
 
     /**

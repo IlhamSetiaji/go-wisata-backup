@@ -17,6 +17,7 @@ class CreateDataPaketKulinersTable extends Migration
             $table->id();
             $table->string('nama_paket');
             $table->bigInteger('harga');
+            $table->integer('status');
             $table->timestamps();
         });
     }
