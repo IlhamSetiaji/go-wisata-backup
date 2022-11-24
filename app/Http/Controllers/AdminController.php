@@ -6,14 +6,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Tempat;
+use App\Models\Tour;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function index()
     {
-
-
         $users  = User::with(['role'])->where('role_id', '!=', 5)->get();
         // dd($users);
         return view('admin.admin.index', compact('users'));
@@ -107,6 +106,7 @@ class AdminController extends Controller
 
         return view('desa.admin.edit',  compact('users'));
     }
+
     public function update(Request $request, $id)
     {
         $admin = User::where('id', $id)->first();
@@ -238,5 +238,83 @@ class AdminController extends Controller
         $users  = User::where('role_id', 1)->get();
         // dd($users);
         return view('admin.admin.index', compact('users'));
+    }
+
+    //TOUR GUIDE
+    public function tourIndex(Request $request)
+    {
+        $tour  = Tour::all();
+        return view('desa.tour.index', compact('tour'));
+    }
+
+    public function tourCreate(Request $request)
+    {
+
+        $data['name'] = $request->name;
+        $data['foto'] = $request->foto;
+        $data['email'] = $request->email;
+        $data['telp'] = $request->telp;
+        $data['harga'] = $request->harga;
+
+        Tour::create($data);
+
+        return redirect()->route('tourd.index');
+    }
+
+    public function tourShow()
+    {
+
+        return view('desa.tour.create');
+    }
+
+    public function tourEdit($id)
+    {
+        $users = Tour::find($id);
+
+        return view('desa.tour.edit',  compact('users'));
+    }
+
+    public function tourUpdate(Request $request, $id)
+    {
+        
+        $data = $request->all();
+        
+        $tour = Tour::where('id', $id)->first();
+        $user = Tour::find($id);
+        $imageName = $user->image;
+        if ($request->hasFile('image')) {
+            $imageName = (new User)->userAvatar($request);
+            if ($tour->image == null) {
+            } else {
+                // unlink(public_path('images/' . $user->image));
+                if (file_exists($imageName))
+                    unlink(public_path('images/' . $user->image));
+            }
+        }
+        $data['image'] = $imageName;
+        $user->update($data);
+        Toastr::success(' Berhasil mengupdate data :)', 'Success');
+        return redirect()->route('tourd.index');
+    }
+
+    public function tourDestroy($id)
+    {
+        if (auth()->user()->id == $id) {
+            abort(401);
+        }
+
+        $user = Tour::find($id);
+        $userDelete = $user->delete();
+
+        if ($userDelete) {
+            if ($user->image == null) {
+            } else {
+                if (file_exists($user->image))
+                    unlink(public_path('images/' . $user->image));
+            }
+        }
+        Toastr::success('User deleted successfully :)', 'Success');
+
+        return redirect()->route('tourd.index')->with('message', 'Data deleted successfully');
     }
 }

@@ -15,8 +15,6 @@ class TempatController extends Controller
 {
     public function index()
     {
-
-
         $users  = Tempat::all();
         // $u = Tempat::first();
         // return $u->petugas()->petugas_id;

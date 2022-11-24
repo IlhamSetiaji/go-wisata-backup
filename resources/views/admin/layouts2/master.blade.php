@@ -68,6 +68,21 @@
                                     <span>Admin</span>
                                 </a>
                             </li>
+
+                            <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
+                                <a href="{{ route('paketd.index') }}" class='sidebar-link'>
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span>Paket</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item  {{ request()->is('adesa/tourd/*') ? 'active' : '' }}">
+                                <a href="{{ route('tourd.index') }}" class='sidebar-link'>
+                                    <i class="fa-solid fa-users-line"></i>
+                                    <span>Tour Guide</span>
+                                </a>
+                            </li>
+
                             <hr>
                             <li class="sidebar-item  {{ request()->is('adesa/rekapd*') ? 'active' : '' }}">
                                 <a href="{{ route('rekapd.index') }}" class='sidebar-link'>
