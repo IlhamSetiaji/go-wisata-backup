@@ -71,25 +71,16 @@
                                 </a>
                             </li>
 
-<<<<<<< HEAD
-                            <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
-                                <a href="{{ route('paketd.index') }}" class='sidebar-link'>
-                                    <i class="fa-solid fa-boxes-stacked"></i>
-                                    <span>Paket</span>
-                                </a>
-                            </li>
-
-                            <li class="sidebar-item  {{ request()->is('adesa/tourd/*') ? 'active' : '' }}">
-                                <a href="{{ route('tourd.index') }}" class='sidebar-link'>
-                                    <i class="fa-solid fa-users-line"></i>
-                                    <span>Tour Guide</span>
-                                </a>
-                            </li>
-=======
                             <li class="sidebar-item  {{ request()->is('adesa/budgeting*') ? 'active' : '' }}">
                                 <a href="{{ route('budget.index') }}" class='sidebar-link'>
                                     <i class="bi bi-cash"></i>
                                     <span>Paket</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item  {{ request()->is('adesa/tourd/*') ? 'active' : '' }}">
+                                <a href="{{ route('tourd.index') }}" class='sidebar-link'>
+                                    <i class="fa-solid fa-users-line"></i>
+                                    <span>Tour Guide</span>
                                 </a>
                             </li>
                             {{-- <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
@@ -98,7 +89,6 @@
                                     <span>Paket</span>
                                 </a>
                             </li> --}}
->>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 
                             <hr>
                             <li class="sidebar-item  {{ request()->is('adesa/rekapd*') ? 'active' : '' }}">

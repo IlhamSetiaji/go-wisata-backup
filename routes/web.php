@@ -40,14 +40,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BookingTempatSewaController;
 use App\Http\Controllers\BudgetingController;
 use App\Http\Controllers\LoginAdminController;
-<<<<<<< HEAD
-use App\Http\Controllers\TopUpController;
-=======
 use App\Http\Controllers\TbPaketController;
 use App\Http\Controllers\TbPaketkulinerController;
 use App\Http\Controllers\TopUpController;
 use App\Http\Middleware\Kuliner;
->>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 use Illuminate\Auth\Events\Login;
 
 /*
@@ -60,14 +56,6 @@ use Illuminate\Auth\Events\Login;
 | contains the "web" middleware group. Now create something great!
 */
 
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Auth::routes(['verify' => true]);
 Route::resource('/', FrontendController::class);
 Route::post('/get-penginapan', [FrontendController::class, 'getPenginapan'])->name('get-penginapan');
@@ -91,22 +79,14 @@ Route::get('/explore_desa_wisata', [FrontendController::class, 'explore_desa_wis
 Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
-<<<<<<< HEAD
-Route::resource('/profile', ProfileController::class)->middleware('verified');
-=======
 Route::resource('/profile', ProfileController::class)->middleware(['verified', 'customer']);
->>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
 
 //login admin
-<<<<<<< HEAD
-Route::get('/login-admin', [LoginAdminController::class, 'index']);
-=======
 Route::get('/login-admin', [LoginAdminController::class, 'index'])->middleware('guest');
->>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Route::post('/post-login', [LoginAdminController::class, 'login']);
 
 Route::group([
@@ -299,10 +279,6 @@ Route::group([
 
     Route::post('/paketd/created', [AdminController::class, 'paketCreated'])->name('paketd.created');
 
-<<<<<<< HEAD
-    Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budget.index');
-    Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
-
     // TOURGUIDE
     Route::get('/tourd/index', [AdminController::class, 'tourIndex'])->name('tourd.index');
     Route::get('/tourd/show', [AdminController::class, 'tourShow'])->name('tourd.show');
@@ -313,9 +289,6 @@ Route::group([
     Route::post('/tourd/stored', [AdminController::class, 'tourStored'])->name('tourd.stored');
 });
 
-Route::group([
-
-=======
     Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
     Route::get('/budgeting-create-detail', [BudgetingController::class, 'detailPaket'])->name('budget.detail.create');
@@ -326,10 +299,8 @@ Route::group([
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
     Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
     Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
-});
 
 Route::group([
->>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
     'middleware' => ['auth', 'kuliner', 'verified'],
     'prefix' => 'akuliner',
 
@@ -512,11 +483,7 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
-<<<<<<< HEAD
-Route::post('/budgeting/{slug}', [FrontendController::class, 'budgeting'])->name('front.budget');
-=======
 Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
->>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');

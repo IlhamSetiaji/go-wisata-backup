@@ -69,6 +69,17 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
+                                            <label>Desa Penugasan</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select class="form-select" aria-label="Default select example" name="desa_id">
+                                                <option selected>Desa Penugasan</option>
+                                                @foreach ($desa as $desa)
+                                                    <option value="{{ $desa->id }}">{{ $desa->name }}</option>
+                                                @endforeach
+                                              </select>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label>Telfon</label>
                                         </div>
                                         <div class="col-md-8">

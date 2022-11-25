@@ -73,6 +73,7 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Telfon</th>
                                         <th scope="col">Harga</th>
+                                        <th scope="col">Desa Penugasan</th>
                                         <th scope="col">Action</th>
 
                                     </tr>
@@ -107,6 +108,9 @@
                                         </td>
                                         <td>
                                             {{ $tour->harga }}
+                                        </td>
+                                        <td>
+                                            {{ $tour->nama_desa }}
                                         </td>
                                         <td class="row">
                                             <a href="{{route('tourd.edit',[$tour->id])}}" class="col" >
