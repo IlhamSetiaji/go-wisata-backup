@@ -1,5 +1,5 @@
 @extends('admin.layouts2.master')
-@section('title', 'Edit Tempat')
+@section('title', 'Edit Tour Guide')
 
 @section('content')
     <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
