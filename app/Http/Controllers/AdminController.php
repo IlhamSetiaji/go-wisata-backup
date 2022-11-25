@@ -249,7 +249,7 @@ class AdminController extends Controller
 
     public function tourCreate(Request $request)
     {
-
+        $data['desa_id'] = $request->desa_id;
         $data['name'] = $request->name;
         $data['foto'] = $request->foto;
         $data['email'] = $request->email;
