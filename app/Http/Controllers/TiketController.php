@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use App\Models\Detail_booking;
 use App\Models\Detail_transaksi;
 use App\Models\Detail_camp;
+use App\Models\tb_paket;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 
@@ -590,6 +591,37 @@ class TiketController extends Controller
         // session()->forget("cart");
         return view("cart.camping", compact('camping', 'i', 'kosong'))->with("cartc", $cartc);
     }
+
+    //CART BUDGETING
+    function cart_budgeting() {
+        $budgeting = session("budgeting");
+        
+        return view("cart.budgeting", compact('budgeting'))->with("budgeting", $budgeting);
+        
+    }
+
+    //ADD BUDGETING
+    function do_tambah_cart_budgeting($id)
+    {
+        $budgeting = session("budgeting");
+
+        $paket = tb_paket::where('id', $id)->first();
+
+        $budgeting[$id] = [
+            "user_id" => Auth::user()->id,
+            "durasi" => "1",
+            "harga" => $paket->harga,
+            "nama_paket" => $paket->nama_paket,
+            "kategori" => $paket->id_kategori
+
+        ];
+
+
+        session(["budgeting" => $budgeting]);
+        return redirect("/cart/budgeting");
+    }
+
+
     function do_tambah_kuliner(Request $request, $kode)
     {
         //
@@ -690,6 +722,9 @@ class TiketController extends Controller
         session(["kuliner" => $kuliner]);
         return redirect("/cart/kuliner");
     }
+
+
+
     function do_hapus_cart_penginapan($kode)
     {
         //

@@ -13,28 +13,23 @@
 
             @foreach ($errors->all() as $error)
                 {!! Toastr::error($error, 'Error', ['options']) !!}
-                {{-- <p class="text-danger">{{ $error }}</p> --}}
+                
             @endforeach
             <div class="row">
                 <div class="col-xl-4 col-md-6 col-sm-12">
                     <div class="card" data-bs-toggle="modal" data-bs-target="#default2">
-                        <div class="card-content">
+                        <div class="card-content" style="cursor: pointer">
                             @if (Auth::user()->image == null)
-                                {{-- <img alt="image" class="mr-3 rounded-circle" width="50" src="{{asset('images')}}/user.jpg"> --}}
-                                <img src="{{ asset('images') }}/user.jpg" class="card-img-top img-fluid" alt="singleminded">
+                                
+                                <img src="{{ asset('images') }}/user.png" class="card-img-top img-fluid" alt="singleminded">
                             @else
                                 <img src="{{ asset('images') }}/{{ Auth::user()->image }}" class="card-img-top img-fluid"
                                     alt="singleminded">
                             @endif
 
-                            {{-- <div class="card-body">
-                <h5 class="card-title">{{ Auth::user()->name }}</h5>
-
-            </div> --}}
+                            
                         </div>
-                        {{-- Dibuat tanggal : {{ substr(App\Models\User::pluck('created_at')->first(),0,10) }} </li> --}}
-
-
+                     
                     </div>
 
 

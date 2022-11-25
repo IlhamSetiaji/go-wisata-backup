@@ -135,6 +135,10 @@ class TempatController extends Controller
         $data['image'] = $name;
         $name2 = (new Tempat)->tempatAvatar2($request);
         $data['image2'] = $name2;
+        $data['atraksi'] = $request->atraksi;
+        $data['akses'] = $request->akses;
+        $data['sejarah'] = $request->sejarah;
+        $data['unggulan'] = $request->unggulan;
 
         $slug = Str::slug($request->name, '-');
         $data['slug'] = $slug;
@@ -220,6 +224,8 @@ class TempatController extends Controller
     }
     public function updated(Request $request, $id)
     {
+       
+
         $admin = Tempat::where('id', $id)->first();
         // $this->validateUpdate($request, $id);
         $data = $request->all();
@@ -237,6 +243,7 @@ class TempatController extends Controller
             }
         }
         $data['image'] = $imageName;
+        
 
         $imageName2 = $user->image2;
         if ($request->hasFile('image2')) {
@@ -252,6 +259,10 @@ class TempatController extends Controller
         $data['slug'] = $slug;
         $tempatdesa  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
         $data['induk_id'] = $tempatdesa->id;
+        $data['deskripsi'] = $request->deskripsi;
+        $data['akses'] = $request->akses;
+        $data['sejarah'] = $request->sejarah;
+        
 
 
 

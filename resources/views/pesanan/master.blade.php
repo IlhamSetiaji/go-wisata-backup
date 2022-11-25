@@ -86,7 +86,7 @@
                                 <div class="avatar avatar-md">
                                     @if (Auth::user()->image == null)
                                         <img alt="image" class="mr-3 rounded-circle" width="50"
-                                            src="{{ asset('images') }}/user.jpg">
+                                            src="{{ asset('images') }}/user.png">
                                     @else
                                         <div class="avatar avatar-xl">
                                             <img src="{{ asset('images') }}/{{ Auth::user()->image }}">

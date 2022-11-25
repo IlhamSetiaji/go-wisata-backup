@@ -37,6 +37,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \RealRashid\SweetAlert\ToSweetAlert::class
         ],
 
         'api' => [
@@ -70,6 +71,7 @@ class Kernel extends HttpKernel
         'penginapan' => \App\Http\Middleware\Penginapan::class,
         'desa' => \App\Http\Middleware\Desa::class,
         'event.sewatempat' => \App\Http\Middleware\Event::class,
+        'customer' => \App\Http\Middleware\Customer::class
 
     ];
 }

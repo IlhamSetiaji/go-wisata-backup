@@ -7,9 +7,12 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
-use DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 use Carbon\Carbon;
-use Auth;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class LoginController extends Controller
 {
@@ -62,17 +65,18 @@ class LoginController extends Controller
             'description' => 'has log in',
             'date_time'   => $todayDate,
         ];
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 'Active'])) {
-            DB::table('activity_logs')->insert($activityLog);
-            Toastr::success('Login successfully :)', 'Success');
-            return redirect()->intended('home');
-        } elseif (Auth::attempt(['email' => $email, 'password' => $password, 'status' => null])) {
-            DB::table('activity_logs')->insert($activityLog);
-            Toastr::success('Login successfully :)', 'Success');
-            return redirect()->intended('home');
-        } else {
-            Toastr::error('fail, WRONG USERNAME OR PASSWORD :)', 'Error');
-            return redirect('login');
-        }
+        // if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 'Active'])) {
+        //     DB::table('activity_logs')->insert($activityLog);
+        //     Toastr::success('Login successfully :)', 'Success');
+        //     return redirect()->intended('home');
+        // } elseif (Auth::attempt(['email' => $email, 'password' => $password, 'status' => null])) {
+        //     DB::table('activity_logs')->insert($activityLog);
+        //     Toastr::success('Login successfully :)', 'Success');
+        //     return redirect()->intended('home');
+        // } else {
+        //     $sendCheckError = true;
+        //     Toastr::error('fail, WRONG USERNAME OR PASSWORD :)', 'Error');
+        //     return redirect('login')->with($sendCheckError);
+        // }
     }
 }

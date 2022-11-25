@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\Detail_transaksi;
-use App\Models\Event;
-use App\Models\EventBooking;
-use App\Models\Kamar;
-use App\Models\Kuliner;
 use App\Models\Pay;
-use App\Models\Tempat;
-use App\Models\Tiket;
+use App\Models\Desa;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\ListEvent;
+use App\Models\Kamar;
+use App\Models\Tiket;
+use App\Models\Tempat;
 use App\Models\Wahana;
+use App\Models\Hotel;
+use App\Models\Villa;
+use App\Models\Kuliner;
+use Illuminate\Support\Str;
+use App\Models\EventBooking;
 use Illuminate\Http\Request;
+use App\Models\Detail_transaksi;
+use App\Http\Controllers\Controller;
+use App\Http\Middleware\Penginapan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class API extends Controller
 {
@@ -27,7 +32,7 @@ class API extends Controller
         $tempat  = new Tempat();
         $tempat  = $tempat
             ->where('kategori', 'wisata')
-            ->where('status','1')
+            ->where('status', '1')
             ->get();
         foreach ($tempat as $key) {
             $key->wahana = Wahana::where('tempat_id', $key->id)->get();
@@ -40,7 +45,7 @@ class API extends Controller
         $wahana  = new Wahana();
         $wahana  = $wahana
             ->where('tempat_id', $id)
-            ->where('status','1')
+            ->where('status', '1')
             ->get();
         if ($wahana->count() > 0) {
             $res = response()->json($wahana);
@@ -215,7 +220,7 @@ class API extends Controller
             $tanggal_a = $request->date;
             $tanggal_b = 0;
             $jumlah = $key->qty;
-          	$status = "0";
+            $status = "0";
             $count = $key->qty;
             $tempat_id = $key->tempat_id;
 
@@ -263,7 +268,7 @@ class API extends Controller
         $tanggal_a = $request->date;
         $tanggal_b = 0;
         $jumlah = $tmp->qty;
-      	$status = "0";
+        $status = "0";
         $count = $tmp->qty;
         $tempat_id = $tmp->tempat_id;
 
@@ -277,9 +282,9 @@ class API extends Controller
             'kode_tiket  :' . $kode_tiket,
             'id_produk  :' . $id_produk,
             'jumlah  :' . $jumlah,
-          	'status  :' . $status,
-            'count  :'.$jumlah,
-            'type_bayar :' .$type_bayar,
+            'status  :' . $status,
+            'count  :' . $jumlah,
+            'type_bayar :' . $type_bayar,
             'name  :' . $name,
             'durasi  :' . $durasi,
             'tanggal_a  :' . $tanggal_a,
@@ -303,8 +308,8 @@ class API extends Controller
     {
         if ($request->id != null) {
             $tiket = Tiket::where('user_id', $request->id)
-            ->orderby('id', 'desc')
-            ->get();
+                ->orderby('id', 'desc')
+                ->get();
             // $accessToken = auth()->user()->createToken('authToken')->accessToken;
             if ($tiket->count() > 0) {
                 return response()->json($tiket);
@@ -377,6 +382,7 @@ class API extends Controller
         $user->email = $request->email;
         $user->password = $password;
         $user->telp = $request->telp;
+        $user->email_verified_at = date('Y-m-d H:i:s');
         try {
             if ($user->save()) {
                 $login = User::where('email', $request->email)->first();
@@ -384,9 +390,16 @@ class API extends Controller
             }
         } catch (\Throwable $th) {
 
-            return response()->json(['data' => 'Gagal register'],500);
+            return response()->json(['data' => 'Gagal register'], 500);
         }
     }
+    // public function verify(Request $request)
+    // {
+    //     $verify = User::where($request->id)->first();
+    //     $verify->update([
+    //         'email_verified_at' => date('Y-m-d H:i:s'),
+    //     ]);
+    // }
     public function checkLogin()
     {
         $check = Auth::check();
@@ -439,16 +452,15 @@ class API extends Controller
 
 
         try {
-          // Get Snap Payment Page URL
-          $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
+            // Get Snap Payment Page URL
+            $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
 
 
-          // Redirect to Snap Payment Page
-          return response()->json(['data' => $paymentUrl]);
-        //   header('Location: ' . $paymentUrl);
-        }
-        catch (Exception $e) {
-          echo $e->getMessage();
+            // Redirect to Snap Payment Page
+            return response()->json(['data' => $paymentUrl]);
+            //   header('Location: ' . $paymentUrl);
+        } catch (Exception $e) {
+            echo $e->getMessage();
         }
     }
 
@@ -462,10 +474,10 @@ class API extends Controller
         // Set 3DS transaction for credit card to true
         \Midtrans\Config::$is3ds = true;
 
-        $pay = Pay::where('id',$request->id)->count();
+        $pay = Pay::where('id', $request->id)->count();
         $status = \Midtrans\Transaction::status($request->id);
         echo var_dump($status);
-        if ($pay<1) {
+        if ($pay < 1) {
             Pay::create([
                 'id' => $status->order_id,
                 'status_message' => $status->status_message,
@@ -477,148 +489,179 @@ class API extends Controller
                 'va_number' => $status->va_numbers[0]->va_number,
                 'kodeku' => $status->order_id
             ]);
-        }else{
+        } else {
             if ($status->transaction_status == 'settlement') {
-                $findpay = Pay::where('id',$request->id)->first();
+                $findpay = Pay::where('id', $request->id)->first();
                 $findpay->transaction_status = $status->transaction_status;
                 if ($findpay->save()) {
                     echo 'pay update';
                 }
-                $findtiket = Tiket::where('kode',$status->order_id)->first();
+                $findtiket = Tiket::where('kode', $status->order_id)->first();
                 $findtiket->status = '1';
                 if ($findtiket->save()) {
                     echo 'tiket update';
                 }
-              	$statustiket = Detail_transaksi::where('kode_tiket',$status->order_id)->first();
+                $statustiket = Detail_transaksi::where('kode_tiket', $status->order_id)->first();
                 $statustiket->status = '1';
                 if ($statustiket->save()) {
                     echo 'tiket update';
                 }
-
-
             }
         }
-
     }
 
 
 
-//tempat
+    //tempat
 
-public function kulinershow(){
-    $kuliner = Kuliner::where('tempat_id', '9')->where('status', '1')->get();
-    return response()->json([
-        'success' => true,
-        'message' => 'Ambil data berhasil',
-        'data' => $kuliner,
-    ]);
-}
-
-public function kulinershow1(){
-    $kuliner = Kuliner::where('tempat_id', '10')->where('status', '1')->get();
-    return response()->json([
-        'success' => true,
-        'message' => 'Ambil data berhasil',
-        'data' => $kuliner,
-    ]);
-}
-  
-public function kulinershow2(){
-    $kuliner = Kuliner::where('tempat_id', '11')->where('status', '1')->get();
-    return response()->json([
-        'success' => true,
-        'message' => 'Ambil data berhasil',
-        'data' => $kuliner,
-    ]);
-}
-
-public function kuliner()
-{
-    $kuliner  = new Kuliner();
-    $kuliner  = $kuliner
-    ->join('tb_tempat','tb_kuliner.tempat_id','tb_tempat.id')
-    ->select(
-    '*','tb_kuliner.name as kuliner_name'
-    ,'tb_kuliner.id as kuliner_id'
-    ,'tb_kuliner.image as kuliner_image'
-    ,'tb_kuliner.deskripsi as kuliner_deskripsi'
-    ,'tb_tempat.name as tempat_name'
-    ,'tb_tempat.deskripsi as tempat_deskripsi'
-    ,'tb_tempat.image as tempat_image'
-    )
-    ->where('tb_kuliner.status', '1')
-    ->get();
-    return response()->json($kuliner);
-}
-
-public function createkuliner(Request $request)
-{
-    if (
-        $request->name == null ||
-        $request->tempat_id == null ||
-        $request->deskripsi == null ||
-        $request->harga == null
-    ) {
-        return response()->json(array('data' => 'Failed create'), 401);
-    }
-    $kuliner  = new Kuliner();
-    $kuliner->name = $request->name;
-    $kuliner->tempat_id = $request->tempat_id;
-    $kuliner->deskripsi = $request->deskripsi;
-    $kuliner->harga = $request->harga;
-    $kuliner->image = '7Lc8xmt78n8teJXlDUgvlOrJDVSBt4BBtDhSt2Xh.jpg';
-    if ($kuliner->save()) {
-        return response()->json(array('data' => 'Success'));
-    } else {
-        return response()->json(array('data' => 'Failed create'), 401);
-    }
-}
-public function editkuliner(Request $request)
-{
-    if (
-        $request->name == null ||
-        $request->tempat_id == null ||
-        $request->deskripsi == null ||
-        $request->harga == null
-    ) {
-        return response()->json(array('data' => 'Failed update'), 401);
-    }
-    $kuliner  = Kuliner::find($request->id);
-    $kuliner->name = $request->name;
-    $kuliner->tempat_id = $request->tempat_id;
-    $kuliner->deskripsi = $request->deskripsi;
-    $kuliner->harga = $request->harga;
-    // $wahana->image = '7Lc8xmt78n8teJXlDUgvlOrJDVSBt4BBtDhSt2Xh.jpg';
-    if ($kuliner->save()) {
-        return response()->json(array('data' => 'Success'));
-    } else {
-        return response()->json(array('data' => 'Failed update'), 401);
-    }
-}
-public function deletekuliner(Request $request)
-{
-    $kuliner  = Kuliner::find($request->id);
-    if ($kuliner != null) {
-        $kuliner->delete();
-        return response()->json(array('data' => 'Success'));
-    } else {
-        return response()->json(array('data' => 'Failed create'));
+    public function kulinershow()
+    {
+        $kuliner = Kuliner::where('tempat_id', '9')->where('status', '1')->get();
+        return response()->json([
+            'success' => true,
+            'message' => 'Ambil data berhasil',
+            'data' => $kuliner,
+        ]);
     }
 
-    return response()->json($kuliner);
-}
-public function getTempat(Request $request)
-{
-    if ($request->id != null) {
-        $tiket = Tempat::where('user_id', $request->id)->get();
-        // $accessToken = auth()->user()->createToken('authToken')->accessToken;
-        if ($tempat->count() > 0) {
-            return response()->json($tempat);
-        } else {
-            return response()->json(['data' => 'Tiket not found'], 404);
+    public function kulinershow1()
+    {
+        $kuliner = Kuliner::where('tempat_id', '10')->where('status', '1')->get();
+        return response()->json([
+            'success' => true,
+            'message' => 'Ambil data berhasil',
+            'data' => $kuliner,
+        ]);
+    }
+
+    public function kulinershow2()
+    {
+        $kuliner = Kuliner::where('tempat_id', '11')->where('status', '1')->get();
+        return response()->json([
+            'success' => true,
+            'message' => 'Ambil data berhasil',
+            'data' => $kuliner,
+        ]);
+    }
+
+    public function kuliner()
+    {
+        $kuliner  = new Kuliner();
+        $kuliner  = $kuliner
+            // ->join('tb_tempat', 'tb_kuliner.tempat_id', 'tb_tempat.id')
+            // ->select(
+            //     '*',
+            //     'tb_kuliner.name as kuliner_name',
+            //     'tb_kuliner.id as kuliner_id',
+            //     'tb_kuliner.image as kuliner_image',
+            //     'tb_kuliner.deskripsi as kuliner_deskripsi',
+            //     'tb_tempat.name as tempat_name',
+            //     'tb_tempat.deskripsi as tempat_deskripsi',
+            //     'tb_tempat.image as tempat_image'
+            // )
+            // ->where('tb_kuliner.status', '1')
+            ->get();
+        return response()->json($kuliner);
+    }
+
+    public function createkuliner(Request $request)
+    {
+        if (
+            $request->name == null ||
+            $request->tempat_id == null ||
+            $request->deskripsi == null ||
+            $request->harga == null
+        ) {
+            return response()->json(array('data' => 'Failed create'), 401);
         }
-    } else {
-        return response()->json(['data' => 'Login First'], 401);
+        $kuliner  = new Kuliner();
+        $kuliner->name = $request->name;
+        $kuliner->tempat_id = $request->tempat_id;
+        $kuliner->deskripsi = $request->deskripsi;
+        $kuliner->harga = $request->harga;
+        $kuliner->image = '7Lc8xmt78n8teJXlDUgvlOrJDVSBt4BBtDhSt2Xh.jpg';
+        if ($kuliner->save()) {
+            return response()->json(array('data' => 'Success'));
+        } else {
+            return response()->json(array('data' => 'Failed create'), 401);
+        }
     }
-}
+    public function editkuliner(Request $request)
+    {
+        if (
+            $request->name == null ||
+            $request->tempat_id == null ||
+            $request->deskripsi == null ||
+            $request->harga == null
+        ) {
+            return response()->json(array('data' => 'Failed update'), 401);
+        }
+        $kuliner  = Kuliner::find($request->id);
+        $kuliner->name = $request->name;
+        $kuliner->tempat_id = $request->tempat_id;
+        $kuliner->deskripsi = $request->deskripsi;
+        $kuliner->harga = $request->harga;
+        // $wahana->image = '7Lc8xmt78n8teJXlDUgvlOrJDVSBt4BBtDhSt2Xh.jpg';
+        if ($kuliner->save()) {
+            return response()->json(array('data' => 'Success'));
+        } else {
+            return response()->json(array('data' => 'Failed update'), 401);
+        }
+    }
+    public function deletekuliner(Request $request)
+    {
+        $kuliner  = Kuliner::find($request->id);
+        if ($kuliner != null) {
+            $kuliner->delete();
+            return response()->json(array('data' => 'Success'));
+        } else {
+            return response()->json(array('data' => 'Failed create'));
+        }
+
+        return response()->json($kuliner);
+    }
+    public function getTempat(Request $request)
+    {
+        if ($request->id != null) {
+            $tiket = Tempat::where('user_id', $request->id)->get();
+            // $accessToken = auth()->user()->createToken('authToken')->accessToken;
+            if ($tempat->count() > 0) {
+                return response()->json($tempat);
+            } else {
+                return response()->json(['data' => 'Tiket not found'], 404);
+            }
+        } else {
+            return response()->json(['data' => 'Login First'], 401);
+        }
+    }
+    public function desa()
+    {
+        $desa = new Desa();
+        $desa = $desa
+            ->where('kategori', 'desa')
+            ->where('status', '1')
+            ->get();
+        return response()->json($desa);
+    }
+
+    public function listevent()
+    {
+        $listevent = new ListEvent();
+        $listevent = $listevent->get();
+        return response()->json($listevent);
+    }
+
+    public function hotel()
+    {
+        $hotel = new Hotel();
+        $hotel = $hotel->get();
+        return response()->json($hotel);
+    }
+
+    public function villa()
+    {
+        $villa = new Villa();
+        $villa = $villa->get();
+        return response()->json($villa);
+    }
 }

@@ -1,28 +1,55 @@
-@extends('layouts.app')
+@extends('FrontEnd.main')
+<style>
+    header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        /* z-index: 0; */
+        background-color: black;
+    }
 
+    .scroll-header {
+        background-color: black;
+        box-shadow: 0 0 4px rgba(14, 55, 63, 0.15);
+    }
+
+    #content-verify {
+        margin-top: 150px;
+    }
+
+    @media screen and (max-width: 968px) {
+        #content-verify {
+            margin-top: 100px;
+        }
+    }
+</style>
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+    <div id="content-verify">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
+                        <div class="card-body">
+                            @if (session('resent'))
+                                <div class="alert alert-success" role="alert">
+                                    {{ __('A fresh verification link has been sent to your email address.') }}
+                                </div>
+                            @endif
+
+                            {{ __('Before proceeding, please check your email for a verification link.') }}
+                            {{ __('If you did not receive the email') }},
+                            <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
+                            </form>
                         </div>
-                    @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

@@ -2,12 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kamar;
+use App\Models\tb_kategoriwisata;
+use App\Models\tb_paket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Tempat;
+<<<<<<< HEAD
 use App\Models\Tour;
+=======
+use App\Models\Villa;
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -63,7 +71,7 @@ class AdminController extends Controller
 
         $name = (new User)->userAvatar($request);
         $data['image'] = $name;
-
+        $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
 
         User::create($data);
@@ -72,6 +80,7 @@ class AdminController extends Controller
         Toastr::success('Membuat akun admin berhasil :)', 'Success');
         return redirect()->route('admin.index');
     }
+
     public function stored(Request $request)
     {
         // dd($request);
@@ -240,6 +249,7 @@ class AdminController extends Controller
         return view('admin.admin.index', compact('users'));
     }
 
+<<<<<<< HEAD
     //TOUR GUIDE
     public function tourIndex(Request $request)
     {
@@ -316,5 +326,56 @@ class AdminController extends Controller
         Toastr::success('User deleted successfully :)', 'Success');
 
         return redirect()->route('tourd.index')->with('message', 'Data deleted successfully');
+=======
+    //BUDGETING
+    
+    public function paketIndex(Request $request) {
+        $data = DB::table("tb_pakets")
+        ->Join("tb_tempat", function($join){
+            $join->on("tb_pakets.id_desa", "=", "tb_tempat.id");
+        })
+        ->Join("tb_kategoriwisatas", function($join){
+            $join->on("tb_pakets.id_kategori", "=", "tb_kategoriwisatas.id");
+        })
+        ->select("tb_pakets.*", "tb_tempat.name", "tb_kategoriwisatas.nama_kategori")
+        ->get();
+
+       return(view('/desa/paket/index', [
+        "paket" => $data,
+       ]));
+    }
+
+    public function paketCreate() {
+
+        $desa = Tempat::where('kategori', 'desa')->get();
+        $kategori_paket = tb_kategoriwisata::all();
+        $villa = Villa::all();
+        $kamar = Kamar::all();
+       
+
+        return(view('/desa/paket/create', [
+            'desa' => $desa,
+            'kategori' => $kategori_paket,
+            'villa' => $villa,
+            'kamar' => $kamar,
+        ]));
+    }
+
+    public function paketCreated(Request $request) {
+
+        $data['id_desa'] = $request->id_desa;
+        $data['id_kategori'] = $request->id_kategori;
+        $data['id_kamar'] = $request->id_kamar;
+        $data['id_villa'] = $request->id_villa;
+        $data['nama_paket'] = $request->nama_paket;
+        $data['harga'] = $request->harga;
+        $data['jml_hari'] = $request->jml_hari;
+        $data['jml_orang'] = $request->jml_orang;
+       
+
+        tb_paket::create($data);
+
+        return redirect()->route('paketd.index');
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
     }
 }

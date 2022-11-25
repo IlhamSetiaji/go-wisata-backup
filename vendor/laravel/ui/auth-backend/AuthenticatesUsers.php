@@ -5,7 +5,9 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use RealRashid\SweetAlert\Facades\Alert;
 
 trait AuthenticatesUsers
 {
@@ -18,7 +20,8 @@ trait AuthenticatesUsers
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        $this->middleware('guest');
+        return view('auth.login-user');
     }
 
     /**
@@ -29,15 +32,34 @@ trait AuthenticatesUsers
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    public function checkIsUser($param)
+    {
+        $data = User::where('email', $param)->pluck('role_id')->first();
+        return $data;
+    }
     public function login(Request $request)
     {
-        $this->validateLogin($request);
+        // $request->validate([
+        //     $this->username() => 'required|string',
+        //     'password' => 'required|string',
+        // ]);
+        $checkValid = Validator::make($request->all(), [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ]);
+        $roleId = $this->checkIsUser($request->email);
+        if ($roleId != 5) {
+            Alert::error('Error', 'Use Admin Login Page');
+            return back();
+        }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+        if (
+            method_exists($this, 'hasTooManyLoginAttempts') &&
+            $this->hasTooManyLoginAttempts($request)
+        ) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
@@ -56,7 +78,14 @@ trait AuthenticatesUsers
         // user surpasses their maximum number of attempts they will get locked out.
         $this->incrementLoginAttempts($request);
 
-        return $this->sendFailedLoginResponse($request);
+        Alert::error('Error', 'Email and/or password invalid.');
+        return back()->withInput();
+        if ($checkValid->fails() == false) {
+            Alert::error('Error', 'Email and/or password invalid.');
+            return back();
+        }
+
+        // return $this->sendFailedLoginResponse($request);
     }
 
     /**
@@ -84,7 +113,8 @@ trait AuthenticatesUsers
     protected function attemptLogin(Request $request)
     {
         return $this->guard()->attempt(
-            $this->credentials($request), $request->filled('remember')
+            $this->credentials($request),
+            $request->boolean('remember')
         );
     }
 
@@ -116,8 +146,8 @@ trait AuthenticatesUsers
         }
 
         return $request->wantsJson()
-                    ? new JsonResponse([], 204)
-                    : redirect()->intended($this->redirectPath());
+            ? new JsonResponse([], 204)
+            : redirect()->intended($this->redirectPath());
     }
 
     /**

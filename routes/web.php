@@ -40,7 +40,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\BookingTempatSewaController;
 use App\Http\Controllers\BudgetingController;
 use App\Http\Controllers\LoginAdminController;
+<<<<<<< HEAD
 use App\Http\Controllers\TopUpController;
+=======
+use App\Http\Controllers\TbPaketController;
+use App\Http\Controllers\TbPaketkulinerController;
+use App\Http\Controllers\TopUpController;
+use App\Http\Middleware\Kuliner;
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 use Illuminate\Auth\Events\Login;
 
 /*
@@ -53,6 +60,14 @@ use Illuminate\Auth\Events\Login;
 | contains the "web" middleware group. Now create something great!
 */
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Auth::routes(['verify' => true]);
 Route::resource('/', FrontendController::class);
 Route::post('/get-penginapan', [FrontendController::class, 'getPenginapan'])->name('get-penginapan');
@@ -76,14 +91,22 @@ Route::get('/explore_desa_wisata', [FrontendController::class, 'explore_desa_wis
 Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
+<<<<<<< HEAD
 Route::resource('/profile', ProfileController::class)->middleware('verified');
+=======
+Route::resource('/profile', ProfileController::class)->middleware(['verified', 'customer']);
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
 
 //login admin
+<<<<<<< HEAD
 Route::get('/login-admin', [LoginAdminController::class, 'index']);
+=======
+Route::get('/login-admin', [LoginAdminController::class, 'index'])->middleware('guest');
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Route::post('/post-login', [LoginAdminController::class, 'login']);
 
 Route::group([
@@ -141,6 +164,11 @@ Route::group([
     Route::get('/cart/hapus/penginapan/{kode}', [TiketController::class, 'do_hapus_cart_penginapan'])->where("id", "[0-9]+");
     Route::get('/transaksi/tambah/booking', [TiketController::class, 'do_tambah_transaksi_booking'])->name('tambah.booking');
     Route::post('/transaksi/tambah/booking', [TiketController::class, 'do_tambah_transaksi_booking']);
+
+    //PESAN BUDGETING
+    Route::get('/cart/budgeting', [TiketController::class, 'cart_budgeting'])->name('cart.budgeting');
+    Route::post('/cart/tambah/budgeting/{id}', [TiketController::class, 'do_tambah_cart_budgeting']);
+    Route::get('/cart/tambah/budgeting/{id}', [TiketController::class, 'do_tambah_cart_budgeting']);
 
     //pesanan
     Route::get('/pesananku', [PaymentController::class, 'pesananku'])->name('pesananku');
@@ -271,6 +299,7 @@ Route::group([
 
     Route::post('/paketd/created', [AdminController::class, 'paketCreated'])->name('paketd.created');
 
+<<<<<<< HEAD
     Route::get('/budgeting', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
 
@@ -286,6 +315,21 @@ Route::group([
 
 Route::group([
 
+=======
+    Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
+    Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
+    Route::get('/budgeting-create-detail', [BudgetingController::class, 'detailPaket'])->name('budget.detail.create');
+    Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
+    Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
+    Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
+    Route::post('/edit-paket', [BudgetingController::class, 'updatePaket'])->name('update-paket');
+    Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
+    Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
+    Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
+});
+
+Route::group([
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
     'middleware' => ['auth', 'kuliner', 'verified'],
     'prefix' => 'akuliner',
 
@@ -300,6 +344,11 @@ Route::group([
     Route::get('/todaykuliner/selesai/{id}', [TodayController::class, 'updatekulinerselesai'])->name('update.selesai.pesanank');
     Route::get('/todaykuliner/print/{today}', [TodayController::class, 'printkulinertoday'])->name('print.pesanank');
     Route::resource('/kuliner', KulinerController::class);
+    Route::post('/update-status-kuliner', [KulinerController::class, 'editStatus'])->name('update.status.paket.kuliner');
+    Route::resource('/paket', TbPaketkulinerController::class);
+    // Route::get('/paket/{id}/edit', [TbPaketkulinerController::class, 'editPaket']);
+    
+    // Route::get('/paket/create', [TbPaketController::class, 'createPaket'])->name('paket.create');
     Route::get('/status/update9/{id}', [KulinerController::class, 'toggleStatus'])->name('update.status.kuliner');
 
     Route::get('/orderk', [TiketController::class, 'orderk'])->name('orderk.index');
@@ -463,7 +512,11 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
+<<<<<<< HEAD
 Route::post('/budgeting/{slug}', [FrontendController::class, 'budgeting'])->name('front.budget');
+=======
+Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');

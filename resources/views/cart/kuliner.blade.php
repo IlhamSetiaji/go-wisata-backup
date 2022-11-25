@@ -51,7 +51,7 @@
 </nav>
 
 <div id="main-content">
-
+    {{-- {{ dd($kuliner) }} --}}
     @if (empty($kuliner) || count($kuliner) == 0)
 
         <body>

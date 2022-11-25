@@ -119,12 +119,72 @@
                                                     <div class="form-control-icon">
                                                         <i class="fas fa-pen"></i>
                                                     </div>
-
                                                 </div>
-
                                             </div>
-
                                         </div>
+
+                                        <div class="col-md-4">
+                                            <label>Akses</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input class="form-control" name="akses" value="{{ old('akses') }}">
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
+
+                                        <div class="col-md-4">
+                                            <label>Sejarah</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <textarea class="form-control" name="sejarah" value="{{ old('sejarah') }}">
+
+                                                    </textarea>
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-md-4">
+                                            <label>Atraksi</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input class="form-control" name="atraksi" value="{{ old('atraksi') }}">
+
+                                                    
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label>Unggulan</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <input class="form-check-input" id="flexCheckDefault" type="checkbox" name="unggulan" value=1>
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         <div class="col-md-4">
                                             <label>Video Max(35mb)</label>
                                         </div>
@@ -227,7 +287,7 @@
 
                                                                 <option selected value=''>Pilih Petugas
                                                                 </option>
-                                                                @foreach (App\Models\User::where('role_id', '!=', '5')->where('tempat_id', null)->where('desa_id', null)->get() as $role)
+                                                                @foreach (App\Models\User::where('role_id', '!=', '5')->where(['tempat_id' => null, 'desa_id' => null])->get() as $role)
                                                                     <option value="{{ $role->petugas_id }}"> Admin
                                                                         -
                                                                         {{ $role->name }}</option>

@@ -27,7 +27,7 @@
         </section>
         <div class="container">
             &nbsp;
-            <div class="row">
+            <div class="row me-1">
                 <div class="col-sm-6 mb-2">
                     <div class="card">
                         <div class="card-body">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                {{-- <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Merchandise</h5>
@@ -82,7 +82,7 @@
                             <a href="#" class="button">Explore</a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">

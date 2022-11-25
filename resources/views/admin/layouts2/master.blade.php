@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('assets/vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.svg') }}" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/48943e5573.js" crossorigin="anonymous"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -62,13 +64,14 @@
                                 </a>
                             </li>
 
-                            <li class="sidebar-item  {{ request()->is('adesa/admind*') ? 'active' : '' }}">
+                            <li class="sidebar-item  {{ request()->is('adesa/admind/*') ? 'active' : '' }}">
                                 <a href="{{ route('admind.index') }}" class='sidebar-link'>
                                     <i class="fas fa-user-tie"></i>
                                     <span>Admin</span>
                                 </a>
                             </li>
 
+<<<<<<< HEAD
                             <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
                                 <a href="{{ route('paketd.index') }}" class='sidebar-link'>
                                     <i class="fa-solid fa-boxes-stacked"></i>
@@ -82,6 +85,20 @@
                                     <span>Tour Guide</span>
                                 </a>
                             </li>
+=======
+                            <li class="sidebar-item  {{ request()->is('adesa/budgeting*') ? 'active' : '' }}">
+                                <a href="{{ route('budget.index') }}" class='sidebar-link'>
+                                    <i class="bi bi-cash"></i>
+                                    <span>Paket</span>
+                                </a>
+                            </li>
+                            {{-- <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">
+                                <a href="{{ route('paketd.index') }}" class='sidebar-link'>
+                                    <i class="fa-solid fa-boxes-stacked"></i>
+                                    <span>Paket</span>
+                                </a>
+                            </li> --}}
+>>>>>>> 540f644c87c6de8bc1d90c78cbe90f50e48da9a1
 
                             <hr>
                             <li class="sidebar-item  {{ request()->is('adesa/rekapd*') ? 'active' : '' }}">
@@ -189,7 +206,7 @@
                             </li>
                             <hr>
                             Pengecekan
-                            
+
                             <li class="sidebar-item  {{ request()->is('wisata/checkw*') ? 'active' : '' }}">
                                 <a href="{{ route('checkw.index') }}" class='sidebar-link'>
                                     <i class="fas fa-clipboard-check"></i>

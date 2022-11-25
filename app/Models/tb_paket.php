@@ -8,8 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class tb_paket extends Model
 {
     use HasFactory;
-    protected $table = "tb_paket";
-    protected $guarded = [];
+
+    protected $table = "tb_pakets";
+    protected $guarded = ['id'];
+
+
+    public function desa()
+    {
+        return $this->belongsTo(Tempat::class);
+    }
+
+    public function kategori()
+    {
+        return $this->hasOne(tb_kategoriwisata::class, 'id', 'id_kategori');
+    }
+
 
     public function menu()
     {
@@ -19,5 +32,18 @@ class tb_paket extends Model
     public function wahana()
     {
         return $this->belongsToMany(Wahana::class);
+    }
+
+    public function paketwisata()
+    {
+        return $this->hasMany(tb_paketwisata::class);
+    }
+    public function paketwahana()
+    {
+        return $this->hasMany(tb_paketwahana::class);
+    }
+    public function paketpenginapan()
+    {
+        return $this->hasMany(tb_paketpenginapan::class);
     }
 }
