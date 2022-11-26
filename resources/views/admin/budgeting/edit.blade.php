@@ -39,6 +39,8 @@
             </div>
         </div>
     </div>
+    {{-- {{ dd($resto->dataPaketKuliner->tempat) }} --}}
+    {{-- {{ dd($dataKuliner) }} --}}
 
     <div class="page-content">
         <section class="section">
@@ -93,16 +95,18 @@
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
                                                         <fieldset class="form-group">
-                                                            <select class="form-select forms-select" name="id_kategori"
-                                                                required disabled>
-                                                                <option value="">Pilih Kategori</option>
-                                                                @foreach ($kategoriPakets as $kategori)
-                                                                    <option
-                                                                        {{ $paket->id_kategori == $kategori->id ? 'selected' : '' }}
-                                                                        value="{{ $kategori->id }}">
-                                                                        {{ $kategori->nama_kategori }}</option>
-                                                                @endforeach
-                                                            </select>
+                                                            @foreach ($kategoriChecklist as $checklist)
+                                                            <input class="form-check-input forms-select" type="checkbox" value="{{ $checklist->id }}" id="flexCheckDefault" name="kategori[]" checked disabled>
+                                                            <label class="form-check-label" for="flexCheckDefault"> 
+                                                                {{ $checklist->nama_kategori }}
+                                                            </label>
+                                                            @endforeach
+                                                            @foreach ($kategoriNonChecklist as $nonChecklist)
+                                                            <input class="form-check-input forms-select" type="checkbox" value="{{ $nonChecklist->id }}" id="flexCheckDefault" name="kategori[]" disabled>
+                                                            <label class="form-check-label" for="flexCheckDefault"> 
+                                                                {{ $nonChecklist->nama_kategori }}
+                                                            </label>
+                                                            @endforeach
                                                         </fieldset>
                                                     </div>
                                                 </div>
@@ -236,68 +240,155 @@
                                             <div class="col-md-4">
                                                 <label>Penginapan</label>
                                             </div>
-                                            <div class="col-md-8" id="penginapan">
-                                                @if (count($paketPenginapans) != null)
-                                                    @foreach ($paketPenginapans as $penginapan)
-                                                        <div class="form-group">
-                                                            <div class="position-relative">
-                                                                <fieldset class="form-group">
-                                                                    <select class="form-select forms-select"
-                                                                        name="data_penginapan[]" id='data-penginapan'
-                                                                        disabled>
-                                                                        @foreach ($dataPenginapans as $data)
-                                                                            @if ($penginapan->tempat->id == $data->id)
-                                                                                <option value="{{ $data->id }}"
-                                                                                    selected>
-                                                                                    {{ $data->name }}
-                                                                                </option>
-                                                                            @else
-                                                                                <option value="{{ $data->id }}">
-                                                                                    {{ $data->name }}
-                                                                                </option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                        <input type="text" name="id_paketPenginapan[]"
-                                                                            va lue="{{ $penginapan->id }}" id=""
-                                                                            hidden>
-                                                                    </select>
-                                                                </fieldset>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                @else
+                                            <div class="col-md-4">
+                                                <div id="hotel">
                                                     <div class="form-group">
                                                         <div class="position-relative">
                                                             <fieldset class="form-group">
-                                                                <select class="form-select forms-select"
-                                                                    name="data_penginapan[]" id='data-penginapan'
-                                                                    disabled>
-                                                                    <option value="">Please select data Penginapan
-                                                                    </option>
-                                                                    @foreach ($dataPenginapans as $data)
-                                                                        <option value="{{ $data->id }}">
-                                                                            {{ $data->name }}
+                                                                <select class="form-select forms-select" name="data_penginapanhotel"
+                                                                    id='data-penginapan-hotel' disabled>
+                                                                    @if ($hotel != null)
+                                                                        @foreach ($dataHotels as $item)
+                                                                        @if ($item->id == $hotel->id)
+                                                                        <option value="">Hapus Hotel
                                                                         </option>
-                                                                    @endforeach
+                                                                        
+                                                                        <option value="{{ $item->id }}" selected> {{ $item->nama }}</option>
+                                                                        @else
+                                                                        
+                                                                        <option value="{{ $item->id }}"> {{ $item->nama }}</option>
+                                                                        @endif
+                                                                        
+                                                                        @endforeach
+                                                                    @else
+                                                                        @foreach ($dataHotels as $item)
+                                                                        <option value="{{ $item->id }}"> {{ $item->nama }}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                   
                                                                 </select>
                                                             </fieldset>
                                                         </div>
                                                     </div>
-                                                @endif
+                                                </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Total</label>
+                                                    <div class="form-group">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group ">
+                                                                <select class="form-select forms-select" name="kamar"
+                                                                    id='kamar' disabled>
+                                                                    @if ($kamar != null)
+                                                                        @foreach ($dataKamar as $item)
+                                                                            @if ($item->id == $kamar->id)
+                                                                                <option value="{{ $item->id }}" selected>  {{ $item->name }} - {{ $item->harga }}
+                                                                                </option>
+                                                                            @else
+                                                                                <option value="{{ $item->id }}">  {{ $item->name }} - {{ $item->harga }}
+                                                                                </option>
+                                                                            
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @else
+                                                                    
+                                                                    @endif
+                                                                   
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
                                             </div>
+                                            <div class="col-md-4"></div>
                                             <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <div class="position-relative">
-                                                        <input type="text" class="form-control forms" name="harga"
-                                                            id="harga-total" value="{{ old('harga', $paket->harga) }}"
-                                                            required readonly>
+                                                <div id="villa">
+                                                    <div class="form-group">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select forms-select" name="data_penginapanvilla[]"
+                                                                    id='data-penginapan-villa' disabled>
+                                                                    @if ($villa != null)
+                                                                        @foreach ($dataVilla as $item)
+                                                                            @if ($item->id == $villa->id)
+                                                                        <option value="">Hapus Villa
+                                                                                </option>
+                                                                                <option value="{{ $villa->nama }}" selected>{{ $villa->nama }}-{{ $villa->harga }}
+                                                                                </option>
+                                                                                
+                                                                            @else
+                                                                                <option value="{{ $villa->nama }}">{{ $villa->nama }}-{{ $villa->harga }}
+                                                                                </option>
+                                                                        @endif
+                                                                            @endforeach
+                                                                    @else
+                                                                       @foreach ($dataVilla as $item)
+                                                                            <option value="{{ $villa->nama }}">{{ $villa->nama }}-{{ $villa->harga }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <div class="col-md-4">
+                                                <label>Kuliner</label> 
+                                            </div>
+                                            <div class="col-md-4" id="restoran">
+                                                <div class="form-group">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select forms-select" name="resto" id='resto' disabled>
+                                                                @if ($dataKuliners != null)
+                                                                    @foreach ($dataKuliners as $data)
+                                                                        @if ($resto->dataPaketKuliner->tempat->id == $data->id)
+                                                                        <option value="">Hapus Restoran</option>
+                                                                            <option value="{{ $data->id }}" selected>
+                                                                                    {{ $data->name }}
+                                                                            </option>
+                                                                        
+                                                                        @else
+                                                                            <option value="{{ $data->id }}">
+                                                                                {{ $data->name }}
+                                                                            </option>
+                                                                        @endif
+                                                                    @endforeach
+                                                                @else
+                                                                    @foreach ($dataKuliners as $data)
+                                                                        <option value="{{ $data->id }}">
+                                                                            {{ $data->name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                @endif
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4" id="paketrestoran">
+                                                <div class="form-group">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select forms-select" name="paketresto" id='paketresto' disabled>
+                                                                @if ($menus != null)
+                                                                    @foreach ($menus as $menu)
+                                                                        @if ($menu->id == $paketMenu->id)
+                                                                            
+                                                                        <option value="{{ $menu->id }}" selected>{{ $menu->nama_paket }}</option>
+                                                                        @else
+                                                                        <option value="{{ $menu->id }}">{{ $menu->nama_paket }}</option>
+                                                                            
+                                                                        @endif
+                                                                    @endforeach
+                                                                    
+                                                                @else
+                                                                @endif
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button class="btn btn-warning me-1 mb-1" id="edit">Edit</button>
                                                 <button type="submit" class="btn btn-primary me-1 mb-1" disabled
@@ -330,6 +421,7 @@
             });
         });
     </script>
+    
     <script>
         $(document).ready(function() {
                     $(document).on('change', '#data-wahana', function() {
@@ -359,19 +451,38 @@
                             }
                     });
 
-                            $(document).on('change', '#data-penginapan', function() {
-                            var allGood = true;
-                            // var lastInputField = ;
-    
-                            if ($(this).val() == "") {
-                                console.log('false');
-                                return allGood = false;
-                            }
-                            if (allGood) {
-                                $('#penginapan').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapan[]" id = "data-penginapan">  <option value = "" > Please select data Penginapan </option>@foreach ($dataPenginapans as $data)<option value="{{ $data->id }}">{{ $data->name }}</option>@endforeach</select> </fieldset> </div> </div>'));
-                                    }
-                            });
                 });
                     
+    </script>
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(function() {
+                $('#resto').on('change', function() {
+                    let resto = $('#resto').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('get-data-menu') }}",
+                        data: {
+                            resto_id: resto
+                        },
+                        cache: false,
+
+                        success: function(msg) {
+                            // console.log(msg);
+                            $('#paketresto').html(msg);
+                        },
+                        error: function(data) {
+                            console.log('error: ', data)
+                        }
+                    });
+                })
+            })
+        });
     </script>
 @endsection

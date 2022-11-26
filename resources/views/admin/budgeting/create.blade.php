@@ -101,12 +101,10 @@
                                                                 
                                                             </select> --}}
                                                             @foreach ($kategoriPakets as $kategori)
-                                                            {{-- <div class="form-check"> --}}
                                                                 <input class="form-check-input" type="checkbox" value="{{ $kategori->id }}" id="flexCheckDefault" name="kategori[]">
                                                                 <label class="form-check-label" for="flexCheckDefault">
                                                                   {{ $kategori->nama_kategori }}
                                                                 </label>
-                                                              {{-- </div> --}}
                                                             @endforeach
                                                         </fieldset>
     
