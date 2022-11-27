@@ -304,7 +304,7 @@
                                                     <div class="form-group">
                                                         <div class="position-relative">
                                                             <fieldset class="form-group">
-                                                                <select class="form-select forms-select" name="data_penginapanvilla[]"
+                                                                <select class="form-select forms-select" name="data_penginapanvilla"
                                                                     id='data-penginapan-villa' disabled>
                                                                     @if ($villa != null)
                                                                         @foreach ($dataVilla as $item)
@@ -476,6 +476,37 @@
                         success: function(msg) {
                             // console.log(msg);
                             $('#paketresto').html(msg);
+                        },
+                        error: function(data) {
+                            console.log('error: ', data)
+                        }
+                    });
+                })
+            })
+        });
+    </script>
+    <script>
+        $(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $(function() {
+                $('#data-penginapan-hotel').on('change', function() {
+                    let hotel = $('#data-penginapan-hotel').val();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('get-data-kamar') }}",
+                        data: {
+                            hotel_id: hotel
+                        },
+                        cache: false,
+
+                        success: function(msg) {
+                            console.log(msg);
+                            $('#kamar').html(msg);
                         },
                         error: function(data) {
                             console.log('error: ', data)
