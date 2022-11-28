@@ -74,7 +74,7 @@
                             <li class="sidebar-item  {{ request()->is('adesa/budgeting*') ? 'active' : '' }}">
                                 <a href="{{ route('budget.index') }}" class='sidebar-link'>
                                     <i class="bi bi-cash"></i>
-                                    <span>E-Budgeting</span>
+                                    <span>Paket</span>
                                 </a>
                             </li>
                             {{-- <li class="sidebar-item  {{ request()->is('adesa/paketd/*') ? 'active' : '' }}">

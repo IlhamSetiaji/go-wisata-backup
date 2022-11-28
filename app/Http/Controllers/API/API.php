@@ -6,16 +6,20 @@ use App\Models\Pay;
 use App\Models\Desa;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\ListEvent;
 use App\Models\Kamar;
 use App\Models\Tiket;
 use App\Models\Tempat;
 use App\Models\Wahana;
+use App\Models\Hotel;
+use App\Models\Villa;
 use App\Models\Kuliner;
 use Illuminate\Support\Str;
 use App\Models\EventBooking;
 use Illuminate\Http\Request;
 use App\Models\Detail_transaksi;
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Penginapan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -378,6 +382,7 @@ class API extends Controller
         $user->email = $request->email;
         $user->password = $password;
         $user->telp = $request->telp;
+        $user->email_verified_at = date('Y-m-d H:i:s');
         try {
             if ($user->save()) {
                 $login = User::where('email', $request->email)->first();
@@ -388,6 +393,13 @@ class API extends Controller
             return response()->json(['data' => 'Gagal register'], 500);
         }
     }
+    // public function verify(Request $request)
+    // {
+    //     $verify = User::where($request->id)->first();
+    //     $verify->update([
+    //         'email_verified_at' => date('Y-m-d H:i:s'),
+    //     ]);
+    // }
     public function checkLogin()
     {
         $check = Auth::check();
@@ -536,18 +548,18 @@ class API extends Controller
     {
         $kuliner  = new Kuliner();
         $kuliner  = $kuliner
-            ->join('tb_tempat', 'tb_kuliner.tempat_id', 'tb_tempat.id')
-            ->select(
-                '*',
-                'tb_kuliner.name as kuliner_name',
-                'tb_kuliner.id as kuliner_id',
-                'tb_kuliner.image as kuliner_image',
-                'tb_kuliner.deskripsi as kuliner_deskripsi',
-                'tb_tempat.name as tempat_name',
-                'tb_tempat.deskripsi as tempat_deskripsi',
-                'tb_tempat.image as tempat_image'
-            )
-            ->where('tb_kuliner.status', '1')
+            // ->join('tb_tempat', 'tb_kuliner.tempat_id', 'tb_tempat.id')
+            // ->select(
+            //     '*',
+            //     'tb_kuliner.name as kuliner_name',
+            //     'tb_kuliner.id as kuliner_id',
+            //     'tb_kuliner.image as kuliner_image',
+            //     'tb_kuliner.deskripsi as kuliner_deskripsi',
+            //     'tb_tempat.name as tempat_name',
+            //     'tb_tempat.deskripsi as tempat_deskripsi',
+            //     'tb_tempat.image as tempat_image'
+            // )
+            // ->where('tb_kuliner.status', '1')
             ->get();
         return response()->json($kuliner);
     }
@@ -630,5 +642,26 @@ class API extends Controller
             ->where('status', '1')
             ->get();
         return response()->json($desa);
+    }
+
+    public function listevent()
+    {
+        $listevent = new ListEvent();
+        $listevent = $listevent->get();
+        return response()->json($listevent);
+    }
+
+    public function hotel()
+    {
+        $hotel = new Hotel();
+        $hotel = $hotel->get();
+        return response()->json($hotel);
+    }
+
+    public function villa()
+    {
+        $villa = new Villa();
+        $villa = $villa->get();
+        return response()->json($villa);
     }
 }
