@@ -574,6 +574,7 @@ class API extends Controller
             ->where('tempat_id', $id)
             ->where('status', '1')
             ->get();
+        return response()->json($menukuliner);
     }
 
     public function createkuliner(Request $request)
