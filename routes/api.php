@@ -44,6 +44,8 @@ use App\Http\Controllers\API\API;
 Route::get('/tempat', [API::class, 'tempat']);
 Route::get('/tempat/{id}', [API::class, 'wahanabytempat']);
 
+Route::get('/desa', [API::class, 'desa']);
+
 Route::get('/wahana', [API::class, 'wahana']);
 Route::post('/wahana/create', [API::class, 'createwahana']);
 Route::post('/wahana/update', [API::class, 'editwahana']);
@@ -73,4 +75,3 @@ Route::get('/logout', [API::class, 'logout']);
 
 Route::get('/pay/finish', [API::class, 'finish']);
 Route::post('/pay/payment', [API::class, 'payment']);
-

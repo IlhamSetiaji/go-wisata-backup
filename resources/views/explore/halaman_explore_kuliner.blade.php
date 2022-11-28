@@ -39,7 +39,7 @@
                                     Gambar Tidak Tersedia
                                 @else
                                     <img src="{{ asset('images') }}/{{ $tempat->image }}" alt="Responsive image"
-                                        class="img-thumbnail">
+                                        class="">
                                 @endif
                                 <div class="discover__data">
                                     <h2 class="discover__title">{{ $tempat->name }}</h2>
