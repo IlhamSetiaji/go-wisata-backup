@@ -560,7 +560,7 @@ class API extends Controller
             //     'tb_tempat.image as tempat_image'
             // )
             ->where('tb_tempat.kategori', 'kuliner')
-            ->get();
+            ->distict()->get();
         return response()->json($kuliner);
     }
 
