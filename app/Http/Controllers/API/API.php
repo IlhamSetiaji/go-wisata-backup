@@ -571,8 +571,8 @@ class API extends Controller
         $menukuliner = new MenuKuliner();
         $menukuliner = $menukuliner
             ->join('tb_kuliner', 'tb_kuliner.tempat_id', 'tb_tempat.id')
-            ->where('tb_kuliner.tempat_id', $id)
-            ->where('tb_kuliner.status', '1')
+            ->where('tempat_id', $id)
+            ->where('status', '1')
             ->get();
         return response()->json($menukuliner);
     }
