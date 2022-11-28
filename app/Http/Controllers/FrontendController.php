@@ -488,9 +488,9 @@ class FrontendController extends Controller
 
     public function tempatshow($slug)
     {
-        $data = 'ahahahaha';
+        // $data = 'ahahahaha';
 
-        dd($data);
+        // dd($data);
         session()->forget("camping");
         $tempat  = DB::table('tb_tempat')->where('status', '1')->where('slug', $slug)->first();
         // dd($tempat);
