@@ -52,7 +52,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form action="{{ route('update-paket') }}" id="form" method="POST"
+                                <form action="{{ route('update-datail-paket') }}" id="form" method="GET"
                                     enctype="multipart/form-data" class="form form-horizontal">
                                     @csrf
                                     <div class="form-body">
@@ -321,7 +321,9 @@
                                                                             @endforeach
                                                                     @else
                                                                        @foreach ($dataVilla as $item)
-                                                                            <option value="{{ $villa->nama }}">{{ $villa->nama }}-{{ $villa->harga }}
+                                                                       <option value=""> Pilih Villa
+                                                                       </option>
+                                                                            <option value="{{ $item->nama }}">{{ $item->nama }}-{{ $item->harga }}
                                                                             </option>
                                                                         @endforeach
                                                                     @endif
@@ -355,10 +357,12 @@
                                                                         @endif
                                                                     @endforeach
                                                                 @else
+                                                                <option value=""> Pilih Resto
+                                                                </option>
                                                                     @foreach ($dataKuliners as $data)
-                                                                        <option value="{{ $data->id }}">
-                                                                            {{ $data->name }}
-                                                                        </option>
+                                                                    <option value="{{ $data->id }}">
+                                                                        {{ $data->name }}
+                                                                    </option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>
@@ -377,6 +381,8 @@
                                                                             
                                                                         <option value="{{ $menu->id }}" selected>{{ $menu->nama_paket }}</option>
                                                                         @else
+                                                                        <option value=""> Pilih Menu
+                                                                        </option>
                                                                         <option value="{{ $menu->id }}">{{ $menu->nama_paket }}</option>
                                                                             
                                                                         @endif

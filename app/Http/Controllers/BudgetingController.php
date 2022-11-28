@@ -348,12 +348,16 @@ class BudgetingController extends Controller
         $paketKategori = tb_paketkategoriwisata::where('paket_id', $id)->get();
         $paketMenu = DB::table('data_paket_kuliners')->join('tb_datakuliners', 'data_paket_kuliners.id', 'tb_datakuliners.data_paket_kuliner_id')->first();
         $paketResto = tb_datakuliner::where('paket_id', $id)->first();
-        $idTempatResto = DB::table('tb_pakets')->join('tb_datakuliners', 'tb_pakets.id','tb_datakuliners.paket_id')->join('data_paket_kuliners', 'tb_datakuliners.data_paket_kuliner_id', 'data_paket_kuliners.id')->select('data_paket_kuliners.tempat_id')->first();
+        $idTempatResto = DB::table('tb_pakets')->join('tb_datakuliners', 'tb_pakets.id', 'tb_datakuliners.paket_id')->join('data_paket_kuliners', 'tb_datakuliners.data_paket_kuliner_id', 'data_paket_kuliners.id')->select('data_paket_kuliners.tempat_id')->first();
         $dataMenu = DataPaketKuliner::where('tempat_id', $idTempatResto->tempat_id)->get();
         // dd($dataMenu);
+        // dd($dataKuliner);
 
 
         //spesic data penginapan
+        $hotel  = '';
+        $villa  = '';
+        $kamar  = '';
         $paketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
         foreach ($paketPenginapan as $penginapan) {
             if ($penginapan->hotel_id != null && $penginapan->kamar_id != null) {
@@ -364,11 +368,12 @@ class BudgetingController extends Controller
             }
         }
         // dd($paketPenginapan);
-
+        
         //all data penginapan
         $dataHotel = DB::table('tb_hotel')->select('tb_hotel.*')->join('tb_tempat', 'tb_hotel.tempat_id', '=', 'tb_tempat.id')->where('tb_tempat.induk_id', $idTempat)->where('tb_tempat.status', 1)->get();
         $dataKamarHotel = Kamar::where('hotel_id', $hotel->id)->get();
         $dataVilla = DB::table('tb_villa')->select('tb_villa.*')->join('users', 'tb_villa.user_id', '=', 'users.id')->where('users.desa_id', $idTempat)->get();
+        // dd($idTempat);
         // dd($dataHotel);
 
         //memishkan data kategori
@@ -396,6 +401,15 @@ class BudgetingController extends Controller
         }
 
         // dd($paketMenu);
+        // dd($villa == null);
+        // if (condition) {
+        //     # code...
+        // } else if() {
+
+        // }else {
+        //     # code...
+        // }
+
 
         return view('admin.budgeting.edit', [
             'dataDesa' => $dataDesa,
@@ -416,10 +430,15 @@ class BudgetingController extends Controller
             'kamar' => $kamar,
             'villa' => $villa,
             'resto' => $paketResto,
-            'menus' =>$dataMenu 
+            'menus' => $dataMenu
         ]);
     }
-    
+
+
+    public function detailUpdatePaket(Request $request)
+    {
+    }
+
 
     public function updatePaket(Request $request)
     {
