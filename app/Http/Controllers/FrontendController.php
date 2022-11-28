@@ -314,7 +314,7 @@ class FrontendController extends Controller
             }
         }
         // dd($dataPaketWisata[$firstLayer][$secondLayer]->tempat()->first()->image);
-        
+
         //get paket penginapan setiap paket
         $dataPaketPenginapan = [];
         foreach ($dataIdPaktes as $id) {
@@ -334,11 +334,11 @@ class FrontendController extends Controller
                 array_push($dataPaketWahana, $tempPaketWahana);
             }
         }
-        
+
         // get random image for tb_tempat
-        $arrGambar= [];
-        for($i = 0;$i < count($dataPaketWisata); $i++) {
-            $temp_data = $dataPaketWisata[$i][rand(1, count($dataPaketWisata[$i]) -1 )];
+        $arrGambar = [];
+        for ($i = 0; $i < count($dataPaketWisata); $i++) {
+            $temp_data = $dataPaketWisata[$i][rand(1, count($dataPaketWisata[$i]) - 1)];
             array_push($arrGambar, [
                 'paket_id' => $temp_data->paket_id,
                 'gambar' => $temp_data->tempat()->first()->image
@@ -360,6 +360,9 @@ class FrontendController extends Controller
 
     public function tempatshow($slug)
     {
+        $data = 'ahahahaha';
+
+        dd($data);
         session()->forget("camping");
         $tempat  = DB::table('tb_tempat')->where('status', '1')->where('slug', $slug)->first();
         // dd($tempat);
