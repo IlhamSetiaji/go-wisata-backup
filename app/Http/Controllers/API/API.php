@@ -548,7 +548,7 @@ class API extends Controller
     {
         $kuliner  = new Kuliner();
         $kuliner  = $kuliner
-            
+
             // ->select(
             //     '*',
             //     'tb_kuliner.name as kuliner_name',
