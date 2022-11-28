@@ -45,6 +45,7 @@ use App\Http\Controllers\TbPaketkulinerController;
 use App\Http\Controllers\TopUpController;
 use App\Http\Middleware\Kuliner;
 use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +60,10 @@ use Illuminate\Auth\Events\Login;
 
 
 
-
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    echo "cache cleared";
+});
 
 
 Auth::routes(['verify' => true]);
@@ -316,7 +320,7 @@ Route::group([
     Route::post('/update-status-kuliner', [KulinerController::class, 'editStatus'])->name('update.status.paket.kuliner');
     Route::resource('/paket', TbPaketkulinerController::class);
     // Route::get('/paket/{id}/edit', [TbPaketkulinerController::class, 'editPaket']);
-    
+
     // Route::get('/paket/create', [TbPaketController::class, 'createPaket'])->name('paket.create');
     Route::get('/status/update9/{id}', [KulinerController::class, 'toggleStatus'])->name('update.status.kuliner');
 
