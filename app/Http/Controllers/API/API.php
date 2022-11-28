@@ -548,7 +548,7 @@ class API extends Controller
     {
         $kuliner  = new Kuliner();
         $kuliner  = $kuliner
-            ->join('tb_tempat', 'tb_kuliner.tempat_id', 'tb_tempat.id')
+            
             // ->select(
             //     '*',
             //     'tb_kuliner.name as kuliner_name',
@@ -560,7 +560,7 @@ class API extends Controller
             //     'tb_tempat.image as tempat_image'
             // )
             ->where('tb_tempat.kategori', 'kuliner')
-            ->where('tb_kuliner.status', '1')
+            ->where('tb_tempat.status', '1')
             ->get();
         return response()->json($kuliner);
     }
