@@ -65,7 +65,7 @@
                                     <li>Jumlah Orang : {{ $paket['jml_orang'] }}</li>
                                 </ul>
 
-                                <form action="{{ route('store-budget') }}" id="form" method="POST"
+                                <form action="{{ route('update-paket') }}" id="form" method="POST"
                                     enctype="multipart/form-data" class="form">
                                     @csrf
                                     <div class="table-responsive">
@@ -80,9 +80,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- {{ dd($nomor) }} --}}
+                                                {{-- {{ dd($tampilWisata) }} --}}
                                                 <?php $i = 1; ?>
-                                                @if ($tampilWisata[0] != null)
+                                                @if ($tampilWisata != null)
                                                     @foreach ($tampilWisata as $wisata)
                                                         <tr>
                                                             <td>{{ $i++ }}</td>
@@ -122,12 +122,12 @@
                                                 {{-- @endforeach --}}
                                                 <tr>
                                                     @if ($tampilPaketKuliner != null)
-                                                        
-                                                    <td>{{ $i++ }}</td>
-                                                    <td> Resto: {{ $tampilResto->name }} Paket Makanan: {{ $tampilPaketKuliner->nama_paket }}</td>
-                                                    <td>-</td>
-                                                    <td> Rp{{ number_format($tampilPaketKuliner->harga) }} </td>
-                                                    <td> Rp{{ number_format($tampilPaketKuliner->harga) }} </td>
+                                                        <td>{{ $i++ }}</td>
+                                                        <td> Resto: {{ $tampilResto->name }} Paket Makanan:
+                                                            {{ $tampilPaketKuliner->nama_paket }}</td>
+                                                        <td>-</td>
+                                                        <td> Rp{{ number_format($tampilPaketKuliner->harga) }} </td>
+                                                        <td> Rp{{ number_format($tampilPaketKuliner->harga) }} </td>
                                                     @endif
                                                 </tr>
 
@@ -146,7 +146,27 @@
                             <div class="d-flex justify-content-end">
                                 <div class="row">
                                     <div class="col-md-12">
+
                                         <input type="number" id="hargaAwal" value="{{ $harga }}" hidden>
+                                        <input type="number" name="id" value="{{ $id }}" hidden>
+                                        <input type="text" class="form-control" name='id_desa'
+                                            value="{{ $paket['id_desa'] }}" required hidden>
+                                        <input type="text" class="form-control" name='nama_paket'
+                                            value="{{ $paket['nama_paket'] }}" required hidden>
+                                        <input type="text" class="form-control" name='jml_orang'
+                                            value="{{ $paket['jml_orang'] }}" required hidden>
+                                        <input type="text" class="form-control" name='jml_hari'
+                                            value="{{ $paket['jml_hari'] }}" required hidden>
+
+
+                                        @for ($i = 0; $i < count($dataWisata); $i++)
+                                            <input type="text" name="dataWisata[]" value="{{ $dataWisata[$i] }}" hidden>
+                                        @endfor
+                                        {{-- @foreach ($dataWisata as $wisata)
+                                        @endforeach --}}
+                                        @foreach ($dataIdWisata as $idWisata)
+                                            <input type="text" name="idWisata[]" value="{{ $idWisata }}" hidden>
+                                        @endforeach
                                         {{-- <input type="text" name="nama_paket" value="{{ $paket['nama_paket'] }}" hidden>
                                         <input type="text" name="jml_orang" value="{{ $paket['jml_orang'] }}" hidden>
                                         <input type="text" name="jml_hari" value="{{ $paket['jml_hari'] }}" hidden>

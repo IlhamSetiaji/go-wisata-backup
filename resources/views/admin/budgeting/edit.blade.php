@@ -150,6 +150,8 @@
                                                                         {{-- <span class="bi bi-trash"></span> --}}
                                                                         @foreach ($dataWisatas as $data)
                                                                             @if ($wisata->tempat->id == $data->id)
+                                                                            <option value="">Hapus Wisata
+                                                                            </option>
                                                                                 <option value="{{ $data->id }}"
                                                                                     selected>{{ $data->name }} - {{ $data->htm }}
                                                                                 </option>
