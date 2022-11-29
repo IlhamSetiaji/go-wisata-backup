@@ -151,25 +151,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
-                                                <label>Wahana</label>
-                                            </div>
-                                            <div class="col-md-8" id="wahana">
-                                                <div class="form-group">
-                                                    <div class="position-relative">
-                                                        <fieldset class="form-group">
-                                                            <select class="form-select" name="data_wahana[]" id='data-wahana'>
-                                                                <option value="">Please select data Wahana</option>
-                                                                @foreach ($dataWahanas as $data)
-                                                                    <option value="{{ $data->id }} ">
-                                                                        {{ $data->name }} - {{ $data->harga != ''? $data->harga : 'Rp. 0' }}
-                                                                    </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </fieldset>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
                                             <div class="col-md-4">
                                                 <label>Kuliner</label>
                                             </div>
@@ -301,18 +283,7 @@
 
     <script>
         $(document).ready(function() {
-                    $(document).on('change', '#data-wahana', function() {
-                        var allGood = true;
-                        // var lastInputField = ;
-
-                        if ($(this).val() == "") {
-                            console.log('false');
-                            return allGood = false;
-                        }
-                        if (allGood) {
-                            $('#wahana').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wahana[]" id = "data-wahana">  <option value = "" > Please select data Wahana </option>@foreach ($dataWahanas as $data)<option value="{{ $data->id }}" >{{ $data->name }}- {{ $data->harga != ''? $data->harga : "Rp. 0" }} </option>@endforeach</select> </fieldset> </div> </div>'));
-                        }
-                    });
+                   
                     
 
                     $(document).on('change', '#data-wisata', function() {
