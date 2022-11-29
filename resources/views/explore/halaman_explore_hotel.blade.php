@@ -131,8 +131,8 @@
                             @foreach ($kamar as $key => $whn)
                                 <!--==================== DISCOVER 1 ====================-->
                                 <div class="card mx-2">
-                                    <img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image"
-                                        class="img-thumbnail">
+                                    <img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image" style="width:300px;height:190px;"
+                                        class="discover__img">
                                     <div class="discover__data">
 
                                         <h2 class="discover__title">{{ $whn->name }}</h2>

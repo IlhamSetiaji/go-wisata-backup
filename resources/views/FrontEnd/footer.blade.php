@@ -22,7 +22,7 @@
         </div>
         <div class="footer__data">
             <h3 class="footer__title">Kontak</h3>
-            <p class="footer__description">gowisata@gmail.com <br> Indonesia <br>
+            <p class="footer__description">gowisata.kabmadiun@gmail.com <br> Indonesia <br>
             </p>
         </div>
     </div>
