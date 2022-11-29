@@ -43,6 +43,7 @@ use App\Http\Controllers\API\API;
 //mobile
 Route::get('/tempat', [API::class, 'tempat']);
 Route::get('/tempat/{id}', [API::class, 'wahanabytempat']);
+Route::get('/kuliner/{id}', [API::class, 'menukuliner']);
 
 Route::get('/desa', [API::class, 'desa']);
 Route::get('/listevent', [API::class, 'listevent']);

@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use App\Models\Detail_transaksi;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\Penginapan;
+use App\Models\MenuKuliner;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -548,7 +549,7 @@ class API extends Controller
     {
         $kuliner  = new Kuliner();
         $kuliner  = $kuliner
-            // ->join('tb_tempat', 'tb_kuliner.tempat_id', 'tb_tempat.id')
+
             // ->select(
             //     '*',
             //     'tb_kuliner.name as kuliner_name',
@@ -559,9 +560,21 @@ class API extends Controller
             //     'tb_tempat.deskripsi as tempat_deskripsi',
             //     'tb_tempat.image as tempat_image'
             // )
-            // ->where('tb_kuliner.status', '1')
+            ->where('tb_tempat.kategori', 'kuliner')
+            ->where('tb_tempat.status', '1')
             ->get();
         return response()->json($kuliner);
+    }
+
+    public function menukuliner($id)
+    {
+        $menukuliner = new MenuKuliner();
+        $menukuliner = $menukuliner
+            // ->join('tb_kuliner', 'tb_kuliner.tempat_id', 'tb_tempat.id')
+            ->where('tempat_id', $id)
+            ->where('status', '1')
+            ->get();
+        return response()->json($menukuliner);
     }
 
     public function createkuliner(Request $request)
