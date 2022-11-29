@@ -29,9 +29,9 @@
             &nbsp;
             <div class="row me-1">
                 <div class="col-sm-6 mb-2">
-                    <div class="card">
+                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Desa Wisata</h5>
+                        <h3 class="card-title"><i class="fa fa-map-marker" aria-hidden="true"></i> Desa Wisata</h3>
                             <p class="card-text" align="justify">Explore wisata memberikan beragam informasi penting paket
                                 wisata liburan bersama keluarga, yang menarik untuk dikunjungi dengan harga terjangkau.
                             </p>
@@ -42,7 +42,7 @@
                 <div class="col-sm-6 mb-2">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Event</h5>
+                            <h3 class="card-title"><i class="fa fa-calendar" aria-hidden="true"></i> Event</h3>
                             <p class="card-text" align="justify">Explore event memberikan beragam informasi penting tentang
                                 kegiatan atau acara yang bisa diikuti bersama teman maupun keluarga.
                             </p>
@@ -53,7 +53,7 @@
                 <div class="col-sm-6 mb-2">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Kuliner</h5>
+                            <h3 class="card-title"><i class="fa fa-coffee" aria-hidden="true"></i> Kuliner</h3>
                             <p class="card-text" align="justify">Explore kuliner memberikan referensi makanan dan minuman
                                 yang bisa Anda coba bersama teman maupun keluarga.
                             </p>
@@ -64,7 +64,7 @@
                 <div class="col-sm-6 mb-2">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Penginapan (Hotel & Villa)</h5>
+                            <h3 class="card-title"><i class="fa fa-bed" aria-hidden="true"></i> Penginapan (Hotel & Villa)</h3>
                             <p class="card-text" align="justify">Explore penginapan memberikan beragam informasi mengenai
                                 hotel dan villa yang tersedia, jika Anda membutuhkan tempat yang nyaman untuk liburan.
                             </p>
@@ -86,7 +86,7 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Penyewaan Tempat</h5>
+                            <h3 class="card-title"><i class="fa fa-university" aria-hidden="true"></i> Penyewaan Tempat</h3>
                             <p class="card-text" align="justify">Explore penyewaan tempat memberikan informasi tempat yang
                                 bisa disewa untuk keperluan Wedding, Acara Keluarga, dan lain-lain.
                             </p>
