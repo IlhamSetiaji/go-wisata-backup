@@ -95,7 +95,7 @@
                                                         <td></td>
                                                         <td>{{ $wahana->name }}</td>
                                                         <td> - </td>
-                                                        <td> {{ $wahana->harga != null ? 'Rp' .  number_format($wahana->harga) : 'Rp0' }}
+                                                        <td> {{ $wahana->harga != null ? 'Rp' . number_format($wahana->harga) : 'Rp0' }}
                                                         </td>
                                                         <td> {{ $wahana->harga != null ? 'Rp' . number_format($wahana->harga) : 'Rp0' }}
                                                         </td>
@@ -115,33 +115,24 @@
                                                 {{-- {{ dd($kamars) }} --}}
                                                 {{-- @foreach ($hotels as $hotel) --}}
                                                 <tr>
-                                                    <td> {{ $i++ }} </td>
-                                                    <td>{{ $hotels->nama }} - {{ $kamars->name }}</td>
-                                                    <td> - </td>
-                                                    {{-- <select class="form-select" name="data_penginapanvilla[]"
-                                                                id='data-penginapan-villa'>
-                                                                <option value="">Pilih Kamar
-                                                                </option>
-                                                                @foreach ($kamars as $datas)
-                                                                    @foreach ($datas as $kamar)
-                                                                        @if ($kamar->hotel_id == $hotel->id)
-                                                                            <option value="{{ $kamar->id }}">
-                                                                                {{ $kamar->name }} - {{ $kamar->harga }}
-                                                                            </option>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @endforeach
-                                                            </select> --}}
-                                                    <td> Rp{{ number_format($kamars->harga) }} </td>
-                                                    <td> Rp{{ number_format($kamars->harga) }} </td>
+                                                    @if ($hotels != null)
+                                                        <td> {{ $i++ }} </td>
+                                                        <td>{{ $hotels->nama }} - {{ $kamars->name }}</td>
+                                                        <td> - </td>
+                                                        <td> Rp{{ number_format($kamars->harga) }} </td>
+                                                        <td> Rp{{ number_format($kamars->harga) }} </td>
+                                                    @endif
                                                 </tr>
                                                 {{-- @endforeach --}}
                                                 <tr>
+                                                    @if ($kuliners != null)
+                                                        
                                                     <td>{{ $i++ }}</td>
                                                     <td> Paket Makanan {{ $kuliners->nama_paket }}</td>
                                                     <td>-</td>
                                                     <td> Rp{{ number_format($kuliners->harga) }} </td>
                                                     <td> Rp{{ number_format($kuliners->harga) }} </td>
+                                                    @endif
                                                 </tr>
 
                                                 <tr>
@@ -179,9 +170,15 @@
                                         @foreach ($villas as $villa)
                                             <input type="text" name="data_villa" value="{{ $villa->id }}" hidden>
                                         @endforeach
-                                        <input type="text" name="data_hotel" value="{{ $hotels->id }}" hidden>
-                                        <input type="text" name="data_kamar" value="{{ $kamars->id }}" hidden>
-                                        <input type="text" name="kuliner" value="{{ $kuliners->id }}" hidden>
+                                        @if ($hotels != null)
+                                            <input type="text" name="data_hotel" value="{{ $hotels->id }}" hidden>
+                                        @endif
+                                        @if ($kamars != null)
+                                            <input type="text" name="data_kamar" value="{{ $kamars->id }}" hidden>
+                                        @endif
+                                        @if ($kuliners != null)
+                                            <input type="text" name="kuliner" value="{{ $kuliners->id }}" hidden>
+                                        @endif
 
                                     </div>
                                 </div>
