@@ -249,18 +249,19 @@
                                                                     id='data-penginapan-hotel' disabled>
                                                                     @if ($hotel != null)
                                                                         @foreach ($dataHotels as $item)
-                                                                        @if ($item->id == $hotel->id)
-                                                                        <option value="">Hapus Hotel
-                                                                        </option>
-                                                                        
-                                                                        <option value="{{ $item->id }}" selected> {{ $item->nama }}</option>
-                                                                        @else
-                                                                        
-                                                                        <option value="{{ $item->id }}"> {{ $item->nama }}</option>
-                                                                        @endif
+                                                                            @if ($item->id == $hotel->id)
+                                                                            <option value="">Hapus Hotel
+                                                                            </option>
+                                                                            
+                                                                            <option value="{{ $item->id }}" selected> {{ $item->nama }}</option>
+                                                                            @else
+                                                                            
+                                                                            <option value="{{ $item->id }}"> {{ $item->nama }}</option>
+                                                                            @endif
                                                                         
                                                                         @endforeach
                                                                     @else
+                                                                        <option value=""> Pilih Hotel </option>
                                                                         @foreach ($dataHotels as $item)
                                                                         <option value="{{ $item->id }}"> {{ $item->nama }}</option>
                                                                         @endforeach
@@ -342,7 +343,7 @@
                                                     <div class="position-relative">
                                                         <fieldset class="form-group">
                                                             <select class="form-select forms-select" name="resto" id='resto' disabled>
-                                                                @if ($dataKuliners != null)
+                                                                @if ($dataKuliners != null && $resto != null)
                                                                     @foreach ($dataKuliners as $data)
                                                                         @if ($resto->dataPaketKuliner->tempat->id == $data->id)
                                                                         <option value="">Hapus Restoran</option>
@@ -370,19 +371,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            {{-- {{ dd($paketMenu->) }} --}}
+                                            {{-- {{ dd($menus) }}
+                                            {{ dd($menus[0]->id == $paketMenu->id) }} --}}
                                             <div class="col-md-4" id="paketrestoran">
                                                 <div class="form-group">
                                                     <div class="position-relative">
                                                         <fieldset class="form-group">
                                                             <select class="form-select forms-select" name="paketresto" id='paketresto' disabled>
-                                                                @if ($menus != null)
+                                                                @if ($menus != null && $paketMenu != null)
                                                                     @foreach ($menus as $menu)
                                                                         @if ($menu->id == $paketMenu->id)
                                                                             
                                                                         <option value="{{ $menu->id }}" selected>{{ $menu->nama_paket }}</option>
                                                                         @else
-                                                                        <option value=""> Pilih Menu
-                                                                        </option>
+                                                                        {{-- <option value=""> Hapus Menu
+                                                                        </option> --}}
                                                                         <option value="{{ $menu->id }}">{{ $menu->nama_paket }}</option>
                                                                             
                                                                         @endif
