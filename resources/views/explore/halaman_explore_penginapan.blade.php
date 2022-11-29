@@ -214,8 +214,9 @@
                     <div class="penginapan__container container grid">
                         @foreach ($penginapan as $key => $tempat2)
                             <!--==================== PLACES CARD 1 ====================-->
-                            <div class="penginapan__card">
-                                <img src="{{ asset('images') }}/{{ $tempat2->foto }}" class="img-thumbnail" alt="Responsive image">
+                            {{--  <div class="penginapan__card">
+                                <img src="{{ asset('images') }}/{{ $tempat2->foto }}" class="img-thumbnail"
+                                    alt="Responsive image">
 
                                 <div class="penginapan__content">
                                     <span class="penginapan__rating">
@@ -234,6 +235,17 @@
                                     </button>
                                 </a>
 
+                            </div>  --}}
+                            <div class="card" style="width: 20rem;">
+                                <img src="{{ asset('images') }}/{{ $tempat2->foto }}" class="card-img-top" alt="...">
+                                <div class="card-body" >
+                                    <h5 class="card-title">{{ $tempat2->nama }}</h5>
+                                    <a target="_blank" href="/explore-hotel/{{ $tempat2->id }}">
+                                        <button class="button button--flex penginapan__button">
+                                            <i class="ri-arrow-right-line"></i>
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         @endforeach
                     </div>

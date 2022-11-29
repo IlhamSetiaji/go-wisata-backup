@@ -1174,10 +1174,10 @@ input {
 }
 
 
-/* .makan__container {
-  grid-template-columns: repeat(4, max-content);
+.makan__container {
+  grid-template-columns: repeat(3, max-content);
   justify-content: center;
-} */
+}
 
 .makan__card {
     position: relative;
