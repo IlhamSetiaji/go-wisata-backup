@@ -93,11 +93,6 @@ class BudgetingController extends Controller
             'jml_orang' => 'required|integer',
         ]);
 
-        // $arrKategoriPaket = [];
-        // for ($i = 0; $i < count($validateDataPaket['kategori']); $i++) {
-        //     array_push($arrKategoriPaket, tb_kategoriwisata::where('id', $validateDataPaket['kategori'][$i])->first());
-        // }
-
         //get data wisata
         $arrDataWisata = [];
         if ($request->data_wisata[0] != null) {
@@ -131,8 +126,13 @@ class BudgetingController extends Controller
         // for ($i = 0; $i < count($arrDataPenginapanHotel); $i++) {
         //     array_push($arrKamarHotel, Kamar::where('hotel_id', $arrDataPenginapanHotel[$i]->id)->get());
         // }
-        $hotel = Hotel::where('id', $request->data_penginapanhotel)->first();
-        $kamar = Kamar::where('id', $request->kamar)->first();
+        $hotel = '';
+        $kamar = '';
+
+        if($request->data_penginapan != null && $request->kamar != null) {
+            $hotel = Hotel::where('id', $request->data_penginapanhotel)->first();
+            $kamar = Kamar::where('id', $request->kamar)->first();
+        }
         // dd($kamar);
 
         $arrDataPenginapanVilla = [];
@@ -149,10 +149,7 @@ class BudgetingController extends Controller
             array_push($validateDataPaket['data_kategori'], tb_kategoriwisata::where('id', $validateDataPaket['kategori'][$i])->first());
         }
 
-
-        // $kuliners = DataPaketKuliner::where('data_paket_kuliners.id', $request->paketresto)->join('tb_paketkuliners', 'data_paket_kuliners.id', 'tb_paketkuliners.data_paket_kuliner_id')->get();
         $kuliners = DataPaketKuliner::where('id', $request->paketresto)->where('status', 1)->first();
-        // dd($kuliners);
 
         //get harga
         $totalHarga = 0;
@@ -168,11 +165,16 @@ class BudgetingController extends Controller
             $totalHarga += $data->harga;
         }
 
-        $totalHarga += $kamar->harga;
-        $totalHarga += $kuliners->harga;
-        // dd($totalHarga);
+        // dd($kuliners ==null);
+        if($kamar != null) {
+            $totalHarga += $kamar->harga;
+            
+        }
 
-        // dd($totalHarga);
+        if($kuliners != null) {
+            
+            $totalHarga += $kuliners->harga;
+        }
 
         return view('admin.budgeting.detail', [
             'paket' => $validateDataPaket,
@@ -346,7 +348,7 @@ class BudgetingController extends Controller
         $paketWisata = tb_paketwisata::where('paket_id', $id)->get();
         $paketWahana = tb_paketwahana::where('paket_id', $id)->get();
         $paketKategori = tb_paketkategoriwisata::where('paket_id', $id)->get();
-        $paketMenu = DB::table('data_paket_kuliners')->join('tb_datakuliners', 'data_paket_kuliners.id', 'tb_datakuliners.data_paket_kuliner_id')->first();
+        $paketMenu = DB::table('data_paket_kuliners')->join('tb_datakuliners', 'data_paket_kuliners.id', 'tb_datakuliners.data_paket_kuliner_id')->where('tb_datakuliners.paket_id', $id)->first();
         $paketResto = tb_datakuliner::where('paket_id', $id)->first();
         $idTempatResto = DB::table('tb_pakets')->join('tb_datakuliners', 'tb_pakets.id', 'tb_datakuliners.paket_id')->join('data_paket_kuliners', 'tb_datakuliners.data_paket_kuliner_id', 'data_paket_kuliners.id')->select('data_paket_kuliners.tempat_id')->first();
         $dataMenu = DataPaketKuliner::where('tempat_id', $idTempatResto->tempat_id)->get();
@@ -368,10 +370,13 @@ class BudgetingController extends Controller
             }
         }
         // dd($paketPenginapan);
-        
+
         //all data penginapan
+        $dataKamarHotel ='';
         $dataHotel = DB::table('tb_hotel')->select('tb_hotel.*')->join('tb_tempat', 'tb_hotel.tempat_id', '=', 'tb_tempat.id')->where('tb_tempat.induk_id', $idTempat)->where('tb_tempat.status', 1)->get();
-        $dataKamarHotel = Kamar::where('hotel_id', $hotel->id)->get();
+        if($hotel != null) {
+            $dataKamarHotel = Kamar::where('hotel_id', $hotel->id)->get();
+        }
         $dataVilla = DB::table('tb_villa')->select('tb_villa.*')->join('users', 'tb_villa.user_id', '=', 'users.id')->where('users.desa_id', $idTempat)->get();
         // dd($idTempat);
         // dd($dataHotel);
@@ -399,16 +404,6 @@ class BudgetingController extends Controller
         for ($i = 0; $i < count($arrayKateggoriNonCheklist); $i++) {
             $arrayKateggoriNonCheklist[$i] = tb_kategoriwisata::where('id', $arrayKateggoriNonCheklist[$i])->first();
         }
-
-        // dd($paketMenu);
-        // dd($villa == null);
-        // if (condition) {
-        //     # code...
-        // } else if() {
-
-        // }else {
-        //     # code...
-        // }
 
 
         return view('admin.budgeting.edit', [

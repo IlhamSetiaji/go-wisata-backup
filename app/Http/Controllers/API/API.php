@@ -547,7 +547,7 @@ class API extends Controller
 
     public function kuliner()
     {
-        $kuliner  = new Kuliner();
+        $kuliner  = new Tempat();
         $kuliner  = $kuliner
 
             // ->select(

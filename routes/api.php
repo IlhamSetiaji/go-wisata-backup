@@ -44,11 +44,13 @@ use App\Http\Controllers\API\API;
 Route::get('/tempat', [API::class, 'tempat']);
 Route::get('/tempat/{id}', [API::class, 'wahanabytempat']);
 Route::get('/kuliner/{id}', [API::class, 'menukuliner']);
+Route::get('/kuliner', [API::class, 'kuliner']);
 
 Route::get('/desa', [API::class, 'desa']);
 Route::get('/listevent', [API::class, 'listevent']);
 Route::get('/hotel', [API::class, 'hotel']);
 Route::get('/villa', [API::class, 'villa']);
+
 
 Route::get('/wahana', [API::class, 'wahana']);
 Route::post('/wahana/create', [API::class, 'createwahana']);
