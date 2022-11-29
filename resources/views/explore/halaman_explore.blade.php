@@ -64,9 +64,9 @@
                 <div class="col-sm-6 mb-2">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title"><i class="fa fa-bed" aria-hidden="true"></i> Penginapan (Hotel & Villa)</h3>
+                            <h3 class="card-title"><i class="fa fa-bed" aria-hidden="true"></i> Penginapan</h3>
                             <p class="card-text" align="justify">Explore penginapan memberikan beragam informasi mengenai
-                                hotel dan villa yang tersedia, jika Anda membutuhkan tempat yang nyaman untuk liburan.
+                                hotel , villa dan homestay yang tersedia, jika Anda membutuhkan tempat yang nyaman untuk liburan.
                             </p>
                             <a href="/explore-penginapan" class="button">Explore</a>
                         </div>
