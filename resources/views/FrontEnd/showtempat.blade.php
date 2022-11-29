@@ -191,7 +191,7 @@
                 <h2 class="section__title">Lokasi {{ $tempat->name }}</h2>
 
                 <div class="container">
-                    <p class="about__container"><a href="{{ $tempat->lokasi }}" target="blank">{{ $tempat->lokasi }}</a></p>
+                    <p class="about__container" align="center"><a href="{{ $tempat->lokasi }}" target="blank">{{ $tempat->lokasi }}</a></p>
                 </div>
             </section>
         @endif
