@@ -145,6 +145,7 @@ return array(
     'App\\Models\\TempatSewa' => $baseDir . '/app/Models/TempatSewa.php',
     'App\\Models\\Tiket' => $baseDir . '/app/Models/Tiket.php',
     'App\\Models\\TopUp' => $baseDir . '/app/Models/TopUp.php',
+    'App\\Models\\Tour' => $baseDir . '/app/Models/Tour.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\Villa' => $baseDir . '/app/Models/Villa.php',
     'App\\Models\\Wahana' => $baseDir . '/app/Models/Wahana.php',

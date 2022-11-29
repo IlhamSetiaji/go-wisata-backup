@@ -55,16 +55,7 @@ use Illuminate\Support\Facades\Artisan;
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
-|
 */
-
-
-
-Route::get('/clear-cache', function () {
-    Artisan::call('cache:clear');
-    echo "cache cleared";
-});
-
 
 Auth::routes(['verify' => true]);
 Route::resource('/', FrontendController::class);
@@ -289,6 +280,16 @@ Route::group([
 
     Route::post('/paketd/created', [AdminController::class, 'paketCreated'])->name('paketd.created');
 
+    // TOURGUIDE
+    Route::get('/tourd/index', [AdminController::class, 'tourIndex'])->name('tourd.index');
+    Route::get('/tourd/show', [AdminController::class, 'tourShow'])->name('tourd.show');
+    Route::post('/tourd/create', [AdminController::class, 'tourCreate'])->name('tourd.create');
+    Route::put('/tourd/{id}', [AdminController::class, 'tourUpdate'])->name('tourd.update');
+    Route::get('/tourd/{id}/edit', [AdminController::class, 'tourEdit'])->name('tourd.edit');
+    Route::post('/tourd/delete/{id}', [AdminController::class, 'tourDestroy'])->name('tourd.destroy');
+    Route::post('/tourd/stored', [AdminController::class, 'tourStored'])->name('tourd.stored');
+});
+
     Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
     Route::get('/budgeting-create-detail', [BudgetingController::class, 'detailPaket'])->name('budget.detail.create');
@@ -300,7 +301,6 @@ Route::group([
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
     Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
     Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
-});
 
 Route::group([
     'middleware' => ['auth', 'kuliner', 'verified'],
