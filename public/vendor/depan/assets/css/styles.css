@@ -1183,7 +1183,7 @@ input {
 
 
 .makan__container {
-  grid-template-columns: repeat(3, max-content);
+  grid-template-columns: repeat(4, max-content);
   justify-content: center;
 }
 
@@ -1332,4 +1332,52 @@ input {
 .penginapan__description {
     display: block;
     font-size: var(--smaller-font-size);
+}
+
+/*=============== WISATA ===============*/
+
+.wisata__container {
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+}
+
+.wisata__card {
+    position: relative;
+    width: 200px;
+    overflow: var(--img-hidden);
+}
+
+.wisata__card:hover  {
+    transform: var(--img-scale);
+}
+
+.wisata__button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: .75rem 1rem;
+}
+
+/*=============== EVENT ===============*/
+
+.event__container {
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+}
+
+.event__card {
+    position: relative;
+    width: 200px;
+    overflow: var(--img-hidden);
+}
+
+.event__card:hover  {
+    transform: var(--img-scale);
+}
+
+.event__button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: .75rem 1rem;
 }

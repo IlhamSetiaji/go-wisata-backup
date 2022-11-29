@@ -58,7 +58,7 @@
                                         class="card-img-top">
                                 @endif
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $tempat->name }}</h5>
+                                    <h5 class="card-title" style="font-weight:bold">{{ $tempat->name }}</h5>
                                     <a target="_blank" href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}"">
                                         <button class="button button--flex makan__button">
                                             <i class="ri-arrow-right-line"></i>

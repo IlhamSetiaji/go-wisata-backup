@@ -30,27 +30,35 @@
             <section class="discover section" id="kamar">
                 <h2 class="section__title">Tempat Sewa <br> Yang Tersedia</h2>
 
-                <div class="discover__container container swiper-container">
-                    <div class="swiper-wrapper">
-                        @if (count($tempatsewa) > 0)
-                            @foreach ($tempatsewa as $key => $whn)
-                                <!--==================== DISCOVER 1 ====================-->
-                                <div class="discover__card swiper-slide">
-                                    <img src="{{ asset('images') }}/{{ $whn->foto }}" alt=""
-                                        class="discover__img">
-                                    <div class="discover__data">
-                                        <h2 class="discover__title">{{ $whn->nama }}</h2>
-                                        <span class="discover__description">
-                                            <a disabled class="button"
-                                                href="/explore-penyewaan-tempat-detail/{{ $whn->id }}"
-                                                target="_blank">Detail</a>
-                                        </span>
-                                    </div>
+                <div class="makan__container container grid">
+                    @if (count($tempatsewa) > 0)
+                        @foreach ($tempatsewa as $key => $whn)
+                            <!--==================== DISCOVER 1 ====================-->
+                            {{--  <div class="discover__card swiper-slide">
+                                <img src="{{ asset('images') }}/{{ $whn->foto }}" alt="" class="discover__img">
+                                <div class="discover__data">
+                                    <h2 class="discover__title">{{ $whn->nama }}</h2>
+                                    <span class="discover__description">
+                                        <a disabled class="button"
+                                            href="/explore-penyewaan-tempat-detail/{{ $whn->id }}"
+                                            target="_blank">Detail</a>
+                                    </span>
                                 </div>
-                            @endforeach
-                        @else
-                        @endif
-                    </div>
+                            </div>  --}}
+                            <div class="card" style="width: 20rem;">
+                                <img src="{{ asset('images') }}/{{ $whn->foto }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-weight:bold">{{ $whn->nama }}</h5>
+                                    <a target="_blank" href="/explore-penyewaan-tempat-detail/{{ $whn->id }}"">
+                                        <button class="button button--flex makan__button">
+                                            <i class="ri-arrow-right-line"></i>
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                    @endif
                 </div>
             </section>
         </div>

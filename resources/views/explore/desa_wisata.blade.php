@@ -29,10 +29,10 @@
             <section class="discover section" id="discover">
                 <h2 class="section__title">Temukan Tempat Wisata <br> Di Desa Wisata Paling Menarik</h2>
 
-                <div class="card-group">
+                <div class="wisata__container container grid">
                     @if (count($tempat) > 0)
                         @foreach ($tempat as $key => $tempat)
-                            <div class="card mx-2">
+                            {{--  <div class="card mx-2">
                                 <!--==================== DISCOVER 1 ====================-->
                                 @if ($tempat->image == null)
                                     Gambar Tidak Tersedia
@@ -48,6 +48,22 @@
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
                                 </a>
+                            </div>  --}}
+                            <div class="card" style="width: 20rem;">
+                                @if ($tempat->image == null)
+                                    Gambar Tidak Tersedia
+                                @else
+                                    <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
+                                        class="card-img-top">
+                                @endif
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-weight:bold">{{ $tempat->name }}</h5>
+                                    <a target="_blank" href="{{ url('./' . $tempat->slug) }}">
+                                        <button class="button button--flex wisata__button">
+                                            <i class="ri-arrow-right-line"></i>
+                                        </button>
+                                    </a>
+                                </div>
                             </div>
                         @endforeach
                     @else
