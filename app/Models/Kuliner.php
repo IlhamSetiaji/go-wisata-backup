@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Kuliner extends Model
 {
     use HasFactory;
-    protected $table = "tb_tempat";
+    protected $table = "tb_kuliner";
     protected $guarded = [];
 
     public function userAvatar($request)
