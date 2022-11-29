@@ -49,7 +49,7 @@
                                     </button>
                                 </a>
                             </div>  --}}
-                            <div class="card" style="width: 20rem;">
+                            <div class="card mx-2" style="width: 20rem;">
                                 @if ($tempat->image == null)
                                     Gambar Tidak Tersedia
                                 @else
