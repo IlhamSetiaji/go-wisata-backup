@@ -276,7 +276,7 @@ class FrontendController extends Controller
                         ->where('jml_hari', '<=', $hari)
                         ->where('jml_orang', "<=", $jumlahOrang)
                         ->orderBy('harga', 'desc')
-                        
+
                         ->where('status', 1)
                         ->get();
                 } else {
@@ -286,7 +286,7 @@ class FrontendController extends Controller
                         ->where('jml_orang', ">=", $jumlahOrang)
                         ->where("tb_pakets.harga", "<=", $budget)
                         ->where('status', 1)
-                       
+
                         ->orderBy('harga', 'desc')
                         ->while()
                         ->where('status', 1)
@@ -299,7 +299,7 @@ class FrontendController extends Controller
                         ->where('jml_hari', '>=', $hari)
                         ->where('jml_orang', ">=", $jumlahOrang)
                         ->orderBy('harga', 'desc')
-                       
+
                         ->where('status', 1)
                         ->get();
                 } else {
@@ -548,11 +548,11 @@ class FrontendController extends Controller
             $nama = $tempat2['name'];
 
             // Tempat Kuliner makanan
-            $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
+            // $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
 
             $paket = tb_paket::all();
 
-            return view('FrontEnd/showtempatd', compact('paket', 'setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+            return view('FrontEnd/showtempatd', compact('paket', 'setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner',  'camp', 'camp1', 'penginapan'));
         }
 
 
