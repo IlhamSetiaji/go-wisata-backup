@@ -31,7 +31,7 @@
                     <div class="d-flex justify-content-between">
                         <div class="logo">
                             <a href="{{ url('/') }}"><img src="{{ asset('assets/images/logo/go.png') }}"
-                                    alt="Logo" width="230px" srcset=""></a>
+                                    alt="Logo" srcset="" style="height: 75px;"></a>
 
                         </div>
                         <div class="toggler">

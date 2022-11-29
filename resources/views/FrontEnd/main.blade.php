@@ -61,19 +61,43 @@
             @endif
             @if (!$setting->sponsor2 == null)
                 <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor2 }}" alt=""
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor2 }}"  alt=""
                         class="sponsor__img">
                 </div>
             @endif
             @if (!$setting->sponsor3 == null)
                 <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor3 }}" alt=""
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor3 }}" style="width: 200px;" alt=""
                         class="sponsor__img">
                 </div>
             @endif
             @if (!$setting->sponsor4 == null)
                 <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor4 }}" style="width: 140px;"
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor4 }}" 
+                        alt="" class="sponsor__img">
+                </div>
+            @endif
+            @if (!$setting->sponsor5 == null)
+                <div class="sponsor__content">
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor5 }}"
+                        alt="" class="sponsor__img">
+                </div>
+            @endif
+            @if (!$setting->sponsor6 == null)
+                <div class="sponsor__content">
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor6 }}" style="width: 140px;"
+                        alt="" class="sponsor__img">
+                </div>
+            @endif
+            @if (!$setting->sponsor7 == null)
+                <div class="sponsor__content">
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor7 }}" style="width: 100px;"
+                        alt="" class="sponsor__img">
+                </div>
+            @endif
+            @if (!$setting->sponsor8 == null)
+                <div class="sponsor__content">
+                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor8 }}" style="width: 140px;"
                         alt="" class="sponsor__img">
                 </div>
             @endif

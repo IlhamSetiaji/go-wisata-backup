@@ -69,6 +69,38 @@ class Setting extends Model
         $home1->move($destination, $name);
         return $name;
     }
+    public function userAvatar8($request)
+    {
+        $home1 = $request->file('sponsor5');
+        $name = $home1->hashName();
+        $destination = public_path('/images/setting');
+        $home1->move($destination, $name);
+        return $name;
+    }
+    public function userAvatar9($request)
+    {
+        $home1 = $request->file('sponsor6');
+        $name = $home1->hashName();
+        $destination = public_path('/images/setting');
+        $home1->move($destination, $name);
+        return $name;
+    }
+    public function userAvatar10($request)
+    {
+        $home1 = $request->file('sponsor7');
+        $name = $home1->hashName();
+        $destination = public_path('/images/setting');
+        $home1->move($destination, $name);
+        return $name;
+    }
+    public function userAvatar11($request)
+    {
+        $home1 = $request->file('sponsor8');
+        $name = $home1->hashName();
+        $destination = public_path('/images/setting');
+        $home1->move($destination, $name);
+        return $name;
+    }
     public function tempatAvatar8($request)
     {
         $video = $request->file('video');

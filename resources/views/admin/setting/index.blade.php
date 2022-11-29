@@ -193,6 +193,66 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
+                                                    <label>sponsor5</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group has-icon-lefts">
+                                                        <div class="position-relative">
+
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor5}}">
+                                                            </div>
+                                                            <input type="file" class="form-control file-upload-info @error('sponsor5') is-invalid @enderror"   placeholder="Upload Image" name="sponsor5">
+                                                            <span class="input-group-append">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>sponsor6</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group has-icon-lefts">
+                                                        <div class="position-relative">
+
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor6}}">
+                                                            </div>
+                                                            <input type="file" class="form-control file-upload-info @error('sponsor6') is-invalid @enderror"   placeholder="Upload Image" name="sponsor6">
+                                                            <span class="input-group-append">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>sponsor7</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group has-icon-lefts">
+                                                        <div class="position-relative">
+
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor7}}">
+                                                            </div>
+                                                            <input type="file" class="form-control file-upload-info @error('sponsor7') is-invalid @enderror"   placeholder="Upload Image" name="sponsor7">
+                                                            <span class="input-group-append">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>sponsor8</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group has-icon-lefts">
+                                                        <div class="position-relative">
+
+                                                            <div >
+                                                                <img alt="image" class="mb-3" width="30%" src="{{asset('images/setting')}}/{{$setting->sponsor8}}">
+                                                            </div>
+                                                            <input type="file" class="form-control file-upload-info @error('sponsor8') is-invalid @enderror"   placeholder="Upload Image" name="sponsor8">
+                                                            <span class="input-group-append">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
                                                     <label>Video (max:35mb)</label>
                                                 </div>
                                                 <div class="col-md-8">

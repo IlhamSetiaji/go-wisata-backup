@@ -163,6 +163,50 @@ class SettingController extends Controller
         }
         $data['experience2'] = $imageName9;
 
+        $imageName10 = $user->sponsor5;
+        if ($request->hasFile('sponsor5')) {
+            $imageName10 = (new Setting)->userAvatar8($request);
+            if ($admin->sponsor5 == null) {
+            } else {
+                if (file_exists($imageName10))
+                    unlink(public_path('images/' . $user->sponsor5));
+            }
+        }
+        $data['sponsor5'] = $imageName10;
+
+        $imageName11 = $user->sponsor6;
+        if ($request->hasFile('sponsor6')) {
+            $imageName11 = (new Setting)->userAvatar9($request);
+            if ($admin->sponsor6 == null) {
+            } else {
+                if (file_exists($imageName11))
+                    unlink(public_path('images/' . $user->sponsor6));
+            }
+        }
+        $data['sponsor6'] = $imageName11;
+
+        $imageName12 = $user->sponsor7;
+        if ($request->hasFile('sponsor7')) {
+            $imageName12 = (new Setting)->userAvatar10($request);
+            if ($admin->sponsor7 == null) {
+            } else {
+                if (file_exists($imageName12))
+                    unlink(public_path('images/' . $user->sponsor7));
+            }
+        }
+        $data['sponsor7'] = $imageName12;
+        
+        $imageName13 = $user->sponsor8;
+        if ($request->hasFile('sponsor8')) {
+            $imageName13 = (new Setting)->userAvatar11($request);
+            if ($admin->sponsor8 == null) {
+            } else {
+                if (file_exists($imageName13))
+                    unlink(public_path('images/' . $user->sponsor8));
+            }
+        }
+        $data['sponsor8'] = $imageName13;
+
         $video = $user->video;
         if ($request->hasFile('video')) {
             $video = (new Setting)->tempatAvatar8($request);

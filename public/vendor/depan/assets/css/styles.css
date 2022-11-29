@@ -204,6 +204,11 @@ input {
     background-color: transparent;
 }
 
+.logo__master {
+    height: 200px;
+    width: 200px;
+}
+
 
 /*=============== NAV ===============*/
 
@@ -767,9 +772,12 @@ input {
 /*=============== SPONSORS ===============*/
 
 .sponsor__container {
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); */
     justify-items: center;
-    row-gap: 3.5rem;
+    column-gap: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .sponsor__content:hover .sponsor__img {}
