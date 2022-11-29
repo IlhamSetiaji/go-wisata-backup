@@ -141,6 +141,7 @@ class TempatController extends Controller
         $data['akses'] = $request->akses;
         $data['sejarah'] = $request->sejarah;
         $data['unggulan'] = $request->unggulan;
+        $data['lokasi'] = $request->lokasi;
 
         $slug = Str::slug($request->name, '-');
         $data['slug'] = $slug;
@@ -264,6 +265,7 @@ class TempatController extends Controller
         $data['deskripsi'] = $request->deskripsi;
         $data['akses'] = $request->akses;
         $data['sejarah'] = $request->sejarah;
+        $data['lokasi'] = $request->lokasi;
         
 
 

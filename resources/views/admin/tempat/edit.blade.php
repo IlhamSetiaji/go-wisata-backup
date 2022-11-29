@@ -137,6 +137,22 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-4">
+                                            <label>Lokasi</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group has-icon-left">
+                                                <div class="position-relative">
+                                                    <textarea type="text" class="form-control" name="lokasi"
+                                                         id="deskripsi">
+                                                         {{ $users->lokasi }}
+                                                    </textarea>
+                                                    <div class="form-control-icon">
+                                                        <i class="fas fa-pen"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="col-md-4">
                                             <label>Unggulan</label>

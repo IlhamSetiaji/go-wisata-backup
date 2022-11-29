@@ -138,6 +138,20 @@
         // dd($ez2);
         ?>
 
+        {{-- lokasi --}}
+
+        @if ($tempat->lokasi == '')
+        @else
+            <section class="about_section">
+                <h2 class="section__title">Lokasi {{ $tempat->name }}</h2>
+
+                <div class="container">
+                    <p class="about__container" align="center"><a href="{{ $tempat->lokasi }}"
+                            target="blank">{{ $tempat->lokasi }}</a></p>
+                </div>
+            </section>
+        @endif
+
         <!--==================== Makanan ====================-->
         <section class="makan section" id="makan">
             <h2 class="section__title">Makanan <br> Yang Tersedia</h2>

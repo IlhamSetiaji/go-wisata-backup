@@ -156,10 +156,6 @@
             </section>
         @endif
 
-
-
-
-
         {{-- akses --}}
 
         @if ($tempat->akses == '')
@@ -183,6 +179,19 @@
 
                 <div class="container">
                     <p class="about__container">{{ $tempat->atraksi }}</p>
+                </div>
+            </section>
+        @endif
+
+        {{-- lokasi --}}
+
+        @if ($tempat->lokasi == '')
+        @else
+            <section class="about_section">
+                <h2 class="section__title">Lokasi {{ $tempat->name }}</h2>
+
+                <div class="container">
+                    <p class="about__container"><a href="{{ $tempat->lokasi }}" target="blank">{{ $tempat->lokasi }}</a></p>
                 </div>
             </section>
         @endif
