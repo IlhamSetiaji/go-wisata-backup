@@ -27,17 +27,16 @@
         </section>
         <div class="container">
             {!! Toastr::message() !!}
-            <section class="discover section" id="kamar">
-                <h2 class="section__title">Tempat Sewa <br> Yang Tersedia</h2>
+            <section class="penginapan section" id="kamar">
+                <h2 class="penginapan__title">Tempat Sewa <br> Yang Tersedia</h2>
 
-                <div class="discover__container container swiper-container">
-                    <div class="swiper-wrapper">
+                <div class="penginapan__container container grid">
                         @if (count($tempatsewa) > 0)
                             @foreach ($tempatsewa as $key => $whn)
                                 <!--==================== DISCOVER 1 ====================-->
-                                <div class="discover__card swiper-slide">
+                                <div class="penginapan__card swiper-slide">
                                     <img src="{{ asset('images') }}/{{ $whn->foto }}" alt=""
-                                        class="discover__img">
+                                        class="discover__img">  
                                     <div class="discover__data">
                                         <h2 class="discover__title">{{ $whn->nama }}</h2>
                                         <span class="discover__description">
@@ -50,7 +49,6 @@
                             @endforeach
                         @else
                         @endif
-                    </div>
                 </div>
             </section>
         </div>
