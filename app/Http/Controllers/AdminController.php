@@ -26,7 +26,19 @@ class AdminController extends Controller
     {
 
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
-        $users  = User::where('role_id', '!=', 5)->where('desa_id', $tempat->id)->get();
+        // $users  = User::where('role_id', '!=', 5)->where('desa_id', $tempat->id)->get();
+        $users  = DB::table("users")
+            ->leftJoin("tb_role", function ($join) {
+                $join->on("users.role_id", "=", "tb_role.id");
+            })
+            ->leftJoin("tb_tempat", function ($join) {
+                $join->on("users.tempat_id", "=", "tb_tempat.id");
+            })
+            ->select("tb_role.name as role", "users.*", "tb_tempat.name as tempat")
+            ->where("users.role_id", "!=", 5)
+            ->where("users.desa_id", "=", $tempat->id)
+            ->orderBy('id', 'asc')
+            ->get();
         // dd($users);
         return view('desa.admin.index', compact('users'));
     }
@@ -209,6 +221,27 @@ class AdminController extends Controller
         return redirect()->route('admin.index')->with('message', 'Data deleted successfully');
     }
 
+    public function adminDesaDestroy($id)
+    {
+        if (auth()->user()->id == $id) {
+            abort(401);
+        }
+
+        $user = User::find($id);
+        $userDelete = $user->delete();
+       
+        if ($userDelete) {
+            if ($user->image == null) {
+            } else {
+                if (file_exists($user->image))
+                    unlink(public_path('images/' . $user->image));
+            }
+        }
+        Toastr::success('User deleted successfully :)', 'Success');
+
+        return redirect()->back();
+    }
+
 
 
     public function validateStore($request)
@@ -257,7 +290,7 @@ class AdminController extends Controller
             ->select("tb_tempat.name as nama_desa", "tour_guide.*")
             ->get();
         return view('desa.tour.index', [
-            'tour'=>$tour
+            'tour' => $tour
         ]);
     }
 
