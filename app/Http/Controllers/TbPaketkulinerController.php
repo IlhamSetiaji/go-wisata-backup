@@ -184,13 +184,13 @@ class TbPaketkulinerController extends Controller
             }
 
             //update new data
-            for ($i = count($dataIdMakanan); $i < count($request->makan); $i++) {
-                if ($request->makan[$i] != null) {
-                    array_push($dataMakananBaru, $request->makan[$i]);
-                }
-            }
-
             if (count($request->makan) > count($dataIdMakanan)) {
+                for ($i = count($dataIdMakanan); $i < count($request->makan); $i++) {
+                    if ($request->makan[$i] != null) {
+                        array_push($dataMakananBaru, $request->makan[$i]);
+                    }
+                }
+
                 foreach ($dataMakananBaru as $makan) {
                     tb_paketkuliner::create([
                         'tb_kuliner_id' => $makan,
@@ -220,13 +220,13 @@ class TbPaketkulinerController extends Controller
             }
 
             //update new data
-            for ($i = count($dataIdMinum); $i < count($request->minum); $i++) {
-                if ($request->minum[$i] != null) {
-                    array_push($dataMinumanBaru, $request->minum[$i]);
-                }
-            }
-
             if (count($request->minum) > count($dataIdMinum)) {
+                for ($i = count($dataIdMinum); $i < count($request->minum); $i++) {
+                    if ($request->minum[$i] != null) {
+                        array_push($dataMinumanBaru, $request->minum[$i]);
+                    }
+                }
+
                 foreach ($dataMinumanBaru as $minum) {
                     tb_paketkuliner::create([
                         'tb_kuliner_id' => $minum,
@@ -256,13 +256,13 @@ class TbPaketkulinerController extends Controller
             }
 
             //update new data
-            for ($i = count($dataIdSnack); $i < count($request->snack); $i++) {
-                if ($request->snack[$i] != null) {
-                    array_push($dataSnackBaru, $request->snack[$i]);
-                }
-            }
-
             if (count($request->snack) > count($dataIdSnack)) {
+                for ($i = count($dataIdSnack); $i < count($request->snack); $i++) {
+                    if ($request->snack[$i] != null) {
+                        array_push($dataSnackBaru, $request->snack[$i]);
+                    }
+                }
+
                 foreach ($dataSnackBaru as $snack) {
                     tb_paketkuliner::create([
                         'tb_kuliner_id' => $snack,

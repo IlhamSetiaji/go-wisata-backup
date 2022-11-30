@@ -297,7 +297,7 @@ Route::group([
     Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
     Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
     Route::post('/edit-paket', [BudgetingController::class, 'updatePaket'])->name('update-paket');
-    Route::get('/edit-detail-paket', [BudgetingController::class, 'detailUpdatePaket'])->name('update-datail-paket');
+    Route::get('/budgeting-edit/{id}/detail', [BudgetingController::class, 'detailUpdatePaket'])->name('update-datail-paket');
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
     Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
     Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');

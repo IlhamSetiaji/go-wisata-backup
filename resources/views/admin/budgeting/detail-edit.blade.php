@@ -1,5 +1,5 @@
 @extends('admin.layouts2.master')
-@section('title', 'Detail Create Paket')
+@section('title', 'Detail Edit Paket')
 
 
 @section('content')
@@ -25,13 +25,13 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Detail Paket</h3>
+                    <h3>Detail Edit Paket</h3>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('budget.index') }}">Paket</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit</li>
                             <li class="breadcrumb-item active" aria-current="page">Detail</li>
                         </ol>
                     </nav>
@@ -46,7 +46,7 @@
                 <div class=" col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Detail Paket</h4>
+                            <h4 class="card-title">Detail Edit Paket</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -54,15 +54,18 @@
                                     <li>Nama Paket : {{ $paket['nama_paket'] }}</li>
                                     <li>Kategori Paket :
                                         <br>
-                                        @for ($i = 0; $i < count($paket['data_kategori']); $i++)
+                                        @foreach ($tampilKategori as $kategori)
+                                            {{ $kategori->nama_kategori }} <br>
+                                        @endforeach
+                                        {{-- @for ($i = 0; $i < count($paket['data_kategori']); $i++)
                                             {{ $paket['data_kategori'][$i]->nama_kategori }} <br>
-                                        @endfor
+                                        @endfor --}}
                                     </li>
                                     <li>Jumlah Hari : {{ $paket['jml_hari'] }}</li>
                                     <li>Jumlah Orang : {{ $paket['jml_orang'] }}</li>
                                 </ul>
 
-                                <form action="{{ route('store-budget') }}" id="form" method="POST"
+                                <form action="{{ route('update-paket') }}" id="form" method="POST"
                                     enctype="multipart/form-data" class="form">
                                     @csrf
                                     <div class="table-responsive">
@@ -77,51 +80,54 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- {{ dd($nomor) }} --}}
+                                                {{-- {{ dd($tampilWisata) }} --}}
                                                 <?php $i = 1; ?>
-                                                @foreach ($wisatas as $wisata)
-                                                    <tr>
-                                                        <td>{{ $i++ }}</td>
-                                                        <td>{{ $wisata->name }}</td>
-                                                        <td> - </td>
-                                                        <td> {{ $wisata->htm != null ? 'Rp' . number_format($wisata->htm) : 'Rp0' }}
-                                                        </td>
-                                                        <td> {{ $wisata->htm != null ? 'Rp' . number_format($wisata->htm) : 'Rp0' }}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                              
-                                                @foreach ($villas as $villa)
+                                                @if ($tampilWisata != null)
+                                                    @foreach ($tampilWisata as $wisata)
+                                                        <tr>
+                                                            <td>{{ $i++ }}</td>
+                                                            <td>{{ $wisata->name }}</td>
+                                                            <td> - </td>
+                                                            <td> {{ $wisata->htm != null ? 'Rp' . number_format($wisata->htm) : 'Rp0' }}
+                                                            </td>
+                                                            <td> {{ $wisata->htm != null ? 'Rp' . number_format($wisata->htm) : 'Rp0' }}
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+
+                                                @if ($tampilVilla != null)
                                                     <tr>
                                                         <td> {{ $i++ }} </td>
-                                                        <td>{{ $villa->nama }}</td>
+                                                        <td>{{ $tampilVilla->nama }}</td>
                                                         <td> - </td>
-                                                        <td> {{ $villa->harga != null ? 'Rp' . number_format($villa->harga) : 'Rp0' }}
+                                                        <td> {{ $tampilVilla->harga != null ? 'Rp' . number_format($tampilVilla->harga) : 'Rp0' }}
                                                         </td>
-                                                        <td> {{ $villa->harga != null ? 'Rp' . number_format($villa->harga) : 'Rp0' }}
+                                                        <td> {{ $tampilVilla->harga != null ? 'Rp' . number_format($tampilVilla->harga) : 'Rp0' }}
                                                         </td>
                                                     </tr>
-                                                @endforeach
+                                                @endif
+
                                                 {{-- {{ dd($kamars) }} --}}
                                                 {{-- @foreach ($hotels as $hotel) --}}
                                                 <tr>
-                                                    @if ($hotels != null)
+                                                    @if ($tampilHotel != null)
                                                         <td> {{ $i++ }} </td>
-                                                        <td>{{ $hotels->nama }} - {{ $kamars->name }}</td>
+                                                        <td>{{ $tampilHotel->nama }} - {{ $tampilKamar->name }}</td>
                                                         <td> - </td>
-                                                        <td> Rp{{ number_format($kamars->harga) }} </td>
-                                                        <td> Rp{{ number_format($kamars->harga) }} </td>
+                                                        <td> Rp{{ number_format($tampilKamar->harga) }} </td>
+                                                        <td> Rp{{ number_format($tampilKamar->harga) }} </td>
                                                     @endif
                                                 </tr>
                                                 {{-- @endforeach --}}
                                                 <tr>
-                                                    @if ($kuliners != null)
-                                                        
-                                                    <td>{{ $i++ }}</td>
-                                                    <td> Paket Makanan {{ $kuliners->nama_paket }}</td>
-                                                    <td>-</td>
-                                                    <td> Rp{{ number_format($kuliners->harga) }} </td>
-                                                    <td> Rp{{ number_format($kuliners->harga) }} </td>
+                                                    @if ($tampilPaketKuliner != null)
+                                                        <td>{{ $i++ }}</td>
+                                                        <td> Resto: {{ $tampilResto->name }} Paket Makanan:
+                                                            {{ $tampilPaketKuliner->nama_paket }}</td>
+                                                        <td>-</td>
+                                                        <td> Rp{{ number_format($tampilPaketKuliner->harga) }} </td>
+                                                        <td> Rp{{ number_format($tampilPaketKuliner->harga) }} </td>
                                                     @endif
                                                 </tr>
 
@@ -132,7 +138,7 @@
                                                     </td>
                                     </div>
                                     <td></td>
-                                    <td>Rp{{ number_format($total) }}</td>
+                                    <td>Rp{{ number_format($harga) }}</td>
                                     </tr>
                                     </tbody>
                                     </table>
@@ -140,10 +146,49 @@
                             <div class="d-flex justify-content-end">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <input type="text" name="nama_paket" value="{{ $paket['nama_paket'] }}" hidden>
+
+                                        <input type="number" id="hargaAwal" value="{{ $harga }}" hidden>
+                                        <input type="number" name="id" value="{{ $id }}" hidden>
+                                        <input type="text" class="form-control" name='id_desa'
+                                            value="{{ $paket['id_desa'] }}" required hidden>
+                                        <input type="text" class="form-control" name='nama_paket'
+                                            value="{{ $paket['nama_paket'] }}" required hidden>
+                                        <input type="text" class="form-control" name='jml_orang'
+                                            value="{{ $paket['jml_orang'] }}" required hidden>
+                                        <input type="text" class="form-control" name='jml_hari'
+                                            value="{{ $paket['jml_hari'] }}" required hidden>
+                                        
+                                        @if ($dataWisata != null)
+                                            @for ($i = 0; $i < count($dataWisata); $i++)
+                                                <input type="text" name="dataWisata[]" value="{{ $dataWisata[$i] }}" hidden>
+                                            @endfor
+                                        @endif
+                                        {{-- @foreach ($dataWisata as $wisata)
+                                        @endforeach --}}
+                                        @if ($dataIdWisata != null)    
+                                            @foreach ($dataIdWisata as $idWisata)
+                                                <input type="text" name="idWisata[]" value="{{ $idWisata }}" hidden>
+                                            @endforeach
+                                        @endif
+                                        
+                                        <input type="text" name="kuliner" value="{{ $dataKuliner }}" hidden>
+                                        <input type="text" name="kamar" value="{{ $dataKamar }}" hidden>
+                                        <input type="text" name="hotel" value="{{ $dataHotel }}" hidden>
+                                        <input type="text" name="villa" value="{{ $dataVilla }}" hidden>
+                                        
+                                        @if ($dataIdPenginapan != null)    
+                                            @foreach ($dataIdPenginapan as $id)
+                                                <input type="text" name="idPenginapan[]" value="{{ $id }}" hidden>
+                                            @endforeach
+                                        @endif
+                                            
+                                            {{-- @foreach ($collection as $item) --}}
+
+
+                                        {{-- @endforeach --}}
+                                        {{-- <input type="text" name="nama_paket" value="{{ $paket['nama_paket'] }}" hidden>
                                         <input type="text" name="jml_orang" value="{{ $paket['jml_orang'] }}" hidden>
                                         <input type="text" name="jml_hari" value="{{ $paket['jml_hari'] }}" hidden>
-                                        <input type="number" id="hargaAwal" value="{{ $total }}" hidden>
 
                                         @for ($i = 0; $i < count($paket['data_kategori']); $i++)
                                             <input type="text" name="data_kategori[]"
@@ -153,8 +198,9 @@
                                         @foreach ($wisatas as $wisata)
                                             <input type="text" name="data_wisata[]" value="{{ $wisata->id }}" hidden>
                                         @endforeach
-                                      
-                                        {{-- {{ dd($villas) }} --}}
+                                        @foreach ($wahanas as $wahana)
+                                            <input type="text" name="data_wahana[]" value="{{ $wahana->id }}" hidden>
+                                        @endforeach
                                         @foreach ($villas as $villa)
                                             <input type="text" name="data_villa" value="{{ $villa->id }}" hidden>
                                         @endforeach
@@ -166,7 +212,7 @@
                                         @endif
                                         @if ($kuliners != null)
                                             <input type="text" name="kuliner" value="{{ $kuliners->id }}" hidden>
-                                        @endif
+                                        @endif --}}
 
                                     </div>
                                 </div>
