@@ -155,10 +155,10 @@
                             @if ($tempat->image == null)
                                 Gambar Tidak Tersedia
                             @else
-                                <img src="{{ asset('images') }}/{{ $tempat->image }}" alt="" class="discover__img">
+                                <img src="{{ asset('images') }}/{{ $tempat->image }}" alt="" class="card-img-top">
                             @endif
-                            <div class="discover__data">
-                                <h2 class="discover__title">{{ $tempat->name }}</h2>
+                            <div class="card-body">
+                                <h2 class="card-title">{{ $tempat->name }}</h2>
                             </div>
                             {{-- {{ dd($tempat) }} --}}
                             <a href="{{ url('./' . $tempat->slug) }}">
