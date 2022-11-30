@@ -30,7 +30,7 @@
             <section class="discover section" id="kamar">
                 <h2 class="section__title">Tempat Sewa <br> Yang Tersedia</h2>
 
-                <div class="makan__container container grid">
+                <div class="event__container container grid">
                     @if (count($tempatsewa) > 0)
                         @foreach ($tempatsewa as $key => $whn)
                             <!--==================== DISCOVER 1 ====================-->
