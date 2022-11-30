@@ -90,17 +90,7 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
-                                                @foreach ($wahanas as $wahana)
-                                                    <tr>
-                                                        <td></td>
-                                                        <td>{{ $wahana->name }}</td>
-                                                        <td> - </td>
-                                                        <td> {{ $wahana->harga != null ? 'Rp' . number_format($wahana->harga) : 'Rp0' }}
-                                                        </td>
-                                                        <td> {{ $wahana->harga != null ? 'Rp' . number_format($wahana->harga) : 'Rp0' }}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                              
                                                 @foreach ($villas as $villa)
                                                     <tr>
                                                         <td> {{ $i++ }} </td>
@@ -163,9 +153,7 @@
                                         @foreach ($wisatas as $wisata)
                                             <input type="text" name="data_wisata[]" value="{{ $wisata->id }}" hidden>
                                         @endforeach
-                                        @foreach ($wahanas as $wahana)
-                                            <input type="text" name="data_wahana[]" value="{{ $wahana->id }}" hidden>
-                                        @endforeach
+                                      
                                         {{-- {{ dd($villas) }} --}}
                                         @foreach ($villas as $villa)
                                             <input type="text" name="data_villa" value="{{ $villa->id }}" hidden>

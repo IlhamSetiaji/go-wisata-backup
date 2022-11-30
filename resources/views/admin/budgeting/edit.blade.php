@@ -149,9 +149,9 @@
                                                                         name="data_wisata[]" id="data-wisata" disabled>
                                                                         {{-- <span class="bi bi-trash"></span> --}}
                                                                         @foreach ($dataWisatas as $data)
+                                                                        <option value="">Hapus Wisata
+                                                                        </option>
                                                                             @if ($wisata->tempat->id == $data->id)
-                                                                            <option value="">Hapus Wisata
-                                                                            </option>
                                                                                 <option value="{{ $data->id }}"
                                                                                     selected>{{ $data->name }} - {{ $data->htm }}
                                                                                 </option>
@@ -191,6 +191,9 @@
                                             <div class="col-md-4">
                                                 <label>Penginapan</label>
                                             </div>
+                                            @foreach ($idPenginapan as $id)
+                                                <input type="text" name="idPenginapan[]" value="{{ $id->id }}" hidden>
+                                            @endforeach
                                             <div class="col-md-4">
                                                 <div id="hotel">
                                                     <div class="form-group">
@@ -199,22 +202,19 @@
                                                                 <select class="form-select forms-select" name="data_penginapanhotel"
                                                                     id='data-penginapan-hotel' disabled>
                                                                     @if ($hotel != null)
+                                                                    <option value="">Hapus Hotel</option>
                                                                         @foreach ($dataHotels as $item)
                                                                             @if ($item->id == $hotel->id)
-                                                                            <option value="">Hapus Hotel
-                                                                            </option>
-                                                                            
-                                                                            <option value="{{ $item->id }}" selected> {{ $item->nama }}</option>
+                                                                                <option value="{{ $item->id }}" selected> {{ $item->nama }}</option>
                                                                             @else
-                                                                            
-                                                                            <option value="{{ $item->id }}"> {{ $item->nama }}</option>
+                                                                                <option value="{{ $item->id }}"> {{ $item->nama }}</option>
                                                                             @endif
 
                                                                         @endforeach
                                                                     @else
                                                                         <option value=""> Pilih Hotel </option>
                                                                         @foreach ($dataHotels as $item)
-                                                                        <option value="{{ $item->id }}"> {{ $item->nama }}</option>
+                                                                            <option value="{{ $item->id }}"> {{ $item->nama }}</option>
                                                                         @endforeach
                                                                     @endif
                                                                    
@@ -259,22 +259,22 @@
                                                                 <select class="form-select forms-select" name="data_penginapanvilla"
                                                                     id='data-penginapan-villa' disabled>
                                                                     @if ($villa != null)
+                                                                    <option value="">Hapus Villa
+                                                                            </option>
                                                                         @foreach ($dataVilla as $item)
                                                                             @if ($item->id == $villa->id)
-                                                                        <option value="">Hapus Villa
-                                                                                </option>
                                                                                 <option value="{{ $item->id }}" selected>{{ $item->nama }}-{{ $item->harga }}
                                                                                 </option>
                                                                             @else
-                                                                                <option value="{{ $item->nama }}">{{ $item->nama }}-{{ $item->harga }}
+                                                                                <option value="{{ $item->id }}">{{ $item->nama }}-{{ $item->harga }}
                                                                                 </option>
                                                                         @endif
                                                                             @endforeach
                                                                     @else
+                                                                    <option value=""> Pilih Villa
+                                                                    </option>
                                                                        @foreach ($dataVilla as $item)
-                                                                       <option value=""> Pilih Villa
-                                                                       </option>
-                                                                            <option value="{{ $item->nama }}">{{ $item->nama }}-{{ $item->harga }}
+                                                                            <option value="{{ $item->id }}">{{ $item->nama }}-{{ $item->harga }}
                                                                             </option>
                                                                         @endforeach
                                                                     @endif
