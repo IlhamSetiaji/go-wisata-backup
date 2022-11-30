@@ -281,7 +281,7 @@
                                 <h5 class="card-title">{{ $tempat2->kategori }}</h5>
                                 <a target="_blank"
                                     href="{{ url('./' . $tempat2->kategori . '/' . $tempat2->slug) }}">
-                                    <button class="button button--flex wisata__button">
+                                    <button class="button button--flex makan__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
                                 </a>
