@@ -333,7 +333,7 @@
                                                             <select class="form-select forms-select" name="paketresto" id='paketresto' disabled>
                                                                 @if ($menus != null && $paketMenu != null)
                                                                     @foreach ($menus as $menu)
-                                                                        @if ($menu->id == $paketMenu->id)
+                                                                        @if ($menu->id == $paketMenu->data_paket_kuliner_id)
                                                                             
                                                                         <option value="{{ $menu->id }}" selected>{{ $menu->nama_paket }} - {{ $menu->harga }} </option>
                                                                         @else

@@ -166,7 +166,12 @@
                                         @endforeach --}}
                                         @foreach ($dataIdWisata as $idWisata)
                                             <input type="text" name="idWisata[]" value="{{ $idWisata }}" hidden>
-                                        @endforeach
+                                            @endforeach
+                                        {{-- @foreach ($collection as $item) --}}
+                                        <input type="text" name="kuliner" value="{{ $dataKuliner }}" hidden>
+                                        <input type="text" name="idKuliner" value="{{ $dataIdKuliner }}" hidden>
+                                            
+                                        {{-- @endforeach --}}
                                         {{-- <input type="text" name="nama_paket" value="{{ $paket['nama_paket'] }}" hidden>
                                         <input type="text" name="jml_orang" value="{{ $paket['jml_orang'] }}" hidden>
                                         <input type="text" name="jml_hari" value="{{ $paket['jml_hari'] }}" hidden>

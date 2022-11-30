@@ -301,7 +301,6 @@ class BudgetingController extends Controller
         $paketResto = tb_datakuliner::where('paket_id', $id)->first();
         $idTempatResto = DB::table('tb_pakets')->join('tb_datakuliners', 'tb_pakets.id', 'tb_datakuliners.paket_id')->join('data_paket_kuliners', 'tb_datakuliners.data_paket_kuliner_id', 'data_paket_kuliners.id')->select('data_paket_kuliners.tempat_id')->first();
         $dataMenu = DataPaketKuliner::where('tempat_id', $idTempatResto->tempat_id)->get();
-        // dd($paketResto);
 
         //spesic data penginapan
         $hotel  = '';
@@ -316,7 +315,6 @@ class BudgetingController extends Controller
                 $villa = Villa::where('id', $penginapan->villa_id)->first();
             }
         }
-        // <!-- dd($paketPenginapan); -->
 
         //all data penginapan
         $dataKamarHotel = '';
@@ -325,8 +323,6 @@ class BudgetingController extends Controller
             $dataKamarHotel = Kamar::where('hotel_id', $hotel->id)->get();
         }
         $dataVilla = DB::table('tb_villa')->select('tb_villa.*')->join('users', 'tb_villa.user_id', '=', 'users.id')->where('users.desa_id', $idTempat)->get();
-        // dd($idTempat);
-        // dd($dataHotel);
 
         //memishkan data kategori
         $arrayKateggoriCheklist = [];
@@ -353,6 +349,7 @@ class BudgetingController extends Controller
         }
 
 
+        // dd($paketMenu);
         return view('admin.budgeting.edit', [
             'dataDesa' => $dataDesa,
             'dataWisatas' => $dataWisata,
@@ -456,7 +453,8 @@ class BudgetingController extends Controller
             'dataKamar' => $request->kamar,
             'dataHotel' => $request->data_penginapanhotel,
             'dataVilla' => $request->data_penginapanvilla,
-            'dataKuliner' => $request->paketresto
+            'dataKuliner' => $request->paketresto,
+            'dataIdKuliner' => $request->id_paketkuliner
         ]);
     }
 
@@ -479,7 +477,7 @@ class BudgetingController extends Controller
         //update data paket wisata
         if ($request->dataWisata != null) {
             $daftarIdWisata = $request->idWisata;
-            $dataMakananBaru = [];
+            
             //update old data
             for ($i = 0; $i < count($daftarIdWisata); $i++) {
                 if ($daftarIdWisata[$i] != null && $request->dataWisata[$i] == null) {
@@ -504,6 +502,26 @@ class BudgetingController extends Controller
                     }
                 }
             }
+        }
+
+        // dd($request->idKuliner);
+        //update paket kuliner
+        if($request->kuliner != null) {
+            tb_datakuliner::where('id', $request->idKuliner)->update([
+                'paket_id' => $request->id,
+                'data_paket_kuliner_id' => $request->kuliner
+            ]);
+        } 
+        if($request->idKuliner == null && $request->kuliner != null) {
+            tb_datakuliner::create([
+                'paket_id' => $request->id,
+                'data_paket_kuliner_id' => $request->kuliner
+            ]);
+        }
+        
+        if($request->kuliner == null){
+            $data = tb_datakuliner::where('id', $request->idKuliner);
+            $data->delete();
         }
 
 
