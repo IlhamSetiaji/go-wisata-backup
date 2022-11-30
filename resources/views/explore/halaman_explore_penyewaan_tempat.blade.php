@@ -27,8 +27,8 @@
         </section>
         <div class="container">
             {!! Toastr::message() !!}
-            <section class="discover section" id="kamar">
-                <h2 class="section__title">Tempat Sewa <br> Yang Tersedia</h2>
+            <section class="penginapan section" id="kamar">
+                <h2 class="penginapan__title">Tempat Sewa <br> Yang Tersedia</h2>
 
                 <div class="event__container container grid">
                     @if (count($tempatsewa) > 0)
