@@ -328,7 +328,7 @@
         @if (count($penginapan) > 0)
             <section class="discover section" id="discover">
                 <h2 class="section__title">Penginapan di {{ $tempat->name }}</h2>
-                <div class="penginapan__container container grid">
+                <div class="makan__container container grid">
 
                     @foreach ($penginapan as $penginapan)
                         <!--==================== PLACES CARD 1 ====================-->
@@ -341,7 +341,7 @@
                                 <h5 class="card-title">{{ $penginapan->kategori }}</h5>
                                 <a target="_blank"
                                     href="{{ url('./' . $penginapan->kategori . '/' . $penginapan->slug) }}">
-                                    <button class="button button--flex penginapan__button">
+                                    <button class="button button--flex makan__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
                                 </a>
