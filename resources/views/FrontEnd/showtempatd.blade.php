@@ -268,7 +268,7 @@
         @if (count($wisata) > 0)
             <section class="discover section" id="discover">
                 <h2 class="section__title">Destinasi wisata di {{ $tempat->name }}</h2>
-                <div class="wisata__container container grid">
+                <div class="makan__container container grid">
 
                     @foreach ($wisata as $key => $tempat2)
                         <!--==================== PLACES CARD 1 ====================-->
