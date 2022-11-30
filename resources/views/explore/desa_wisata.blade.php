@@ -32,22 +32,22 @@
                 <div class="card-group mx-5">
                     @if (count($tempat) > 0)
                         @foreach ($tempat as $key => $tempat)
-                            <div class="card mx-3">
+                        <div class="card" style="width: 20rem;">
                                 <!--==================== DISCOVER 1 ====================-->
                                 @if ($tempat->image == null)
                                     Gambar Tidak Tersedia
                                 @else
-                                    <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
-                                        class="discover__img">
+                                    <img src="{{ asset('images') }}/{{ $tempat->image }}" class="card-img-top"  alt="">
                                 @endif
-                                <div class="discover__data">
-                                    <h2 class="discover__title">{{ $tempat->name }}</h2>
-                                </div>
-                                <a href="{{ url('./' . $tempat->slug) }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $tempat->name }}</h5>
+                                    <a href="{{ url('./' . $tempat->slug) }}">
                                     <button class="button button--flex place__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
-                                </a>
+                                    </a>
+                                </div>
+
                             </div>
                         @endforeach
                     @else
