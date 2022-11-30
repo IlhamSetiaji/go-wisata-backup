@@ -204,6 +204,11 @@ input {
     background-color: transparent;
 }
 
+.logo__master {
+    height: 200px;
+    width: 200px;
+}
+
 
 /*=============== NAV ===============*/
 
@@ -767,9 +772,12 @@ input {
 /*=============== SPONSORS ===============*/
 
 .sponsor__container {
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); */
     justify-items: center;
-    row-gap: 3.5rem;
+    column-gap: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .sponsor__content:hover .sponsor__img {}
@@ -1174,10 +1182,10 @@ input {
 }
 
 
-/* .makan__container {
+.makan__container {
   grid-template-columns: repeat(4, max-content);
   justify-content: center;
-} */
+}
 
 .makan__card {
     position: relative;
@@ -1254,7 +1262,7 @@ input {
 }
 
 .penginapan__container {
-    grid-template-columns: repeat(4, max-content);
+    grid-template-columns: repeat(3, max-content);
     justify-content: center;
 }
 
@@ -1324,4 +1332,52 @@ input {
 .penginapan__description {
     display: block;
     font-size: var(--smaller-font-size);
+}
+
+/*=============== WISATA ===============*/
+
+.wisata__container {
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+}
+
+.wisata__card {
+    position: relative;
+    width: 200px;
+    overflow: var(--img-hidden);
+}
+
+.wisata__card:hover  {
+    transform: var(--img-scale);
+}
+
+.wisata__button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: .75rem 1rem;
+}
+
+/*=============== EVENT ===============*/
+
+.event__container {
+    grid-template-columns: repeat(4, max-content);
+    justify-content: center;
+}
+
+.event__card {
+    position: relative;
+    width: 200px;
+    overflow: var(--img-hidden);
+}
+
+.event__card:hover  {
+    transform: var(--img-scale);
+}
+
+.event__button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: .75rem 1rem;
 }
