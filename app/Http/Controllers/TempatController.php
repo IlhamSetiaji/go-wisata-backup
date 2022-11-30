@@ -83,6 +83,7 @@ class TempatController extends Controller
         $this->validateStore($request);
         $user = User::where('petugas_id', $request->user_id)->first();
         $role = Role::where('id', $user->role_id)->first();
+
         if ($request->kategori != $role->name) {
             Toastr::error('Role admin dan kategori berbeda', 'Error');
             return redirect()->back();
@@ -121,14 +122,15 @@ class TempatController extends Controller
         $this->validateStore($request);
         $data = $request->all();
         // dd($data);
+
         $this->validateStore($request);
         $user = User::where('petugas_id', $request->user_id)->first();
         $role = Role::where('id', $user->role_id)->first();
+
         if ($request->kategori != $role->name) {
             Toastr::error('Role admin dan kategori berbeda', 'Error');
             return redirect()->back();
         }
-        // if($user->)
 
 
         $name = (new Tempat)->tempatAvatar($request);
@@ -225,7 +227,7 @@ class TempatController extends Controller
     }
     public function updated(Request $request, $id)
     {
-       
+
 
         $admin = Tempat::where('id', $id)->first();
         // $this->validateUpdate($request, $id);
@@ -244,7 +246,7 @@ class TempatController extends Controller
             }
         }
         $data['image'] = $imageName;
-        
+
 
         $imageName2 = $user->image2;
         if ($request->hasFile('image2')) {
@@ -264,7 +266,7 @@ class TempatController extends Controller
         $data['akses'] = $request->akses;
         $data['sejarah'] = $request->sejarah;
         $data['lokasi'] = $request->lokasi;
-        
+
 
 
 

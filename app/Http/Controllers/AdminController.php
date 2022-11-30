@@ -26,7 +26,18 @@ class AdminController extends Controller
     {
 
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
-        $users  = User::where('role_id', '!=', 5)->where('desa_id', $tempat->id)->get();
+        // $users  = User::where('role_id', '!=', 5)->where('desa_id', $tempat->id)->get();
+        $users = DB::table("users")
+            ->leftJoin("tb_tempat", function ($join) {
+                $join->on("users.tempat_id", "=", "tb_tempat.id");
+            })
+            ->Join("tb_role", function ($join) {
+                $join->on("users.role_id", "=", "tb_role.id");
+            })
+            ->select("users.*", "tb_tempat.name as tempat", "tb_role.name as role")
+            ->where("users.role_id", "!=", 5)
+            ->where("users.desa_id", "=", $tempat->id)
+            ->get();
         // dd($users);
         return view('desa.admin.index', compact('users'));
     }
@@ -80,15 +91,15 @@ class AdminController extends Controller
 
     public function stored(Request $request)
     {
-        // dd($request);
+
         $this->validateStore($request);
         $data = $request->all();
-        // dd($data);
+
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
 
         $name = (new User)->userAvatar($request);
         $data['image'] = $name;
-
+        $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
         $data['desa_id'] = $tempat->id;
 
@@ -229,6 +240,7 @@ class AdminController extends Controller
 
         ]);
     }
+
     public function toggleStatus($id)
     {
         $sesii = User::find($id);
@@ -237,6 +249,7 @@ class AdminController extends Controller
         Toastr::info('User Status Updated :)', 'Success');
         return redirect()->back();
     }
+
     public function info()
     {
 
@@ -257,7 +270,7 @@ class AdminController extends Controller
             ->select("tb_tempat.name as nama_desa", "tour_guide.*")
             ->get();
         return view('desa.tour.index', [
-            'tour'=>$tour
+            'tour' => $tour
         ]);
     }
 

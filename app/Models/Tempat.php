@@ -13,7 +13,6 @@ class Tempat extends Model
     protected $table = "tb_tempat";
     protected $guarded = ['id'];
     
-
     public function tempatAvatar($request)
     {
         $image = $request->file('image');

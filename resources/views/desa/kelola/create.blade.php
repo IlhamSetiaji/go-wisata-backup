@@ -118,7 +118,7 @@
                                                         <select class="form-select" name="kategori" required>
                                                             <option value="" >Pilih Kategori</option>
                                                             <option value="wisata"> Tempat Wisata</option>
-                                                            <option value="hotel"> Tempat Penginapan</option>
+                                                            <option value="penginapan"> Tempat Penginapan</option>
                                                             <option value="kuliner"> Tempat Kuliner</option>
 
 
