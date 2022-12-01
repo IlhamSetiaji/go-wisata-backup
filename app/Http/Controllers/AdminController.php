@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kamar;
+use App\Models\Role;
 use App\Models\tb_kategoriwisata;
 use App\Models\tb_paket;
 use App\Models\User;
@@ -27,16 +28,17 @@ class AdminController extends Controller
 
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
         // $users  = User::where('role_id', '!=', 5)->where('desa_id', $tempat->id)->get();
-        $users = DB::table("users")
+        $users  = DB::table("users")
+            ->leftJoin("tb_role", function ($join) {
+                $join->on("users.role_id", "=", "tb_role.id");
+            })
             ->leftJoin("tb_tempat", function ($join) {
                 $join->on("users.tempat_id", "=", "tb_tempat.id");
             })
-            ->Join("tb_role", function ($join) {
-                $join->on("users.role_id", "=", "tb_role.id");
-            })
-            ->select("users.*", "tb_tempat.name as tempat", "tb_role.name as role")
+            ->select("tb_role.name as role", "users.*", "tb_tempat.name as tempat")
             ->where("users.role_id", "!=", 5)
             ->where("users.desa_id", "=", $tempat->id)
+            ->orderBy('id', 'asc')
             ->get();
         // dd($users);
         return view('desa.admin.index', compact('users'));
@@ -63,10 +65,13 @@ class AdminController extends Controller
         $urutan = (int)substr($data, 2, 3);
         $urutan++;
         $petugas_id = $huruf . sprintf("%03s", $urutan);
+        $role = DB::table("tb_role")
+        ->where("tb_role.id", "!=", 1)
+        ->get();
         // dd($petugas_id);
 
 
-        return view('desa.admin.create', compact('petugas_id'));
+        return view('desa.admin.create', compact('petugas_id', 'role'));
     }
 
     public function store(Request $request)
@@ -218,6 +223,27 @@ class AdminController extends Controller
         Toastr::success('User deleted successfully :)', 'Success');
 
         return redirect()->route('admin.index')->with('message', 'Data deleted successfully');
+    }
+
+    public function adminDesaDestroy($id)
+    {
+        if (auth()->user()->id == $id) {
+            abort(401);
+        }
+
+        $user = User::find($id);
+        $userDelete = $user->delete();
+
+        if ($userDelete) {
+            if ($user->image == null) {
+            } else {
+                if (file_exists($user->image))
+                    unlink(public_path('images/' . $user->image));
+            }
+        }
+        Toastr::success('User deleted successfully :)', 'Success');
+
+        return redirect()->back();
     }
 
 

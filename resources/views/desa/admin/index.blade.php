@@ -95,10 +95,14 @@
                                             @if (count($users) > 0)
                                                 @foreach ($users as $key => $users)
                                                     <tr>
+<<<<<<< HEAD
                                                         {{-- <td>
                                             {{$key+1}}
 
                                         </td> --}}
+=======
+
+>>>>>>> eff88aefc13ae99115188c9cdbd91e27074d7423
                                                         <td>
                                                             <br>
                                                         </td>
@@ -108,9 +112,6 @@
                                                         <td>
                                                             {{ $users->name }}
                                                         </td>
-                                                        {{-- <td>
-                                            {{ $users->images}}
-                                        </td> --}}
                                                         <td>
                                                             @if ($users->image == null)
                                                                 <img alt="image" class="mr-3 rounded-circle"
@@ -129,10 +130,10 @@
                                                         </td>
 
                                                         <td>
-                                                            @if ($users->tempat == null)
-                                                                <p>Belum ditempatkan</p>
-                                                            @else
+                                                            @if ($users->tempat != null)
                                                                 {{ $users->tempat }}
+                                                            @else
+                                                                <p>Belum Ditempatkan</p>
                                                             @endif
 
                                                         </td>
@@ -140,63 +141,102 @@
 
 
                                                         @if ($users->role == 'admin')
+                                                            {{-- <td class="role_name"><span  class="btn btn-info">{{ $users->role}}</span></td> --}}
                                                             <td class="role_name"><span class="btn btn-success">Admin</span>
                                                             </td>
-                                                        @endif
-                                                        @if ($users->role == 'wisata')
+                                                        @elseif ($users->role == 'wisata')
+                                                            {{-- <td class="role_name"><span  class="btn btn-info">{{ $users->role}}</span></td> --}}
                                                             <td class="role_name"><span class="btn btn-info">Wisata</span>
                                                             </td>
-                                                        @endif
-                                                        @if ($users->role == 'penginapan')
+                                                        @elseif ($users->role == 'penginapan')
                                                             <td class="role_name"><span
                                                                     class=" btn btn-primary">Hotel</span></td>
-                                                        @endif
-                                                        @if ($users->role == 'kuliner')
+                                                        @elseif ($users->role == 'kuliner')
                                                             <td class="role_name"><span
                                                                     class=" btn btn-secondary">Kuliner</span></td>
-                                                        @endif
-                                                        @if ($users->role == 'desa')
+                                                        @elseif ($users->role == 'desa')
                                                             <td class="role_name"><span class=" btn btn-light">Desa</span>
                                                             </td>
-                                                        @endif
-                                                        @if ($users->role == 'event & sewa tempat')
-                                                            <td class="role_name"><span class=" btn btn-dark">Event</span>
+                                                        @else
+                                                            <td>
+                                                                <p>Belum Ditugaskan</p>
                                                             </td>
                                                         @endif
 
                                                         <td>
                                                             @if ($users->id != Auth::user()->id)
-                                                                <form
-                                                                    action="{{ route('update.status.admin', $users->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <button
-                                                                        class="{{ $users->status == 1 ? 'btn btn-warning' : 'btn btn-danger' }}">{{ $users->status == 1 ? 'Active' : 'Inactive' }}
-                                                                    </button>
-                                                                </form>
+                                                                <a
+                                                                    href="{{ route('update.status.admin.desa', [$users->id]) }}"><button
+                                                                        class="{{ $users->status == 1 ? 'btn btn-warning' : 'btn btn-danger' }}">{{ $users->status == 1 ? 'Active' : 'Inactive' }}</button></a>
                                                             @else
                                                                 <button class="btn btn-dark">Forbidden</button>
                                                             @endif
+
                                                         </td>
                                                         <td>
 
-                                                            <a href="{{ route('admin.editd', $users->id) }}">
-                                                                <span><i class="bi bi-pencil-square"></i></span>
+                                                            <a href="{{ route('admin.editd', [$users->id]) }}">
+                                                                <span class="btn bt-success"><i
+                                                                        class="bi bi-pencil-square"></i></span>
                                                             </a>
 
 
+                                                            <a>
+                                                                <form class="forms-sample"
+                                                                    action="{{ route('admindesa.destroy', [$users->id]) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
 
-                                                            <form class="forms-sample"
-                                                                action="{{ route('admin.destroy', $users->id) }}"
-                                                                method="POST">
-                                                                @method('delete')
-                                                                @csrf
-                                                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></span>
-                                                                </button>
-                                                            </form>
+                                                                    <button type="submit" class="btn bt-danger"
+                                                                        onclick="return confirm('Are you sure to want to delete it?')"><i
+                                                                            class="bi bi-trash"></i></span> </button>
+
+
+                                                                </form>
+                                                            </a>
+
 
                                                         </td>
+
+                                                        {{-- <td>
+                                            @if ($users->status == 1)
+                                            <span class="badge bg-warning">Active</span></td>
+                                            @else
+                                            <span class="badge bg-danger">Inactive</span>
+                                            @endif
+                                        </td> --}}
+                                                        {{-- <td>
+                                            <div class="btn-group mb-1">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-info dropdown-toggle me-1" type="button"
+                                                        id="dropdownMenuButton3" data-bs-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-stream"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                                        <a href="{{route('admin.edit',[$users->id])}}" class="dropdown-item"> <button type="submit" class="badge bg-success"> Detail</button></a>
+                                                        <a class="dropdown-item">
+                                                        <form class="forms-sample" action="{{route('admin.destroy',[$users->id])}}" method="post" >
+                                                            @csrf
+                                                            @method('DELETE') --}}
+                                                        {{-- <i class="fas fa-times"></i> --}}
+
+
+                                                        {{-- <button type="submit" class="btn btn-danger mr-2">Hapus ?</button> --}}
+                                                        {{-- <button type="submit" class="btn btn-danger"  href="" onclick=" return confirm('Anda yakin mau menghapus petugas ini ?')"> Delete </button>
+
+
+                                                        </form>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                        </td> --}}
+
                                                     </tr>
                                                 @endforeach
                                             @else
@@ -210,7 +250,7 @@
                     </div>
                 </div>
             </section>
-
+            <!-- Hoverable rows end -->
 
         </div>
         <script></script>

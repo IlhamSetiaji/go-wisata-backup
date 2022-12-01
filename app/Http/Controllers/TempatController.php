@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,6 +16,7 @@ class TempatController extends Controller
 {
     public function index()
     {
+        // $users  = Tempat::all();
         $users  = Tempat::all();
         // $u = Tempat::first();
         // return $u->petugas()->petugas_id;
@@ -24,7 +26,14 @@ class TempatController extends Controller
     public function indexd()
     {
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
-        $tempatk = Tempat::where('induk_id', $tempat->id)->get();
+        // $tempatk = Tempat::where('induk_id', $tempat->id)->get();
+        $tempatk = DB::table("tb_tempat")
+        ->leftJoin("users", function($join){
+            $join->on("tb_tempat.user_id", "=", "users.petugas_id");
+        })
+        ->select("tb_tempat.*", "users.name as admin")
+        ->where("tb_tempat.induk_id", "=", $tempat->id)
+        ->get();
         // dd($tempat);
         return view('desa.kelola.index', compact('tempatk'));
     }

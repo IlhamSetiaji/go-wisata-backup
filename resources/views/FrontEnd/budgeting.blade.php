@@ -185,8 +185,9 @@
                         <!--    <a href="" class="footer__link">+6285882218939</a>-->
                         <!--</li>-->
                         <li class="footer__item">
-                            <a href="mailto:emailwatugambir@gmail.com"
-                                class="footer__link">emailwatugambir@gmail.com</a>
+                            <a href="mailto:gowisata.kabmadiun@gmail.com
+                            Indonesia"
+                                class="footer__link">gowisata.kabmadiun@gmail.com</a>
                         </li>
                         <li class="footer__item">
                             <a href="" class="footer__link">Indonesia</a>

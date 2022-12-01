@@ -12,7 +12,8 @@ class Tempat extends Model
     use HasFactory;
     protected $table = "tb_tempat";
     protected $guarded = ['id'];
-    
+
+
     public function tempatAvatar($request)
     {
         $image = $request->file('image');
@@ -67,10 +68,10 @@ class Tempat extends Model
             // return $name;
         }
     }
-    
+
     public function petugas()
     {
-        return $this->belongsTo(User::class, 'petugas_id', 'user_id');
+        return $this->belongsTo(User::class, 'petugas_id');
     }
 
     public function userAvatar($request)
@@ -89,5 +90,4 @@ class Tempat extends Model
         $image->move($destination, $name);
         return $name;
     }
-    
 }
