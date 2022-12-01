@@ -157,32 +157,43 @@
                                             value="{{ $paket['jml_orang'] }}" required hidden>
                                         <input type="text" class="form-control" name='jml_hari'
                                             value="{{ $paket['jml_hari'] }}" required hidden>
-                                        
+
                                         @if ($dataWisata != null)
                                             @for ($i = 0; $i < count($dataWisata); $i++)
-                                                <input type="text" name="dataWisata[]" value="{{ $dataWisata[$i] }}" hidden>
+                                                <input type="text" name="dataWisata[]" value="{{ $dataWisata[$i] }}"
+                                                    hidden>
                                             @endfor
                                         @endif
                                         {{-- @foreach ($dataWisata as $wisata)
                                         @endforeach --}}
-                                        @if ($dataIdWisata != null)    
+                                        @if ($dataIdWisata != null)
                                             @foreach ($dataIdWisata as $idWisata)
                                                 <input type="text" name="idWisata[]" value="{{ $idWisata }}" hidden>
                                             @endforeach
                                         @endif
-                                        
+
                                         <input type="text" name="kuliner" value="{{ $dataKuliner }}" hidden>
                                         <input type="text" name="kamar" value="{{ $dataKamar }}" hidden>
                                         <input type="text" name="hotel" value="{{ $dataHotel }}" hidden>
                                         <input type="text" name="villa" value="{{ $dataVilla }}" hidden>
-                                        
-                                        @if ($dataIdPenginapan != null)    
+
+                                        @if ($dataIdPenginapan != null)
                                             @foreach ($dataIdPenginapan as $id)
-                                                <input type="text" name="idPenginapan[]" value="{{ $id }}" hidden>
+                                                <input type="text" name="idPenginapan[]" value="{{ $id }}"
+                                                    hidden>
                                             @endforeach
                                         @endif
-                                            
-                                            {{-- @foreach ($collection as $item) --}}
+
+                                        @foreach ($dataKategori as $kategori)
+                                            <input type="text" name="idKategori[]" value="{{ $kategori }}" hidden>
+                                        @endforeach
+
+                                        @foreach ($idKategori as $kategori)
+                                            <input type="text" name="idPaketKategori[]" value="{{ $kategori }}"
+                                                hidden>
+                                        @endforeach
+
+                                        {{-- @foreach ($collection as $item) --}}
 
 
                                         {{-- @endforeach --}}
