@@ -197,6 +197,7 @@ Route::group([
     Route::get('/adana', [DanaController::class, 'acair'])->name('admin.dana');
     Route::get('/tempat/check_slug', [TempatController::class, 'checkSlug'])->name('tempat.checkSlug');
 
+    
     Route::get('/status/update/{id}', [AdminController::class, 'toggleStatus'])->name('update.status.admin');
     Route::get('/status/update2/{id}', [PelangganController::class, 'toggleStatus'])->name('update.status.pelanggan');
     Route::get('/status/update3/{id}', [TempatController::class, 'toggleStatus'])->name('update.status.tempat');
@@ -266,7 +267,9 @@ Route::group([
     Route::post('/admin/stored', [AdminController::class, 'stored'])->name('admin.stored');
     Route::post('/tempat/stored', [TempatController::class, 'stored'])->name('tempat.stored');
 
-    // Route::patch('/update/data/tempatd/{id}', [ATFController::class, 'updatedesa'])->name('update.data.desa');
+    Route::delete('/admin/delete/{id}', [AdminController::class, 'adminDesaDestroy'])->name('admindesa.destroy');
+
+    Route::get('/status/update/{id}', [AdminController::class, 'toggleStatus'])->name('update.status.admin.desa');
     Route::get('/update/tempat/desa/{id}', [DesaController::class, 'toggleStatus'])->name('update.status.desa');
     Route::get('/status/updated/{id}', [TempatController::class, 'toggleStatus'])->name('update.status.tempatd');
 
@@ -290,17 +293,17 @@ Route::group([
     Route::post('/tourd/stored', [AdminController::class, 'tourStored'])->name('tourd.stored');
 });
 
-    Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
-    Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
-    Route::get('/budgeting-create-detail', [BudgetingController::class, 'detailPaket'])->name('budget.detail.create');
-    Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
-    Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
-    Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
-    Route::post('/edit-paket', [BudgetingController::class, 'updatePaket'])->name('update-paket');
-    Route::get('/budgeting-edit/{id}/detail', [BudgetingController::class, 'detailUpdatePaket'])->name('update-datail-paket');
-    Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
-    Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
-    Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
+Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
+Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
+Route::get('/budgeting-create-detail', [BudgetingController::class, 'detailPaket'])->name('budget.detail.create');
+Route::post('/insert-budgeting', [BudgetingController::class, 'store'])->name('store-budget');
+Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
+Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
+Route::post('/edit-paket', [BudgetingController::class, 'updatePaket'])->name('update-paket');
+Route::get('/budgeting-edit/{id}/detail', [BudgetingController::class, 'detailUpdatePaket'])->name('update-datail-paket');
+Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
+Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
+Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
 
 Route::group([
     'middleware' => ['auth', 'kuliner', 'verified'],

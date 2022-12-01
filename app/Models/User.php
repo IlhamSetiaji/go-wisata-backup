@@ -36,14 +36,18 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
+
+   
     public function tempat()
     {
         return $this->belongsTo(Tempat::class, 'tempat_id');
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
     public function bookingevent()
     {
         return $this->hasMany(BookingEvent::class);
@@ -78,6 +82,4 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $name;
     }
-
-    
 }

@@ -535,24 +535,28 @@ class FrontendController extends Controller
             $tempat2  = Tempat::where('slug', $slug)->where('status', '1')->first();
             $tempatini = $tempat->id;
             $wahana  = Wahana::where('tempat_id', $tempatini)->where('status', '1')->get();
+            $penginapan = DB::table("tb_hotel")
+            ->Join("tb_tempat", function($join){
+                $join->on("tb_hotel.tempat_id", "=", "tb_tempat.id");
+            })
+            ->select("tb_hotel.*")
+            ->where("tb_tempat.induk_id", "=", $tempatini)
+            ->where("tb_hotel.status", "=", 1)
+            ->get();
+            $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->where('status', 1)->get();
 
-            $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
-            // dd($kuliner);
-
-            $penginapan = Tempat::where(['induk_id' => $tempatini, 'status' => 1])->where('kategori', 'penginapan')->get();
+            // $penginapan = Tempat::where(['induk_id' => $tempatini, 'status' => 1])->where('kategori', 'penginapan')->get();
             $ez = Tempat::where('induk_id', $tempatini)->where('status', 1)->get();
             $camp = Camp::where('tempat_id', $tempatini)->where('status', 1)->where('kategori', 'alat')->get();
-            // dd($camp);
 
             $camp1 = Camp::where('tempat_id', $tempatini)->where('status', 1)->get();
             $nama = $tempat2['name'];
 
-            // Tempat Kuliner makanan
-            // $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
+            $seni = Tempat::where('induk_id', $tempatini)->where('kategori', 'seni & budaya')->where('status', 1)->get();
 
             $paket = tb_paket::all();
 
-            return view('FrontEnd/showtempatd', compact('paket', 'setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner',  'camp', 'camp1', 'penginapan'));
+            return view('FrontEnd/showtempatd', compact('paket', 'seni', 'setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner',  'camp', 'camp1', 'penginapan'));
         }
 
 
