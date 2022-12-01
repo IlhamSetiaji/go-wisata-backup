@@ -122,6 +122,9 @@
                                                                 <option value="wisata"> Tempat Wisata</option>
                                                                 <option value="penginapan"> Tempat Penginapan</option>
                                                                 <option value="kuliner"> Tempat Kuliner</option>
+                                                                <option value="event & sewa tempat"> Tempat Event & Sewa
+                                                                    Tempat</option>
+                                                                <option value="seni & budaya"> Tempat Seni & Budaya</option>
 
 
                                                             </select>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kamar;
+use App\Models\Role;
 use App\Models\tb_kategoriwisata;
 use App\Models\tb_paket;
 use App\Models\User;
@@ -64,10 +65,13 @@ class AdminController extends Controller
         $urutan = (int)substr($data, 2, 3);
         $urutan++;
         $petugas_id = $huruf . sprintf("%03s", $urutan);
+        $role = DB::table("tb_role")
+        ->where("tb_role.id", "!=", 1)
+        ->get();
         // dd($petugas_id);
 
 
-        return view('desa.admin.create', compact('petugas_id'));
+        return view('desa.admin.create', compact('petugas_id', 'role'));
     }
 
     public function store(Request $request)
@@ -229,7 +233,7 @@ class AdminController extends Controller
 
         $user = User::find($id);
         $userDelete = $user->delete();
-       
+
         if ($userDelete) {
             if ($user->image == null) {
             } else {

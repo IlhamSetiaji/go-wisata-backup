@@ -107,7 +107,7 @@
 
                                                         <td>
                                                             @if ($users->admin != null)
-                                                                {{ $users->admin }}
+                                                                {{ $users->user_id }}
                                                             @else
                                                                 No admin
                                                             @endif
