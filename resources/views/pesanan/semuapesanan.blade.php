@@ -498,6 +498,17 @@
                                                                 @endif
                                                             @endif
                                                         @endforeach
+                                                        @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
+                                                            @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
+                                                                @if ($reviewk->status == '1')
+                                                                    {{-- <a href="ratingkuliner/{{ $tiket->kode }}"><button
+                                                                class="btn btn-outline-primary me-1 mb-1">Ulasan</button></a> --}}
+                                                                @else
+                                                                    <a href="ratingkuliner/{{ $tiket->kode }}"><button
+                                                                            class="btn btn-outline-primary me-1 mb-1">Ulasan</button></a>
+                                                                @endif
+                                                            @endif
+                                                        @endforeach
                                                     @endforeach
                                                 </td>
                                             </tr>
