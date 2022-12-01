@@ -57,9 +57,6 @@
                                     <div class="card-header">
                                         <div class="d-flex w-100 justify-content-between">
                                             <h5 class="mb-1">
-                                                {{-- <a data-bs-toggle="modal" data-bs-target="#deskripsi{{ $value->id }}">
-                                                    {{ $value->nama }}
-                                                </a> --}}
                                                 <a href="detail/explore-event/{{ $value->id }}" target="blank">
                                                     {{ $value->nama }}
                                                 </a>

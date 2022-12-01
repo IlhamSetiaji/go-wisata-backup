@@ -146,8 +146,7 @@
                 <h2 class="section__title">Lokasi {{ $tempat->name }}</h2>
 
                 <div class="container">
-                    <p class="about__container" align="center"><a href="{{ $tempat->lokasi }}"
-                            target="blank">{{ $tempat->lokasi }}</a></p>
+                    <p align="center"><iframe class="about__container" src="{{ $tempat->lokasi }}" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
                 </div>
             </section>
         @endif
