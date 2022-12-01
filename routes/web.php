@@ -491,6 +491,7 @@ Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.sh
 Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
+Route::get('/seni-budaya/{slug}', [FrontendController::class, 'tempatshow'])->name('front.seni');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');
 Route::get('/kuliner/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showk');
 Route::get('/event & sewa tempat/{slug}', [FrontendController::class, 'tempatshow']);

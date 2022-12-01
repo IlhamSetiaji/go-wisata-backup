@@ -326,31 +326,30 @@
 
 
         @if (count($seni) > 0)
-        <section class="discover section" id="discover">
-            <h2 class="section__title">Seni dan Budaya di {{ $tempat->name }}</h2>
-            <div class="makan__container container grid">
+            <section class="discover section" id="discover">
+                <h2 class="section__title">Seni dan Budaya di {{ $tempat->name }}</h2>
+                <div class="makan__container container grid">
 
-                @foreach ($seni as $seni)
-                    <!--==================== PLACES CARD 1 ====================-->
+                    @foreach ($seni as $seni)
+                        <!--==================== PLACES CARD 1 ====================-->
 
-                    <div class="card" style="width: 20rem;">
-                        <img src="{{ asset('images') }}/{{ $seni->image }}" class="card-img-top"
-                            alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title" style="font-weight:bold">{{ $seni->name }}</h5>
-                            <h5 class="card-title">{{ $seni->kategori }}</h5>
-                            <a target="_blank"
-                                href="{{ url('./' . $seni->kategori . '/' . $seni->slug) }}">
-                                <button class="button button--flex makan__button">
-                                    <i class="ri-arrow-right-line"></i>
-                                </button>
-                            </a>
+                        <div class="card" style="width: 20rem;">
+                            <img src="{{ asset('images') }}/{{ $seni->image }}" class="card-img-top"
+                                alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-weight:bold">{{ $seni->name }}</h5>
+                                <h5 class="card-title">{{ $seni->kategori }}</h5>
+                                <a target="_blank" href="{{ url('./seni-budaya/' . $seni->slug) }}">
+                                    <button class="button button--flex makan__button">
+                                        <i class="ri-arrow-right-line"></i>
+                                    </button>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        </section>
-    @endif
+                    @endforeach
+                </div>
+            </section>
+        @endif
 
 
 
@@ -361,15 +360,14 @@
 
                     @foreach ($penginapan as $penginapan)
                         <!--==================== PLACES CARD 1 ====================-->
-                        
+
                         <div class="card" style="width: 20rem;">
                             <img src="{{ asset('images') }}/{{ $penginapan->foto }}" class="card-img-top"
                                 alt="...">
                             <div class="card-body">
                                 <h5 class="card-title" style="font-weight:bold">{{ $penginapan->nama }}</h5>
                                 {{-- <h5 class="card-title">{{ $penginapan->kategori }}</h5> --}}
-                                <a target="_blank"
-                                    href="{{ url('./explore-hotel/' . $penginapan->id) }}">
+                                <a target="_blank" href="{{ url('./explore-hotel/' . $penginapan->id) }}">
                                     <button class="button button--flex makan__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
@@ -400,15 +398,14 @@
 
                     @foreach ($event as $event)
                         <!--==================== PLACES CARD 1 ====================-->
-                        
+
                         <div class="card" style="width: 20rem;">
                             <img src="{{ asset('images') }}/{{ $event->image }}" class="card-img-top"
                                 alt="...">
                             <div class="card-body">
                                 <h5 class="card-title" style="font-weight:bold">{{ $event->name }}</h5>
                                 <h5 class="card-title">{{ $event->kategori }}</h5>
-                                <a target="_blank"
-                                    href="{{ url('./' . $event->kategori . '/' . $event->slug) }}">
+                                <a target="_blank" href="{{ url('./' . $event->kategori . '/' . $event->slug) }}">
                                     <button class="button button--flex event__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
@@ -577,8 +574,8 @@
                 @endif
                 @if (!$setting->sponsor3 == null)
                     <div class="sponsor__content">
-                        <img src="{{ asset('images/setting') }}/{{ $setting->sponsor3 }}" style="width: 200px;" alt=""
-                            class="sponsor__img">
+                        <img src="{{ asset('images/setting') }}/{{ $setting->sponsor3 }}" style="width: 200px;"
+                            alt="" class="sponsor__img">
                     </div>
                 @endif
                 @if (!$setting->sponsor4 == null)
@@ -588,29 +585,29 @@
                     </div>
                 @endif
                 @if (!$setting->sponsor5 == null)
-                <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor5 }}"
-                        alt="" class="sponsor__img">
-                </div>
-            @endif
-            @if (!$setting->sponsor6 == null)
-                <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor6 }}" style="width: 140px;"
-                        alt="" class="sponsor__img">
-                </div>
-            @endif
-            @if (!$setting->sponsor7 == null)
-                <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor7 }}" style="width: 100px;"
-                        alt="" class="sponsor__img">
-                </div>
-            @endif
-            @if (!$setting->sponsor8 == null)
-                <div class="sponsor__content">
-                    <img src="{{ asset('images/setting') }}/{{ $setting->sponsor8 }}" style="width: 140px;"
-                        alt="" class="sponsor__img">
-                </div>
-            @endif
+                    <div class="sponsor__content">
+                        <img src="{{ asset('images/setting') }}/{{ $setting->sponsor5 }}" alt=""
+                            class="sponsor__img">
+                    </div>
+                @endif
+                @if (!$setting->sponsor6 == null)
+                    <div class="sponsor__content">
+                        <img src="{{ asset('images/setting') }}/{{ $setting->sponsor6 }}" style="width: 140px;"
+                            alt="" class="sponsor__img">
+                    </div>
+                @endif
+                @if (!$setting->sponsor7 == null)
+                    <div class="sponsor__content">
+                        <img src="{{ asset('images/setting') }}/{{ $setting->sponsor7 }}" style="width: 100px;"
+                            alt="" class="sponsor__img">
+                    </div>
+                @endif
+                @if (!$setting->sponsor8 == null)
+                    <div class="sponsor__content">
+                        <img src="{{ asset('images/setting') }}/{{ $setting->sponsor8 }}" style="width: 140px;"
+                            alt="" class="sponsor__img">
+                    </div>
+                @endif
             </div>
         </section>
     </main>

@@ -585,6 +585,43 @@ class FrontendController extends Controller
             $title = "Explore";
             return view('FrontEnd/showtempates', compact('tempat', 'event', 'tempat2', 'title', 'setting'));
         }
+
+        if ($tempat->kategori == "seni & budaya") {
+
+            // $wisata = Tempat::where('induk_id', $tempatini)->where('kategori', 'wisata')->get();
+
+            $tempat2  = Tempat::where('slug', $slug)->where('status', '1')->first();
+
+            $tempatini = $tempat->id;
+
+            $wahana  = Wahana::where('tempat_id', $tempatini)->where('status', '1')->get();
+
+            $kuliner = Tempat::where('induk_id', $tempatini)->where('kategori', 'kuliner')->get();
+            // dd($kuliner);
+            $event = Tempat::where('induk_id', $tempatini)->where('kategori', 'event & sewa tempat')->get();
+
+            $penginapan = Tempat::where([
+                'induk_id' => $tempatini,
+                'kategori' => 'penginapan'
+            ])->get();
+
+            $ez = Tempat::where('induk_id', $tempatini)->get();
+
+            $camp = Camp::where('tempat_id', $tempatini)->where('status', 1)->where('kategori', 'alat')->get();
+
+            $camp1 = Camp::where('tempat_id', $tempatini)->where('status', 1)->get();
+
+            $makanan = Kuliner::where('tempat_id', $tempat->id)->where('status', 1)->get();
+
+            // dd($tempat2->video);
+            return view('FrontEnd/showtempat', compact('event', 'setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+            // $penginapanSekitars = Tempat::where('induk_id', $tempatini)->where('kategori', 'penginapan')->get();
+            // dd($penginapan);
+
+            // return view('FrontEnd/showtempat', compact('setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
+        }
+
+        
         // dd($makanan);
 
 
