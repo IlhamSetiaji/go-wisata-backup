@@ -327,7 +327,7 @@
 
         @if (count($seni) > 0)
         <section class="discover section" id="discover">
-            <h2 class="section__title">Kuliner di {{ $tempat->name }}</h2>
+            <h2 class="section__title">Seni dan Budaya di {{ $tempat->name }}</h2>
             <div class="makan__container container grid">
 
                 @foreach ($seni as $seni)

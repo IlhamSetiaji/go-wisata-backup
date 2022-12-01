@@ -57,7 +57,7 @@
 
                         @if (count($cekPaket) == null)
                             <img class="img-fluid rounded mb-3 mb-md-0"
-                                src="{{ 'https://source.unsplash.com/700x300/?' . $paket->kategori()->first()->nama_kategori }}"
+                                {{-- src="{{ 'https://source.unsplash.com/700x300/?' . $paket->kategori()->first()->nama_kategori }}" --}}
                                 alt="">
                         @else
                         @endif
@@ -65,7 +65,7 @@
                     <div class="col-md-5">
                         <h3>{{ $paket->nama_paket }}</h3>
                         <p>Harga : Rp{{ $paket->harga }},00 </p>
-                        <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p>
+                        {{-- <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p> --}}
                         <p>Detail:</p>
                         <ul>
                             <li>Hari: {{ $paket->jml_hari }} </li>
@@ -89,7 +89,7 @@
                                     @foreach ($penginapans as $items)
                                         @foreach ($items as $penginapan)
                                             @if ($penginapan->paket_id == $paket->id)
-                                                <li>{{ $penginapan->tempat->name }}</li>
+                                                {{-- <li>{{ $penginapan->tempat->name }}</li> --}}
                                             @else
                                             @endif
                                         @endforeach
