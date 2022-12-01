@@ -668,7 +668,9 @@ class API extends Controller
     {
         $hotel = new Hotel();
         $hotel = $hotel->get();
-        return response()->json($hotel);
+        $villa = new Villa();
+        $villa = $villa->get();
+        return response()->json($hotel, $villa);
     }
 
     public function villa()
