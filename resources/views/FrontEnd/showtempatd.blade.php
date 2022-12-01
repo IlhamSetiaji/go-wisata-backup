@@ -325,6 +325,35 @@
         @endif
 
 
+        @if (count($seni) > 0)
+        <section class="discover section" id="discover">
+            <h2 class="section__title">Kuliner di {{ $tempat->name }}</h2>
+            <div class="makan__container container grid">
+
+                @foreach ($seni as $seni)
+                    <!--==================== PLACES CARD 1 ====================-->
+
+                    <div class="card" style="width: 20rem;">
+                        <img src="{{ asset('images') }}/{{ $seni->image }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-weight:bold">{{ $seni->name }}</h5>
+                            <h5 class="card-title">{{ $seni->kategori }}</h5>
+                            <a target="_blank"
+                                href="{{ url('./' . $seni->kategori . '/' . $seni->slug) }}">
+                                <button class="button button--flex makan__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+
+
         @if (count($penginapan) > 0)
             <section class="discover section" id="discover">
                 <h2 class="section__title">Penginapan di {{ $tempat->name }}</h2>
@@ -334,13 +363,13 @@
                         <!--==================== PLACES CARD 1 ====================-->
                         
                         <div class="card" style="width: 20rem;">
-                            <img src="{{ asset('images') }}/{{ $penginapan->image }}" class="card-img-top"
+                            <img src="{{ asset('images') }}/{{ $penginapan->foto }}" class="card-img-top"
                                 alt="...">
                             <div class="card-body">
-                                <h5 class="card-title" style="font-weight:bold">{{ $penginapan->name }}</h5>
-                                <h5 class="card-title">{{ $penginapan->kategori }}</h5>
+                                <h5 class="card-title" style="font-weight:bold">{{ $penginapan->nama }}</h5>
+                                {{-- <h5 class="card-title">{{ $penginapan->kategori }}</h5> --}}
                                 <a target="_blank"
-                                    href="{{ url('./' . $penginapan->kategori . '/' . $penginapan->slug) }}">
+                                    href="{{ url('./explore-hotel/' . $penginapan->id) }}">
                                     <button class="button button--flex makan__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
