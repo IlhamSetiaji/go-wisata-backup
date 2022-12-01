@@ -138,19 +138,6 @@
         // dd($ez2);
         ?>
 
-        {{-- lokasi --}}
-
-        @if ($tempat->lokasi == '')
-        @else
-            <section class="about_section">
-                <h2 class="section__title">Lokasi {{ $tempat->name }}</h2>
-
-                <div class="container">
-                    <p align="center"><iframe class="about__container" src="{{ $tempat->lokasi }}" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
-                </div>
-            </section>
-        @endif
-
         <!--==================== Makanan ====================-->
         <section class="makan section" id="makan">
             <h2 class="section__title">Makanan <br> Yang Tersedia</h2>
@@ -299,6 +286,19 @@
 
             </div>
         </section>
+
+        {{-- lokasi --}}
+
+        @if ($tempat->lokasi == '')
+        @else
+            <section class="about_section">
+                <h2 class="section__title">Lokasi {{ $tempat->name }}</h2>
+
+                <div class="container">
+                    <p align="center"><iframe class="about__container" src="{{ $tempat->lokasi }}" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
+                </div>
+            </section>
+        @endif
 
         @if (count($ez2) > 0)
             <section class="place section" id="place">
