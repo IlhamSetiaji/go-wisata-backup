@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPaketKuliner;
+use App\Models\ReviewKuliner;
+use App\Models\Detail_transaksi;
 use Illuminate\Http\Request;
 use App\Models\Kuliner;
 use App\Models\tb_paketkuliner;
@@ -163,4 +165,93 @@ class KulinerController extends Controller
         Toastr::info('Data Updated :)', 'Success');
         return redirect()->back();
     }
+    public function review_index()
+    {
+        $reviewk = ReviewKuliner::orderby('id', 'desc')->whereNotNull('comment')->get();
+        return view('admin.kuliner.halaman_nilai_kuliner', [
+            'reviewk' => $reviewk
+        ]);
+    }
+    public function review_delete($id)
+    {
+        $reviewk = ReviewKuliner::find($id);
+        $reviewk->delete($reviewk);
+        Toastr::success(' Berhasil menghapus data:)', 'Success');
+        return redirect()->back();
+    }
+    //masuk ke web route (penilaian)
+    // public function penilaian($kode)
+    // {
+    //     $data = Detail_transaksi::where('kode_tiket', $kode)->first();
+    //     $reviewkuliner = ReviewKuliner::where('kode_tiket', $kode)->first();
+
+    //     if ($reviewkuliner) {
+    //         return view('rating.ratingkuliner', compact('reviewkuliner'));
+    //     }
+
+    //     return view('rating.input', compact('data'));
+    //     // return view('rating.ratingkuliner', compact('data'));
+    // }
+    // public function tambah_rating(Request $request, $kode)
+    // {
+    //     $detailtransaksi = Detail_transaksi::where('kode_tiket', $kode)->first();
+    //     $id_produk = $detailtransaksi->id_produk;
+    //     $reviewbaru = ReviewKuliner::create([
+    //         'rating' => $request->rating,
+    //         'comment' => $request->comment,
+    //         'kode_tiket' => $kode,
+    //         'kuliner_id' => $id_produk,
+    //         'user_id' => request()->user()->id,
+    //     ]);
+    //     if ($reviewbaru) {
+    //         Toastr::success('Berhasil menambahkan ulasan :)', 'Success');
+    //         return redirect('/pesananku');
+    //     } else {
+    //         Toastr::success('Gagal menambahkan ulasan :(', 'Fail');
+    //         return redirect('/pesananku');
+    //     }
+    // }
+    // public function put_rating(Request $request, $kode)
+    // {
+    //     $reviewk = ReviewKuliner::where('kode_tiket', $kode)->first();
+    //     $reviewk->update([
+    //         'rating' => $request->rating,
+    //         'comment' => $request->comment,
+    //     ]);
+    //     if ($reviewk) {
+    //         Toastr::success('Berhasil memperbarui ulasan :)', 'Success');
+    //         return redirect()->back();
+    //     } else {
+    //         Toastr::success('Gagal memperbarui ulasan :(', 'Fail');
+    //         return redirect()->back();
+    //     }
+    // }
+    // public function Backuptambah_rating(Request $request, $id)
+    // {
+    //     $reviewk = ReviewKuliner::find($id);
+    //     $reviewk->penilaian = $request->penilaian;
+    //     $reviewk->comment = $request->comment;
+    //     $reviewk->kode_tiket = $request->kode_tiket;
+    //     $reviewk->user_id = $request->user_id;
+    //     $reviewk->status = '1';
+    //     Toastr::success('Berhasil menambahkan ulasan :)', 'Success');
+    //     $reviewk->save();
+    //     return redirect('/pesananku');
+    // }
+    // public function delete_rating($id)
+    // {
+    //     $rating = ReviewKuliner::find($id);
+    //     $rating->delete($rating);
+    //     Toastr::success('Berhasil menghapus ulasan :)', 'Success');
+    //     return redirect()->back();
+    // }
+    // public function update_rating(Request $request, $id)
+    // {
+    //     $reviewk = ReviewKuliner::find($id);
+    //     $reviewk->rating = $request->rating;
+    //     $reviewk->comment = $request->comment;
+    //     $reviewk->save();
+    //     Toastr::success('Berhasil update komentar :)', 'Success');
+    //     return redirect()->back();
+    // }
 }

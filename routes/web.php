@@ -468,6 +468,9 @@ Route::group([
     //review tempatsewa
     Route::get('/reviewtempatsewa', [TempatSewaController::class, 'review_index']);
     Route::get('/reviewtempatsewa/hapus/{id}', [TempatSewaController::class, 'review_delete']);
+    //review kuliner
+    Route::get('/reviewkuliner', [KulinerController::class, 'review_index']);
+    Route::get('/reviewkuliner/hapus/{id}', [KulinerController::class, 'review_delete']);
 });
 
 // BUDGETING

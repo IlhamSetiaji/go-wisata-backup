@@ -68,4 +68,8 @@ class Detail_transaksi extends Model
     {
         return $this->belongsTo(Ruang::class, 'id_produk');
     }
+    public function reviewkuliner()
+    {
+        return $this->hasOne(ReviewKuliner::class, 'rating_id');
+    }
 }
