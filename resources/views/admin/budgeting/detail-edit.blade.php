@@ -130,6 +130,15 @@
                                                         <td> Rp{{ number_format($tampilPaketKuliner->harga) }} </td>
                                                     @endif
                                                 </tr>
+                                                <tr>
+                                                    @if ($tampilGuide != null)
+                                                        <td>{{ $i++ }}</td>
+                                                        <td> Tour Guide: {{ $tampilGuide->name }}</td>
+                                                        <td>-</td>
+                                                        <td> Rp{{ number_format($tampilGuide->harga) }} </td>
+                                                        <td> Rp{{ number_format($tampilGuide->harga) }} </td>
+                                                    @endif
+                                                </tr>
 
                                                 <tr>
                                                     <td colspan="2">
@@ -176,6 +185,7 @@
                                         <input type="text" name="kamar" value="{{ $dataKamar }}" hidden>
                                         <input type="text" name="hotel" value="{{ $dataHotel }}" hidden>
                                         <input type="text" name="villa" value="{{ $dataVilla }}" hidden>
+                                        <input type="text" name="guide" value="{{ $dataGuide }}" hidden>
 
                                         @if ($dataIdPenginapan != null)
                                             @foreach ($dataIdPenginapan as $id)

@@ -52,7 +52,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form action="{{ '/adesa/budgeting-edit/'. $paket->id . '/detail' }}" id="form" method="GET"
+                                <form action="{{ '/budgeting-edit/'. $paket->id . '/detail' }}" id="form" method="POST"
                                     enctype="multipart/form-data" class="form form-horizontal">
                                     @csrf
                                     <div class="form-body">
@@ -132,6 +132,37 @@
                                                         <input type="text" class="form-control forms" name="jml_hari"
                                                             id="jml_hari" value="{{ old('jml_hari', $paket->jml_hari) }}"
                                                             readonly required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Tour Guide</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div id="hotel">
+                                                    <div class="form-group">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select forms-select" name="guide" disabled>
+                                                                    @if ($guide != null)
+                                                                    <option value="">Hapus Tour Guide</option>
+                                                                        @foreach ($dataGuide as $item)
+                                                                            @if ($guide == $item->id)
+                                                                            <option value="{{ $item->id }}" selected> {{ $item->name }} - {{ $item->harga }}</option>
+                                                                            
+                                                                            @else
+                                                                            <option value="{{ $item->id }}"> {{ $item->name }} - {{ $item->harga }}</option>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @else
+                                                                        @foreach ($dataGuide as $item)
+                                                                            <option value="">Pilih Tour Guide</option>
+                                                                        <option value="{{ $item->id }}"> {{ $item->name }} - {{ $item->harga }}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

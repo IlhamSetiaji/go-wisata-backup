@@ -292,7 +292,7 @@ class AdminController extends Controller
         $tour = DB::table("tour_guide")
             ->Join("tb_tempat", function ($join) {
                 $join->on("tour_guide.desa_id", "=", "tb_tempat.id");
-            })
+            })->where('tour_guide.status', 1)
             ->select("tb_tempat.name as nama_desa", "tour_guide.*")
             ->get();
         return view('desa.tour.index', [

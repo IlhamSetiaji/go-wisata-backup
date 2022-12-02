@@ -151,6 +151,24 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <label>Tour Guide</label>
+                                            </div>
+                                            <div class="col-md-8" id="wisata">
+                                                <div class="form-group">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" name="data_guide">
+                                                                <option value="">Please select tour guide</option>
+                                                                @foreach ($dataTourGuide as $guide)
+                                                                    <option value="{{ $guide->id }}">{{ $guide->name }} - {{ $guide->harga != ''? $guide->harga : 'Rp. 0' }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                            </div>
                                            
                                             <div class="col-md-4">
                                                 <label>Kuliner</label>
