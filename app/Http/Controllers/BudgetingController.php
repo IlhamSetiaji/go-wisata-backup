@@ -389,7 +389,7 @@ class BudgetingController extends Controller
 
     public function detailUpdatePaket(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $dataUtamaPaket = $request->validate([
             'nama_paket' => 'required|max:255',
             'kategori' => 'required',
@@ -421,9 +421,14 @@ class BudgetingController extends Controller
         $tampilVilla = '';
         $tampilResto = '';
         $tampilPaketKuliner = '';
+        $tampilGuide = '';
         $tampilKategori = [];
         if ($request->data_penginapanhotel != null) {
             $tampilHotel = Hotel::where('id', $request->data_penginapanhotel)->first();
+        }
+        if ($request->guide != null) {
+            $tampilGuide = DB::table('tour_guide')->where('id', $request->guide)->first();
+            $harga += $tampilGuide->harga;
         }
         if ($request->kamar != null) {
             $tampilKamar = Kamar::where('id', $request->kamar)->first();
@@ -465,6 +470,7 @@ class BudgetingController extends Controller
             'tampilKamar' => $tampilKamar,
             'tampilResto' => $tampilResto,
             'tampilPaketKuliner' => $tampilPaketKuliner,
+            'tampilGuide' => $tampilGuide,
             'id' => $request->id,
             'idKategori' => $paketKategori,
             'dataWisata' => $dataWisata,
@@ -476,7 +482,8 @@ class BudgetingController extends Controller
             'dataKuliner' => $request->paketresto,
             'dataIdKuliner' => $request->id_paketkuliner,
             'dataIdPenginapan' => $request->idPenginapan,
-            'dataKategori' => $request->kategori
+            'dataKategori' => $request->kategori,
+            'dataGuide' => $request->guide
         ]);
     }
 
@@ -491,6 +498,11 @@ class BudgetingController extends Controller
             'jml_orang' => 'required|integer',
             'harga' => 'required|integer'
         ]);
+        if ($request->guide != null) {
+            $validateDataPaket['tour_guide_id'] = $request->guide;
+        } else {
+            $validateDataPaket['tour_guide_id'] = null;
+        }
 
         //update data tb_paket
         tb_paket::where('id', $request->id)->update($validateDataPaket);
