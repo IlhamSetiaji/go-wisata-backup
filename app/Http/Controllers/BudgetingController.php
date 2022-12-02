@@ -16,12 +16,14 @@ use App\Models\tb_paketpenginapan;
 use App\Models\tb_paketwahana;
 use App\Models\tb_paketwisata;
 use App\Models\Tempat;
+use App\Models\Tour;
 use App\Models\Villa;
 use App\Models\Wahana;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use TourGuide;
 
 class BudgetingController extends Controller
 {
@@ -45,6 +47,8 @@ class BudgetingController extends Controller
         $dataKuliner = DB::table('tb_tempat')->join('tb_kuliner', 'tb_tempat.id', 'tb_kuliner.tempat_id')->join('tb_paketkuliners',  'tb_paketkuliners.tb_kuliner_id', 'tb_kuliner.id')->where('tb_tempat.status', 1)->where('tb_tempat.induk_id', $idTempat)->select('tb_tempat.name', 'tb_tempat.id')->distinct()->get();
         // dd($dataKuliner);
         $arrPenginapan = [];
+        $tourGuide = DB::table('tour_guide')->where('desa_id', $idTempat)->where('status', 1)->get();
+        // dd( count($tourGuide));
         foreach ($dataPenginapanHotel as $hotel) {
             if (Kamar::where('hotel_id', $hotel->id)->first() != '') {
                 array_push($arrPenginapan, $hotel);
@@ -58,7 +62,8 @@ class BudgetingController extends Controller
             'dataPenginapanHotel' => $arrPenginapan,
             'dataPenginapanVilla' => $dataPenginapanVilla,
             'dataKuliners' => $dataKuliner,
-            'kategoriPakets' => $kategoriPakets
+            'kategoriPakets' => $kategoriPakets,
+            'dataTourGuide' => $tourGuide
         ]);
     }
 
@@ -82,6 +87,7 @@ class BudgetingController extends Controller
 
     public function detailPaket(Request $request)
     {
+        // dd($request->all());
         $validateDataPaket = $request->validate([
             'nama_paket' => 'required|max:255',
             'id_desa' => 'required',
@@ -93,7 +99,7 @@ class BudgetingController extends Controller
 
         //get data wisata
         $arrDataWisata = [];
-        if ($request->data_wisata[0] != null) {
+        if ($request->data_wisata != null) {
             for ($i = 0; $i < count($request->data_wisata); $i++) {
                 if ($request->data_wisata[$i] != '') {
                     array_push($arrDataWisata, Tempat::where('id', $request->data_wisata[$i])->first());
@@ -101,23 +107,10 @@ class BudgetingController extends Controller
             }
         }
 
-        // $arrDataPenginapanHotel = [];
-        // if ($request->data_penginapanhotel[0] != null) {
-        //     for ($i = 0; $i < count($request->data_penginapanhotel); $i++) {
-        //         if ($request->data_penginapanhotel[$i] != '') {
-        //             array_push($arrDataPenginapanHotel, Hotel::where('id', $request->data_penginapanhotel[$i])->first());
-        //         }
-        //     }
-        // }
-
-        // $arrKamarHotel = [];
-        // for ($i = 0; $i < count($arrDataPenginapanHotel); $i++) {
-        //     array_push($arrKamarHotel, Kamar::where('hotel_id', $arrDataPenginapanHotel[$i]->id)->get());
-        // }
         $hotel = '';
         $kamar = '';
 
-        if ($request->data_penginapan != null && $request->kamar != null) {
+        if ($request->data_penginapanhotel != null && $request->kamar != null) {
             $hotel = Hotel::where('id', $request->data_penginapanhotel)->first();
             $kamar = Kamar::where('id', $request->kamar)->first();
         }
@@ -137,7 +130,17 @@ class BudgetingController extends Controller
             array_push($validateDataPaket['data_kategori'], tb_kategoriwisata::where('id', $validateDataPaket['kategori'][$i])->first());
         }
 
-        $kuliners = DataPaketKuliner::where('id', $request->paketresto)->where('status', 1)->first();
+        $kuliners = '';
+        if ($request->paketresto != null) {
+            $kuliners = DataPaketKuliner::where('id', $request->paketresto)->where('status', 1)->first();
+        }
+
+        $guide = '';
+        if ($request->data_guide != null) {
+            $guide = DB::table('tour_guide')->where('id', $request->data_guide)->first();
+        }
+
+        // dd($guide);
 
         //get harga
         $totalHarga = 0;
@@ -147,6 +150,7 @@ class BudgetingController extends Controller
             }
         }
 
+
         foreach ($arrDataPenginapanVilla as $data) {
             $totalHarga += $data->harga;
         }
@@ -155,11 +159,16 @@ class BudgetingController extends Controller
         if ($kamar != null) {
             $totalHarga += $kamar->harga;
         }
+        // dd($kamar);
 
         if ($kuliners != null) {
-
             $totalHarga += $kuliners->harga;
         }
+        if ($request->data_guide != null) {
+            $totalHarga += $guide->harga;
+        }
+        // dd($totalHarga);
+
 
         return view('admin.budgeting.detail', [
             'paket' => $validateDataPaket,
@@ -169,13 +178,14 @@ class BudgetingController extends Controller
             // 'kamars' => $arrKamarHotel,
             'kuliners' => $kuliners,
             'kamars' => $kamar,
+            'guide' => $guide,
             'total' => $totalHarga
         ]);
     }
 
     public function store(Request $request)
     {
-        // dd($request->data_kamar);
+        // dd($request->all());
 
         //validate form
         $validateDataPaket = $request->validate([
@@ -185,6 +195,9 @@ class BudgetingController extends Controller
             'harga' => 'required|integer'
         ]);
         $validateDataPaket['id_desa'] = Auth::user()->tempat_id;
+        if ($request->data_guide != null) {
+            $validateDataPaket['tour_guide_id'] = $request->data_guide;
+        }
         // $validateDataPaket['harga'] = $request->harga;
 
         //insert data to tb_paket 
@@ -291,7 +304,7 @@ class BudgetingController extends Controller
         $idTempat = $dataDesa->tempat_id;
         $dataWisata = Tempat::where('kategori', 'wisata')->where('status', 1)->where('induk_id', $idTempat)->get();
         $dataKuliner = DB::table('tb_tempat')->join('tb_kuliner', 'tb_tempat.id', 'tb_kuliner.tempat_id')->join('tb_paketkuliners',  'tb_paketkuliners.tb_kuliner_id', 'tb_kuliner.id')->where('tb_tempat.status', 1)->where('tb_tempat.induk_id', $idTempat)->select('tb_tempat.name', 'tb_tempat.id')->distinct()->get();
-        // $dataPenginapan = Tempat::where('kategori', 'penginapan')->where('status', 1)->where('induk_id', $idTempat)->get();
+        $dataGuide = DB::table('tour_guide')->where('desa_id', $dataDesa->tempat_id)->where('status', 1)->get();
 
         //get spesific data paket from database 
         $paket = tb_paket::where('id', $id)->first();
@@ -356,7 +369,9 @@ class BudgetingController extends Controller
             'dataVilla' => $dataVilla,
             'dataKamar' => $dataKamarHotel,
             'dataKuliners' => $dataKuliner,
+            'dataGuide' => $dataGuide,
             'paket' => $paket,
+            'guide' => $paket['tour_guide_id'],
             'paketWisatas' => $paketWisata,
             'paketPenginapans' => $paketPenginapan,
             'kategoriChecklist' => $arrayKateggoriCheklist,
@@ -374,6 +389,7 @@ class BudgetingController extends Controller
 
     public function detailUpdatePaket(Request $request)
     {
+        dd($request->all());
         $dataUtamaPaket = $request->validate([
             'nama_paket' => 'required|max:255',
             'kategori' => 'required',
