@@ -1282,4 +1282,19 @@ class FrontendController extends Controller
             'tempat' => $tempat,
         ]);
     }
+
+    public function detail_budget($id)
+    {
+        $setting =  Setting::first();
+        $paket = tb_paket::find($id);
+        // $review = ReviewPaket::where('pakt_id', $id)->whereNotNull('rating')->orderby('created_at', 'DESC')->get();
+        // $avg = ReviewPaket::where('paket_id', $id)->whereNotNull('rating')->avg('rating');
+        return view('FrontEnd.detailbudget', [
+            "title" => "Explore",
+            'paket' => $paket,
+            'setting' => $setting,
+            // 'review' => $review,
+            // 'avg' => $avg,
+        ]);
+    }
 }
