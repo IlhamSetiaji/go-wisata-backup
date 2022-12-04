@@ -50,25 +50,13 @@
                 <div class="row" id="table-hover-row">
                     <div class="col-12">
                         <div class="card">
-                            {{-- <div class="card-header">
-
-                        <a href="{{route('admin.create')}}" class="btn bt-info"><i class="fas fa-user-plus"></i> </a>
-
-
-
-                    </div> --}}
                             <div class="card-header">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb breadcrumb-right">
                                         <li class="breadcrumb-item"> <a href="{{ route('budget.create') }}"
-                                                class="btn btn-outline-primary ">Tambah Paket </a></li>
-
+                                                class="btn btn-outline-primary ">Tambah Paket </a>
                                     </ol>
                                 </nav>
-
-
-
-
                             </div>
                             <div class="card-content">
 
@@ -132,6 +120,54 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="table-hover-row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb breadcrumb-left">
+                                        <h3>Data Transaksi</h3>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div class="card-content">
+
+                                <!-- table hover -->
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="admin">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Kode Tiket</th>
+                                                <th scope="col">Kode Booking</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Telp</th>
+                                                <th scope="col">Paket</th>
+                                                <th scope="col">Total Biaya</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><a href=""
+                                                    class="btn btn-info mb-1">Detail</a></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

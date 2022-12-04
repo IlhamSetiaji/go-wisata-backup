@@ -81,7 +81,7 @@ Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
 Route::resource('/profile', ProfileController::class)->middleware(['verified', 'customer']);
-Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
+// Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
@@ -309,7 +309,7 @@ Route::group([
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
     Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
     Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
-    Route::post('/pesanpaket/{jml_orang}/{id}/{harga}/{nama_paket}/{email}/{jml_hari}/{telp}/{tgl_buka}/{tgl_tutup}', [BudgetingController::class, 'pesantpaket']);
+});
 
 Route::group([
     'middleware' => ['auth', 'kuliner', 'verified'],
@@ -498,9 +498,10 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
 Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
+Route::post('/budgeting/detail/{id}', [FrontendController::class, 'detail_budget'])->name('front.budget.detail');
+Route::get('/budgeting/pesan-paket', [FrontendController::class, 'pesanBudgeting'])->name('front.budget.pesan');
+
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
-// Route::post('/detailv/budget/{id}', [FrontendController::class, 'detailv_budget']);
-Route::post('/detail/budget/{id}', [FrontendController::class, 'detail_budget']);
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/seni-budaya/{slug}', [FrontendController::class, 'tempatshow'])->name('front.seni');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');
