@@ -55,6 +55,7 @@
                                     <ol class="breadcrumb breadcrumb-right">
                                         <li class="breadcrumb-item"> <a href="{{ route('budget.create') }}"
                                                 class="btn btn-outline-primary ">Tambah Paket </a>
+                                        </li>
                                     </ol>
                                 </nav>
                             </div>
