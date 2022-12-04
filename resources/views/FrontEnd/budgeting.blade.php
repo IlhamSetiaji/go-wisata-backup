@@ -113,7 +113,7 @@
                             </li>
                         </ul>
                         {{-- <p>Kamar : {{ $paket->id_kamar }} </p> --}}
-                        <form action="{{ url('/cart/tambah/budgeting/' . $paket->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ url('/detail/budget/' . $paket->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <input type="text" value="{{ $paket->id }}" type="hidden" name="paket_id">
     

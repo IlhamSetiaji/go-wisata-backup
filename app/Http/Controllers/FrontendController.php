@@ -417,7 +417,7 @@ class FrontendController extends Controller
                         // ->where('jml_orang', ">=", $jumlahOrang)
                         ->where("tb_pakets.harga", "<=", $budget)
                         ->where('status', 1)
-                        ->orderBy('id_kategori', 'asc')
+                        // ->orderBy('id_kategori', 'asc')
                         ->orderBy('harga', 'desc')
                         ->get();
                 }
@@ -1161,6 +1161,29 @@ class FrontendController extends Controller
             'avg' => $avg,
         ]);
     }
+
+    // public function detailv_budget($id){
+    //     $reqId = "id";
+    //     return view('FrontEnd.detailbudget'. [
+    //         'reqId' => $reqId,
+    //     ]);
+    // }
+    
+    public function detail_budget($id)
+    {
+        $setting =  Setting::first();
+        $paket = tb_paket::find($id);
+        // $review = ReviewPaket::where('pakt_id', $id)->whereNotNull('rating')->orderby('created_at', 'DESC')->get();
+        // $avg = ReviewPaket::where('paket_id', $id)->whereNotNull('rating')->avg('rating');
+        return view('FrontEnd.detailbudget', [
+            "title" => "Detail Budget",
+            'paket' => $paket,
+            'setting' => $setting,
+            // 'review' => $review,
+            // 'avg' => $avg,
+        ]);
+    }
+
     public function explore_villa()
     {
         $setting =  Setting::first();
