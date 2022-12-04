@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingPaket as ModelsBookingPaket;
 use App\Models\BookingVilla;
 use App\Models\Camp;
 use App\Models\Detail_camp;
@@ -33,8 +34,11 @@ use App\Models\tb_paketwahana;
 use App\Models\tb_paketwisata;
 use App\Models\TempatSewa;
 use App\Models\User;
+use BookingPaket;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Adapter\PDFLib;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
 use PDF;
 use PhpParser\Node\Stmt\Return_;
 
@@ -417,7 +421,7 @@ class FrontendController extends Controller
                         // ->where('jml_orang', ">=", $jumlahOrang)
                         ->where("tb_pakets.harga", "<=", $budget)
                         ->where('status', 1)
-                        ->orderBy('id_kategori', 'asc')
+                        // ->orderBy('id_kategori', 'asc')
                         ->orderBy('harga', 'desc')
                         ->get();
                 }
@@ -473,7 +477,15 @@ class FrontendController extends Controller
             ]);
         }
 
-        // dd($arrGambar[1]['paket_id']);
+        $dataInput = [];
+        // $harga = $request->jml_budget / ;
+        // $hari = $request->jml_hari;
+        // $desa = $request->desa;
+        // $jumlahOrang = $request->jml_orang;
+        $dataInput['jml_orang'] = $jumlahOrang;
+        $dataInput['jml_hari'] = $hari;
+        // $dataInput['harga'] = $hari;
+        // dd($dataInput);
 
         return view('FrontEnd.budgeting', [
             'paket' => $pakets,
@@ -481,8 +493,72 @@ class FrontendController extends Controller
             'wisatas' => $dataPaketWisata,
             'penginapans' => $dataPaketPenginapan,
             'wahanas' => $dataPaketWahana,
-            'gambar' => $arrGambar
+            'gambar' => $arrGambar,
+            'input' => $dataInput
         ]);
+    }
+
+    public function detail_budget($id, Request $request)
+    {
+        // dd($request->all());
+        try {
+            $id = Crypt::decrypt($id);
+        } catch (DecryptException $e) {
+        }
+        // $setting =  Setting::first();
+        $paket = tb_paket::find($id);
+        $biaya = $paket->harga * $request->jml_orang * $request->jml_hari;
+        // dd($paket);
+
+        // $review = ReviewPaket::where('pakt_id', $id)->whereNotNull('rating')->orderby('created_at', 'DESC')->get();
+        // $avg = ReviewPaket::where('paket_id', $id)->whereNotNull('rating')->avg('rating');
+        return view('FrontEnd.detailbudget', [
+            'paket' => $paket,
+            'orang' => $request->jml_orang,
+            'hari' => $request->jml_hari,
+            'biaya' => $biaya
+            // 'review' => $review,
+            // 'avg' => $avg,
+        ]);
+    }
+
+    public function pesanBudgeting(Request $request)
+    {
+        // dd($request->all());
+        $dataPaket = $request->validate([
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'telp' => 'required',
+            'paket_id' => 'required',
+            'telp' => 'required',
+            'jml_hari' => 'required',
+            'jml_orang' => 'required',
+            'total_biaya' => 'required',
+            'tanggal_perjalanan' => 'required',
+        ]);
+        $dataPaket['status'] = 1;
+
+        //kode_booking
+        $data = ModelsBookingPaket::max('kode_booking');
+        $huruf = 'BP';
+        $urutan = (int) substr($data, 3, 3);
+        $urutan++;
+        $kode_booking = $huruf . sprintf('%04s', $urutan);
+        $dataPaket['kode_booking'] = $kode_booking;
+
+
+        ModelsBookingPaket::create($dataPaket);
+
+        return view(
+            'FrontEnd.chatAdmin',
+            [
+
+                'kodeBooking' => $kode_booking
+            ]
+        );
+        // dd('done');
+        // dd($dataPaket);
+        // dd($kode_booking);
     }
 
 
@@ -621,7 +697,7 @@ class FrontendController extends Controller
             // return view('FrontEnd/showtempat', compact('setting', 'ez', 'tempat',  'tempat2', 'wahana', 'kuliner', 'makanan', 'camp', 'camp1', 'penginapan'));
         }
 
-        
+
         // dd($makanan);
 
 
@@ -1161,6 +1237,16 @@ class FrontendController extends Controller
             'avg' => $avg,
         ]);
     }
+
+    // public function detailv_budget($id){
+    //     $reqId = "id";
+    //     return view('FrontEnd.detailbudget'. [
+    //         'reqId' => $reqId,
+    //     ]);
+    // }
+
+
+
     public function explore_villa()
     {
         $setting =  Setting::first();
