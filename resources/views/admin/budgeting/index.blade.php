@@ -145,11 +145,9 @@
                                     <table class="table table-hover" id="admin">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Kode Tiket</th>
+                                                <th scope="col">No</th>
                                                 <th scope="col">Kode Booking</th>
                                                 <th scope="col">Name</th>
-                                                <th scope="col">Email</th>
-                                                <th scope="col">Telp</th>
                                                 <th scope="col">Paket</th>
                                                 <th scope="col">Total Biaya</th>
                                                 <th scope="col">Status</th>
@@ -157,18 +155,78 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td><a href=""
-                                                    class="btn btn-info mb-1">Detail</a></td>
-                                            </tr>
+                                            @foreach ($transaksi as $trx)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $trx->kode_booking }} </td>
+                                                    <td> {{ $trx->name }}</td>
+                                                    <td>{{ $trx->paket->nama_paket }}</td>
+                                                    <td>{{ $trx->total_biaya }} </td>
+                                                    <td>
+                                                        <?php if($trx->status == 1) { ?>
+                                                        Belum Bayar
+                                                        <?php } else if($trx->status == 0){ ?>
+                                                        Batal
+                                                        <?php } else if($trx->status == 3){?>
+                                                        Sudah Bayar
+                                                        <?php } else if($trx->status == 4){?>
+                                                        Checkin
+                                                        <?php } else if($trx->status == 5){?>
+                                                        Selesai
+                                                        <?php }?>
+                                                    </td>
+                                                    <td>
+                                                        <a href="" class="btn btn-info mb-1">Detail</a>
+                                                        <?php if($trx->status == 1) { ?>
+                                                        <form action="{{ route('update-status-transaksi') }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            <input type="text" name="id"
+                                                                value="{{ $trx->id }}" hidden>
+                                                            <input type="number" name="status" value="3" hidden>
+                                                            <button class="btn btn-success mb-1">Bayar</button>
+                                                        </form>
+                                                        <form action="{{ route('update-status-transaksi') }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            <input type="text" name="id"
+                                                                value="{{ $trx->id }}" hidden>
+                                                            <input type="number" name="status" value="0" hidden>
+                                                            <button class="btn btn-dark mb-1">Batal</button>
+                                                        </form>
+                                                        <?php } else if($trx->status == 0){ ?>
+                                                        <?php } else if($trx->status == 3){?>
+
+                                                        <form action="{{ route('update-status-transaksi') }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            <input type="text" name="id"
+                                                                value="{{ $trx->id }}" hidden>
+                                                            <input type="number" name="status" value="4" hidden>
+                                                            <button class="btn btn-primary mb-1">Checkin</button>
+                                                        </form>
+                                                        <form action="{{ route('update-status-transaksi') }}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            <input type="text" name="id"
+                                                            value="{{ $trx->id }}" hidden>
+                                                            <input type="number" name="status" value="0" hidden>
+                                                            <button class="btn btn-dark mb-1">Batal</button>
+                                                        </form>
+                                                        <?php } else if($trx->status == 4){?>
+                                                            <form action="{{ route('update-status-transaksi') }}"
+                                                            method="POST" class="d-inline">
+                                                            <input type="text" name="id"
+                                                            value="{{ $trx->id }}" hidden>
+                                                            <input type="number" name="status" value="5" hidden>
+                                                            @csrf
+                                                            <button class="btn btn-warning mb-1">Checkout</button>
+                                                        </form>
+                                                        <?php } else if($trx->status == 5){?>
+                                                        <?php }?>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

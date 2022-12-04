@@ -13,7 +13,7 @@ class BookingPaket extends Model
 
     public function paket()
     {
-        return $this->belongsTo(Paket::class);
+        return $this->belongsTo(tb_paket::class);
     }
     public function user()
     {

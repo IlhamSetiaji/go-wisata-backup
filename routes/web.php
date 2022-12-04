@@ -309,6 +309,7 @@ Route::group([
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
     Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
     Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
+    Route::post('/update-status-transaksi', [BudgetingController::class, 'updateStatusTransaksi'])->name('update-status-transaksi');
 });
 
 Route::group([
