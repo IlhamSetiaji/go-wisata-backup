@@ -289,8 +289,9 @@ Route::group([
     Route::post('/tourd/create', [AdminController::class, 'tourCreate'])->name('tourd.create');
     Route::put('/tourd/{id}', [AdminController::class, 'tourUpdate'])->name('tourd.update');
     Route::get('/tourd/{id}/edit', [AdminController::class, 'tourEdit'])->name('tourd.edit');
-    Route::post('/tourd/delete/{id}', [AdminController::class, 'tourDestroy'])->name('tourd.destroy');
+    // Route::post('/tourd/delete/{id}', [AdminController::class, 'tourDestroy'])->name('tourd.destroy');
     Route::post('/tourd/stored', [AdminController::class, 'tourStored'])->name('tourd.stored');
+    Route::post('/tourd/update-status', [AdminController::class, 'tourStatus'])->name('tourd.updatestatus');
 });
 
 
