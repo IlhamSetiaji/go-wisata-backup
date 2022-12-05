@@ -81,7 +81,7 @@ Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
 Route::resource('/profile', ProfileController::class)->middleware(['verified', 'customer']);
-Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
+// Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
@@ -289,8 +289,9 @@ Route::group([
     Route::post('/tourd/create', [AdminController::class, 'tourCreate'])->name('tourd.create');
     Route::put('/tourd/{id}', [AdminController::class, 'tourUpdate'])->name('tourd.update');
     Route::get('/tourd/{id}/edit', [AdminController::class, 'tourEdit'])->name('tourd.edit');
-    Route::post('/tourd/delete/{id}', [AdminController::class, 'tourDestroy'])->name('tourd.destroy');
+    // Route::post('/tourd/delete/{id}', [AdminController::class, 'tourDestroy'])->name('tourd.destroy');
     Route::post('/tourd/stored', [AdminController::class, 'tourStored'])->name('tourd.stored');
+    Route::post('/tourd/update-status', [AdminController::class, 'tourStatus'])->name('tourd.updatestatus');
 });
 
 
@@ -308,6 +309,7 @@ Route::group([
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
     Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
     Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
+    Route::post('/update-status-transaksi', [BudgetingController::class, 'updateStatusTransaksi'])->name('update-status-transaksi');
 });
 
 Route::group([
@@ -499,6 +501,9 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
 Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
+Route::post('/budgeting/detail/{id}', [FrontendController::class, 'detail_budget'])->name('front.budget.detail');
+Route::get('/budgeting/pesan-paket', [FrontendController::class, 'pesanBudgeting'])->name('front.budget.pesan');
+
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
 Route::get('/seni-budaya/{slug}', [FrontendController::class, 'tempatshow'])->name('front.seni');

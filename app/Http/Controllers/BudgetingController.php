@@ -18,7 +18,15 @@ use App\Models\tb_paketwisata;
 use App\Models\Tempat;
 use App\Models\Tour;
 use App\Models\Villa;
+use App\Models\BookingPaket;
+use App\Models\PesertaPaket;
+use App\Models\Detail_transaksi;
+use App\Models\Pay;
+use App\Models\Tiket;
+use App\Models\User;
 use App\Models\Wahana;
+use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -29,9 +37,13 @@ class BudgetingController extends Controller
 {
     public function index()
     {
-        $dataPaket = tb_paket::all();
+        $dataDesa = Auth::user();
+        $dataPaket = tb_paket::where('id_desa', $dataDesa->tempat_id)->get();
+        // dd($dataPaket);
+        $transaksiPaket = BookingPaket::join('tb_pakets', 'booking_paket.paket_id', 'tb_pakets.id')->where('tb_pakets.id_desa', $dataDesa->tempat_id)->select('booking_paket.*')->get();
         return view('admin.budgeting.index', [
-            'pakets' => $dataPaket
+            'pakets' => $dataPaket,
+            'transaksi' => $transaksiPaket
         ]);
     }
     public function createPaket()
@@ -149,7 +161,6 @@ class BudgetingController extends Controller
                 $totalHarga += $data->htm;
             }
         }
-
 
         foreach ($arrDataPenginapanVilla as $data) {
             $totalHarga += $data->harga;
@@ -686,4 +697,165 @@ class BudgetingController extends Controller
 
         return redirect(route('budget.index'));
     }
+
+    public function updateStatusTransaksi(Request $request)
+    {
+        if ($request->status == 3) {
+            BookingPaket::where('id', $request->id)->update([
+                'status' => $request->status,
+                'bayar' => Carbon::now()
+            ]);
+        } else if ($request->status == 4) {
+            BookingPaket::where('id', $request->id)->update([
+                'status' => $request->status,
+                'checkin' => Carbon::now()
+            ]);
+        } else if ($request->status == 0) {
+            BookingPaket::where('id', $request->id)->update([
+                'status' => $request->status,
+                'batal' => Carbon::now()
+            ]);
+        } else if($request->status == 5){
+            BookingPaket::where('id', $request->id)->update([
+                'status' => $request->status,
+                'checkout' => Carbon::now()
+            ]);
+        }else {
+            BookingPaket::where('id', $request->id)->update(['status' => $request->status]);
+        }
+        return redirect(route('budget.index'));
+    }
+
+    // public function pesanpaket(Request $request, $jml_orang, $id, $harga, $nama_paket, $jml_hari, $email,  $telp, $tgl_buka, $tgl_tutup)
+    // {
+    //     $jamsekarang = Carbon::now();
+    //     $user_paket = tb_paket::where('id', $id)->first();
+    //     $user_pakett = $user_paket->user_id;
+    //     $users = User::where('id', $user_pakett)->first();
+    //     $dt = Tempat::where('user_id', $users->petugas_id)->first();
+    //     $tempat_id = $dt->id;
+    //     // $harga = array();
+    //     // foreach ($request->harga)
+    //     $totalbiaya = $jml_orang * $jml_hari * $harga;
+
+    //     $nama = auth()->user()->name;
+    //     $now_tgl = Carbon::now()->format('d');
+
+    //     $datatiket = BookingPaket::max('id');
+    //     $urutantiket = (int)($datatiket);
+    //     $urutantiket++;
+    //     $huruftiket =  "LP-";
+    //     // $kode_booking = $huruftiket . $urutantiket . uniqid();
+    //     $kode_tiket = $huruftiket . $urutantiket . $now_tgl;
+    //     $kode_booking = $request->kode_booking;
+    //     // dd($totalbiaya);
+
+    //     BookingPaket::create([
+    //         'kode_tiket' => $kode_tiket,
+    //         'kode_booking' => $kode_booking,
+    //         'name' => $nama,
+    //         'email' => $email,
+    //         'telp' => $telp,
+    //         'jml_orang' => $jml_orang,
+    //         'jml_hari' => $jml_hari,
+    //         'totalbiaya' => $totalbiaya,
+    //         'paket_id' => $id,
+    //         'status' => '1',
+    //     ]);
+    //     $kode_peserta = array();
+    //     $nama_peserta = array();
+    //     $email = array();
+    //     $telp = array();
+    //     foreach ($request->kode_peserta as $k) {
+    //         array_push($kode_peserta, $k);
+    //     }
+    //     foreach ($request->nama_peserta as $n) {
+    //         array_push($nama_peserta, $n);
+    //     }
+    //     foreach ($request->email as $e) {
+    //         array_push($email, $e);
+    //     }
+    //     foreach ($request->telp as $t) {
+    //         array_push($telp, $t);
+    //     }
+
+    //     for ($i = 0; $i < $jml_orang; $i++) {
+    //         $peserta = new PesertaPaket();
+    //         $peserta->kode_peserta = $kode_peserta[$i];
+    //         $peserta->kode_booking = $kode_booking;
+    //         $peserta->nama_peserta = $nama_peserta[$i];
+    //         $peserta->email = $email[$i];
+    //         $peserta->telp = $telp[$i];
+    //         $peserta->paket_id = $id;
+    //         $peserta->save();
+    //     }
+
+    //     $formatted_dt1 = Carbon::parse($tgl_buka);
+    //     $formatted_dt2 = Carbon::parse($tgl_tutup);
+    //     $durasi = $formatted_dt1->diffInDays($formatted_dt2);
+
+    //     Detail_transaksi::create([
+    //         "name" => "Paket $nama_paket",
+    //         "durasi" => $durasi + 1,
+    //         "tanggal_a" => $tgl_buka,
+    //         "tanggal_b" => $tgl_tutup,
+    //         "user_id" => Auth::user()->id,
+    //         "kode_tiket" => $kode_tiket,
+    //         "id_produk" => $id,
+    //         "booking_id" => $kode_booking,
+    //         "jumlah" => $jml_orang,
+    //         "harga" => $totalbiaya,
+    //         "kategori" => "events",
+    //         "tempat_id" => $tempat_id,
+    //     ]);
+
+    //     if ($totalbiaya <= 0) {
+    //         Tiket::create([
+    //             'kode' => $kode_tiket,
+    //             'check' => 'settlement',
+    //             'name' => Auth::user()->name,
+    //             'email' => Auth::user()->email,
+    //             'telp' => Auth::user()->telp,
+    //             'harga' => $totalbiaya,
+    //             'status' => 1,
+    //             "tempat_id" => $tempat_id,
+    //         ]);
+    //         Pay::create([
+    //             'id' => $kode_tiket,
+    //             'status_message' => 'settlement',
+    //             'order_id' => $kode_tiket,
+    //             'payment_type' => 'gratis',
+    //             'transaction_time' => $jamsekarang,
+    //             'transaction_status' => 'settlement',
+    //             'va_bank' => null,
+    //             'va_number' => null,
+    //             'kodeku' => $kode_tiket,
+    //         ]);
+    //         $detail = Detail_transaksi::where('kode_tiket', $kode_booking)->get();
+    //         foreach ($detail as $dt => $detail) {
+    //             $detail->status = 1;
+    //             $detail->save();
+    //         }
+    //         $paketkeg = tb_paket::where('id', $detail->id_produk)->first();
+    //         $paketkeg->kapasitas_akhir += (int)$detail->jumlah;
+    //         $paketkeg->save();
+
+    //         $review = new ReviewPaket();
+    //         $review->kode_tiket = $kode_tiket;
+    //         $review->save();
+    //         Toastr::success('Berhasil pesan, gratis bisa langsung cetak invoice :) ', 'Success');
+    //     } elseif ($totalbiaya > 0) {
+    //         Tiket::create([
+    //             'kode' => $kode_tiket,
+    //             'user_id' => Auth::user()->id,
+    //             'name' => Auth::user()->name,
+    //             'email' => Auth::user()->email,
+    //             'telp' => Auth::user()->telp,
+    //             'harga' => $totalbiaya,
+    //             "tempat_id" => $tempat_id,
+    //         ]);
+    //         Toastr::success('Berhasil pesan, silahkan cek detail pesanan dan lakukan pembayaran :) ', 'Success');
+    //     }
+    //     return redirect("pesananku");
+    // }
 }
