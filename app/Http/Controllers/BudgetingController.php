@@ -324,7 +324,10 @@ class BudgetingController extends Controller
         $paketMenu = DB::table('data_paket_kuliners')->join('tb_datakuliners', 'data_paket_kuliners.id', 'tb_datakuliners.data_paket_kuliner_id')->where('tb_datakuliners.paket_id', $id)->first();
         $paketResto = tb_datakuliner::where('paket_id', $id)->first();
         $idTempatResto = DB::table('tb_pakets')->join('tb_datakuliners', 'tb_pakets.id', 'tb_datakuliners.paket_id')->join('data_paket_kuliners', 'tb_datakuliners.data_paket_kuliner_id', 'data_paket_kuliners.id')->select('data_paket_kuliners.tempat_id')->first();
-        $dataMenu = DataPaketKuliner::where('tempat_id', $idTempatResto->tempat_id)->get();
+        $dataMenu = '';
+        if ($idTempatResto != null) {
+            $dataMenu = DataPaketKuliner::where('tempat_id', $idTempatResto->tempat_id)->get();
+        }
 
         //spesic data penginapan
         $hotel  = '';
@@ -469,7 +472,7 @@ class BudgetingController extends Controller
         for ($i = 0; $i < count($paketKategori); $i++) {
             $paketKategori[$i] = $paketKategori[$i]->id;
         }
-        // dd($paketKategori);
+        // dd($request->id_paketkuliner);
 
         return view('admin.budgeting.detail-edit', [
             'paket' => $dataUtamaPaket,
@@ -584,20 +587,21 @@ class BudgetingController extends Controller
         }
 
         //update paket kuliner
-        if ($request->kuliner != null) {
+        if ($request->kuliner != null && $request->idKuliner != null) {
             tb_datakuliner::where('id', $request->idKuliner)->update([
                 'paket_id' => $request->id,
                 'data_paket_kuliner_id' => $request->kuliner
             ]);
         }
         if ($request->idKuliner == null && $request->kuliner != null) {
+            // dd($request->all());
             tb_datakuliner::create([
                 'paket_id' => $request->id,
                 'data_paket_kuliner_id' => $request->kuliner
             ]);
         }
 
-        if ($request->kuliner == null) {
+        if ($request->kuliner == null && $request->idKuliner != null) {
             $data = tb_datakuliner::where('id', $request->idKuliner);
             $data->delete();
         }
@@ -715,12 +719,12 @@ class BudgetingController extends Controller
                 'status' => $request->status,
                 'batal' => Carbon::now()
             ]);
-        } else if($request->status == 5){
+        } else if ($request->status == 5) {
             BookingPaket::where('id', $request->id)->update([
                 'status' => $request->status,
                 'checkout' => Carbon::now()
             ]);
-        }else {
+        } else {
             BookingPaket::where('id', $request->id)->update(['status' => $request->status]);
         }
         return redirect(route('budget.index'));
