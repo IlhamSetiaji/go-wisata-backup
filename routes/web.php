@@ -81,7 +81,7 @@ Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
 Route::resource('/profile', ProfileController::class)->middleware(['verified', 'customer']);
-// Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
+Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
@@ -503,6 +503,7 @@ Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.sh
 Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
 Route::post('/budgeting/detail/{id}', [FrontendController::class, 'detail_budget'])->name('front.budget.detail');
 Route::get('/budgeting/pesan-paket', [FrontendController::class, 'pesanBudgeting'])->name('front.budget.pesan');
+Route::get('/get-invoice/{kode}', [FrontendController::class, 'getInvoice']);
 
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');

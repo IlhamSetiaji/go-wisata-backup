@@ -34,12 +34,13 @@ use App\Models\tb_paketwahana;
 use App\Models\tb_paketwisata;
 use App\Models\TempatSewa;
 use App\Models\User;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use BookingPaket;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Adapter\PDFLib;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Support\Facades\Crypt;
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use PhpParser\Node\Stmt\Return_;
 
 
@@ -559,6 +560,19 @@ class FrontendController extends Controller
         // dd('done');
         // dd($dataPaket);
         // dd($kode_booking);
+    }
+
+    public function getInvoice($kode)
+    {
+        $data = [
+            'title' => 'Invoice Pembelian dengan kode booking: ' . $kode,
+            'datas' => ModelsBookingPaket::where('kode_booking', $kode)->first()
+        ];
+        // dd($data['datas']->kode_booking);
+
+        $pdf = PDF::loadView('invoice', $data);
+
+        return $pdf->download('Invoice ' . $kode . '.pdf');
     }
 
 
