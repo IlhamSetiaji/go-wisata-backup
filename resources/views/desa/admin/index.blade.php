@@ -95,14 +95,6 @@
                                             @if (count($users) > 0)
                                                 @foreach ($users as $key => $users)
                                                     <tr>
-<<<<<<< HEAD
-                                                        {{-- <td>
-                                            {{$key+1}}
-
-                                        </td> --}}
-=======
-
->>>>>>> eff88aefc13ae99115188c9cdbd91e27074d7423
                                                         <td>
                                                             <br>
                                                         </td>
