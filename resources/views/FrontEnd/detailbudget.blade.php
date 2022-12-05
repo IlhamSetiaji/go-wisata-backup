@@ -75,7 +75,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" name="name"
+                                                    <input type="text" class="form-control" name="name" value="{{ Auth::user()->name }}"
                                                         id="first-name-icon" required>
                                                 </div>
                                             </div>
@@ -86,7 +86,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" name="email"
+                                                    <input type="text" class="form-control" name="email" value="{{ Auth::user()->email }}"
                                                         id="first-name-icon" required>
                                                 </div>
                                             </div>
@@ -97,7 +97,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input type="number" class="form-control" name="telp"
+                                                    <input type="number" class="form-control" name="telp" value="{{ Auth::user()->telp }}"
                                                         id="first-name-icon" required>
                                                 </div>
                                             </div>

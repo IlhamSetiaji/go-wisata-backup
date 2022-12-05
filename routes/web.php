@@ -296,7 +296,15 @@ Route::group([
 
 
 Route::group([
-    'midleware' => ['auth', 'desa', 'verified']
+    'middleware' => ['auth', 'pelanggan', 'verified']
+], function () {
+    Route::get('/budgeting/detail/{id}', [FrontendController::class, 'detail_budget'])->name('front.budget.detail');
+    Route::get('/budgeting/pesan-paket', [FrontendController::class, 'pesanBudgeting'])->name('front.budget.pesan');
+    Route::get('/get-invoice/{kode}', [FrontendController::class, 'getInvoice']);
+});
+
+Route::group([
+    'middleware' => ['auth', 'desa', 'verified']
 ], function () {
     Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
@@ -501,9 +509,7 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
 Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
-Route::post('/budgeting/detail/{id}', [FrontendController::class, 'detail_budget'])->name('front.budget.detail');
-Route::get('/budgeting/pesan-paket', [FrontendController::class, 'pesanBudgeting'])->name('front.budget.pesan');
-Route::get('/get-invoice/{kode}', [FrontendController::class, 'getInvoice']);
+
 
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
