@@ -15,6 +15,7 @@ class CreateReviewKulinersTable extends Migration
     {
         Schema::create('review_kuliners', function (Blueprint $table) {
             $table->id();
+            $table->string('nama')->nullable();
             $table->integer('rating')->nullable();
             $table->text('comment')->nullable();
             $table->string('kode_tiket');

@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use App\Models\Detail_booking;
 use App\Models\Detail_transaksi;
 use App\Models\Detail_camp;
+use App\Models\ReviewKuliner;
 use App\Models\tb_paket;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -593,11 +594,11 @@ class TiketController extends Controller
     }
 
     //CART BUDGETING
-    function cart_budgeting() {
+    function cart_budgeting()
+    {
         $budgeting = session("budgeting");
-        
+
         return view("cart.budgeting", compact('budgeting'))->with("budgeting", $budgeting);
-        
     }
 
     //ADD BUDGETING
@@ -1125,6 +1126,9 @@ class TiketController extends Controller
 
                 Detail_transaksi::tambah_detail_transaksi_kuliner($catatan, $name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar);
 
+                $review = new ReviewKuliner();
+                $review->kode_tiket = $checkout_kode;
+                $review->save();
 
                 session()->forget("kuliner");
                 // return redirect("pesananku");
