@@ -40,6 +40,7 @@
 
         <!-- Project One -->
         @if (count($paket) != '')
+            {{-- {{ dd($paket[2]->guide[0]->name) }} --}}
 
             @foreach ($paket as $paket)
                 <div class="row">
@@ -62,12 +63,10 @@
                     </div>
                     <div class="col-md-5">
                         <h3>{{ $paket->nama_paket }}</h3>
-                        <p>Harga : Rp. {{ number_format($paket->harga) }} </p>
+                        <p>Harga : Rp{{ number_format($paket->harga) }} </p>
                         {{-- <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p> --}}
                         <p>Detail:</p>
                         <ul>
-                            <li>Hari: {{ $paket->jml_hari }} </li>
-                            <li>Orang: {{ $paket->jml_orang }} </li>
                             <li>
                                 <h5>Wisata</h5>
                                 <ul>
@@ -87,7 +86,16 @@
                                     @foreach ($penginapans as $items)
                                         @foreach ($items as $penginapan)
                                             @if ($penginapan->paket_id == $paket->id)
-                                                {{-- <li>{{ $penginapan->tempat->name }}</li> --}}
+                                                @if ($penginapan->hotel_id != null)
+                                                    {{-- {{ dd($penginapan->kamar) }} --}}
+                                                    <li>{{ $penginapan->hotel != null ? $penginapan->hotel->nama : '' }}
+                                                        - Kamar
+                                                        {{ $penginapan->hotel != null ? $penginapan->kamar->name : '' }}
+                                                    </li>
+                                                @else
+                                                    <li>{{ $penginapan->villa != null ? $penginapan->villa->nama : '' }}
+                                                    </li>
+                                                @endif
                                             @else
                                             @endif
                                         @endforeach
@@ -95,8 +103,28 @@
                                 </ul>
                             </li>
                             <li>
-
-
+                                <h5>Kuliner</h5>
+                                <ul>
+                                    @if ($kuliners != null)
+                                        @foreach ($kuliners as $item)
+                                            @if ($item->paket_id == $paket->id)
+                                                <li> Paket Makanan {{ $item->dataPaketKuliner->nama_paket }} (Resto :
+                                                    {{ $item->dataPaketKuliner->tempat->name }}) </li>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    <li></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>Tour Guide</h5>
+                                <ul>
+                                    {{-- {{ dd($paket->guide) }} --}}
+                                    @if ($paket->tour_guide_id != null)
+                                        <li>{{ $paket->guide[0]->name }}</li>
+                                    @else
+                                    @endif
+                                </ul>
                             </li>
                         </ul>
                         {{-- <p>Kamar : {{ $paket->id_kamar }} </p> --}}

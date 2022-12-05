@@ -151,11 +151,11 @@
                                     </tr>
                                     </tbody>
                                     </table>
+                                    {{-- {{ dd($harga) }} --}}
                             </div>
                             <div class="d-flex justify-content-end">
                                 <div class="row">
                                     <div class="col-md-12">
-
                                         <input type="number" id="hargaAwal" value="{{ $harga }}" hidden>
                                         <input type="number" name="id" value="{{ $id }}" hidden>
                                         <input type="text" class="form-control" name='id_desa'
@@ -202,6 +202,7 @@
                                             <input type="text" name="idPaketKategori[]" value="{{ $kategori }}"
                                                 hidden>
                                         @endforeach
+                                        <input type="text" name="idKuliner" value="{{ $dataIdKuliner }}" hidden>
 
                                         {{-- @foreach ($collection as $item) --}}
 
