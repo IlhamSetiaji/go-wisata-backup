@@ -96,16 +96,18 @@
                             </li>
                             <li>
 
- 
+
                             </li>
                         </ul>
                         {{-- <p>Kamar : {{ $paket->id_kamar }} </p> --}}
-                        <form action="{{ '/budgeting/detail/' . Crypt::encrypt($paket->id) }}" method="post"
+                        <form action="{{ '/budgeting/detail/' . Crypt::encrypt($paket->id) }}" method="get"
                             enctype="multipart/form-data">
                             @csrf
                             <input type="text" value="{{ $paket->id }}" type="hidden" name="paket_id" hidden>
-                            <input type="text" value="{{ $input['jml_hari'] }}" type="hidden" name="jml_orang" hidden>
-                            <input type="text" value="{{ $input['jml_orang'] }}" type="hidden" name="jml_hari" hidden>
+                            <input type="text" value="{{ $input['jml_hari'] }}" type="hidden" name="jml_orang"
+                                hidden>
+                            <input type="text" value="{{ $input['jml_orang'] }}" type="hidden" name="jml_hari"
+                                hidden>
                             {{-- <input type="text" value="{{ $paket->id }}" type="hidden" name="biaya" hidden> --}}
 
                             <button class="btn btn-primary" type="submit">Pesan</button>
