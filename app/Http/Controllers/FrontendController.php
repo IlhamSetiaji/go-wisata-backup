@@ -645,8 +645,9 @@ class FrontendController extends Controller
             $seni = Tempat::where('induk_id', $tempatini)->where('kategori', 'seni & budaya')->where('status', 1)->get();
 
             $paket = tb_paket::all();
+            $jenis_wisata = tb_kategoriwisata::get();
 
-            return view('FrontEnd/showtempatd', compact('paket', 'seni', 'setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner',  'camp', 'camp1', 'penginapan'));
+            return view('FrontEnd/showtempatd', compact('paket', 'seni', 'setting', 'ez', 'tempat', 'tempat2', 'nama', 'wahana', 'kuliner',  'camp', 'camp1', 'penginapan', 'jenis_wisata'));
         }
 
 

@@ -690,13 +690,27 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
+                                        Hitung</label>
+                                    <input type="number" class="form-control" name="jml_budget" required
+                                        id="jml_budget">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
                                     <label for="desa" class="form-label">Desa yang Mau Anda Kunjungi</label>
                                     <input type="text" class="form-control" value="{{ $tempat->name }}" disabled>
                                     <input type="text" name="desa" id="desa" value="{{ $tempat->id }}"
                                         hidden>
                                 </div>
                             </div>
-
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="budget" class="form-label">Berapa Orang?</label>
+                                    <input type="number" class="form-control" name="jml_orang" required
+                                        id="jml_orang">
+                                </div>
+                            </div>
                             @if ($penginapan != null)
                                 <div class="col-lg-12">
                                     <div class="mb-3">
@@ -716,21 +730,21 @@
                                 </div>
                             @endif
                             <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="budget" class="form-label">Berapa Orang?</label>
-                                    <input type="number" class="form-control" name="jml_orang" required
-                                        id="jml_orang">
-                                </div>
-                            </div>
+                                <p>Kategori Wisata</p>
+                                <div class="row">
 
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="budget" class="form-label">Berapa Budget Anda? Biar Mimin Bantu
-                                        Hitung</label>
-                                    <input type="number" class="form-control" name="jml_budget" required
-                                        id="jml_budget">
+                                    @foreach ($jenis_wisata as $item)
+                                        <div class="col">
+                                            <input class="form-check-input" type="checkbox"
+                                                value="{{ $item->id }}" name="kategori[]">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{ $item->nama_kategori }}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
+                            
                         </div>
                 </div>
                 <div class="modal-footer">
