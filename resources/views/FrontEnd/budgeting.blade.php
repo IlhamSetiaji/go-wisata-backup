@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-md-5">
                         <h3>{{ $paket->nama_paket }}</h3>
-                        <p>Harga : Rp{{ $paket->harga }},00 </p>
+                        <p>Harga : Rp. {{ number_format($paket->harga) }} </p>
                         {{-- <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p> --}}
                         <p>Detail:</p>
                         <ul>
