@@ -27,8 +27,10 @@ use App\Models\Villa;
 use App\Models\ReviewEvent;
 use App\Models\ReviewTempatSewa;
 use App\Models\ReviewVilla;
+use App\Models\tb_datakuliner;
 use App\Models\tb_kategoriwisata;
 use App\Models\tb_paket;
+use App\Models\tb_paketkategoriwisata;
 use App\Models\tb_paketpenginapan;
 use App\Models\tb_paketwahana;
 use App\Models\tb_paketwisata;
@@ -446,10 +448,19 @@ class FrontendController extends Controller
                 array_push($dataPaketWisata, $tempPaketWisata);
             }
         }
-        // dd($dataPaketWisata[$firstLayer][$secondLayer]->tempat()->first()->image);
 
-        //get paket penginapan setiap paket
-        $dataPaketPenginapan = [];
+        //get data kuliner
+        $dataPaketKuliner  = [];
+        foreach ($dataIdPaktes as $id) {
+            $cekIdPaketKuliner = tb_datakuliner::where('paket_id', $id)->first();
+            if ($cekIdPaketKuliner != '') {
+                // $tempPaketWisata = tb_datakuliner::where('paket_id', $id)->get();
+                array_push($dataPaketKuliner, $cekIdPaketKuliner);
+            }
+        }
+
+        //get data penginapan
+        $dataPaketPenginapan  = [];
         foreach ($dataIdPaktes as $id) {
             $cekIdPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->first();
             if ($cekIdPaketPenginapan != '') {
@@ -457,16 +468,29 @@ class FrontendController extends Controller
                 array_push($dataPaketPenginapan, $tempPaketPenginapan);
             }
         }
+        // dd($dataPaketPenginapan);
+
+
+        //get paket penginapan setiap paket
+        // $dataPaketPenginapan = [];
+        // foreach ($dataIdPaktes as $id) {
+        //     $cekIdPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->first();
+        //     if ($cekIdPaketPenginapan != '') {
+        //         $tempPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
+        //         array_push($dataPaketPenginapan, $tempPaketPenginapan);
+        //     }
+        // }
 
         //get paket wahana setiap paket
-        $dataPaketWahana = [];
-        foreach ($dataIdPaktes as $id) {
-            $cekIdPaketWahana = tb_paketwahana::where('paket_id', $id)->first();
-            if ($cekIdPaketWahana != '') {
-                $tempPaketWahana = tb_paketwahana::where('paket_id', $id)->get();
-                array_push($dataPaketWahana, $tempPaketWahana);
-            }
-        }
+        // $dataPaketWahana = [];
+        // foreach ($dataIdPaktes as $id) {
+        //     $cekIdPaketWahana = tb_paketwahana::where('paket_id', $id)->first();
+        //     if ($cekIdPaketWahana != '') {
+        //         $tempPaketWahana = tb_paketwahana::where('paket_id', $id)->get();
+        //         array_push($dataPaketWahana, $tempPaketWahana);
+        //     }
+        // }
+
 
         // get random image for tb_tempat
         $arrGambar = [];
@@ -479,23 +503,18 @@ class FrontendController extends Controller
         }
 
         $dataInput = [];
-        // $harga = $request->jml_budget / ;
-        // $hari = $request->jml_hari;
-        // $desa = $request->desa;
-        // $jumlahOrang = $request->jml_orang;
         $dataInput['jml_orang'] = $jumlahOrang;
         $dataInput['jml_hari'] = $hari;
-        // $dataInput['harga'] = $hari;
-        // dd($dataInput);
 
         return view('FrontEnd.budgeting', [
             'paket' => $pakets,
             'budget' => $budget,
             'wisatas' => $dataPaketWisata,
             'penginapans' => $dataPaketPenginapan,
-            'wahanas' => $dataPaketWahana,
+            // 'wahanas' => $dataPaketWahana,
             'gambar' => $arrGambar,
-            'input' => $dataInput
+            'input' => $dataInput,
+            'kuliners' => $dataPaketKuliner
         ]);
     }
 

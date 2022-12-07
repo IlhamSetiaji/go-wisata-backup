@@ -18,6 +18,11 @@ class tb_paket extends Model
         return $this->belongsTo(Tempat::class);
     }
 
+    public function guide()
+    {
+        return $this->hasMany(Tour::class, 'id', 'tour_guide_id');
+    }
+
     public function kategori()
     {
         return $this->hasOne(tb_kategoriwisata::class, 'id', 'id_kategori');
