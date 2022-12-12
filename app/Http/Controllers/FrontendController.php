@@ -271,14 +271,23 @@ class FrontendController extends Controller
         $jumlahOrang = $request->jml_orang;
         $highestHarga = tb_paket::where('id_desa', '=', $desa)->where('status', 1)->max('harga');
 
+        if ($hari != null) {
+            $budget = $budget / $hari / $jumlahOrang;
+        } else {
+            $budget = $budget / $jumlahOrang;
+        }
+        // dd($request->kategori);
+
 
         //get data from database
-
         if (count($kategori) == 1) {
             if ($hari != null) {
                 if ($budget >= $highestHarga) {
 
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->where('kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->where('jml_hari', '<=', $hari)
                         // ->where('jml_orang', "<=", $jumlahOrang)
@@ -288,6 +297,9 @@ class FrontendController extends Controller
                         ->get();
                 } else {
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->where('kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->where('jml_hari', '>=', $hari)
                         // ->where('jml_orang', ">=", $jumlahOrang)
@@ -302,15 +314,20 @@ class FrontendController extends Controller
             } else {
                 if ($budget >= $highestHarga) {
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->where('kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->where('jml_hari', '>=', $hari)
                         // ->where('jml_orang', ">=", $jumlahOrang)
                         ->orderBy('harga', 'desc')
-
                         ->where('status', 1)
                         ->get();
                 } else {
                     $pakets = DB::table("tb_pakets")
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->where('kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
                         ->select("tb_pakets.*")
                         ->where('id_desa', '=', $desa)
@@ -326,50 +343,66 @@ class FrontendController extends Controller
                 if ($budget >= $highestHarga) {
 
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->orWhere('id_kategori', '=', $kategori[1])
                         // ->where('jml_hari', '<=', $hari)
                         // ->where('jml_orang', "<=", $jumlahOrang)
                         // ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
-                        ->where('status', 1)
+                        ->orderBy('tb_pakets.harga', 'desc')
+                        ->where('tb_pakets.status', 1)
+                        ->select("tb_pakets.*")
                         ->get();
                 } else {
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->orWhere('id_kategori', '=', $kategori[1])
                         // ->where('jml_hari', '>=', $hari)
                         // ->where('jml_orang', ">=", $jumlahOrang)
                         ->where("tb_pakets.harga", "<=", $budget)
-                        ->where('status', 1)
+                        ->where('tb_pakets.status', 1)
+                        ->select("tb_pakets.*")
                         // ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
+                        ->orderBy('tb_pakets.harga', 'desc')
                         // ->while()
-                        ->where('status', 1)
+                        // ->where('status', 1)
                         ->get();
                 }
             } else {
                 if ($budget >= $highestHarga) {
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
-                        ->orWhere('id_kategori', '=', $kategori[1])
-                        ->where('jml_hari', '>=', $hari)
+                        // ->orWhere('id_kategori', '=', $kategori[1])
+                        // ->where('jml_hari', '>=', $hari)
                         // ->where('jml_orang', ">=", $jumlahOrang)
                         // ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
-                        ->where('status', 1)
+                        ->orderBy('tb_pakets.harga', 'desc')
+                        ->where('tb_pakets.status', 1)
+                        ->select("tb_pakets.*")
                         ->get();
                 } else {
                     $pakets = DB::table("tb_pakets")
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->orWhere('id_kategori', '=', $kategori[1])
-                        ->select("tb_pakets.*")
-                        ->where('id_desa', '=', $desa)
+                        // ->select("tb_pakets.*")
                         // ->where('jml_orang', ">=", $jumlahOrang)
-                        ->where("tb_pakets.harga", "<=", $budget)
-                        ->where('status', 1)
                         // ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
+                        ->where('id_desa', '=', $desa)
+                        ->where("tb_pakets.harga", "<=", $budget)
+                        ->where('tb_pakets.status', 1)
+                        ->select("tb_pakets.*")
+                        ->orderBy('tb_pakets.harga', 'desc')
                         ->get();
                 }
             }
@@ -378,60 +411,79 @@ class FrontendController extends Controller
                 if ($budget >= $highestHarga) {
 
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[2])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->orWhere('id_kategori', '=', $kategori[1])
                         // ->orWhere('id_kategori', '=', $kategori[2])
                         // ->where('jml_hari', '<=', $hari)
                         // ->where('jml_orang', "<=", $jumlahOrang)
                         // ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
-                        ->where('status', 1)
+                        ->select("tb_pakets.*")
+                        ->where('tb_pakets.status', 1)
+                        ->orderBy('tb_pakets.harga', 'desc')
                         ->get();
                 } else {
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[2])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->orWhere('id_kategori', '=', $kategori[1])
                         // ->orWhere('id_kategori', '=', $kategori[2])
                         // ->where('jml_hari', '>=', $hari)
                         // ->where('jml_orang', ">=", $jumlahOrang)
                         ->where("tb_pakets.harga", "<=", $budget)
-                        ->where('status', 1)
+                        ->where('tb_pakets.status', 1)
+                        ->orderBy('tb_pakets.harga', 'desc')
+                        ->select("tb_pakets.*")
                         // ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
                         // ->while()
-                        ->where('status', 1)
+                        // ->where('status', 1)
                         ->get();
                 }
             } else {
                 if ($budget >= $highestHarga) {
                     $pakets = tb_paket::where('id_desa', '=', $desa)
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[2])
+                        ->select("tb_pakets.*")
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->orWhere('id_kategori', '=', $kategori[1])
                         // ->orWhere('id_kategori', '=', $kategori[2])
                         // ->where('jml_hari', '>=', $hari)
                         // ->where('jml_orang', ">=", $jumlahOrang)
-                        ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
-                        ->where('status', 1)
+                        // ->orderBy('id_kategori', 'asc')
+                        ->orderBy('tb_pakets.harga', 'desc')
+                        ->where('tb_pakets.status', 1)
                         ->get();
                 } else {
                     $pakets = DB::table("tb_pakets")
+                        // ->join('tb_paketkategoriwisatas', 'tb_pakets.id', 'tb_paketkategoriwisatas.paket_id')
+                        // ->where('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[0])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[1])
+                        // ->orWhere('tb_paketkategoriwisatas.kategori_wisata_id', '=', $kategori[2])
                         // ->where('id_kategori', '=', $kategori[0])
                         // ->orWhere('id_kategori', '=', $kategori[1])
                         // ->orWhere('id_kategori', '=', $kategori[2])
                         ->select("tb_pakets.*")
                         ->where('id_desa', '=', $desa)
-                        // ->where('jml_orang', ">=", $jumlahOrang)
                         ->where("tb_pakets.harga", "<=", $budget)
-                        ->where('status', 1)
+                        ->where('tb_pakets.status', 1)
+                        // ->where('jml_orang', ">=", $jumlahOrang)
                         // ->orderBy('id_kategori', 'asc')
-                        ->orderBy('harga', 'desc')
+                        ->orderBy('tb_pakets.harga', 'desc')
                         ->get();
                 }
             }
         }
 
-
+        // dd($pakets);
 
         //get id setiap paket
         $dataIdPaktes = [];
@@ -468,28 +520,6 @@ class FrontendController extends Controller
                 array_push($dataPaketPenginapan, $tempPaketPenginapan);
             }
         }
-        // dd($dataPaketPenginapan);
-
-
-        //get paket penginapan setiap paket
-        // $dataPaketPenginapan = [];
-        // foreach ($dataIdPaktes as $id) {
-        //     $cekIdPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->first();
-        //     if ($cekIdPaketPenginapan != '') {
-        //         $tempPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
-        //         array_push($dataPaketPenginapan, $tempPaketPenginapan);
-        //     }
-        // }
-
-        //get paket wahana setiap paket
-        // $dataPaketWahana = [];
-        // foreach ($dataIdPaktes as $id) {
-        //     $cekIdPaketWahana = tb_paketwahana::where('paket_id', $id)->first();
-        //     if ($cekIdPaketWahana != '') {
-        //         $tempPaketWahana = tb_paketwahana::where('paket_id', $id)->get();
-        //         array_push($dataPaketWahana, $tempPaketWahana);
-        //     }
-        // }
 
 
         // get random image for tb_tempat
