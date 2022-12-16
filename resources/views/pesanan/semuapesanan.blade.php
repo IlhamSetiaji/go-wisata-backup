@@ -498,7 +498,7 @@
                                                                 @endif
                                                             @endif
                                                         @endforeach
-                                                        @if ($transaksi->kategori == 'kuliner')
+                                                        @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
                                                         @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
                                                                 
                                                                     <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
