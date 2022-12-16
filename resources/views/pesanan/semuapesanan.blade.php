@@ -512,7 +512,7 @@
                                                                 @endif
                                                             @endif
                                                         @endforeach
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         @endforeach
