@@ -60,7 +60,7 @@
                                         </h2>
                                     </a>
                                     @php
-                                        $rating = App\Models\reviewVilla::where('villa_id', $cekkamar->id)
+                                        $rating = App\Models\ReviewVilla::where('villa_id', $cekkamar->id)
                                             ->whereNotNull('rating')
                                             ->avg('rating');
                                     @endphp
