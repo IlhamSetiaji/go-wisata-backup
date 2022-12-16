@@ -500,12 +500,12 @@
                                                         @endforeach
                                                         @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
                                                         @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
-                                                                
-                                                                    <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
-                                                                        <button
-                                                                            class="btn btn-outline-primary me-1 mb-1">{{ $reviewk->status == '0' ? 'Ulas' : 'Selesai Ulas' }}</button></a>
-                                                            
-                                                                
+                                                            @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
+                                                                <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
+                                                                    <button
+                                                                        class="btn btn-outline-primary me-1 mb-1">{{ $reviewk->status == '0' ? 'Ulas' : 'Selesai Ulas' }}</button></a>
+                                                               
+                                                            @endif
                                                         @endforeach
                                                         @endif
                                                     @endforeach
