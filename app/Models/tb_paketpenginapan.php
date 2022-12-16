@@ -19,4 +19,17 @@ class tb_paketpenginapan extends Model
     {
         return $this->belongsTo(Tempat::class);
     }
+
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class);
+    }
+    public function kamar()
+    {
+        return $this->belongsTo(Kamar::class);
+    }
+    public function villa()
+    {
+        return $this->belongsTo(Villa::class);
+    }
 }
