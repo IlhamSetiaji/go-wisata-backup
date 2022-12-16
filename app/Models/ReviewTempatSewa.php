@@ -13,10 +13,10 @@ class ReviewTempatSewa extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->hasMany(User::class, 'id', 'user_id');
     }
     public function tempatsewa()
     {
-        return $this->belongsTo(TempatSewa::class, 'tempatsewa_id');
+        return $this->belongsTo(Tempat::class, 'tempatsewa_id', 'id');
     }
 }
