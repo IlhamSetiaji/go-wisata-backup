@@ -458,7 +458,7 @@
                                                             @endif
                                                         @endforeach
                                                     @endif
-                                                    {{-- @foreach (App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->get() as $transaksi)
+                                                    @foreach (App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->get() as $transaksi)
                                                         @foreach (App\Models\ReviewEvent::where('kode_tiket', $tiket->kode)->get() as $review)
                                                             @if ($tiket->check == 'settlement' && $transaksi->kategori == 'events')
                                                                 @if ($review->status == '0')

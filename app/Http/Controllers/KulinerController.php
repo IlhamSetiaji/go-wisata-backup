@@ -28,7 +28,7 @@ class KulinerController extends Controller
         $paketKuliner = DataPaketKuliner::where('tempat_id', $tempat)->get();
         $dataPaketKuliner = [];
         foreach ($paketKuliner as $data) {
-            array_push($dataPaketKuliner, tb_paketkuliner::where('data_paket_kuliner_id', $data->id)->get()); 
+            array_push($dataPaketKuliner, tb_paketkuliner::where('data_paket_kuliner_id', $data->id)->get());
         }
 
         // dd($dataPaketKuliner[0]);
@@ -182,9 +182,11 @@ class KulinerController extends Controller
     //masuk ke web route (penilaian)
     public function rating($kode)
     {
+        // return dd($kode);
+        $kode = $kode;
         $data = Detail_transaksi::where('kode_tiket', $kode)->first();
-        return view('rating.ratingkuliner', compact('data'));
-        // $reviewkuliner = ReviewKuliner::where('kode_tiket', $kode)->first();
+        $reviewkuliner = ReviewKuliner::where('kode_tiket', $kode)->first();
+        return view('rating.ratingkuliner', compact('data', 'reviewkuliner', 'kode'));
 
         // if ($reviewkuliner) {
         //     return view('rating.ratingkuliner', compact('reviewkuliner'));
@@ -193,16 +195,29 @@ class KulinerController extends Controller
         // return view('rating.input', compact('data'));
         // return view('rating.ratingkuliner', compact('data'));
     }
+
     public function tambah_rating(Request $request, $kode)
     {
-        $reviewk = ReviewKuliner::find($kode);
-        $reviewk->kuliner_id = $request->kuliner_id;
-        $reviewk->rating = $request->rating;
-        $reviewk->comment = $request->comment;
-        $reviewk->kode_tiket = $request->kode_tiket;
-        $reviewk->user_id = $request->user_id;
-        $reviewk->status = '1';
-        $reviewk->save();
+        $reviewk = Detail_transaksi::where('kode_tiket', $kode)->first();
+        // $reviewk->kuliner_id = $request->kuliner_id;
+        // $reviewk->rating = $request->rating;
+        // $reviewk->comment = $request->comment;
+        // $reviewk->kode_tiket = $request->kode_tiket;
+        // $reviewk->user_id = $request->user_id;
+        // $reviewk->status = '1';
+        // $reviewk->save();
+
+        $rating = [
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+            'nama' => Auth::user()->name,
+            'kuliner_id' => $reviewk->id_produk,
+            'user_id' => Auth::user()->id,
+            'status' => 1
+        ];
+
+        ReviewKuliner::where('kode_tiket', $kode)->update($rating);
+
         Toastr::success('Berhasil menambahkan ulasan :)', 'Success');
         return redirect('/pesananku');
     }
