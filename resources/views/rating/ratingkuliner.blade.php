@@ -24,7 +24,7 @@
                         <div id="review_form">
                             <h5 class="modal-title">Ulasan Anda</h5>
                             <div id="respond" class="comment-respond">
-                                <form action="" method="POST" id="commentform" class="comment-form">
+                                <form action="{{ route('create_ratingkuliner', [$kode]) }}" method="POST" id="commentform" class="comment-form">
                                     @method('PUT')
                                     @csrf
                                     <div class="comment-form-rating">

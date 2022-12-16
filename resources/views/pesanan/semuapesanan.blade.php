@@ -458,7 +458,7 @@
                                                             @endif
                                                         @endforeach
                                                     @endif
-                                                    {{-- @foreach (App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->get() as $transaksi)
+                                                    @foreach (App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->get() as $transaksi)
                                                         @foreach (App\Models\ReviewEvent::where('kode_tiket', $tiket->kode)->get() as $review)
                                                             @if ($tiket->check == 'settlement' && $transaksi->kategori == 'events')
                                                                 @if ($review->status == '0')
@@ -500,19 +500,19 @@
                                                         @endforeach
                                                         @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
                                                             @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
-                                                                @if ($reviewk->status == '0')
-                                                                    <a href="ratingkuliner/{{ $tiket->kode }}">
+                                                                
+                                                                    <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
                                                                         <button
-                                                                            class="btn btn-outline-primary me-1 mb-1">Ulas</button></a>
-                                                                @else
-                                                                    <a target="blank"
+                                                                            class="btn btn-outline-primary me-1 mb-1">{{ $reviewk->status == '0' ? 'Ulas' : 'Selesai Ulas' }}</button></a>
+                                                               
+                                                                    {{-- <a target="blank"
                                                                         href="/explore-penyewaan-tempat-detail/{{ $reviewts->tempatsewa->id }}"><button
                                                                             class="btn btn-outline-success me-1 mb-1">Selesai
-                                                                            Ulas</button></a>
-                                                                @endif
+                                                                            Ulas</button></a> --}}
+                                                                
                                                             @endif
                                                         @endforeach
-                                                    @endforeach --}}
+                                                    @endforeach
                                                 </td>
                                             </tr>
                                         @endforeach

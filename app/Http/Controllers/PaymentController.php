@@ -709,7 +709,7 @@ class PaymentController extends Controller
     public function pesananku()
     {
         if (Auth::user()->status == '1') {
-            $tiket = Tiket::where('user_id', Auth::user()->id)->orderby('id', 'desc')->get();
+            $tiket = Tiket::where('user_id', Auth::user()->id)->orderby('status', 'desc')->get();
             return view('pesanan.semuapesanan', compact('tiket'));
         }
         return view('error');
