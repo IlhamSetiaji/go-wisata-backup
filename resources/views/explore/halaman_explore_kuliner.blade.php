@@ -34,38 +34,47 @@
                     @if (count($tempat) > 0)
                         @foreach ($tempat as $key => $tempat)
                             <!--==================== DISCOVER 1 ====================-->
-                            {{--  <div class="card mx-2">
+                            <div class="card" style="width: 20rem;">
                                 @if ($tempat->image == null)
                                     Gambar Tidak Tersedia
                                 @else
                                     <img src="{{ asset('images') }}/{{ $tempat->image }}" alt="Responsive image"
                                         class="">
                                 @endif
-                                <div class="discover__data">
-                                    <h2 class="discover__title">{{ $tempat->name }}</h2>
+                                <div class="makan__content">
+                                    <span class="makan__rating">
+                                        <i class="ri-star-line makan__rating-icon"></i>
+                                    </span>
+                                    <div class="discover__data">
+                                        <h2 class="discover__title">{{ $tempat->name }}</h2>
+                                    </div>
                                 </div>
                                 <a href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}">
                                     <button class="button button--flex place__button">
                                         <i class="ri-arrow-right-line"></i>
                                     </button>
                                 </a>
-                            </div>  --}}
-                            <div class="card" style="width: 20rem;">
+                            </div>
+                            {{--  <div class="card" style="width: 20rem;">
                                 @if ($tempat->image == null)
                                     Gambar Tidak Tersedia
                                 @else
                                     <img src="{{ asset('images') }}/{{ $tempat->image }}" alt=""
                                         class="card-img-top">
                                 @endif
+                                
                                 <div class="card-body">
                                     <h5 class="card-title" style="font-weight:bold">{{ $tempat->name }}</h5>
+                                    <span class="place__rating">
+                                        <i class="ri-star-line place__rating-icon"></i>
+                                    </span>
                                     <a target="_blank" href="{{ url('./' . $tempat->kategori . '/' . $tempat->slug) }}"">
                                         <button class="button button--flex makan__button">
                                             <i class="ri-arrow-right-line"></i>
                                         </button>
                                     </a>
                                 </div>
-                            </div>
+                            </div>  --}}
                         @endforeach
                     @else
                         Sedang Liburan

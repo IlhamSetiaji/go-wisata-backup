@@ -1,51 +1,52 @@
 <?php
 
-use RealRashid\SweetAlert\Facades\Alert;
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PelangganController;
-use App\Http\Controllers\TempatController;
-use App\Http\Controllers\WisataController;
-use App\Http\Controllers\FrontendController;
-use App\Http\Controllers\TiketController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\CampingController;
-use App\Http\Controllers\WahanaController;
-use App\Http\Controllers\KulinerController;
-use App\Http\Controllers\ATWController;
-use App\Http\Controllers\PesananController;
-use App\Http\Controllers\DanaController;
-use App\Http\Controllers\DanaKController;
-use App\Http\Controllers\KamarController;
-use App\Http\Controllers\HotelController;
-use App\Http\Controllers\DanaPController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ATFController;
-use App\Http\Controllers\TodayController;
-use App\Http\Controllers\JadwalKamarController;
-use App\Http\Controllers\JadwalCampController;
-use App\Http\Controllers\RekapWController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\KegiatanController;
-use App\Http\Controllers\DesaController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\VillaController;
-use App\Http\Controllers\BookingEventController;
-
-use App\Http\Controllers\BookingVillaController;
-use App\Http\Controllers\TempatSewaController;
-use Illuminate\Support\Facades\Auth;
-
-use App\Http\Controllers\BookingTempatSewaController;
-use App\Http\Controllers\BudgetingController;
-use App\Http\Controllers\LoginAdminController;
-use App\Http\Controllers\TbPaketController;
-use App\Http\Controllers\TbPaketkulinerController;
-use App\Http\Controllers\TopUpController;
 use App\Http\Middleware\Kuliner;
+
 use Illuminate\Auth\Events\Login;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ATFController;
+use App\Http\Controllers\ATWController;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\DanaController;
+use App\Http\Controllers\DesaController;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DanaKController;
+use App\Http\Controllers\DanaPController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\HotelController;
+use App\Http\Controllers\KamarController;
+use App\Http\Controllers\TiketController;
+use App\Http\Controllers\TodayController;
+use App\Http\Controllers\TopUpController;
+use App\Http\Controllers\VillaController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\RekapWController;
+use App\Http\Controllers\TempatController;
+use App\Http\Controllers\WahanaController;
+use App\Http\Controllers\WisataController;
+use App\Http\Controllers\CampingController;
+use App\Http\Controllers\KulinerController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PesananController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SettingController;
+
+use App\Http\Controllers\TbPaketController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\KegiatanController;
+
+use App\Http\Controllers\BudgetingController;
+use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\JadwalCampController;
+use App\Http\Controllers\LoginAdminController;
+use App\Http\Controllers\TempatSewaController;
+use App\Http\Controllers\JadwalKamarController;
+use App\Http\Controllers\BookingEventController;
+use App\Http\Controllers\BookingVillaController;
+use App\Http\Controllers\TbPaketkulinerController;
+use App\Http\Controllers\BookingTempatSewaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -488,10 +489,12 @@ Route::group([
     Route::get('/reviewtempatsewa', [TempatSewaController::class, 'review_index']);
     Route::get('/reviewtempatsewa/hapus/{id}', [TempatSewaController::class, 'review_delete']);
     //review kuliner
-    Route::get('/reviewkuliner', [KulinerController::class, 'review_index']);
-    Route::get('/reviewkuliner/hapus/{id}', [KulinerController::class, 'review_delete']);
-    
-    
+    Route::get('/rating', [RatingController::class, 'rating'])->name('rating');
+    // Route::get('/reviewkuliner/hapus/{id}', [KulinerController::class, 'review_delete']);
+    // Route::get('/ratingkuliner/{kode}', [KulinerController::class, 'rating']);
+    // Route::post('/create_ratingkuliner/{id}', [KulinerController::class, 'tambah_rating']);
+    // Route::get('add-rating', [RatingController::class, 'add']);
+    Route::post('/review-store', [RatingController::class, 'reviewstore'])->name('review.store');
 });
 
 // BUDGETING

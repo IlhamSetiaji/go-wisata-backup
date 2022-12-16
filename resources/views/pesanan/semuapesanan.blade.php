@@ -500,19 +500,19 @@
                                                         @endforeach
                                                         @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
                                                             @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
-                                                                
-                                                                    <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
+                                                                @if ($reviewk->status == '0')
+                                                                    <a href="ratingkuliner/{{ $tiket->kode }}">
                                                                         <button
-                                                                            class="btn btn-outline-primary me-1 mb-1">{{ $reviewk->status == '0' ? 'Ulas' : 'Selesai Ulas' }}</button></a>
-                                                               
-                                                                    {{-- <a target="blank"
+                                                                            class="btn btn-outline-primary me-1 mb-1">Ulas</button></a>
+                                                                @else
+                                                                    <a target="blank"
                                                                         href="/explore-penyewaan-tempat-detail/{{ $reviewts->tempatsewa->id }}"><button
                                                                             class="btn btn-outline-success me-1 mb-1">Selesai
-                                                                            Ulas</button></a> --}}
-                                                                
+                                                                            Ulas</button></a>
+                                                                @endif
                                                             @endif
                                                         @endforeach
-                                                    @endforeach
+                                                    @endforeach --}}
                                                 </td>
                                             </tr>
                                         @endforeach
