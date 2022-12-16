@@ -121,7 +121,7 @@
                                 <ul>
                                     {{-- {{ dd($paket->guide) }} --}}
                                     @if ($paket->tour_guide_id != null)
-                                        <li>{{ $paket->guide[0]->name }} - {{ $paket->guide[0]->harga }}</li>
+                                        <li>{{ $paket->guide[0]->name }}</li>
                                     @else
                                     @endif
                                 </ul>
