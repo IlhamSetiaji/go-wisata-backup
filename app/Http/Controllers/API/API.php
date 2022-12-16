@@ -660,9 +660,7 @@ class API extends Controller
     public function listevent()
     {
         $listevent = new ListEvent();
-        $listevent = $listevent
-            ->where('status', '1')
-            ->get();
+        $listevent = $listevent->get();
         return response()->json($listevent);
     }
 
