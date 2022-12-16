@@ -51,12 +51,12 @@
                                         </thead>
                                         <tbody>
                                             @if (count($review) > 0)
-                                                @foreach ($review as $key => $r)
-                                                    <tr>
+                                            @foreach ($review as $key => $r)
+                                            <tr>
                                                         <td>{{ $key + 1 }}</td>
-                                                        <td>{{ $r->user->name }}</td>
+                                                        <td>{{ $r->nama }}</td>
                                                         <td>{{ $r->rating }}</td>
-                                                        <td>{{ $r->tempatsewa->nama }}</td>
+                                                        <td>{{ $r->tempatsewa->name }}</td>
                                                         <td>
                                                             <a data-bs-toggle="modal"
                                                                 data-bs-target="#detail{{ $r->id }}"> <i
