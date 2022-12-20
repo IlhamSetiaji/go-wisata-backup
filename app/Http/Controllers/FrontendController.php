@@ -1039,18 +1039,19 @@ class FrontendController extends Controller
     }
     function cart_booking(Request $request)
     {
-        $pe = session("penginapan");
+        // $pe = session("penginapan");
         $penginapan2 = session("penginapan");
-        foreach ($pe as $ct => $val) {
-            $tempat_id = $val["tempat_id"];
-            $checkin = $val["checkin"];
-            $checkout = $val["checkout"];
-            $jumlah_orang = (int)$val["jumlah_orang"];
-            $durasi = $val["durasi"];
-        }
+        // foreach ($pe as $ct => $val) {
+        //     $tempat_id = $val["tempat_id"];
+        //     $checkin = $val["checkin"];
+        //     $checkout = $val["checkout"];
+        //     $jumlah_orang = (int)$val["jumlah_orang"];
+        //     $durasi = $val["durasi"];
+        // }
+        // dd($penginapan2);
 
 
-        return view("cart.penginapan", compact('penginapan2', 'tempat_id', 'checkin', 'checkout', 'jumlah_orang', 'durasi'));
+        return view("cart.penginapan", compact('penginapan2'));
     }
     function cart_tambah_booking(Request $request, $kode)
     {
