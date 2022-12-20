@@ -88,10 +88,13 @@ class FrontendController extends Controller
     public function explore()
     {
         $setting =  Setting::first();
+        $jenis_wisata = tb_kategoriwisata::get();
+        $desa  = Tempat::where('kategori', 'desa')->orderby('id', 'ASC')->where('status', '1')->get();
         return view('explore/halaman_explore', [
             "title" => "Explore",
-            "setting" => $setting
-
+            "setting" => $setting,
+            "desas" => $desa,
+            'ctg_wisata' => $jenis_wisata
         ]);
     }
     public function explore_event(Request $request)
