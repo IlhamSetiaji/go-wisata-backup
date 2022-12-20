@@ -147,8 +147,8 @@
                     @foreach ($makanan as $key => $whn)
                         <!--==================== KULINER 1 ====================-->
                         <div class="makan__card">
-                            <a href="{{ route('rating') }}"><img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image"
-                                class="img-thumbnail"></a>
+                            <img src="{{ asset('images') }}/{{ $whn->image }}" alt="Responsive image"
+                                class="img-thumbnail">
                             <div class="makan__data">
 
                                 <h3 class="makan__title">{{ $whn->name }}</h3>
