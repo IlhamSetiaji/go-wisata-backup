@@ -522,7 +522,7 @@
                         <video id="video-file" controls autoplay muted>
 
                             {{-- <source src="https://www.youtube.com/watch?v=zJNIFyVAmQw" type="video/mp4"> --}}
-                            <source src="{{ asset('videos') . '/' . $tempat2->video }}" type="video/mp4">
+                            <source src="{{ asset('videos') . '/' . $tempat->video }}" type="video/mp4">
                             {{-- <source src="{{ asset('./vendor/depan/assets/video/video.mp4') }}" type="video/mp4"> --}}
                         </video>
 
