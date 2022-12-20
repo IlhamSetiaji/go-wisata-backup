@@ -59,14 +59,16 @@
                 <table class="table table-hover" id="cart">
                     <thead>
                         <tr>
+                            @if ($des->kategori == 'kuliner')
+                            <th scope="col">Nama</th>
+                            <th scope="col">Jumlah</th>
+                            <th scope="col">Harga</th>
+                            @else
                             <th></th>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Durasi</th>
-
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -377,27 +379,24 @@
 
                 </tr>
             @elseif($des->kategori == 'kuliner')
+               
+                @foreach ($desc as $item)
                 <tr>
-                    <td></td>
-                    <td>
-                        {{ $no++ }}
-                    </td>
                     <td>
                         <?php $tgl_a = date('d F Y', strtotime($des->tanggal_a)); ?>
-                        {{ $des->name }} x
-                        {{ $des->jumlah }}. Untuk tanggal
-                        {{ $tgl_a }}
-
+                        {{ $item->name }}
+                        {{-- {{ $tgl_a }} --}}
                     </td>
-                    <td>
-                        1
-
-                    </td>
+                    
+                    <td>{{ $item->jumlah }}</td>
+                    <td>{{ $item->harga }}</td>
 
                     {{-- <td>
                                         Rp. {{ number_format($des->harga) }}
                                     </td> --}}
                 </tr>
+                @endforeach
+                
             @elseif($des->kategori == 'tiket')
                 <?php
                 $tgl_a = date('d F Y', strtotime($des->tanggal_a));
@@ -485,7 +484,7 @@
                         {{--  <?php $tgl_a = date('d F Y', strtotime($des->tanggal_a)); ?>
                         {{ $des->name }}
                         <?php
-                        $kamar = App\Models\Kamar::where('kode_kamar', $des['kode_kamar'])->first();                        
+                        $kamar = App\Models\Kamar::where('kode_kamar', $des['kode_kamar'])->first();
                         ?>  --}}
 
                     </td>
@@ -499,7 +498,7 @@
                 @endif
 
                 <tr>
-                    <th colspan="3"> Grand Total </th>
+                    <th colspan="{{ $des->kategori == 'kuliner' ? 2 : 3 }}"> Grand Total </th>
                     <th> Rp. {{ number_format($tiket->harga) }}
                         @if ($tiket->type_bayar == 'Bayar Langsung')
                             (Bayar Langsung)
