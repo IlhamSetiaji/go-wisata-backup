@@ -62,80 +62,7 @@
                         <div class="card mt-5 col-md-6">
                             <div class="card-body">
                                 <div class="form-body">
-
-                                    <div class="row">
-                                        {{-- <br> --}}
-                                        <div class="col-md-4">
-                                            <label>Name</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <div class="position-relative">
-                                                    A/n {{ Auth::user()->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Tempat</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <div class="position-relative">
-                                                    <?php
-                                                    $tempat = App\Models\Tempat::where('id', $tempat_id)->first();
-                                                    ?>
-                                                    {{ $tempat->name }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Pemesanan</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <div class="position-relative">
-                                                    {{ $checkin }} sampai {{ $checkout }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Jumlah Orang</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <div class="position-relative">
-                                                    {{ $jumlah_orang }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-md-4">
-                                            <label>Durasi Pemesanan</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group">
-                                                <div class="position-relative">
-                                                    {{ $durasi }}
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-
-
-
-
-
-                                        <div class="col-mb-4">
-                                            <br>
-                                        </div>
-
-                                    </div>
-
-
+                                    <p>Tidak ada apapun dikeranjang.. mari pesan :)</p>
                                 </div>
                             </div>
                         </div>
@@ -168,6 +95,8 @@
                         <div class="form-body">
                             <div class="row">
                                 {{-- <br> --}}
+                                @foreach ($penginapan2 as $key => $penginapan)
+                                    {{-- {{ dd($penginapan) }} --}}
                                 <div class="col-md-4">
                                     <label>Name</label>
                                 </div>
@@ -185,7 +114,7 @@
                                     <div class="form-group">
                                         <div class="position-relative">
                                             <?php
-                                            $tempat = App\Models\Tempat::where('id', $tempat_id)->first();
+                                            $tempat = App\Models\Tempat::where('id', $penginapan['tempat_id'])->first();
                                             ?>
                                             {{ $tempat->name }}
                                         </div>
@@ -197,7 +126,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <div class="position-relative">
-                                            {{ $checkin }} sampai {{ $checkout }}
+                                            {{ $penginapan['checkin'] }} sampai {{ $penginapan['checkout'] }}
                                         </div>
                                     </div>
                                 </div>
@@ -207,7 +136,7 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <div class="position-relative">
-                                            {{ $jumlah_orang }} Guest
+                                            {{ $penginapan['jumlah_orang'] }} Guest
                                         </div>
                                     </div>
                                 </div>
@@ -219,13 +148,14 @@
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <div class="position-relative">
-                                            {{ $durasi }} Hari
+                                            {{ $penginapan['durasi'] }} Hari
                                         </div>
                                     </div>
                                 </div>
-
-
+                                
+                                
                             </div>
+                            @endforeach
 
 
 
@@ -274,7 +204,7 @@
 
                                                     <td>
                                                         <?php
-                                                        $subtotal = $durasi * $kamar->harga;
+                                                        $subtotal = $penginapan['durasi'] * $kamar->harga;
                                                         ?>
                                                         Rp. {{ number_format($subtotal) }}
                                                     </td>
@@ -301,16 +231,18 @@
                                             <div class="form-group">
                                                 <input type="hidden" id="first-name-column" class="form-control"
                                                     name="total" value="{{ $grandtotal }}">
+                                                @foreach ($penginapan2 as $key => $penginapan)
                                                 <input type="hidden" id="first-name-column" class="form-control"
-                                                    name="durasi" value="{{ $durasi }}">
+                                                name="durasi" value="{{ $penginapan['durasi'] }}">
                                                 <input type="hidden" id="first-name-column" class="form-control"
-                                                    name="tempat_id" value="{{ $tempat_id }}">
+                                                name="tempat_id" value="{{ $penginapan['tempat_id'] }}">
                                                 <input type="hidden" id="first-name-column" class="form-control"
-                                                    name="jumlah_orang" value="{{ $jumlah_orang }}">
+                                                name="jumlah_orang" value="{{ $penginapan['jumlah_orang'] }}">
                                                 <input type="hidden" id="first-name-column" class="form-control"
-                                                    name="checkin" value="{{ $checkin }}">
+                                                name="checkin" value="{{ $penginapan['checkin'] }}">
                                                 <input type="hidden" id="first-name-column" class="form-control"
-                                                    name="checkout" value="{{ $checkout }}">
+                                                name="checkout" value="{{ $penginapan['checkout'] }}">
+                                                @endforeach
                                                 <input type="text" id="first-name-column" class="form-control"
                                                     name="nik" required placeholder="masukan nomor NIK">
                                             </div>

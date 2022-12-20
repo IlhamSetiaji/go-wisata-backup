@@ -60,7 +60,7 @@
                                         </h2>
                                     </a>
                                     @php
-                                        $rating = App\Models\reviewVilla::where('villa_id', $cekkamar->id)
+                                        $rating = App\Models\ReviewVilla::where('villa_id', $cekkamar->id)
                                             ->whereNotNull('rating')
                                             ->avg('rating');
                                     @endphp
@@ -77,14 +77,15 @@
                                             href="/explore-penginapan-detail/{{ $cekkamar->id }}" target="_blank">read
                                             more...</a>
                                     </p>
+                                    <a href="/explore-penginapan/booking/{{ $checkin }}/{{ $checkout }}/{{ $cekkamar->id }}"
+                                        class="button" align="center">Booking</a>
                                 </div>
                                 <div class="about__img">
                                     <div class="about__img-overlay">
                                         <img src="{{ asset('images') }}/{{ $cekkamar->foto }}" alt=""
                                             style="width:300px;height:190px;" class="about__img-two">
 
-                                        <a href="/explore-penginapan/booking/{{ $checkin }}/{{ $checkout }}/{{ $cekkamar->id }}"
-                                            class="button" align="center">Booking</a>
+                                        
                                     </div>
                                 </div>
                             </div>

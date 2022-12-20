@@ -180,6 +180,10 @@ Route::group([
     Route::post('/create_ratingtempatsewa/{id}', [TempatSewaController::class, 'tambah_rating']);
     Route::get('/explore-penyewaan-tempat-detail/komentartempatsewa/delete/{id}', [TempatSewaController::class, 'delete_rating']);
     Route::post('/komentartempatsewa/update/{id}', [TempatSewaController::class, 'update_rating']);
+
+    //rating kuliner
+    Route::get('ratingkuliner/{kode_tiket}', [KulinerController::class, 'rating'])->name('ratingkuliner');
+    Route::put('/create_ratingkuliner/{id}', [KulinerController::class, 'tambah_rating'])->name('create_ratingkuliner');
 });
 
 
@@ -196,6 +200,7 @@ Route::group([
 
     Route::get('/adana', [DanaController::class, 'acair'])->name('admin.dana');
     Route::get('/tempat/check_slug', [TempatController::class, 'checkSlug'])->name('tempat.checkSlug');
+
 
     Route::get('/status/update/{id}', [AdminController::class, 'toggleStatus'])->name('update.status.admin');
     Route::get('/status/update2/{id}', [PelangganController::class, 'toggleStatus'])->name('update.status.pelanggan');
@@ -266,7 +271,9 @@ Route::group([
     Route::post('/admin/stored', [AdminController::class, 'stored'])->name('admin.stored');
     Route::post('/tempat/stored', [TempatController::class, 'stored'])->name('tempat.stored');
 
-    // Route::patch('/update/data/tempatd/{id}', [ATFController::class, 'updatedesa'])->name('update.data.desa');
+    Route::delete('/admin/delete/{id}', [AdminController::class, 'adminDesaDestroy'])->name('admindesa.destroy');
+
+    Route::get('/status/update/{id}', [AdminController::class, 'toggleStatus'])->name('update.status.admin.desa');
     Route::get('/update/tempat/desa/{id}', [DesaController::class, 'toggleStatus'])->name('update.status.desa');
     Route::get('/status/updated/{id}', [TempatController::class, 'toggleStatus'])->name('update.status.tempatd');
 
@@ -286,10 +293,23 @@ Route::group([
     Route::post('/tourd/create', [AdminController::class, 'tourCreate'])->name('tourd.create');
     Route::put('/tourd/{id}', [AdminController::class, 'tourUpdate'])->name('tourd.update');
     Route::get('/tourd/{id}/edit', [AdminController::class, 'tourEdit'])->name('tourd.edit');
-    Route::post('/tourd/delete/{id}', [AdminController::class, 'tourDestroy'])->name('tourd.destroy');
+    // Route::post('/tourd/delete/{id}', [AdminController::class, 'tourDestroy'])->name('tourd.destroy');
     Route::post('/tourd/stored', [AdminController::class, 'tourStored'])->name('tourd.stored');
+    Route::post('/tourd/update-status', [AdminController::class, 'tourStatus'])->name('tourd.updatestatus');
 });
 
+
+Route::group([
+    'middleware' => ['auth', 'pelanggan', 'verified']
+], function () {
+    Route::get('/budgeting/detail/{id}', [FrontendController::class, 'detail_budget'])->name('front.budget.detail');
+    Route::get('/budgeting/pesan-paket', [FrontendController::class, 'pesanBudgeting'])->name('front.budget.pesan');
+    Route::get('/get-invoice/{kode}', [FrontendController::class, 'getInvoice']);
+});
+
+Route::group([
+    'middleware' => ['auth', 'desa', 'verified']
+], function () {
     Route::get('/budgeting/index', [BudgetingController::class, 'index'])->name('budget.index');
     Route::get('/budgeting-create', [BudgetingController::class, 'createPaket'])->name('budget.create');
     Route::get('/budgeting-create-detail', [BudgetingController::class, 'detailPaket'])->name('budget.detail.create');
@@ -297,10 +317,12 @@ Route::group([
     Route::get('/budgeting-edit/{id}', [BudgetingController::class, 'edit'])->name('budget.edit');
     Route::post('edit-status', [BudgetingController::class, 'editStatus'])->name('update-status');
     Route::post('/edit-paket', [BudgetingController::class, 'updatePaket'])->name('update-paket');
-    Route::get('/edit-detail-paket', [BudgetingController::class, 'detailUpdatePaket'])->name('update-datail-paket');
+    Route::post('budgeting-edit/{id}/detail', [BudgetingController::class, 'detailUpdatePaket']);
     Route::post('/get-paket', [BudgetingController::class, 'getPaket'])->name('get-data-paket');
     Route::post('/get-kamar', [BudgetingController::class, 'getKamar'])->name('get-data-kamar');
     Route::post('/get-menu', [BudgetingController::class, 'getMenu'])->name('get-data-menu');
+    Route::post('/update-status-transaksi', [BudgetingController::class, 'updateStatusTransaksi'])->name('update-status-transaksi');
+});
 
 Route::group([
     'middleware' => ['auth', 'kuliner', 'verified'],
@@ -465,6 +487,11 @@ Route::group([
     //review tempatsewa
     Route::get('/reviewtempatsewa', [TempatSewaController::class, 'review_index']);
     Route::get('/reviewtempatsewa/hapus/{id}', [TempatSewaController::class, 'review_delete']);
+    //review kuliner
+    Route::get('/rating', [RatingController::class, 'rating'])->name('rating');
+    Route::get('/reviewkuliner', [KulinerController::class, 'review_index']);
+    Route::get('/reviewkuliner/hapus/{id}', [KulinerController::class, 'review_delete']);
+    Route::post('/review-store', [RatingController::class, 'reviewstore'])->name('review.store');
 });
 
 // BUDGETING
@@ -486,8 +513,11 @@ Route::post('/full-calender/action', [App\Http\Controllers\FullCalendarControlle
 
 Route::get('/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showd');
 Route::post('/budgeting/{id}', [FrontendController::class, 'budgeting'])->name('front.budget');
+
+
 Route::post('/get-budgeting', [FrontendController::class, 'budgeting'])->name('front.get-budget');
 Route::get('/wisata/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showw');
+Route::get('/seni-budaya/{slug}', [FrontendController::class, 'tempatshow'])->name('front.seni');
 Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showh');
 Route::get('/kuliner/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showk');
 Route::get('/event & sewa tempat/{slug}', [FrontendController::class, 'tempatshow']);

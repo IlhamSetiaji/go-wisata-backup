@@ -39,7 +39,8 @@
         </h1>
 
         <!-- Project One -->
-        @if (count($paket) != '')
+        @if (count($paket) != null)
+            {{-- {{ dd($paket[2]->guide[0]->name) }} --}}
 
             @foreach ($paket as $paket)
                 <div class="row">
@@ -56,20 +57,25 @@
                         ?>
 
                         @if (count($cekPaket) == null)
-                            <img class="img-fluid rounded mb-3 mb-md-0"
-                                src="{{ 'https://source.unsplash.com/700x300/?' . $paket->kategori()->first()->nama_kategori }}"
-                                alt="">
+                            <img class="img-fluid rounded mb-3 mb-md-0" {{-- src="{{ 'https://source.unsplash.com/700x300/?' . $paket->kategori()->first()->nama_kategori }}" --}} alt="">
                         @else
                         @endif
                     </div>
                     <div class="col-md-5">
                         <h3>{{ $paket->nama_paket }}</h3>
-                        <p>Harga : Rp{{ $paket->harga }},00 </p>
-                        <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p>
+                        <p>Harga : Rp{{ number_format($paket->harga) }} </p>
+                        <p>Kategori:
+                            @foreach ($kategoris as $item)
+                                @foreach ($item as $kategori)
+                                    @if ($kategori->paket_id == $paket->id)
+                                        {{ $kategori->kategori->nama_kategori }}
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </p>
+                        {{-- <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p> --}}
                         <p>Detail:</p>
                         <ul>
-                            <li>Hari: {{ $paket->jml_hari }} </li>
-                            <li>Orang: {{ $paket->jml_orang }} </li>
                             <li>
                                 <h5>Wisata</h5>
                                 <ul>
@@ -89,7 +95,16 @@
                                     @foreach ($penginapans as $items)
                                         @foreach ($items as $penginapan)
                                             @if ($penginapan->paket_id == $paket->id)
-                                                <li>{{ $penginapan->tempat->name }}</li>
+                                                @if ($penginapan->hotel_id != null)
+                                                    {{-- {{ dd($penginapan->kamar) }} --}}
+                                                    <li>{{ $penginapan->hotel != null ? $penginapan->hotel->nama : '' }}
+                                                        - Kamar
+                                                        {{ $penginapan->hotel != null ? $penginapan->kamar->name : '' }}
+                                                    </li>
+                                                @else
+                                                    <li>{{ $penginapan->villa != null ? $penginapan->villa->nama : '' }}
+                                                    </li>
+                                                @endif
                                             @else
                                             @endif
                                         @endforeach
@@ -97,58 +112,52 @@
                                 </ul>
                             </li>
                             <li>
-                                
-                                <h5>Wahana</h5>
+                                <h5>Kuliner</h5>
                                 <ul>
-                                    @foreach ($wahanas as $items)
-                                        @foreach ($items as $wahana)
-                                            @if ($wahana->paket_id == $paket->id)
-                                                <li>{{ $wahana->tempat->name }}</li>
-
-                                            @else
+                                    @if ($kuliners != null)
+                                        @foreach ($kuliners as $item)
+                                            @if ($item->paket_id == $paket->id)
+                                                <li> Paket Makanan {{ $item->dataPaketKuliner->nama_paket }} (Resto :
+                                                    {{ $item->dataPaketKuliner->tempat->name }}) </li>
                                             @endif
                                         @endforeach
-                                    @endforeach
+                                    @endif
+                                    <li></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h5>Tour Guide</h5>
+                                <ul>
+                                    {{-- {{ dd($paket->guide) }} --}}
+                                    @if ($paket->tour_guide_id != null)
+                                        <li>{{ $paket->guide[0]->name }}</li>
+                                    @else
+                                    @endif
                                 </ul>
                             </li>
                         </ul>
                         {{-- <p>Kamar : {{ $paket->id_kamar }} </p> --}}
-                        <form action="{{ url('/cart/tambah/budgeting/' . $paket->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ '/budgeting/detail/' . Crypt::encrypt($paket->id) }}" method="get"
+                            enctype="multipart/form-data">
                             @csrf
-                            <input type="text" value="{{ $paket->id }}" type="hidden" name="paket_id">
-    
+                            <input type="text" value="{{ $paket->id }}" type="hidden" name="paket_id" hidden>
+                            <input type="text" value="{{ $input['jml_hari'] }}" type="hidden" name="jml_orang"
+                                hidden>
+                            <input type="text" value="{{ $input['jml_orang'] }}" type="hidden" name="jml_hari"
+                                hidden>
+                            {{-- <input type="text" value="{{ $paket->id }}" type="hidden" name="biaya" hidden> --}}
+
                             <button class="btn btn-primary" type="submit">Pesan</button>
                         </form>
                     </div>
                 </div>
                 <hr>
             @endforeach
+            @else
+            <div class="d-flex justify-content-center">
+                <h4>Paket Wisata tidak ditemukan</h4>
+            </div>
         @endif
-
-        <!-- Pagination -->
-        {{-- <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">1</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">2</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul> --}}
 
     </div>
     <!-- /.container -->

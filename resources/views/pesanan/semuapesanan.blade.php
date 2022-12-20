@@ -29,6 +29,7 @@
 
         <div class="container">
             <div class="row">
+
                 {{-- <div class="col-6 col-lg-3 col-md-6">
                 <div class="card">
                     <div class="card-body px-3 py-4-5">
@@ -225,12 +226,13 @@
                                                     {{ $key + 1 }}
                                                 </td>
                                                 <td>
-                                                    @if (App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->distinct()->count() > 1)
+                                                    {{-- @if (App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->distinct()->count() > 1)
                                                         {{ substr(App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->pluck('name')->first(),0,20) }}
                                                         , ...
                                                     @else
                                                         {{ substr(App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->pluck('name')->first(),0,20) }}
-                                                    @endif
+                                                    @endif --}}
+                                                    {{ $tiket->kode }}
                                                 </td>
                                                 <td>
                                                     {{ substr(App\Models\Detail_transaksi::where('kode_tiket', $tiket->kode)->pluck('kategori')->first(),0,15) }}
@@ -370,69 +372,65 @@
 
                                                                     </div>
                                                                 </div>
-                                                            @elseif ($tiket->status == 0)
-                                                                <a href="{{ url('bayar', [$tiket->id]) }}"><button
-                                                                        class="btn btn-primary"> Pilih
-                                                                        Pembayaran</button></a>
-                                                            @elseif($tiket->status == 1)
-                                                                @foreach (App\Models\Pay::where('kodeku', $tiket->kode)->get() as $status)
-                                                                    @if ($status->transaction_status == 'settlement')
-                                                                        <div class="btn-group dropdown me-1 mb-1">
-                                                                            <a
-                                                                                href="{{ url('bayar/status', [$tiket->kode]) }}"><button
-                                                                                    class="btn btn-outline-primary">Berhasil
-                                                                                    Dibayar</button></a>
-                                                                            <button type="button"
-                                                                                class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-haspopup="true" aria-expanded="false"
-                                                                                data-reference="parent">
-                                                                                <span class="sr-only"></span>
-                                                                            </button>
-                                                                            <div class="dropdown-menu">
-                                                                                <a class="dropdown-item"
-                                                                                    href="{{ url('/my-tiket/print/' . $tiket->kode) }}"
-                                                                                    target="_blank">Print</a>
-                                                                                <a class="dropdown-item"
-                                                                                    href="{{ url('/qrcode/' . $tiket->kode) }}"
-                                                                                    target="_blank">QrCode</a>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    @elseif ($status->transaction_status == 'pending')
-                                                                        <a
-                                                                            href="{{ url('bayar/status', [$tiket->kode]) }}"><button
-                                                                                class="btn btn-warning">Menunggu
-                                                                                Dibayar</button></a>
-
-                                                                        {{-- <a href="{{ route('payment.cancel',[$tiket->kode])}}"><button class="btn btn-secondary"> Cancel</button></a> --}}
-                                                                    @elseif ($status->transaction_status == null)
-
-                                                                    @elseif ($status->transaction_status == 'expire')
-                                                                        <a
-                                                                            href="{{ url('bayar/status', [$tiket->kode]) }}"><button
-                                                                                class="btn btn-danger"> &nbsp;
-                                                                                &nbsp;
-                                                                                &nbsp;
-                                                                                &nbsp; &nbsp;Expire &nbsp; &nbsp;
-                                                                                &nbsp;
-                                                                                &nbsp;</button></a>
-                                                                    @elseif ($status->transaction_status == 'cancel')
-                                                                        <a
-                                                                            href="{{ url('bayar/status', [$tiket->kode]) }}"><button
-                                                                                class="btn btn-danger"> &nbsp;
-                                                                                &nbsp;
-                                                                                &nbsp;Dibatalkan&nbsp; &nbsp;
-                                                                                &nbsp;
-                                                                            </button></a>
-                                                                    @endif
-                                                                @endforeach
                                                             @endif
                                                         @endif
                                                     @endforeach
+                                                    @if ($tiket->status == 0)
+                                                        <a href="{{ url('bayar', [$tiket->id]) }}"><button
+                                                                class="btn btn-primary"> Pilih
+                                                                Pembayaran</button></a>
+                                                    @elseif($tiket->status == 1)
+                                                        @foreach (App\Models\Pay::where('kodeku', $tiket->kode)->get() as $status)
+                                                            @if ($status->transaction_status == 'settlement')
+                                                                <div class="btn-group dropdown me-1 mb-1">
+                                                                    <a href="{{ url('bayar/status', [$tiket->kode]) }}"><button
+                                                                            class="btn btn-outline-primary">Berhasil
+                                                                            Dibayar</button></a>
+                                                                    <button type="button"
+                                                                        class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                                                        data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                        aria-expanded="false" data-reference="parent">
+                                                                        <span class="sr-only"></span>
+                                                                    </button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"
+                                                                            href="{{ url('/my-tiket/print/' . $tiket->kode) }}"
+                                                                            target="_blank">Print</a>
+                                                                        <a class="dropdown-item"
+                                                                            href="{{ url('/qrcode/' . $tiket->kode) }}"
+                                                                            target="_blank">QrCode</a>
+
+                                                                    </div>
+                                                                </div>
+                                                            @elseif ($status->transaction_status == 'pending')
+                                                                <a href="{{ url('bayar/status', [$tiket->kode]) }}"><button
+                                                                        class="btn btn-warning">Menunggu
+                                                                        Dibayar</button></a>
+
+                                                                {{-- <a href="{{ route('payment.cancel',[$tiket->kode])}}"><button class="btn btn-secondary"> Cancel</button></a> --}}
+                                                            @elseif ($status->transaction_status == null)
+
+                                                            @elseif ($status->transaction_status == 'expire')
+                                                                <a href="{{ url('bayar/status', [$tiket->kode]) }}"><button
+                                                                        class="btn btn-danger"> &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp; &nbsp;Expire &nbsp; &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;</button></a>
+                                                            @elseif ($status->transaction_status == 'cancel')
+                                                                <a href="{{ url('bayar/status', [$tiket->kode]) }}"><button
+                                                                        class="btn btn-danger"> &nbsp;
+                                                                        &nbsp;
+                                                                        &nbsp;Dibatalkan&nbsp; &nbsp;
+                                                                        &nbsp;
+                                                                    </button></a>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
                                                 </td>
                                                 <td>
-                                                    @if ($tiket->status == 0 && $tiket->type_bayar == null)
+                                                    @if ($tiket->status == 0)
                                                         <form class="forms-sample"
                                                             action="{{ route('transaksi.batal', [$tiket->id]) }}"
                                                             method="post">
@@ -499,6 +497,15 @@
                                                             @endif
                                                         @endforeach
                                                     @endforeach
+                                                    @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
+                                                        @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
+                                                            @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
+                                                                <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
+                                                                    <button
+                                                                        class="btn btn-outline-primary me-1 mb-1">{{ $reviewk->status == '0' ? 'Ulas' : 'Selesai Ulas' }}</button></a>
+                                                            @endif
+                                                        @endforeach
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

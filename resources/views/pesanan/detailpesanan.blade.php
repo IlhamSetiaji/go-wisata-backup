@@ -59,14 +59,16 @@
                 <table class="table table-hover" id="cart">
                     <thead>
                         <tr>
+                            @if ($des->kategori == 'kuliner')
+                            <th scope="col">Nama</th>
+                            <th scope="col">Jumlah</th>
+                            <th scope="col">Harga</th>
+                            @else
                             <th></th>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Durasi</th>
-
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -153,50 +155,49 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label>Tempat</label>
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="form-group">
-                                        <div class="position-relative">
-                                            <?php
-                                            $kegi = App\Models\BookingVilla::where('kode_booking', $des->booking_id)->first();
-                                            ?>
-                                            {{ $kegi->nama_tempat }}</li>
+                                    <div class="col-md-4">
+                                        <label>Tempat</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <div class="position-relative">
+                                                <?php
+                                                $kegi = App\Models\BookingVilla::where('kode_booking', $des->booking_id)->first();
+                                                ?>
+                                                {{ $kegi->nama_tempat }}</li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                    $kegi = App\Models\BookingVilla::where('kode_booking', $des->booking_id)->first();
+                                    ?>
+                                    <?php
+                                    $tgl_a = date('d F Y', strtotime($kegi->checkin));
+                                    $tgl_b = date('d F Y', strtotime($kegi->checkout));
+                                    ?>
+                                    <div class="col-md-4">
+                                        <label>Check in</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <div class="position-relative">
+                                                {{ $tgl_a }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Check Out</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <div class="position-relative">
+                                                {{ $tgl_b }}
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <?php
-                            $kegi = App\Models\BookingVilla::where('kode_booking', $des->booking_id)->first();
-                            ?>
-                            <?php
-                            $tgl_a = date('d F Y', strtotime($kegi->checkin));
-                            $tgl_b = date('d F Y', strtotime($kegi->checkout));
-                            ?>
-                            <div class="col-md-4">
-                                <label>Check in</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class="position-relative">
-                                        {{ $tgl_a }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Check Out</label>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group">
-                                    <div class="position-relative">
-                                        {{ $tgl_b }}
-
-                                    </div>
-                                </div>
-                            </div>
-
             </div>
             <tr>
                 <td></td>
@@ -307,41 +308,41 @@
                                 A/n {{ Auth::user()->name }}
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label>Harga Tiket</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                    $kegi = App\Models\BookingEvent::where('kode_booking', $des->booking_id)->first();
-                                    $harga = $kegi->biaya / $kegi->jml_orang;
-                                    ?>
-                                    Rp.
-                                    {{ number_format($harga) }}
-                                    / orang
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Harga Tiket</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="position-relative">
+                                <?php
+                                $kegi = App\Models\BookingEvent::where('kode_booking', $des->booking_id)->first();
+                                $harga = $kegi->biaya / $kegi->jml_orang;
+                                ?>
+                                Rp.
+                                {{ number_format($harga) }}
+                                / orang
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label>Tanggal Event</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="form-group">
-                                <div class="position-relative">
-                                    <?php
-                                    $kegi = App\Models\BookingEvent::where('kode_booking', $des->booking_id)->first();
-                                    $id_event = $kegi->event_id;
-                                    $event = App\Models\Event::where('id', $id_event)->first();
-                                    ?>
-                                    <?php
-                                    $tgl_a = date('d F Y', strtotime($event->tgl_buka));
-                                    $tgl_b = date('d F Y', strtotime($event->tgl_tutup));
-                                    ?>
-                                    {{ $tgl_a }} -
-                                    {{ $tgl_b }}
-                                    </li>
-                                </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Tanggal Event</label>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div class="position-relative">
+                                <?php
+                                $kegi = App\Models\BookingEvent::where('kode_booking', $des->booking_id)->first();
+                                $id_event = $kegi->event_id;
+                                $event = App\Models\Event::where('id', $id_event)->first();
+                                ?>
+                                <?php
+                                $tgl_a = date('d F Y', strtotime($event->tgl_buka));
+                                $tgl_b = date('d F Y', strtotime($event->tgl_tutup));
+                                ?>
+                                {{ $tgl_a }} -
+                                {{ $tgl_b }}
+                                </li>
                             </div>
                         </div>
                     </div>
@@ -378,27 +379,24 @@
 
                 </tr>
             @elseif($des->kategori == 'kuliner')
+               
+                @foreach ($desc as $item)
                 <tr>
-                    <td></td>
-                    <td>
-                        {{ $no++ }}
-                    </td>
                     <td>
                         <?php $tgl_a = date('d F Y', strtotime($des->tanggal_a)); ?>
-                        {{ $des->name }} x
-                        {{ $des->jumlah }}. Untuk tanggal
-                        {{ $tgl_a }}
-
+                        {{ $item->name }}
+                        {{-- {{ $tgl_a }} --}}
                     </td>
-                    <td>
-                        1
-
-                    </td>
+                    
+                    <td>{{ $item->jumlah }}</td>
+                    <td>{{ $item->harga }}</td>
 
                     {{-- <td>
                                         Rp. {{ number_format($des->harga) }}
                                     </td> --}}
                 </tr>
+                @endforeach
+                
             @elseif($des->kategori == 'tiket')
                 <?php
                 $tgl_a = date('d F Y', strtotime($des->tanggal_a));
@@ -481,13 +479,13 @@
                     </td>
                     <td>
                         @foreach ($desc as $key => $descc)
-                            {{-- {{ dd($descc) }} --}}
-                            {{-- {{ substr($descc->id_produk,0,20) }} , --}}
-                            @foreach (App\Models\Kamar::where('kode_kamar', $descc->id_produk)->get() as $kc)
-                                {{-- {{ dd($kc) }} --}}
-                                {{ $kc->name }},
-                            @endforeach
+                            {{ App\Models\Tempat::where('id', $des->tempat_id)->pluck('name')->first() }}
                         @endforeach
+                        {{--  <?php $tgl_a = date('d F Y', strtotime($des->tanggal_a)); ?>
+                        {{ $des->name }}
+                        <?php
+                        $kamar = App\Models\Kamar::where('kode_kamar', $des['kode_kamar'])->first();
+                        ?>  --}}
 
                     </td>
 
@@ -500,7 +498,7 @@
                 @endif
 
                 <tr>
-                    <th colspan="3"> Grand Total </th>
+                    <th colspan="{{ $des->kategori == 'kuliner' ? 2 : 3 }}"> Grand Total </th>
                     <th> Rp. {{ number_format($tiket->harga) }}
                         @if ($tiket->type_bayar == 'Bayar Langsung')
                             (Bayar Langsung)

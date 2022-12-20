@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataPaketKuliner;
+use App\Models\ReviewKuliner;
+use App\Models\Detail_transaksi;
 use Illuminate\Http\Request;
 use App\Models\Kuliner;
 use App\Models\tb_paketkuliner;
@@ -26,7 +28,7 @@ class KulinerController extends Controller
         $paketKuliner = DataPaketKuliner::where('tempat_id', $tempat)->get();
         $dataPaketKuliner = [];
         foreach ($paketKuliner as $data) {
-            array_push($dataPaketKuliner, tb_paketkuliner::where('data_paket_kuliner_id', $data->id)->get()); 
+            array_push($dataPaketKuliner, tb_paketkuliner::where('data_paket_kuliner_id', $data->id)->get());
         }
 
         // dd($dataPaketKuliner[0]);
@@ -161,6 +163,105 @@ class KulinerController extends Controller
         $sesii->status = !$sesii->status;
         $sesii->save();
         Toastr::info('Data Updated :)', 'Success');
+        return redirect()->back();
+    }
+    public function review_index()
+    {
+        $reviewk = ReviewKuliner::orderby('id', 'desc')->get();
+        return view('admin.kuliner.halaman_nilai_kuliner', [
+            'reviewk' => $reviewk
+        ]);
+    }
+    public function review_delete($id)
+    {
+        $reviewk = ReviewKuliner::find($id);
+        $reviewk->delete($reviewk);
+        Toastr::success(' Berhasil menghapus data:)', 'Success');
+        return redirect()->back();
+    }
+    //masuk ke web route (penilaian)
+    public function rating($kode)
+    {
+        // return dd($kode);
+        $kode = $kode;
+        $data = Detail_transaksi::where('kode_tiket', $kode)->first();
+        $reviewkuliner = ReviewKuliner::where('kode_tiket', $kode)->first();
+        return view('rating.ratingkuliner', compact('data', 'reviewkuliner', 'kode'));
+
+        // if ($reviewkuliner) {
+        //     return view('rating.ratingkuliner', compact('reviewkuliner'));
+        // }
+
+        // return view('rating.input', compact('data'));
+        // return view('rating.ratingkuliner', compact('data'));
+    }
+
+    public function tambah_rating(Request $request, $kode)
+    {
+        $reviewk = Detail_transaksi::where('kode_tiket', $kode)->first();
+        // $reviewk->kuliner_id = $request->kuliner_id;
+        // $reviewk->rating = $request->rating;
+        // $reviewk->comment = $request->comment;
+        // $reviewk->kode_tiket = $request->kode_tiket;
+        // $reviewk->user_id = $request->user_id;
+        // $reviewk->status = '1';
+        // $reviewk->save();
+
+        $rating = [
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+            'nama' => Auth::user()->name,
+            'kuliner_id' => $reviewk->id_produk,
+            'user_id' => Auth::user()->id,
+            'status' => 1
+        ];
+
+        ReviewKuliner::where('kode_tiket', $kode)->update($rating);
+
+        Toastr::success('Berhasil menambahkan ulasan :)', 'Success');
+        return redirect('/pesananku');
+    }
+    public function put_rating(Request $request, $kode)
+    {
+        $reviewk = ReviewKuliner::where('kode_tiket', $kode)->first();
+        $reviewk->update([
+            'rating' => $request->rating,
+            'comment' => $request->comment,
+        ]);
+        if ($reviewk) {
+            Toastr::success('Berhasil memperbarui ulasan :)', 'Success');
+            return redirect()->back();
+        } else {
+            Toastr::success('Gagal memperbarui ulasan :(', 'Fail');
+            return redirect()->back();
+        }
+    }
+    public function Backuptambah_rating(Request $request, $id)
+    {
+        $reviewk = ReviewKuliner::find($id);
+        $reviewk->penilaian = $request->penilaian;
+        $reviewk->comment = $request->comment;
+        $reviewk->kode_tiket = $request->kode_tiket;
+        $reviewk->user_id = $request->user_id;
+        $reviewk->status = '1';
+        Toastr::success('Berhasil menambahkan ulasan :)', 'Success');
+        $reviewk->save();
+        return redirect('/pesananku');
+    }
+    public function delete_rating($id)
+    {
+        $rating = ReviewKuliner::find($id);
+        $rating->delete($rating);
+        Toastr::success('Berhasil menghapus ulasan :)', 'Success');
+        return redirect()->back();
+    }
+    public function update_rating(Request $request, $id)
+    {
+        $reviewk = ReviewKuliner::find($id);
+        $reviewk->rating = $request->rating;
+        $reviewk->comment = $request->comment;
+        $reviewk->save();
+        Toastr::success('Berhasil update komentar :)', 'Success');
         return redirect()->back();
     }
 }

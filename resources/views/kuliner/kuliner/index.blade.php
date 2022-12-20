@@ -169,7 +169,7 @@
                                                                     <div class="col-md-8">
                                                                         <div class="form-group has-icon-left">
                                                                             <div class="position-relative">
-                                                                                <input type="text" class="form-control"
+                                                                                <input type="number" class="form-control"
                                                                                     id="harga" name="harga"
                                                                                     placeholder="harga"
                                                                                     value="{{ $kuliner->harga }}">

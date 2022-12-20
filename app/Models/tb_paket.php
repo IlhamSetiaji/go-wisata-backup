@@ -18,6 +18,11 @@ class tb_paket extends Model
         return $this->belongsTo(Tempat::class);
     }
 
+    public function guide()
+    {
+        return $this->hasMany(Tour::class, 'id', 'tour_guide_id');
+    }
+
     public function kategori()
     {
         return $this->hasOne(tb_kategoriwisata::class, 'id', 'id_kategori');
@@ -45,5 +50,17 @@ class tb_paket extends Model
     public function paketpenginapan()
     {
         return $this->hasMany(tb_paketpenginapan::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function bookingpaket()
+    {
+        return $this->hasMany(BookingPaket::class);
+    }
+    public function pesertapaket()
+    {
+        return $this->hasManyThrough(PesertaPaket::class, BookingPaket::class);
     }
 }

@@ -153,7 +153,7 @@
                             <div class="col-md-8">
                                 <div class="form-group has-icon-left">
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" id="harga" name="harga"
+                                        <input type="number" class="form-control" id="harga" name="harga"
                                             placeholder="harga"  value="{{ $wahana->harga }}"  >
                                         <div class="form-control-icon">
                                             <i class="fas fa-dollar-sign"></i>

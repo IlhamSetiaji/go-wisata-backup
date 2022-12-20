@@ -24,12 +24,7 @@
                 </div>
                 {{-- @php $kegi = App\Models\Event::where('status', 1)->count(); @endphp --}}
                 {{-- @if ($kegi > 0) --}}
-                <div
-                    style="
-                        position: absolute;
-                        top: 300px;
-                        left: 600px;
-                        ">
+                <div class="budget__view budget__mobile">
                     <?php
                     // $keg = App\Models\Event::where('status', 1)
                     //     ->orderby('id', 'DESC')
@@ -155,10 +150,10 @@
                             @if ($tempat->image == null)
                                 Gambar Tidak Tersedia
                             @else
-                                <img src="{{ asset('images') }}/{{ $tempat->image }}" alt="" class="discover__img">
+                                <img src="{{ asset('images') }}/{{ $tempat->image }}" alt="" class="card-img-top">
                             @endif
-                            <div class="discover__data">
-                                <h2 class="discover__title">{{ $tempat->name }}</h2>
+                            <div class="card-body">
+                                <h4 class="card-title">{{ $tempat->name }}</h4>
                             </div>
                             {{-- {{ dd($tempat) }} --}}
                             <a href="{{ url('./' . $tempat->slug) }}">
@@ -176,10 +171,9 @@
 
         {{-- <section class="discover section" id="discover">
             <h2 class="section__title">Destinasi Unggulan</h2>
-            <div class="card-group mx-5">
+            <div class="makan__container container grid">
 
                 @foreach ($unggulan as $key => $unggulan)
-                <div class="card mx-3">
                             <!--==================== DISCOVER 1 ====================-->
                             @if ($unggulan->image == null)
                                 Gambar Tidak Tersedia
@@ -188,7 +182,7 @@
                                     class="discover__img">
                             @endif
                             <div class="discover__data">
-                                <h2 class="discover__title">{{ $unggulan->name }}</h2>
+                                <h5 class="discover__title">{{ $unggulan->name }}</h5>
                             </div>
                             {{-- {{ dd($unggulan) }} --}}
         {{-- <a href="{{ url('./' . $unggulan->slug) }}">
@@ -202,37 +196,27 @@
         </section>  --}}
 
 
-        <section class="place section" id="place">
+        <section class="discover section" id="discover">
             <h2 class="section__title">Destinasi Unggulan</h2>
-            <div class="place__container container grid">
+            <div class="makan__container container grid">
                 {{-- <div class="row"> --}}
 
                 @foreach ($unggulan as $unggulan)
-                    {{-- <div class="col-lg-4 col-md-6 col-sm-12 mt-2"> --}}
                     <!--==================== PLACES CARD 1 ====================-->
-
-                    <div class="place__card">
-                        <img src="{{ asset('images') }}/{{ $unggulan->image }}" alt="" class="place__img">
-
-                        <div class="place__content">
-                            <span class="place__rating">
-                                <i class="ri-star-line place__rating-icon"></i>
-                                <!--<span class="place__rating-number">4,8</span>-->
-                            </span>
-
-                            <div class="place__data">
-                                <h3 class="place__title">{{ $unggulan->name }}</h3>
-                                {{-- <span class="place__subtitle">{{ $unggulan->kategori }}</span> --}}
-                                <span class="place__price">{{ $unggulan->kategori }}</span>
-                            </div>
+                    <div class="card" style="width: 20rem;">
+                        <img src="{{ asset('images') }}/{{ $unggulan->image }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-weight:bold">{{ $unggulan->name }}</h5>
+                            <h5 class="card-title">{{ $unggulan->kategori }}</h5>
+                            <a target="_blank"
+                                href="{{ url('./' . $unggulan->kategori . '/' . $unggulan->slug) }}">
+                                <button class="button button--flex makan__button">
+                                    <i class="ri-arrow-right-line"></i>
+                                </button>
+                            </a>
                         </div>
-                        <a href="{{ url('./' . $unggulan->kategori . '/' . $unggulan->slug) }}">
-                            <button class="button button--flex place__button">
-                                <i class="ri-arrow-right-line"></i>
-                            </button>
-                        </a>
-
-                    </div>
+                    </div>
                     {{-- </div> --}}
                 @endforeach
                 {{-- </div> --}}

@@ -29,10 +29,10 @@
             <section class="discover section" id="discover">
                 <h2 class="section__title">Temukan Tempat Wisata <br> Di Desa Wisata Paling Menarik</h2>
 
-                <div class="card-group">
+                <div class="card-group mx-5">
                     @if (count($tempat) > 0)
                         @foreach ($tempat as $key => $tempat)
-                        <div class="card" style="width: 20rem;">
+                        <div class="card mx-3">
                                 <!--==================== DISCOVER 1 ====================-->
                                 @if ($tempat->image == null)
                                     Gambar Tidak Tersedia

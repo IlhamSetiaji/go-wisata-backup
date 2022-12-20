@@ -191,14 +191,11 @@
                                                         <select class="form-select"  name="role_id">
 
                                                             <option selected value=''>Please select role</option>
-                                                            @foreach(App\Models\Role::where('name','!=','pelanggan')->where('name','!=','admin')->where('name','!=','desa')->get() as $role)
+                                                            @foreach($role as $role)
                                                                 <option value="{{$role->id}}"> Admin {{$role->name}}</option>
                                                             @endforeach
 
                                                         </select>
-                                                        {{-- <div class="form-control-icon">
-                                                            <i class="bi bi-exclude"></i>
-                                                        </div> --}}
                                                     </fieldset>
 
                                                 </div>

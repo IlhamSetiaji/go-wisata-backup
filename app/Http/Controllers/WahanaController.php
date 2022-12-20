@@ -7,6 +7,7 @@ use App\Models\Wahana;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tempat;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 
 class WahanaController extends Controller
 {
@@ -22,7 +23,12 @@ class WahanaController extends Controller
         // $wahana = Wahana::where('tempat_id','$tempat)->get();
         if (Auth::user()->role->name == 'wisata') {
 
-            $wahana  = Wahana::all();
+            // $wahana  = Wahana::all();
+            $wahana = DB::table('tb_wahana')->where('tb_wahana.tempat_id', Auth::user()->tempat_id)->get();
+
+            // dd($wahana);
+            // dd(Auth::user());
+
             // return $wahana;
             return view('wisata.wahana.index', compact('wahana'));
         }

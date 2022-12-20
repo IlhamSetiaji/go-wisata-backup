@@ -28,6 +28,7 @@ use Illuminate\Http\Request;
 use App\Models\Detail_booking;
 use App\Models\Detail_transaksi;
 use App\Models\Detail_camp;
+use App\Models\ReviewKuliner;
 use App\Models\tb_paket;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -593,11 +594,11 @@ class TiketController extends Controller
     }
 
     //CART BUDGETING
-    function cart_budgeting() {
+    function cart_budgeting()
+    {
         $budgeting = session("budgeting");
-        
+
         return view("cart.budgeting", compact('budgeting'))->with("budgeting", $budgeting);
-        
     }
 
     //ADD BUDGETING
@@ -1088,6 +1089,7 @@ class TiketController extends Controller
         // $tempatsesi = session("tempatsesi");
         switch ($request->input('action')) {
             case 'transfer':
+
                 foreach ($kuliner as $ct => $val) {
 
                     $kode_tiket = $checkout_kode;
@@ -1097,20 +1099,20 @@ class TiketController extends Controller
                     $durasi = $val["durasi"];
                     $user_id = Auth::user()->id;
                     $tanggal_a = $request->date;
-                    // dd($tanggal_a);
                     $tanggal_b = $val["tanggal_b"];
                     $jumlah = $val["jumlah"];
                     $tempat_id = $val["tempat_id"];
                     $catatan = $request->catatan;
                     $type_bayar = "Transfer";
                     $status = null;
-                    // dd($tempa_id);
                     $subtotal = $val["harga_produk"] * $val["jumlah"] * $val["durasi"];
                     $grandtotal += $subtotal;
+                    
+                    Detail_transaksi::tambah_detail_transaksi_kuliner($catatan, $name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar, $subtotal);
                 }
-                // dd($tempat);
-
-
+                
+                
+                
                 Tiket::create([
                     // 'token' => $token,
                     'kode' => $checkout_kode,
@@ -1123,8 +1125,10 @@ class TiketController extends Controller
                     'type_bayar' => $type_bayar,
                 ]);
 
-                Detail_transaksi::tambah_detail_transaksi_kuliner($catatan, $name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar);
 
+                $review = new ReviewKuliner();
+                $review->kode_tiket = $checkout_kode;
+                $review->save();
 
                 session()->forget("kuliner");
                 // return redirect("pesananku");

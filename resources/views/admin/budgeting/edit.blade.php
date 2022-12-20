@@ -52,7 +52,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form action="{{ route('update-datail-paket') }}" id="form" method="GET"
+                                <form action="{{ '/budgeting-edit/'. $paket->id . '/detail' }}" id="form" method="POST"
                                     enctype="multipart/form-data" class="form form-horizontal">
                                     @csrf
                                     <div class="form-body">
@@ -136,6 +136,37 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
+                                                <label>Tour Guide</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div id="hotel">
+                                                    <div class="form-group">
+                                                        <div class="position-relative">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select forms-select" name="guide" disabled>
+                                                                    @if ($guide != null)
+                                                                    <option value="">Hapus Tour Guide</option>
+                                                                        @foreach ($dataGuide as $item)
+                                                                            @if ($guide == $item->id)
+                                                                            <option value="{{ $item->id }}" selected> {{ $item->name }} - {{ $item->harga }}</option>
+                                                                            
+                                                                            @else
+                                                                            <option value="{{ $item->id }}"> {{ $item->name }} - {{ $item->harga }}</option>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @else
+                                                                        @foreach ($dataGuide as $item)
+                                                                            <option value="">Pilih Tour Guide</option>
+                                                                        <option value="{{ $item->id }}"> {{ $item->name }} - {{ $item->harga }}</option>
+                                                                        @endforeach
+                                                                    @endif
+                                                                </select>
+                                                            </fieldset>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
                                                 <label>Wisata</label>
                                             </div>
                                             <div class="col-md-8" id="wisata">
@@ -149,13 +180,15 @@
                                                                         name="data_wisata[]" id="data-wisata" disabled>
                                                                         {{-- <span class="bi bi-trash"></span> --}}
                                                                         @foreach ($dataWisatas as $data)
+                                                                        <option value="">Hapus Wisata
+                                                                        </option>
                                                                             @if ($wisata->tempat->id == $data->id)
                                                                                 <option value="{{ $data->id }}"
-                                                                                    selected>{{ $data->name }}
+                                                                                    selected>{{ $data->name }} - {{ $data->htm }}
                                                                                 </option>
                                                                             @else
                                                                                 <option value="{{ $data->id }}">
-                                                                                    {{ $data->name }} </option>
+                                                                                    {{ $data->name }} - {{ $data->htm }} </option>
                                                                             @endif
                                                                         @endforeach
                                                                         <input type="text" name="id_paketWisata[]"
@@ -176,7 +209,7 @@
                                                                     </option>
                                                                     @foreach ($dataWisatas as $data)
                                                                         <option value="{{ $data->id }}">
-                                                                            {{ $data->name }}
+                                                                            {{ $data->name }} - {{ $data->htm }}
                                                                         </option>
                                                                     @endforeach
                                                                 </select>
@@ -185,61 +218,13 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="col-md-4">
-                                                <label>Wahana</label>
-                                            </div>
-                                            <div class="col-md-8" id="wahana">
-                                                @if (count($paketWahanas) != null)
-                                                    @foreach ($paketWahanas as $wahana)
-                                                        <div class="form-group">
-                                                            <div class="position-relative">
-                                                                <fieldset class="form-group">
-                                                                    <select class="form-select forms-select"
-                                                                        name="data_wahana[]" id='data-wahana' disabled>
-                                                                        <option value="">Please select data Wahana
-                                                                        </option>
-                                                                        @foreach ($dataWahanas as $data)
-                                                                            @if ($wahana->tempat->id == $data->id)
-                                                                                <option value="{{ $data->id }}"
-                                                                                    selected>
-                                                                                    {{ $data->name }}
-                                                                                </option>
-                                                                            @else
-                                                                                <option value="{{ $data->id }}">
-                                                                                    {{ $data->name }}
-                                                                                </option>
-                                                                            @endif
-                                                                        @endforeach
-                                                                        <input type="text" name="id_paketWahana[]"
-                                                                            value="{{ $wahana->id }}" id=""
-                                                                            hidden>
-                                                                    </select>
-                                                                </fieldset>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                @else
-                                                    <div class="form-group">
-                                                        <div class="position-relative">
-                                                            <fieldset class="form-group">
-                                                                <select class="form-select forms-select"
-                                                                    name="data_wahana[]" id='data-wahana' disabled>
-                                                                    <option value="">Please select data Wahana
-                                                                    </option>
-                                                                    @foreach ($dataWahanas as $data)
-                                                                        <option value="{{ $data->id }}">
-                                                                            {{ $data->name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            </div>
+                                            
                                             <div class="col-md-4">
                                                 <label>Penginapan</label>
                                             </div>
+                                            @foreach ($idPenginapan as $id)
+                                                <input type="text" name="idPenginapan[]" value="{{ $id->id }}" hidden>
+                                            @endforeach
                                             <div class="col-md-4">
                                                 <div id="hotel">
                                                     <div class="form-group">
@@ -248,22 +233,19 @@
                                                                 <select class="form-select forms-select" name="data_penginapanhotel"
                                                                     id='data-penginapan-hotel' disabled>
                                                                     @if ($hotel != null)
+                                                                    <option value="">Hapus Hotel</option>
                                                                         @foreach ($dataHotels as $item)
                                                                             @if ($item->id == $hotel->id)
-                                                                            <option value="">Hapus Hotel
-                                                                            </option>
-                                                                            
-                                                                            <option value="{{ $item->id }}" selected> {{ $item->nama }}</option>
+                                                                                <option value="{{ $item->id }}" selected> {{ $item->nama }}</option>
                                                                             @else
-                                                                            
-                                                                            <option value="{{ $item->id }}"> {{ $item->nama }}</option>
+                                                                                <option value="{{ $item->id }}"> {{ $item->nama }}</option>
                                                                             @endif
-                                                                        
+
                                                                         @endforeach
                                                                     @else
                                                                         <option value=""> Pilih Hotel </option>
                                                                         @foreach ($dataHotels as $item)
-                                                                        <option value="{{ $item->id }}"> {{ $item->nama }}</option>
+                                                                            <option value="{{ $item->id }}"> {{ $item->nama }}</option>
                                                                         @endforeach
                                                                     @endif
                                                                    
@@ -287,11 +269,11 @@
                                                                             @else
                                                                                 <option value="{{ $item->id }}">  {{ $item->name }} - {{ $item->harga }}
                                                                                 </option>
-                                                                            
                                                                             @endif
-                                                                        @endforeach
+                                                                            @endforeach
                                                                     @else
-                                                                    
+                                                                    <option value=""> Pilih hotel terlebih dahulu
+                                                                    </option>
                                                                     @endif
                                                                    
                                                                 </select>
@@ -308,23 +290,22 @@
                                                                 <select class="form-select forms-select" name="data_penginapanvilla"
                                                                     id='data-penginapan-villa' disabled>
                                                                     @if ($villa != null)
+                                                                    <option value="">Hapus Villa
+                                                                            </option>
                                                                         @foreach ($dataVilla as $item)
                                                                             @if ($item->id == $villa->id)
-                                                                        <option value="">Hapus Villa
+                                                                                <option value="{{ $item->id }}" selected>{{ $item->nama }}-{{ $item->harga }}
                                                                                 </option>
-                                                                                <option value="{{ $villa->nama }}" selected>{{ $villa->nama }}-{{ $villa->harga }}
-                                                                                </option>
-                                                                                
                                                                             @else
-                                                                                <option value="{{ $villa->nama }}">{{ $villa->nama }}-{{ $villa->harga }}
+                                                                                <option value="{{ $item->id }}">{{ $item->nama }}-{{ $item->harga }}
                                                                                 </option>
                                                                         @endif
                                                                             @endforeach
                                                                     @else
+                                                                    <option value=""> Pilih Villa
+                                                                    </option>
                                                                        @foreach ($dataVilla as $item)
-                                                                       <option value=""> Pilih Villa
-                                                                       </option>
-                                                                            <option value="{{ $item->nama }}">{{ $item->nama }}-{{ $item->harga }}
+                                                                            <option value="{{ $item->id }}">{{ $item->nama }}-{{ $item->harga }}
                                                                             </option>
                                                                         @endforeach
                                                                     @endif
@@ -350,13 +331,15 @@
                                                                             <option value="{{ $data->id }}" selected>
                                                                                     {{ $data->name }}
                                                                             </option>
-                                                                        
+            
                                                                         @else
                                                                             <option value="{{ $data->id }}">
                                                                                 {{ $data->name }}
                                                                             </option>
                                                                         @endif
+
                                                                     @endforeach
+                                                                    <input type="text" name="id_paketkuliner" value="{{ $resto->id }}" hidden>
                                                                 @else
                                                                 <option value=""> Pilih Resto
                                                                 </option>
@@ -381,18 +364,19 @@
                                                             <select class="form-select forms-select" name="paketresto" id='paketresto' disabled>
                                                                 @if ($menus != null && $paketMenu != null)
                                                                     @foreach ($menus as $menu)
-                                                                        @if ($menu->id == $paketMenu->id)
+                                                                        @if ($menu->id == $paketMenu->data_paket_kuliner_id)
                                                                             
-                                                                        <option value="{{ $menu->id }}" selected>{{ $menu->nama_paket }}</option>
+                                                                        <option value="{{ $menu->id }}" selected>{{ $menu->nama_paket }} - {{ $menu->harga }} </option>
                                                                         @else
                                                                         {{-- <option value=""> Hapus Menu
                                                                         </option> --}}
-                                                                        <option value="{{ $menu->id }}">{{ $menu->nama_paket }}</option>
+                                                                        <option value="{{ $menu->id }}">{{ $menu->nama_paket }} - {{ $menu->harga }} </option>
                                                                             
                                                                         @endif
                                                                     @endforeach
-                                                                    
-                                                                @else
+                                                                    @else
+                                                                    <option value=""> Pilih Resto terlebih dahulu
+                                                                    </option>
                                                                 @endif
                                                             </select>
                                                         </fieldset>
@@ -434,18 +418,6 @@
     
     <script>
         $(document).ready(function() {
-                    $(document).on('change', '#data-wahana', function() {
-                        var allGood = true;
-                        // var lastInputField = ;
-
-                        if ($(this).val() == "") {
-                            console.log('false');
-                            return allGood = false;
-                        }
-                        if (allGood) {
-                            $('#wahana').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wahana[]" id = "data-wahana">  <option value = "" > Please select data Wahana </option>@foreach ($dataWahanas as $data)<option value="{{ $data->id }}">{{ $data->name }}</option>@endforeach</select> </fieldset> </div> </div>'));
-                        }
-                    });
                     
 
                     $(document).on('change', '#data-wisata', function() {

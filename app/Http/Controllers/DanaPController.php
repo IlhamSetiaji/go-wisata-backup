@@ -82,6 +82,7 @@ class DanaPController extends Controller
         // $tempat->update([
         //     'dana' => $a,
         // ]);
-        return redirect("/kuliner/danak");
+        Toastr::info('Dana Berhasil Diajukan', 'Success');
+        return redirect("/penginapan/danap");
     }
 }
