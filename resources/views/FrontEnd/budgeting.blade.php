@@ -39,7 +39,7 @@
         </h1>
 
         <!-- Project One -->
-        @if (count($paket) != '')
+        @if (count($paket) != null)
             {{-- {{ dd($paket[2]->guide[0]->name) }} --}}
 
             @foreach ($paket as $paket)
@@ -64,6 +64,15 @@
                     <div class="col-md-5">
                         <h3>{{ $paket->nama_paket }}</h3>
                         <p>Harga : Rp{{ number_format($paket->harga) }} </p>
+                        <p>Kategori:
+                            @foreach ($kategoris as $item)
+                                @foreach ($item as $kategori)
+                                    @if ($kategori->paket_id == $paket->id)
+                                        {{ $kategori->kategori->nama_kategori }}
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </p>
                         {{-- <p>Kategori Paket : {{ $paket->kategori()->first()->nama_kategori }} </p> --}}
                         <p>Detail:</p>
                         <ul>
@@ -144,32 +153,11 @@
                 </div>
                 <hr>
             @endforeach
+            @else
+            <div class="d-flex justify-content-center">
+                <h4>Paket Wisata tidak ditemukan</h4>
+            </div>
         @endif
-
-        <!-- Pagination -->
-        {{-- <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Previous">
-          <span aria-hidden="true">&laquo;</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">1</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">2</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#">3</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#" aria-label="Next">
-          <span aria-hidden="true">&raquo;</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul> --}}
 
     </div>
     <!-- /.container -->
