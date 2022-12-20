@@ -24,12 +24,7 @@
                 </div>
                 {{-- @php $kegi = App\Models\Event::where('status', 1)->count(); @endphp --}}
                 {{-- @if ($kegi > 0) --}}
-                <div
-                    style="
-                        position: absolute;
-                        top: 300px;
-                        left: 600px;
-                        ">
+                <div class="budget__view budget__mobile">
                     <?php
                     // $keg = App\Models\Event::where('status', 1)
                     //     ->orderby('id', 'DESC')

@@ -360,6 +360,28 @@ class FrontendController extends Controller
                 array_push($dataPaketPenginapan, $tempPaketPenginapan);
             }
         }
+        // dd($dataPaketPenginapan);
+
+
+        //get paket penginapan setiap paket
+        // $dataPaketPenginapan = [];
+        // foreach ($dataIdPaktes as $id) {
+        //     $cekIdPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->first();
+        //     if ($cekIdPaketPenginapan != '') {
+        //         $tempPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
+        //         array_push($dataPaketPenginapan, $tempPaketPenginapan);
+        //     }
+        // }
+
+        //get paket wahana setiap paket
+        // $dataPaketWahana = [];
+        // foreach ($dataIdPaktes as $id) {
+        //     $cekIdPaketWahana = tb_paketwahana::where('paket_id', $id)->first();
+        //     if ($cekIdPaketWahana != '') {
+        //         $tempPaketWahana = tb_paketwahana::where('paket_id', $id)->get();
+        //         array_push($dataPaketWahana, $tempPaketWahana);
+        //     }
+        // }
 
         // get random image for tb_tempat
         $arrGambar = [];
@@ -1190,7 +1212,7 @@ class FrontendController extends Controller
             Toastr::warning('Tanggal checkout tidak boleh sama tanggal checkin', 'Warning');
             return redirect()->back();
         } else {
-            $villa = DB::SELECT("SELECT * FROM tb_villa WHERE id NOT IN (SELECT villa_id FROM tb_BookingVilla 
+            $villa = DB::SELECT("SELECT * FROM tb_villa WHERE id NOT IN (SELECT villa_id FROM tb_bookingvilla 
             WHERE ('$checkin' BETWEEN checkin AND checkout) OR ('$checkout' BETWEEN checkin AND checkout))");
 
             return view('explore/halaman_explore_penginapan', [

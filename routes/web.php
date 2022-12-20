@@ -180,6 +180,10 @@ Route::group([
     Route::post('/create_ratingtempatsewa/{id}', [TempatSewaController::class, 'tambah_rating']);
     Route::get('/explore-penyewaan-tempat-detail/komentartempatsewa/delete/{id}', [TempatSewaController::class, 'delete_rating']);
     Route::post('/komentartempatsewa/update/{id}', [TempatSewaController::class, 'update_rating']);
+
+    //rating kuliner
+    Route::get('ratingkuliner/{kode_tiket}', [KulinerController::class, 'rating'])->name('ratingkuliner');
+    Route::put('/create_ratingkuliner/{id}', [KulinerController::class, 'tambah_rating'])->name('create_ratingkuliner');
 });
 
 
@@ -484,10 +488,10 @@ Route::group([
     Route::get('/reviewtempatsewa', [TempatSewaController::class, 'review_index']);
     Route::get('/reviewtempatsewa/hapus/{id}', [TempatSewaController::class, 'review_delete']);
     //review kuliner
+    Route::get('/rating', [RatingController::class, 'rating'])->name('rating');
     Route::get('/reviewkuliner', [KulinerController::class, 'review_index']);
     Route::get('/reviewkuliner/hapus/{id}', [KulinerController::class, 'review_delete']);
-    Route::get('/ratingkuliner/{kode}', [KulinerController::class, 'rating']);
-    Route::post('/create_ratingkuliner/{id}', [KulinerController::class, 'tambah_rating']);
+    Route::post('/review-store', [RatingController::class, 'reviewstore'])->name('review.store');
 });
 
 // BUDGETING
