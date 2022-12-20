@@ -10,4 +10,10 @@ class tb_paketkategoriwisata extends Model
     use HasFactory;
     protected $table = "tb_paketkategoriwisatas";
     protected $guarded = ['id'];
+
+
+    public function kategori()
+    {
+        return $this->belongsTo(tb_kategoriwisata::class, 'kategori_wisata_id', 'id');
+    }
 }
