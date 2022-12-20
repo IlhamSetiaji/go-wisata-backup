@@ -38,9 +38,9 @@ class BudgetingController extends Controller
     public function index()
     {
         $dataDesa = Auth::user();
-        $dataPaket = tb_paket::where('id_desa', $dataDesa->tempat_id)->get();
+        $dataPaket = tb_paket::where('id_desa', $dataDesa->tempat_id)->orderBy('id', 'desc')->get();
         // dd($dataPaket);
-        $transaksiPaket = BookingPaket::join('tb_pakets', 'booking_paket.paket_id', 'tb_pakets.id')->where('tb_pakets.id_desa', $dataDesa->tempat_id)->select('booking_paket.*')->get();
+        $transaksiPaket = BookingPaket::join('tb_pakets', 'booking_paket.paket_id', 'tb_pakets.id')->where('tb_pakets.id_desa', $dataDesa->tempat_id)->select('booking_paket.*')->orderBy('id', 'desc')->get();
         return view('admin.budgeting.index', [
             'pakets' => $dataPaket,
             'transaksi' => $transaksiPaket
