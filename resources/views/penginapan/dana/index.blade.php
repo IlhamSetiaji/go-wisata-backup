@@ -177,7 +177,7 @@
                             <input type="hidden" name="user_id"  value="{{ Auth::user()->id }}">
                             <input  name="jumlah" class="form-control" type="text"  id="rupiah"  placeholder="Jumlah Uang" required >
                             <br>
-                                <button  class="btn btn-outline-primary" type="sumbit">
+                                <button  class="btn btn-outline-success" type="sumbit">
                                     Ajukan
                                 </button>
 
