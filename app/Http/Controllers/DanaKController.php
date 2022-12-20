@@ -79,7 +79,8 @@ class DanaKController extends Controller
         // $tempat->update([
         //     'dana' => $a,
         // ]);
-        return redirect("/kuliner/danak");
+        Toastr::info('Dana Berhasil Di Ajukan', 'Success');
+        return redirect("akuliner/danak");
     }
 
     /**
