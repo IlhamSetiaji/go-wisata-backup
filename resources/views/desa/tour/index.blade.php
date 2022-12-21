@@ -88,7 +88,7 @@
                                                         <td></td>
 
                                                         <td>
-                                                            {{ $tour->id }}
+                                                            {{ $loop->iteration }}
                                                         </td>
                                                         <td>
                                                             {{ $tour->name }}
@@ -101,7 +101,7 @@
                                                                 <div class="avatar avatar-xl">
                                                                     <img alt="image" class="mr-3 rounded-circle"
                                                                         width="50"
-                                                                        src="{{ asset('images') }}/{{ $tour->foto }}">
+                                                                        src="{{ asset($tour->foto) }}">
                                                                 </div>
                                                             @endif
                                                         </td>
