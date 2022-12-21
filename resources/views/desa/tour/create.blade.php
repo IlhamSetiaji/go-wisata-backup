@@ -57,14 +57,16 @@
                                             <label>Name</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
+                                            <div class="form-group">
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                                         placeholder="Name" id="first-name-icon" value="{{ old('name') }}" required>
-
-                                                    <div class="form-control-icon">
+                                                    {{-- <div class="form-control-icon">
                                                         <i class="bi bi-person"></i>
-                                                    </div>
+                                                    </div> --}}
+                                                    @error('name')
+                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -72,24 +74,36 @@
                                             <label>Desa Penugasan</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <select class="form-select" aria-label="Default select example" name="desa_id">
+                                            <input type="text"
+                                                            class="form-control @error('id_desa') is-invalid @enderror"
+                                                            value="{{ $dataDesa->tempat->name }}" required readonly>
+                                                        <input type="text"
+                                                            class="form-control"
+                                                            name='desa_id' value="{{ $dataDesa->tempat_id }}" required hidden>
+                                            {{-- <select class="form-select" aria-label="Default select example" name="desa_id">
                                                 <option selected>Desa Penugasan</option>
                                                 @foreach ($desa as $desa)
                                                     <option value="{{ $desa->id }}">{{ $desa->name }}</option>
                                                 @endforeach
-                                              </select>
+                                              </select> --}}
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 mt-2">
                                             <label>Telfon</label>
                                         </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
+                                        <div class="col-md-8 mt-2">
+                                            <div class="form-group">
                                                 <div class="position-relative">
-                                                    <input type="number" class="form-control" name="telp"
-                                                        placeholder="Telfon" value="{{ old('telp')}}">
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-phone"></i>
-                                                    </div>
+                                                    <input type="number" class="form-control @error('telp') is-invalid @enderror" name="telp"
+                                                        placeholder="Telfon" value="{{ old('telp')}}" req>
+                                                        {{-- <div class="mt-1"> --}}
+                                                            
+                                                            {{-- <div class="form-control-icon">
+                                                                <i class="bi bi-phone"></i>
+                                                            </div> --}}
+                                                            @error('telp')
+                                                            <div class="invalid-feedback mt-2">{{ $message }} </div>
+                                                            @enderror
+                                                    {{-- </div> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -97,13 +111,16 @@
                                             <label>Email</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
+                                            <div class="form-group ">
                                                 <div class="position-relative">
-                                                    <input type="email" class="form-control" name="email"
+                                                    <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                                                         placeholder="Email" id="first-name-icon" value="{{ old('email') }}" required>
-                                                    <div class="form-control-icon">
+                                                    {{-- <div class="form-control-icon">
                                                         <i class="bi bi-envelope"></i>
-                                                    </div>
+                                                    </div> --}}
+                                                    @error('email')
+                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -111,12 +128,15 @@
                                             <label>Image</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
+                                            <div class="form-group">
                                                 <div class="position-relative">
-                                                    <input class="form-control @error('image') is-invalid @enderror" name="foto" type="file" id="image" multiple="" required>
-                                                    <div class="form-control-icon">
+                                                    <input class="form-control @error('foto') is-invalid @enderror" name="foto" type="file" id="image" multiple="" required>
+                                                    {{-- <div class="form-control-icon">
                                                         <i class="bi bi-person-square"></i>
-                                                    </div>
+                                                    </div> --}}
+                                                    @error('foto')
+                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -124,13 +144,16 @@
                                             <label>Harga</label>
                                         </div>
                                         <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
+                                            <div class="form-group">
                                                 <div class="position-relative">
-                                                    <input type="number" class="form-control" name="harga"
+                                                    <input type="number" class="form-control  @error('harga') is-invalid @enderror" name="harga"
                                                         placeholder="Harga" value="{{ old('harga')}}">
-                                                    <div class="form-control-icon">
+                                                    {{-- <div class="form-control-icon">
                                                         <i class="fas fa-money-bill-wave"></i>
-                                                    </div>
+                                                    </div> --}}
+                                                    @error('harga')
+                                                        <div class="invalid-feedback">{{ $message }} </div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>

@@ -97,13 +97,11 @@
                         <?php $unit = $desc->harga / $desc->jumlah; ?>
 
                         <tr class="item-row">
-
                             <td class="description">{{ $desc->name }}</td>
                             <td></td>
-                            <td><span class="price">Rp. {{ number_format($unit) }}</span></td>
+                            <td ><span class="price">Rp. {{ number_format($unit) }}</span></td>
                             <td>{{ $desc->jumlah }}</td>
                             <td><span class="price"> Rp. {{ number_format($desc->harga) }}</span></td>
-
                         </tr>
                     @endforeach
                     <tr id="hiderow">

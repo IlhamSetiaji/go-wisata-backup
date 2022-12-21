@@ -242,7 +242,7 @@
                                     <div class="col-md-12">
                                         <input type="number" id="diskon" class="form-control mb-2"
                                             placeholder="Diskon 0-100">
-                                        <input type="number" class="form-control" id="harga-akhir" name="harga"
+                                        <input type="number" class="form-control" id="harga-akhir" name="harga" value="{{ $harga }}"
                                             placeholder="Harga Akhir" readonly required>
                                     </div>
                                 </div>

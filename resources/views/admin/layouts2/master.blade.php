@@ -511,6 +511,13 @@
                                     <span>Pemesanan</span>
                                 </a>
                             </li> --}}
+                            Pemasukan
+                            <li class="sidebar-item  {{ request()->is('danasewa*') ? 'active' : '' }}">
+                                <a href="{{ url('/danasewa') }}" class='sidebar-link'>
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                    <span>Dana</span>
+                                </a>
+                            </li>
                             <li class="sidebar-item  {{ request()->is('rekapdata*') ? 'active' : '' }}">
                                 <a href="/rekapdata_ep" class='sidebar-link'>
                                     <i class="fas fa-inbox"></i>

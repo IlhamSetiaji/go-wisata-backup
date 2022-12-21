@@ -14,6 +14,7 @@ use App\Models\Tour;
 use App\Models\Villa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -292,7 +293,7 @@ class AdminController extends Controller
         $tour = DB::table("tour_guide")
             ->Join("tb_tempat", function ($join) {
                 $join->on("tour_guide.desa_id", "=", "tb_tempat.id");
-            })
+            })->orderBy('id', 'desc')
             ->select("tb_tempat.name as nama_desa", "tour_guide.*")
             ->get();
         return view('desa.tour.index', [
@@ -307,12 +308,18 @@ class AdminController extends Controller
 
     public function tourCreate(Request $request)
     {
-        $data['desa_id'] = $request->desa_id;
-        $data['name'] = $request->name;
-        $data['foto'] = $request->foto;
-        $data['email'] = $request->email;
-        $data['telp'] = $request->telp;
-        $data['harga'] = $request->harga;
+        $data = $request->validate([
+            'desa_id' => 'required',
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email|unique:users,email',
+            'telp' => 'required|min:9|max:13',
+            'harga' => 'required',
+            'foto' => 'required|file|image|mimes:jpg,jpeg,png|max:50000'
+        ]);
+        $foto = $request->file('foto');
+        $name = $foto->hashName();
+        $data['foto'] = 'foto-guide/' . $name;
+        $foto->move(public_path('/foto-guide'), $name);
 
         Tour::create($data);
 
@@ -321,59 +328,74 @@ class AdminController extends Controller
 
     public function tourShow()
     {
+        $dataDesa = Auth::user();
         $desa  = Tempat::where('kategori', 'desa')->get();
         return view('desa.tour.create', [
-            'desa' => $desa
+            'desa' => $desa,
+            'dataDesa' => $dataDesa
         ]);
     }
 
     public function tourEdit($id)
     {
+        $dataDesa = Auth::user();
+
         $users = Tour::find($id);
-        return view('desa.tour.edit',  compact('users'));
+        return view('desa.tour.edit',  compact('users', 'dataDesa'));
     }
 
     public function tourUpdate(Request $request, $id)
     {
-
-        $data = $request->all();
+        $data = $request->validate([
+            'desa_id' => 'required',
+            'name' => 'required|min:3|max:255',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'telp' => 'required|min:9|max:13',
+            'harga' => 'required',
+            'foto' => 'file|image|mimes:jpg,jpeg,png|max:50000'
+        ]);
 
         $tour = Tour::where('id', $id)->first();
-        $user = Tour::find($id);
-        $imageName = $user->image;
-        if ($request->hasFile('image')) {
-            $imageName = (new User)->userAvatar($request);
-            if ($tour->image == null) {
-            } else {
-                // unlink(public_path('images/' . $user->image));
-                if (file_exists($imageName))
-                    unlink(public_path('images/' . $user->image));
+        // $tour = Tour::find($id);
+        $imageName = $tour->foto;
+        if ($request->hasFile('foto')) {
+            // $imageName = (new User)->userAvatar($request);
+            $foto = $request->file('foto');
+            $name = $foto->hashName();
+            $data['foto'] = 'foto-guide/' . $name;
+            $foto->move(public_path('/foto-guide'), $name);
+
+            if (file_exists($imageName)) {
+                unlink(public_path($tour->foto));
             }
+        } else {
+            $data['foto'] = $imageName;
         }
-        $data['image'] = $imageName;
-        $user->update($data);
+        // dd($data);
+        $tour->update($data);
+
         Toastr::success(' Berhasil mengupdate data :)', 'Success');
         return redirect()->route('tourd.index');
     }
 
-    public function tourDestroy($id)
-    {
-        if (auth()->user()->id == $id) {
-            abort(401);
-        }
+    // public function tourDestroy($id)
+    // {
+    //     if (auth()->user()->id == $id) {
+    //         abort(401);
+    //     }
 
-        $user = Tour::find($id);
-        $userDelete = $user->delete();
+    //     $user = Tour::find($id);
+    //     $userDelete = $user->delete();
 
-        if ($userDelete) {
-            if ($user->image == null) {
-            } else {
-                if (file_exists($user->image))
-                    unlink(public_path('images/' . $user->image));
-            }
-        }
-        Toastr::success('User deleted successfully :)', 'Success');
+    //     if ($userDelete) {
+    //         if ($user->image == null) {
+    //         } else {
+    //             if (file_exists($user->image))
+    //                 unlink(public_path('images/' . $user->image));
+    //         }
+    //     }
+    //     Toastr::success('User deleted successfully :)', 'Success');
 
-        return redirect()->route('tourd.index')->with('message', 'Data deleted successfully');
-    }
+    //     return redirect()->route('tourd.index')->with('message', 'Data deleted successfully');
+    // }
 }
