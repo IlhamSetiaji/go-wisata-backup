@@ -168,7 +168,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="text" class="form-control" id="harga"
+                                                                <input type="number" class="form-control" id="harga"
                                                                     name="harga" placeholder="harga"
                                                                     value="{{ $ruang->harga }}">
                                                                 <div class="form-control-icon">
@@ -183,7 +183,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="text" class="form-control" id="kapasitas"
+                                                                <input type="number" class="form-control" id="kapasitas"
                                                                     name="kapasitas" placeholder="kapasitas"
                                                                     value="{{ $ruang->kapasitas }}">
                                                                 <div class="form-control-icon">

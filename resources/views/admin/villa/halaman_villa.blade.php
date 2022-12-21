@@ -231,7 +231,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input name="harga" class="form-control" type="text"
+                                                    <input name="harga" class="form-control" type="number"
                                                         id="rupiah" placeholder="Harga" required>
                                                 </div>
                                             </div>
