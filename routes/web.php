@@ -17,6 +17,7 @@ use App\Http\Controllers\ATWController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\DanaController;
 use App\Http\Controllers\DanaKController;
+use App\Http\Controllers\DanaSController;
 use App\Http\Controllers\KamarController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\DanaPController;
@@ -464,6 +465,9 @@ Route::group([
     //review tempatsewa
     Route::get('/reviewtempatsewa', [TempatSewaController::class, 'review_index']);
     Route::get('/reviewtempatsewa/hapus/{id}', [TempatSewaController::class, 'review_delete']);
+
+    Route::get('/danasewa', [DanaSController::class, 'index'])->name('danas.index');
+    Route::post('/danas/cair', [DanaSController::class, 'sewa_cair'])->name('danas.cair');
 });
 
 // BUDGETING
