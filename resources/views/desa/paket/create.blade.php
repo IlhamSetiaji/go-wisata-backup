@@ -195,7 +195,7 @@
                                         <div class="col-md-6 ">
                                             <div class="form-group">
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control" name="harga">
+                                                    <input type="number" class="form-control" name="harga">
                                                 </div>
                                             </div>
                                         </div>

@@ -169,7 +169,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="" class="form-label">Harga</label>
-                                <input type="text" id="harga_budget" class="form-control" disabled>
+                                <input type="number" id="harga_budget" class="form-control" disabled>
                             </div>
                             <input type="text" id="id_paket" class="form-control" disabled>
                         </div>

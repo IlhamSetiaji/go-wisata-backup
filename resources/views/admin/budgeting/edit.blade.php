@@ -291,7 +291,7 @@
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <div class="position-relative">
-                                                        <input type="text" class="form-control forms" name="harga"
+                                                        <input type="number" class="form-control forms" name="harga"
                                                             id="harga-total" value="{{ old('harga', $paket->harga) }}"
                                                             required readonly>
                                                     </div>

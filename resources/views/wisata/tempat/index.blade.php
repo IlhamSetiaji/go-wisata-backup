@@ -208,7 +208,7 @@
                             <div class="col-md-8">
                                 <div class="form-group has-icon-left">
                                     <div class="position-relative">
-                                        <input type="text" class="form-control" id="harga" name="htm"
+                                        <input type="number" class="form-control" id="harga" name="htm"
                                             placeholder="htm"  value="{{ $tempat->htm }}"  >
                                         <div class="form-control-icon">
                                             <i class="fas fa-dollar-sign"></i>
