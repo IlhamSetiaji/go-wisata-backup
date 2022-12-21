@@ -405,6 +405,48 @@
                 $kode = App\Models\Detail_transaksi::where('kode_tiket', $des->kode_tiket)->get();
                 // dd($kode);
                 ?>
+
+<div class="form-body">
+
+    <div class="row">
+        <div class="col-md-4">
+            <label>Name</label>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <div class="position-relative">
+                    A/n
+                    {{ Auth::user()->name }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Tempat</label>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <div class="position-relative">
+                    {{-- {{ dd($des) }} --}}
+                    {{ App\Models\Tempat::where('id', $des->tempat_id)->pluck('name')->first() }}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label>Tanggal</label>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <div class="position-relative">
+                    {{ substr($des->tanggal_a, 0, 10) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
                 @foreach ($desc as $key => $value)
                     <tr>
 
@@ -413,10 +455,10 @@
                             {{ $no++ }}
                         </td>
                         <td>
-                            {{ $value->name }} x
-                            {{ $value->jumlah }}. Untuk
-                            tanggal
-                            {{ $tgl_a }}
+                            {{-- {{ $value->name }} x --}}
+                            {{ $des->name }} x <span class="badge bg-light-success">{{ $des->jumlah }}
+                                tiket</span>
+                            {{-- {{ $value->jumlah }}.  --}}
                         </td>
                         <td>
                             -
