@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\API\API;
+use App\Http\Controllers\API\SendEmailMobile;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -81,3 +83,5 @@ Route::get('/logout', [API::class, 'logout']);
 
 Route::get('/pay/finish', [API::class, 'finish']);
 Route::post('/pay/payment', [API::class, 'payment']);
+
+Route::post('/sendEmail', [SendEmailMobile::class, 'sendOtp']);
