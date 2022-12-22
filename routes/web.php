@@ -82,7 +82,7 @@ Route::get('/explore_kuliner',  [FrontendController::class, 'explore_kuliner']);
 
 //profile
 Route::resource('/profile', ProfileController::class)->middleware(['verified', 'customer']);
-Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
+// Route::put('/profile/updateprofil/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/updateimage/{id}', [ProfileController::class, 'update2'])->name('profile.update2');
 Route::put('/profile/updatepassword/{id}', [ProfileController::class, 'update3'])->name('profile.update3');
 
