@@ -42,15 +42,18 @@ class RekapWController extends Controller
 
         $tgl_a = date('d F Y',  strtotime($startDate));
         $tgl_b = date('d F Y',  strtotime($endDate));
-        // dd($tgl_a);
+
+        $tanggal_awal = date('Y-m-d', strtotime($startDate));
+        $tanggal_akhir = date('Y-m-d', strtotime($endDate));
+        // dd($tanggal_awal);
+        
+
         switch ($request->submit) {
             case 'table':
 
                 $data = Detail_transaksi::get()
-                    ->where('tempat_id', $id_tempat)
-                    ->where('kedatangan', 1)
-                    ->where('status', 1)
-                    ->whereBetween('tanggal_a', [$startDate, $endDate]);
+        ->where('tempat_id', $id_tempat)
+        ->whereBetween('tanggal_a', [$tanggal_awal, $tanggal_akhir]);
                 $total = 0;
                 $count = 0;
                 foreach ($data as $ct => $val) {
@@ -80,8 +83,8 @@ class RekapWController extends Controller
         $tgl_b = date('d F Y',  strtotime($endDate));
         $data = Detail_transaksi::get()
             ->where('tempat_id', $tempat->id)
-            ->where('kedatangan', 1)
-            ->where('status', 1)
+            // ->where('kedatangan', 1)
+            // ->where('status', 1)
             ->whereBetween('tanggal_a', [$startDate, $endDate]);
         // dd($startDate);
         $total = 0;

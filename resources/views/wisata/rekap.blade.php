@@ -18,27 +18,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    <div class="page-heading">
-        <div class="page-title">
-            <div class="row">
-                <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Rekap Data</h3>
-                    <p class="text-subtitle text-muted">Halaman untuk merekap data pesanan</p>
-                </div>
-                <div class="col-12 col-md-6 order-md-2 order-first">
-                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Rekap</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">index</li>
-                        </ol>
-                    </nav>
-                </div>
-                <input type="text" class="form-control" id="daterange" />
-                <button class="btn btn-success" type="submit" name="submit" value="table">Search</button>
-                {{-- <button class="btn btn-primary" type="submit" name="submit" value="download">Export All</button> --}}
-            </div>
-        </div>
-    </div>
+   
     <div class="col-12 col-md-6 col-lg-6">
 
         <form action="/awisata/rekapw" method="post">
