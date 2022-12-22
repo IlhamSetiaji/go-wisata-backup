@@ -19,7 +19,7 @@ class SendEmailMobile extends Controller
 
         $receiver = $request->email;
         $name = $request->name;
-        $body = 'Hallo ' . $name . 'silahkan gunakan Kode Otentifikasi untuk login di Go-Wisata.id ' . $this->code;
+        $body = 'Hallo ' . $name . 'silahkan gunakan Kode Otentifikasi untuk login di Go-Wisata.id ' . $request->code;
         $sendEmail = $this->sendEmail($receiver, $body);
 
         if ($sendEmail) {
