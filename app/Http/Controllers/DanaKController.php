@@ -22,7 +22,7 @@ class DanaKController extends Controller
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
         $id_tempat = $tempat->id;
         $data = Detail_transaksi::where('kedatangan', '1')->orderby('id', 'desc')->where('tempat_id', $id_tempat)->take(5)->get();
-        $data4 = Detail_transaksi::where('kedatangan', '1')->orderby('id', 'desc')->where('tempat_id', $id_tempat)->get();
+        $data4 = Detail_transaksi::orderby('id', 'desc')->where('tempat_id', $id_tempat)->get();
         $cair = Cair::where('tempat_id', $id_tempat)->orderby('id', 'desc')->get();
         $cair2 = Cair::where('tempat_id', $id_tempat)->where('status', 1)->get();
         $cair3 = Cair::where('tempat_id', $id_tempat)->where('status', 0)->get();
@@ -62,14 +62,28 @@ class DanaKController extends Controller
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
         $id_tempat = $tempat->id;
         $data = $request->all();
-        Cair::create([
+        $pemasukan = Detail_transaksi::orderby('id', 'desc')->where('tempat_id', $id_tempat)->get();
+        $total_pemasukan = 0;
 
-            'user_id' => $request->user_id,
-            'tempat_id' => $request->tempat_id,
-            'jumlah' =>  (int) preg_replace('/\D/', '', $request->jumlah),
-            'status' => 0,
+        foreach ($pemasukan as $key => $value) {
+            $total_pemasukan += $value->harga;
+        }
+        $input = (int) preg_replace('/\D/', '', $request->jumlah);
 
-        ]);
+        if ($input > $total_pemasukan) {
+            Toastr::error('Melebihi Limit Dana Masuk', 'Failed');
+            return redirect()->back();
+        }else {
+            Cair::create([
+    
+                'user_id' => $request->user_id,
+                'tempat_id' => $request->tempat_id,
+                'jumlah' =>  (int) preg_replace('/\D/', '', $request->jumlah),
+                'status' => 0,
+    
+            ]);
+
+        }
 
         //kurang di dana
         // $tempat->dana -= $request->jumlah;
