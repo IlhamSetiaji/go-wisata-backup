@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SendOTPEmailRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -14,7 +15,7 @@ class SendEmailMobile extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function sendOtp(Request $request)
+    public function sendOtp(SendOTPEmailRequest $request)
     {
 
         $receiver = $request->email;
