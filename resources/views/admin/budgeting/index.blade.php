@@ -155,6 +155,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{-- {{ dd($transaksi[23]->checkin) }} --}}
                                             @foreach ($transaksi as $trx)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
@@ -178,19 +179,19 @@
                                                     <td>
                                                         <button id="detail" data-bs-toggle="modal"
                                                             data-bs-target="#modalTransaksi"
-                                                            data-bs-kode="{{ $trx->kode_booking }}"
-                                                            data-bs-name="{{ $trx->name }}"
-                                                            data-bs-email="{{ $trx->email }}"
-                                                            data-bs-telp="{{ $trx->telp }}"
-                                                            data-bs-orang="{{ $trx->jml_orang }}"
-                                                            data-bs-hari="{{ $trx->jml_hari }}"
-                                                            data-bs-paket="{{ $trx->paket->nama_paket }}"
-                                                            data-bs-perjalanan="{{ $trx->tanggal_perjalanan }}"
-                                                            data-bs-bayar="{{ $trx->bayar }}"
-                                                            data-bs-checkin="{{ $trx->checkin }}"
-                                                            data-bs-checkout="{{ $trx->checkout }}"
-                                                            data-bs-batal="{{ $trx->batal }}"
-                                                            data-bs-biaya="{{ $trx->total_biaya }}"
+                                                            data-kode="{{ $trx->kode_booking }}"
+                                                            data-name="{{ $trx->name }}"
+                                                            data-email="{{ $trx->email }}"
+                                                            data-telp="{{ $trx->telp }}"
+                                                            data-orang="{{ $trx->jml_orang }}"
+                                                            data-hari="{{ $trx->jml_hari }}"
+                                                            data-paket="{{ $trx->paket->nama_paket }}"
+                                                            data-perjalanan="{{ $trx->tanggal_perjalanan }}"
+                                                            data-bayar="{{ $trx->bayar }}"
+                                                            data-checkin="{{ $trx->checkin }}"
+                                                            data-checkout="{{ $trx->checkout }}"
+                                                            data-batal="{{ $trx->batal }}"
+                                                            data-biaya="{{ $trx->total_biaya }}"
                                                             class="btn btn-info mb-1">Detail</button>
                                                         <?php if($trx->status == 1) { ?>
                                                         <form action="{{ route('update-status-transaksi') }}"
@@ -330,7 +331,9 @@
 
         </div>
         <script src="{{ asset('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.5.1.js"></script> --}}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+
 
         {{-- <script src="{{asset('assets/vendors/fontawesome/all.min.js')}}"></script> --}}
 
@@ -339,7 +342,6 @@
             $(document).ready(function() {
                 $('#detail').click(function() {
                     let kode = $(this).data('kode');
-                    console.log(kode);
                     let nama_cust = $(this).data('name');
                     let email_cust = $(this).data('email');
                     let telp_cust = $(this).data('telp');
@@ -350,7 +352,7 @@
                     let biaya = $(this).data('biaya');
                     $('#kode_booking').val(kode);
                     $('#name_customer').val(nama_cust);
-                    $('#email_custromer').val(email_cust);
+                    $('#email_customer').val(email_cust);
                     $('#no_telepon').val(telp_cust);
                     $('#jml_orang').val(jml_orang);
                     $('#jml_hari').val(jml_hari);
