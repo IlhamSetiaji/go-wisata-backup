@@ -45,7 +45,7 @@
                     </div>
                     <br>
                     <br>
-                    An. {{ substr(App\Models\User::where('id', $tiket->user_id)->pluck('name')->first(),0,10) }}
+                    An. {{ substr(App\Models\User::where('id', $tiket->user_id)->pluck('name')->first(),0,50) }}
                     <br>
                     Email : {{ $tiket->email }}
                     <br>
