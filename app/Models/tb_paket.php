@@ -15,7 +15,7 @@ class tb_paket extends Model
 
     public function desa()
     {
-        return $this->belongsTo(Tempat::class);
+        return $this->belongsTo(Tempat::class, 'id_desa', 'id');
     }
 
     public function guide()
