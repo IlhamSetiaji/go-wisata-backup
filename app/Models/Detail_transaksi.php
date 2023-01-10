@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Error;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,26 +14,41 @@ class Detail_transaksi extends Model
     protected $guarded = [];
 
     static function tambah_detail_transaksi($name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $subtotal, $tempat_id, $kategori, $catatan, $status, $type_bayar)
+
     {
-        Detail_transaksi::create([
-            "name" => $name,
-            "durasi" => $durasi,
-            "user_id" => $user_id,
-            "tanggal_a" => $tanggal_a,
-            "tanggal_b" => $tanggal_b,
-            "kode_tiket" => $kode_tiket,
-            "id_produk" => $id_produk,
-            "harga" => $subtotal,
-            "jumlah" => $jumlah,
-            "kategori" => $kategori,
-            "tempat_id" => $tempat_id,
-            "catatan" => $catatan,
-            "type_bayar" => $type_bayar,
-            "status" => $status,
-        ]);
+        // dd($id_produk);
+
+        try {
+            Detail_transaksi::create([
+                "name" => $name,
+                "durasi" => $durasi,
+                "user_id" => $user_id,
+                "tanggal_a" => $tanggal_a,
+                "tanggal_b" => $tanggal_b,
+                "kode_tiket" => $kode_tiket,
+                "id_produk" => $id_produk,
+                "harga" => $subtotal,
+                "jumlah" => $jumlah,
+                "kategori" => $kategori,
+                "tempat_id" => $tempat_id,
+                "catatan" => $catatan,
+                "type_bayar" => $type_bayar,
+                "status" => $status,
+            ]);
+        } catch (Error $e) {
+            return $e;
+        }
     }
-    static function tambah_detail_transaksi_kuliner($catatan, $name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar)
+    static function tambah_detail_transaksi_kuliner($catatan, $name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar, $subtotal)
     {
+        //     $nama = '';
+
+        //    foreach ($name as $i) {
+        //        $nama = $nama . $i . ", ";
+        //    }
+
+
+
         Detail_transaksi::create([
             "name" => $name,
             "user_id" => $user_id,
@@ -44,7 +60,7 @@ class Detail_transaksi extends Model
             "jumlah" => $jumlah,
             // "count" => $count,
             "catatan" => $catatan,
-            "harga" => $grandtotal,
+            "harga" => $subtotal,
             "type_bayar" => $type_bayar,
             "tempat_id" => $tempat_id,
             // "status" => $status,

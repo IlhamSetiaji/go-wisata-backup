@@ -17,7 +17,7 @@ class DanaPController extends Controller
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
         $id_tempat = $tempat->id;
         $data = Detail_transaksi::where('kedatangan', '1')->orderby('id', 'desc')->where('tempat_id', $id_tempat)->take(5)->get();
-        $data4 = Detail_transaksi::where('kedatangan', '1')->orderby('id', 'desc')->where('tempat_id', $id_tempat)->get();
+        $data4 = Detail_transaksi::orderby('id', 'desc')->where('tempat_id', $id_tempat)->get();
         // dd($data4);
         $cair = Cair::where('tempat_id', $id_tempat)->orderby('id', 'desc')->get();
         $cair2 = Cair::where('tempat_id', $id_tempat)->where('status', 1)->get();
@@ -59,20 +59,28 @@ class DanaPController extends Controller
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
         $id_tempat = $tempat->id;
         $data = $request->all();
-        // dd($data);
-        // $Jumlah = $request->jumlah
+        $pemasukan = Detail_transaksi::orderby('id', 'desc')->where('tempat_id', $id_tempat)->get();
+        $total_pemasukan = 0;
+        
+        foreach ($pemasukan as $key => $value) {
+            $total_pemasukan += $value->harga;
+        }
+        $input = (int) preg_replace('/\D/', '', $request->jumlah);
+        
+        if ($input > $total_pemasukan) {
+            Toastr::error('Melebihi Limit Dana Masuk', 'Failed');
+            return redirect()->back();
+        } else {
+            Cair::create([
 
-        $clean = (int) preg_replace('/\D/', '', $request->jumlah);
-        // dd($clean);
+                'user_id' => $request->user_id,
+                'tempat_id' => $request->tempat_id,
+                'jumlah' => (int) preg_replace('/\D/', '', $request->jumlah),
+                'status' => 0,
 
-        Cair::create([
+            ]);
+        }
 
-            'user_id' => $request->user_id,
-            'tempat_id' => $request->tempat_id,
-            'jumlah' => $clean,
-            'status' => 0,
-
-        ]);
 
         //kurang di dana
         // $tempat->dana -= $request->jumlah;
@@ -82,6 +90,7 @@ class DanaPController extends Controller
         // $tempat->update([
         //     'dana' => $a,
         // ]);
-        return redirect("/kuliner/danak");
+        Toastr::success('Dana Berhasil Diajukan', 'Success');
+        return redirect("/penginapan/danap");
     }
 }
