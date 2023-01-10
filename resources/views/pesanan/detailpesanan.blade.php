@@ -132,6 +132,7 @@
                                     {{ $no++ }}
                                 </td>
                                 <td>
+                                    {{-- Coba testing --}}
                                     @foreach ($desc as $key => $descc)
                                         {{-- {{ dd($descc) }} --}}
                                         {{-- {{ substr($descc->id_produk,0,20) }} , --}}
