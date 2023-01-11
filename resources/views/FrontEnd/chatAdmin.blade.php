@@ -46,7 +46,7 @@
                     </div> --}}
                     <div class="card-body">
                         <p>Silahkan hubungi admin melalui <a
-                                href="https://wa.me/{{  $paket->paket->desa->petugas->telp }}text=Saya sudah pesan dengan nomor pemesanan {{ $kodeBooking }}">{{  $paket->paket->desa->petugas->telp }}</a>
+                                href="wa.me/{{  $paket->paket->desa->petugas->telp }}?text=Saya sudah pesan dengan nomor pemesanan {{ $kodeBooking }}">{{  $paket->paket->desa->petugas->telp }}</a>
                             dengan nomor pemesanan <b>{{ $kodeBooking }}</b></p>
                         dan download invoice melalui link berikut:
                         <a href="/get-invoice/{{ $kodeBooking }}">klik disini</a>
