@@ -83,5 +83,3 @@ Route::get('/logout', [API::class, 'logout']);
 
 Route::get('/pay/finish', [API::class, 'finish']);
 Route::post('/pay/payment', [API::class, 'payment']);
-
-Route::post('/sendEmail', [SendEmailMobile::class, 'sendOtp']);
