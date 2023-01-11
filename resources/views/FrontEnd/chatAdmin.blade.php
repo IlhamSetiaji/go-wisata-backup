@@ -44,6 +44,7 @@
                         </div>
                         <h1></h1>
                     </div> --}}
+                    //WA ADMIN
                     <div class="card-body">
                         <p>Silahkan hubungi admin melalui <a
                                 href="https://wa.me/6285144442312?text=Saya sudah pesan dengan nomor pemesanan {{ $kodeBooking }}">085144442312</a>
