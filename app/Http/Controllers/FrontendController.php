@@ -461,13 +461,16 @@ class FrontendController extends Controller
         $dataPaket['kode_booking'] = $kode_booking;
 
 
-        ModelsBookingPaket::create($dataPaket);
+        $dataPaket = ModelsBookingPaket::create($dataPaket);
+
+        // dd($data);
 
         return view(
             'FrontEnd.chatAdmin',
             [
 
-                'kodeBooking' => $kode_booking
+                'kodeBooking' => $kode_booking,
+                'paket' => $dataPaket
             ]
         );
         // dd('done');
