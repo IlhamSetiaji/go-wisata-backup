@@ -137,7 +137,7 @@
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        <input type="text"
+                                                        <input type="number"
                                                             class="form-control @error('name') is-invalid @enderror"
                                                             id="first-name-icon" value="{{ $paket->harga }}" readonly required>
 

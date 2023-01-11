@@ -58,15 +58,25 @@
             <div class="table-responsive">
                 <table class="table table-hover" id="cart">
                     <thead>
+
                         <tr>
-                            <th></th>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Durasi</th>
-
-                            <th scope="col"></th>
-                            <th scope="col"></th>
-
+                            @if ($des->kategori == 'kuliner')
+                                <th scope="col">Nama</th>
+                                <th scope="col">Jumlah</th>
+                                <th scope="col">Harga</th>
+                            @elseif($des->kategori == 'tiket')
+                                <th></th>
+                                <th scope="col">No</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Harga</th>
+                                <th scope="col">Jumlah</th>
+                                <th scope="col">Sub Total</th>
+                            @else
+                                <th></th>
+                                <th scope="col">No</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Durasi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -122,6 +132,7 @@
                                     {{ $no++ }}
                                 </td>
                                 <td>
+                                    {{-- Coba testing --}}
                                     @foreach ($desc as $key => $descc)
                                         {{-- {{ dd($descc) }} --}}
                                         {{-- {{ substr($descc->id_produk,0,20) }} , --}}
@@ -377,56 +388,88 @@
 
                 </tr>
             @elseif($des->kategori == 'kuliner')
-                <tr>
-                    <td></td>
-                    <td>
-                        {{ $no++ }}
-                    </td>
-                    <td>
-                        <?php $tgl_a = date('d F Y', strtotime($des->tanggal_a)); ?>
-                        {{ $des->name }} x
-                        {{ $des->jumlah }}. Untuk tanggal
-                        {{ $tgl_a }}
+                @foreach ($desc as $item)
+                    <tr>
+                        <td>
+                            <?php $tgl_a = date('d F Y', strtotime($des->tanggal_a)); ?>
+                            {{ $item->name }}
+                            {{-- {{ $tgl_a }} --}}
+                        </td>
 
-                    </td>
-                    <td>
-                        1
+                        <td>{{ $item->jumlah }}</td>
+                        <td>{{ $item->harga }}</td>
 
-                    </td>
-
-                    {{-- <td>
+                        {{-- <td>
                                         Rp. {{ number_format($des->harga) }}
                                     </td> --}}
-                </tr>
+                    </tr>
+                @endforeach
             @elseif($des->kategori == 'tiket')
                 <?php
                 $tgl_a = date('d F Y', strtotime($des->tanggal_a));
                 $kode = App\Models\Detail_transaksi::where('kode_tiket', $des->kode_tiket)->get();
                 // dd($kode);
                 ?>
+
+                <div class="form-body">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Name</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="position-relative">
+                                    A/n
+                                    {{ Auth::user()->name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Tempat</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="position-relative">
+                                    {{-- {{ dd($des) }} --}}
+                                    {{ App\Models\Tempat::where('id', $des->tempat_id)->pluck('name')->first() }}
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Tanggal</label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div class="position-relative">
+                                    {{ substr($des->tanggal_a, 0, 10) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
                 @foreach ($desc as $key => $value)
+                    <?php
+                    $satuan = App\Models\Tempat::find($value->id_produk);
+                    ?>
                     <tr>
 
                         <td></td>
-                        <td>
-                            {{ $no++ }}
-                        </td>
-                        <td>
-                            {{ $value->name }} x
-                            {{ $value->jumlah }}. Untuk
-                            tanggal
-                            {{ $tgl_a }}
-                        </td>
-                        <td>
-                            -
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $value->name }}</td>
+                        <td>Rp. {{ number_format($satuan->htm) }}</td>
+                        <td>{{ $value->jumlah }}</td>
+                        <td>Rp. {{ number_format($value->harga) }}</td>
 
-                        </td>
-
-                        {{-- <td>
-                        Rp. {{ number_format($des->harga) }}
-                                    </td> --}}
+                     
                     </tr>
                 @endforeach
+
+
             @elseif($des->kategori == 'penginapan')
                 <?php
                 $de = App\Models\Detail_booking::where('kode_tiket', $des->kode_tiket)->first();
@@ -485,7 +528,7 @@
                         {{--  <?php $tgl_a = date('d F Y', strtotime($des->tanggal_a)); ?>
                         {{ $des->name }}
                         <?php
-                        $kamar = App\Models\Kamar::where('kode_kamar', $des['kode_kamar'])->first();                        
+                        $kamar = App\Models\Kamar::where('kode_kamar', $des['kode_kamar'])->first();
                         ?>  --}}
 
                     </td>
@@ -499,7 +542,12 @@
                 @endif
 
                 <tr>
-                    <th colspan="3"> Grand Total </th>
+                    @if ($des->kategori == 'kuliner')
+                    <th colspan="2"> Grand Total </th>
+                        
+                    @elseif($des->kategori == 'tiket')
+                    <th colspan="5"> Grand Total </th>
+                    @endif
                     <th> Rp. {{ number_format($tiket->harga) }}
                         @if ($tiket->type_bayar == 'Bayar Langsung')
                             (Bayar Langsung)
@@ -508,14 +556,6 @@
                         @endif
                     <th> </th>
                 </tr>
-
-
-                {{-- <tr>
-                            <th colspan="3"> Grand Total </th>
-                            <th> Rp. {{ number_format($tiket->harga) }}
-                                <th> </th>
-                                </tr> --}}
-
 
                 </tbody>
                 </table>

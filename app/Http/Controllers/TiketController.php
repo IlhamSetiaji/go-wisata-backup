@@ -736,62 +736,6 @@ class TiketController extends Controller
     }
 
 
-    /*function do_tambah_transaksi(Request $request)
-    {
-        date_default_timezone_set('Asia/Jakarta');
-        $cart = session("cart");
-        // $kuliner = session("kuliner");
-        // dd($cart);
-        $data = Tiket::max('id');
-        $urutan = (int)($data);
-        $urutan++;
-        $huruf =  "LT-";
-        $checkout_kode = $huruf . $urutan . uniqid();
-        // dd($request->date);
-
-        // dd($cart);
-        $tiket = Tiket::where('user_id', Auth::user()->id)->orderby('id', 'desc')->get();
-        $grandtotal = 0;
-        // $tempatsesi = session("tempatsesi");
-
-        foreach ($cart as $ct => $val) {
-
-            $kode_tiket = $checkout_kode;
-            $id_produk = $ct;
-            $kategori = $val["kategori"];
-            $name = $val["nama_produk"];
-            $durasi = $val["durasi"];
-            $user_id = Auth::user()->id;
-            $tanggal_a = $request->date;
-            $tanggal_b = $val["tanggal_b"];
-            $jumlah = $val["jumlah"];
-            $tempat_id = $val["tempat_id"];
-            // $status;
-
-            $subtotal = $val["harga_produk"] * $val["jumlah"] * $val["durasi"];
-            $grandtotal += $subtotal;
-        }
-        // dd($tempat);
-
-
-        Tiket::create([
-            // 'token' => $token,
-            'kode' => $checkout_kode,
-            'user_id' => Auth::user()->id,
-            'name' => Auth::user()->name,
-            'email' => Auth::user()->email,
-            'telp' => Auth::user()->telp,
-            'harga' => $grandtotal,
-
-        ]);
-
-        Detail_transaksi::tambah_detail_transaksi($name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $subtotal, $tempat_id, $kategori);
-
-
-        session()->forget("cart");
-        return redirect("pesananku");
-    }*/
-
 
     function do_tambah_transaksi(Request $request)
     {
@@ -800,8 +744,8 @@ class TiketController extends Controller
         $cart = session("cart");
         // return ($cart);
 
-        $all_produk = implode(',', array_column($cart, 'nama_produk'));
-        $all_kategori = implode(',', array_column($cart, 'kategori'));
+        // $all_produk = implode(',', array_column($cart, 'nama_produk'));
+        // $all_kategori = implode(',', array_column($cart, 'kategori'));
         $all_jumlah = array_sum(array_column($cart, 'jumlah'));
         $data = Tiket::max('id');
         $urutan = (int)($data);
@@ -817,14 +761,14 @@ class TiketController extends Controller
                     foreach ($cart as $ct => $val) {
                         // return $new_arr;
                         $kode_tiket = $checkout_kode;
-                        $id_produk = "Paket";
-                        $kategori = $all_kategori;
-                        $name = $all_produk;
+                        $id_produk = $ct;
+                        $kategori = $val['kategori'];
+                        $name = $val['nama_produk'];
                         $durasi = $val["durasi"];
                         $user_id = Auth::user()->id;
                         $tanggal_a = $request->date;
                         $tanggal_b = $val["tanggal_b"];
-                        $jumlah = $all_jumlah;
+                        $jumlah = $val['jumlah'];
                         $count = $all_jumlah;
                         $tempat_id = $val["tempat_id"];
                         $type_bayar = "Transfer";
@@ -833,6 +777,8 @@ class TiketController extends Controller
 
                         $subtotal = $val["harga_produk"] * $val["jumlah"] * $val["durasi"];
                         $grandtotal += $subtotal;
+
+                        Detail_transaksi::tambah_detail_transaksi($name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $subtotal, $tempat_id, $kategori, $type_bayar, $status, $count);
                     }
                 } else {
                     foreach ($cart as $ct => $val) {
@@ -872,7 +818,7 @@ class TiketController extends Controller
 
 
 
-                Detail_transaksi::tambah_detail_transaksi($name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar, $status, $count);
+
 
 
                 session()->forget("cart");
@@ -1089,6 +1035,7 @@ class TiketController extends Controller
         // $tempatsesi = session("tempatsesi");
         switch ($request->input('action')) {
             case 'transfer':
+
                 foreach ($kuliner as $ct => $val) {
 
                     $kode_tiket = $checkout_kode;
@@ -1098,18 +1045,18 @@ class TiketController extends Controller
                     $durasi = $val["durasi"];
                     $user_id = Auth::user()->id;
                     $tanggal_a = $request->date;
-                    // dd($tanggal_a);
                     $tanggal_b = $val["tanggal_b"];
                     $jumlah = $val["jumlah"];
                     $tempat_id = $val["tempat_id"];
                     $catatan = $request->catatan;
                     $type_bayar = "Transfer";
                     $status = null;
-                    // dd($tempa_id);
                     $subtotal = $val["harga_produk"] * $val["jumlah"] * $val["durasi"];
                     $grandtotal += $subtotal;
+
+                    Detail_transaksi::tambah_detail_transaksi_kuliner($catatan, $name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar, $subtotal);
                 }
-                // dd($tempat);
+
 
 
                 Tiket::create([
@@ -1124,7 +1071,6 @@ class TiketController extends Controller
                     'type_bayar' => $type_bayar,
                 ]);
 
-                Detail_transaksi::tambah_detail_transaksi_kuliner($catatan, $name, $durasi, $user_id, $tanggal_a, $tanggal_b, $kode_tiket, $id_produk, $jumlah, $grandtotal, $tempat_id, $kategori, $type_bayar);
 
                 $review = new ReviewKuliner();
                 $review->kode_tiket = $checkout_kode;
