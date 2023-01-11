@@ -29,6 +29,7 @@
 
         <div class="container">
             <div class="row">
+                
 
                 {{-- <div class="col-6 col-lg-3 col-md-6">
                 <div class="card">
@@ -69,8 +70,10 @@
                 </div> --}}
                 <div class="col-6 col-lg-3 col-md-6">
                     <div class="card">
+                       
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
+                                
                                 <div class="col-md-4">
                                     <div class="stats-icon blue">
                                         <i class="fas fa-receipt"></i>
@@ -196,7 +199,6 @@
             </div> --}}
                 <div class="card-body">
                     <div class="card-content">
-
                         <!-- table hover -->
                         <div class="table-responsive">
                             <table class="table table-hover" id="pesan">
@@ -521,6 +523,73 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row" id="table-hover-row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb breadcrumb-left">
+                                    <h3>Data Transaksi Paket</h3>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div class="card-content">
+
+                            <!-- table hover -->
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="transaksi">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">No</th>
+                                            <th scope="col">Kode Booking</th>
+                                            <th scope="col">Paket</th>
+                                            <th scope="col">Total Biaya</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Hubungi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- {{ dd($transaksi[23]->checkin) }} --}}
+                                        @if ($pakets != null)
+                                        @foreach ($pakets as $paket)
+                                            
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $paket->kode_booking }}</td>
+                                            <td>{{ $paket->paket->nama_paket }}</td>
+                                            <td>{{ $paket->total_biaya }}</td>
+                                            <td>
+                                                <?php if($paket->status == 1) { ?>
+                                                    Belum Bayar
+                                                    <?php } else if($paket->status == 0){ ?>
+                                                    Batal
+                                                    <?php } else if($paket->status == 3){?>
+                                                    Sudah Bayar
+                                                    <?php } else if($paket->status == 4){?>
+                                                    Checkin
+                                                    <?php } else if($paket->status == 5){?>
+                                                    Selesai
+                                                    <?php }?>
+                                            </td>
+                                            <td>
+                                                <a href="wa.me/{{ $paket->paket->desa->petugas->telp }}">Hubungi Admin(Whatsapp {{ $paket->paket->desa->petugas->telp }})</a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        @else
+                                            <tr>
+                                                <td>Belum ada transaksi</td>
+                                            </tr>
+                                        @endif
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -531,6 +600,11 @@
         // Simple Datatable
         let table1 = document.querySelector('#pesan');
         let dataTable = new simpleDatatables.DataTable(table1);
+    </script>
+     <script>
+        let table2 = document.querySelector('#transaksi');
+        new simpleDatatables.DataTable(table2);
+
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>

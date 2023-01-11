@@ -371,13 +371,13 @@
                         $peserta = App\Models\PesertaEvent::where('kode_booking', $kegi->kode_booking)->get();
                         $i = 1;
                         ?>
-                        @foreach ($peserta as $p)
+                        {{-- @foreach ($peserta as $p)
                             <div class="col-md-4">
                                 <label>Peserta
                                     {{ $i++ }} :
                                     {{ $p->nama_peserta }}</label>
                             </div>
-                        @endforeach
+                        @endforeach --}}
                     </td>
                     <td>
 
