@@ -85,7 +85,7 @@ class DanaKController extends Controller
 
         }
 
-        // Dana
+        // semua dana
         //kurang di dana
         // $tempat->dana -= $request->jumlah;
         // $a = $tempat->dana;

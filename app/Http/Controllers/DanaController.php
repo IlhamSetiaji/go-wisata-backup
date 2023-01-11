@@ -49,6 +49,7 @@ class DanaController extends Controller
                 $grandcair2 += $uang;
             }
 
+            // semua dana
             //Dana Masuk
             $duit = $grandtotal;
             $danamasuk = array($duit);
