@@ -51,10 +51,10 @@
                                                 @endphp
                                                 <input type="text" hidden name="kode_peserta[]"
                                                     value="{{ $kode_peserta }}">
-                                                <div class="col-md-4">
+                                                {{-- <div hidden class="col-md-4">
                                                     <label>Nama Peserta *</label>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div hidden class="col-md-12">
                                                     <div class="form-group has-icon-left">
                                                         <div class="position-relative">
                                                             <input type="text" class="form-control" name="nama_peserta[]"
@@ -62,10 +62,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div hidden class="col-md-4">
                                                     <label>Email *</label>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div hidden class="col-md-12">
                                                     <div class="form-group has-icon-left">
                                                         <div class="position-relative">
                                                             <input type="text" class="form-control" name="email[]"
@@ -73,17 +73,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div hidden class="col-md-4">
                                                     <label>No Telepon *</label>
                                                 </div>
-                                                <div class="col-md-12">
+                                                <div hidden class="col-md-12">
                                                     <div class="form-group has-icon-left">
                                                         <div class="position-relative">
                                                             <input type="number" class="form-control" name="telp[]"
                                                                 id="first-name-icon" required>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>

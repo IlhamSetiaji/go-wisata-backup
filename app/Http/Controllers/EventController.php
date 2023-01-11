@@ -247,29 +247,29 @@ class EventController extends Controller
             'status' => '1',
         ]);
         $kode_peserta = array();
-        $nama_peserta = array();
-        $email = array();
-        $telp = array();
+        // $nama_peserta = array();
+        // $email = array();
+        // $telp = array();
         foreach ($request->kode_peserta as $k) {
             array_push($kode_peserta, $k);
         }
-        foreach ($request->nama_peserta as $n) {
-            array_push($nama_peserta, $n);
-        }
-        foreach ($request->email as $e) {
-            array_push($email, $e);
-        }
-        foreach ($request->telp as $t) {
-            array_push($telp, $t);
-        }
+        // foreach ($request->nama_peserta as $n) {
+        //     array_push($nama_peserta, $n);
+        // }
+        // foreach ($request->email as $e) {
+        //     array_push($email, $e);
+        // }
+        // foreach ($request->telp as $t) {
+        //     array_push($telp, $t);
+        // }
 
         for ($i = 0; $i < $jml_orang; $i++) {
             $peserta = new PesertaEvent();
             $peserta->kode_peserta = $kode_peserta[$i];
             $peserta->kode_booking = $kode_booking;
-            $peserta->nama_peserta = $nama_peserta[$i];
-            $peserta->email = $email[$i];
-            $peserta->telp = $telp[$i];
+            // $peserta->nama_peserta = $nama_peserta[$i];
+            // $peserta->email = $email[$i];
+            // $peserta->telp = $telp[$i];
             $peserta->event_id = $id;
             $peserta->user_id = $user_id;
             $peserta->save();

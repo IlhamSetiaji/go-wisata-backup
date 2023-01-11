@@ -45,14 +45,13 @@
                     </div>
                     <br>
                     <br>
-                    An. {{ substr(App\Models\User::where('id', $tiket->user_id)->pluck('name')->first(),0,20) }}
+                    An. {{ substr(App\Models\User::where('id', $tiket->user_id)->pluck('name')->first(),0,50) }}
                     <br>
                     Email : {{ $tiket->email }}
                     <br>
                     Telp : {{ substr(App\Models\User::where('id', $tiket->user_id)->pluck('telp')->first(),0,20) }}
                     <br>
                     <br>
-                    {!! QrCode::encoding('UTF-8')->size(150)->generate($tiket->kode) !!}
                     <table id="meta">
 
                         <tr>
@@ -74,6 +73,7 @@
                         </tr>
 
                     </table>
+                    {!! QrCode::encoding('UTF-8')->size(150)->generate($tiket->kode) !!}
 
                 </div>
 
@@ -132,19 +132,19 @@
                         <td align="center" colspan="5"><b> Detail Peserta</b></td>
                     </tr>
                     <tr>
-                        <th colspan="2">Kode Peserta</th>
-                        <th>Nama</th>
+                        <th colspan="5">Kode Peserta</th>
+                        {{-- <th>Nama</th>
                         <th>Email</th>
-                        <th>Telp</th>
+                        <th>Telp</th> --}}
                     </tr>
                     @foreach (App\Models\PesertaEvent::where('kode_booking', $dt->booking_id)->get() as $p)
                         <tr class="item-row">
-                            <td class="description" colspan="2">{{ $p->kode_peserta }} </br>
-                                {!! QrCode::encoding('UTF-8')->size(150)->generate($p->kode_peserta) !!}
+                            <td class="description" colspan="5">{{ $p->kode_peserta }} </br>
+                                {{-- {!! QrCode::encoding('UTF-8')->size(150)->generate($p->kode_peserta) !!} --}}
                             </td>
-                            <td align="center">{{ $p->nama_peserta }}</td>
+                            {{-- <td align="center">{{ $p->nama_peserta }}</td>
                             <td align="center">{{ $p->email }}</td>
-                            <td align="center">{{ $p->telp }}</td>
+                            <td align="center">{{ $p->telp }}</td> --}}
                         </tr>
                     @endforeach
                 </table>
