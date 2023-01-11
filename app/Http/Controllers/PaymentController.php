@@ -26,6 +26,7 @@ use App\Models\Kegiatan;
 use App\Models\ReviewTempatSewa;
 use App\Models\TempatSewa;
 use App\Models\Villa;
+use App\Models\BookingPaket;
 
 class PaymentController extends Controller
 {
@@ -709,8 +710,9 @@ class PaymentController extends Controller
     public function pesananku()
     {
         if (Auth::user()->status == '1') {
-            $tiket = Tiket::where('user_id', Auth::user()->id)->orderby('id', 'desc')->get();
-            return view('pesanan.semuapesanan', compact('tiket'));
+            $tiket = Tiket::where('user_id', Auth::user()->id)->orderby('status', 'desc')->get();
+            $pakets = BookingPaket::where('email', Auth::user()->email)->orderby('id', 'desc')->get();
+            return view('pesanan.semuapesanan', compact('tiket', 'pakets'));
         }
         return view('error');
     }

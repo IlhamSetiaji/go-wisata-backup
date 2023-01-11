@@ -550,6 +550,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{--  --}}
                                         {{-- {{ dd($transaksi[23]->checkin) }} --}}
                                         @if ($pakets != null)
                                         @foreach ($pakets as $paket)
