@@ -71,7 +71,7 @@ class Tempat extends Model
 
     public function petugas()
     {
-        return $this->belongsTo(User::class, 'petugas_id');
+        return $this->belongsTo(User::class, 'id', 'desa_id');
     }
 
     public function userAvatar($request)
