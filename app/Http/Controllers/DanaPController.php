@@ -92,5 +92,6 @@ class DanaPController extends Controller
         // ]);
         Toastr::success('Dana Berhasil Diajukan', 'Success');
         return redirect("/penginapan/danap");
+        
     }
 }
