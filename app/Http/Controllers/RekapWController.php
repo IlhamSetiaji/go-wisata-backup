@@ -270,7 +270,7 @@ class RekapWController extends Controller
 
         return view('kuliner.printrekap', compact('tempat', 'tgl_a', 'tgl_b', 'data', 'count', 'total'));
     }
-
+// rekap
     public function sortk(Request $request)
     {
         // dd($request);
