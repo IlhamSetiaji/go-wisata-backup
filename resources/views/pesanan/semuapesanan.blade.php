@@ -574,7 +574,7 @@
                                                     <?php }?>
                                             </td>
                                             <td>
-                                                <a href="wa.me/{{ $paket->paket->desa->petugas->telp }}">Hubungi Admin(Whatsapp {{ $paket->paket->desa->petugas->telp }})</a>
+                                                <a href="http://wa.me/{{ $paket->paket->desa->petugas->telp }}">Hubungi Admin(Whatsapp {{ $paket->paket->desa->petugas->telp }})</a>
                                             </td>
                                         </tr>
                                         @endforeach
