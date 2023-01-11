@@ -180,7 +180,6 @@
                                 <button  class="btn btn-outline-success" type="sumbit">
                                     Ajukan
                                 </button>
-
                         </form>
 
 
