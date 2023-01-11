@@ -338,7 +338,6 @@
                         <td><span class="price"> Rp. {{ number_format($datas->total_biaya) }}</span></td>
 
                     </tr>
-                    {{--  @endforeach  --}}
                     <tr id="hiderow">
                         <td colspan="5"></td>
                     </tr>
