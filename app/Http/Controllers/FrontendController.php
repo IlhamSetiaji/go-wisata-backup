@@ -314,7 +314,7 @@ class FrontendController extends Controller
             }
         } else if (count($kategori) == 3) {
             foreach ($pakets as $paket) {
-                $tempFilterKategori = tb_paketkategoriwisata::where('paket_id', $paket->id)->where('kategori_wisata_id', $kategori[0])->orWhere('kategori_wisata_id', $kategori[1])->orWhere('kategori_wisata_id', $kategori[3])->first();
+                $tempFilterKategori = tb_paketkategoriwisata::where('paket_id', $paket->id)->where('kategori_wisata_id', $kategori[0])->orWhere('kategori_wisata_id', $kategori[1])->orWhere('kategori_wisata_id', $kategori[2])->first();
                 if ($tempFilterKategori != null) {
                     array_push($filterKategori, tb_paket::where('id', $tempFilterKategori->paket_id)->first());
                 }
