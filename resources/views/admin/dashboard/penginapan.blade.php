@@ -211,25 +211,7 @@
                 </div>
 
             </div>
-            <div class="col-12 col-lg-6">
-                <div class="card" data-bs-toggle="modal" data-bs-target="#default">
-                    <div class="card-body py-4 px-5">
-                        <div class="d-flex align-items-center">
-                            <div class="avatar avatar-xl">
-                                {{-- <img src="{{ URL::to('/images/'. Auth::user()->avatar) }}" alt="{{ Auth::user()->avatar }}"> --}}
-                                <img alt="Face 1" class="mr-3 rounded-circle" width="50"
-                                    src="{{ asset('images') }}/{{ Auth::user()->image }}">
-                                {{-- <img src="assets/images/faces/1.jpg" alt="Face 1"> --}}
-                            </div>
-                            <div class="ms-3 name">
-                                <h5 class="font-bold">{{ Auth::user()->name }}</h5>
-                                <h6 class="font-extrabold mb-0"> Petugas</h6>
-                                {{-- <h6 class="text-muted mb-0">{{ Auth::user()->email }}</h6> --}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             <div class="col-12 col-lg-6">
                 <a href="{{ route('atf.penginapan') }}">
                     <div class="card">
