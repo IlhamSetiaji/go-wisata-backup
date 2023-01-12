@@ -155,7 +155,7 @@
                                                     <div class="col-md-8">
                                                         <div class="form-group has-icon-left">
                                                             <div class="position-relative">
-                                                                <input type="number" class="form-control" id="harga"
+                                                                <input type="number" class="form-control" id="rupiah"
                                                                     name="harga" placeholder="harga"
                                                                     value="{{ $kamar->harga }}">
                                                                 <div class="form-control-icon">
@@ -244,7 +244,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Nama Kamar</label>
+                                    <label>Nama Kamar *</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group has-icon-left">
@@ -260,7 +260,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Deskripsi</label>
+                                    <label>Deskripsi *</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group has-icon-left">
@@ -279,7 +279,7 @@
 
 
                                 <div class="col-md-4">
-                                    <label>Image</label>
+                                    <label>Image *</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group has-icon-left">
@@ -307,7 +307,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Type</label>
+                                    <label>Type *</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group has-icon-left">
@@ -334,7 +334,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label>Desc Harga</label>
+                                    <label>Desc Harga *</label>
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group has-icon-left">

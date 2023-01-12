@@ -57,7 +57,7 @@
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Name Paket</label>
+                                                <label>Name Paket *</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
@@ -87,7 +87,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Kategori</label>
+                                                <label>Kategori *</label>
                                             </div>
                                             <div class="col-md-8 ">
                                                 <div class="form-group has-icon-left">

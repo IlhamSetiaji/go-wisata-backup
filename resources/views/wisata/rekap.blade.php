@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
    
     <div class="col-12 col-md-6 col-lg-6">
-
+<!-- rekapdata -->
         <form action="/awisata/rekapw" method="post">
             @csrf
             <div class="form-group">

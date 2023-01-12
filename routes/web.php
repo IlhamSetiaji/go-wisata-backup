@@ -209,6 +209,8 @@ Route::group([
     Route::get('/konfitmasi/dana/{id}', [DanaController::class, 'konfirmasi'])->name('konfirmasi.dana');
     Route::get('/konfitmasi/danatolak/{id}', [DanaController::class, 'tolak'])->name('penolakan.dana');
 
+    Route::get('/profiladmin', [ATFController::class, 'padmin'])->name('atf.padmin');
+
     Route::get('crop-about1',  [App\Http\Controllers\CropImageController::class, 'about1']);
     Route::post('crop-about1', [App\Http\Controllers\CropImageController::class, 'cropabout1'])->name('croppie.about1');
     Route::get('crop-about2',  [App\Http\Controllers\CropImageController::class, 'about2']);
@@ -230,6 +232,9 @@ Route::group([
     Route::get('/rekapw', [RekapWController::class, 'rekapwisata'])->name('rekapw.index');
     Route::post('/rekapw', [RekapWController::class, 'sortw']);
     Route::get('/rekapw/print/{date}', [RekapWController::class, 'printwisata'])->name('print.rekapw');
+
+    Route::get('/profilwisata', [ATFController::class, 'pwisata'])->name('atf.pwisata');
+
 
     Route::get('/jadwalcamp', [JadwalCampController::class, 'index'])->name('jadwalcamp.index');
 
@@ -268,6 +273,8 @@ Route::group([
     Route::patch('/tempatd/{id}', [TempatController::class, 'updated'])->name('tempat.updated');
     Route::get('/tempatd/create', [TempatController::class, 'created'])->name('tempat.created');
     Route::get('/tempatd/{id}/edit', [TempatController::class, 'editd'])->name('tempat.editd');
+
+    Route::get('/profildesa', [ATFController::class, 'pdesa'])->name('atf.pdesa');
 
     Route::post('/admin/stored', [AdminController::class, 'stored'])->name('admin.stored');
     Route::post('/tempat/stored', [TempatController::class, 'stored'])->name('tempat.stored');
@@ -335,6 +342,7 @@ Route::group([
     Route::post('/rekapk', [RekapWController::class, 'sortk']);
     Route::get('/rekapk/print/{date}', [RekapWController::class, 'printkuliner'])->name('print.rekapk');
 
+    Route::get('/profilkuliner', [ATFController::class, 'pkuliner'])->name('atf.pkuliner');
     Route::get('/tempatkuliner', [ATFController::class, 'kuliner'])->name('atf.kuliner');
     Route::get('/todaykuliner', [TodayController::class, 'todaykuliner'])->name('todaykuliner.index');
     Route::get('/todaykuliner/selesai/{id}', [TodayController::class, 'updatekulinerselesai'])->name('update.selesai.pesanank');
@@ -366,6 +374,7 @@ Route::group([
     'prefix' => 'penginapan',
 
 ], function () {
+    Route::get('/profilpenginapan', [ATFController::class, 'ppenginapan'])->name('atf.ppenginapan');
     //rekapdta
     Route::get('/rekapp', [RekapWController::class, 'rekappenginapan'])->name('rekapp.index');
     Route::post('/rekapp', [RekapWController::class, 'sortp']);
@@ -496,6 +505,8 @@ Route::group([
 
     Route::get('/danasewa', [DanaSController::class, 'index'])->name('danas.index');
     Route::post('/danas/cair', [DanaSController::class, 'sewa_cair'])->name('danas.cair');
+
+    Route::get('/profileventsewa', [ATFController::class, 'peventsewa'])->name('atf.peventsewa');
 });
 
 // BUDGETING

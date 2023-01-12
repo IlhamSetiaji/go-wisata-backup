@@ -498,16 +498,16 @@
                                                                 @endif
                                                             @endif
                                                         @endforeach
+                                                        @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
+                                                            @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
+                                                                @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
+                                                                    <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
+                                                                        <button
+                                                                            class="btn btn-outline-primary me-1 mb-1">{{ $reviewk->status == '0' ? 'Ulas' : 'Selesai Ulas' }}</button></a>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
                                                     @endforeach
-                                                    @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
-                                                        @foreach (App\Models\ReviewKuliner::where('kode_tiket', $tiket->kode)->get() as $reviewk)
-                                                            @if ($tiket->check == 'settlement' && $transaksi->kategori == 'kuliner')
-                                                                <a href="{{ route('ratingkuliner', [$tiket->kode]) }}">
-                                                                    <button
-                                                                        class="btn btn-outline-primary me-1 mb-1">{{ $reviewk->status == '0' ? 'Ulas' : 'Selesai Ulas' }}</button></a>
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -550,6 +550,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {{--  --}}
                                         {{-- {{ dd($transaksi[23]->checkin) }} --}}
                                         @if ($pakets != null)
                                         @foreach ($pakets as $paket)
@@ -573,7 +574,7 @@
                                                     <?php }?>
                                             </td>
                                             <td>
-                                                <a href="wa.me/{{ $paket->paket->desa->petugas->telp }}">Hubungi Admin(Whatsapp {{ $paket->paket->desa->petugas->telp }})</a>
+                                                <a href="http://wa.me/{{ $paket->paket->desa->petugas->telp }}">Hubungi Admin(Whatsapp {{ $paket->paket->desa->petugas->telp }})</a>
                                             </td>
                                         </tr>
                                         @endforeach

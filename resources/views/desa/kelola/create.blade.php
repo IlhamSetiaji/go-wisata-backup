@@ -63,7 +63,7 @@
 
 
                                             <div class="col-md-4">
-                                                <label for="first-name-icon">Nama Tempat</label>
+                                                <label for="first-name-icon">Nama Tempat *</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
@@ -110,7 +110,7 @@
                                             </div>
                                         </div> --}}
                                             <div class="col-md-4">
-                                                <label>Kategori</label>
+                                                <label>Kategori *</label>
                                             </div>
                                             {{-- <div class="col-md-6 mb-4"> --}}
                                             <div class="col-md-6 ">
@@ -153,9 +153,8 @@
                                             </div>
 
 
-
                                             <div class="col-md-4">
-                                                <label>Image (400x600 p)</label>
+                                                <label>Image (400x600 p) *</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
@@ -170,7 +169,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Image (2200x1280 p)</label>
+                                                <label>Image (2200x1280 p) *</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
@@ -186,7 +185,7 @@
                                             </div>
 
                                             <div class="col-md-4">
-                                                <label>Email</label>
+                                                <label>Email *</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
@@ -218,7 +217,7 @@
 
 
                                             <div class="col-md-4">
-                                                <label>Alamat</label>
+                                                <label>Alamat *</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
@@ -232,7 +231,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Petugas</label>
+                                                <label>Petugas *</label>
                                             </div>
                                             <div class="col-md-6 ">
                                                 <div class="form-group has-icon-left">

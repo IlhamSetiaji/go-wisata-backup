@@ -77,7 +77,7 @@
                     <div class="form-body">
                         <div class="row">
                             <div class="col-md-4">
-                                <label>Name aa</label>
+                                <label>Name</label>
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group has-icon-left">
