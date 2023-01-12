@@ -98,7 +98,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h3 class="card-title"><i class="fa fa-money-bill" aria-hidden="true"></i> E-Budgeting</h3>
-                            <p class="card-text" align="justify">E-Budgeting adalah sebuah fitur rekomendasi paket wisata berdasarkan budget anda
+                            <p class="card-text" align="justify">E-Budgeting adalah sebuah fitur penyusunan anggaran rekomendasi paket wisata berdasarkan budget anda
                             </p>
                             <button data-bs-toggle="modal"
                             data-bs-target="#form-budgeting" class="button">Explore</button>
