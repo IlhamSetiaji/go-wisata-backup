@@ -62,14 +62,16 @@
                                     <div class="row">
 
 
-                                        <div class="col-md-4">
-                                            <label for="first-name-icon">Nama Tempat</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                                        placeholder="Name" id="first-name-icon" value="{{ old('name') }}" required>
+                                            <div class="col-md-4">
+                                                <label for="first-name-icon">Nama Tempat *</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <input type="text"
+                                                            class="form-control @error('name') is-invalid @enderror"
+                                                            name="name" placeholder="Name" id="first-name-icon"
+                                                            value="{{ old('name') }}" required>
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-people"></i>
                                                         </div>
@@ -107,23 +109,26 @@
                                                 </div>
                                             </div>
                                         </div> --}}
-                                        <div class="col-md-4">
-                                            <label>Kategori</label>
-                                        </div>
-                                        {{-- <div class="col-md-6 mb-4"> --}}
-                                        <div class="col-md-6 ">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <fieldset class="form-group">
-                                                        <select class="form-select" name="kategori" required>
-                                                            <option value="" >Pilih Kategori</option>
-                                                            <option value="wisata"> Tempat Wisata</option>
-                                                            <option value="hotel"> Tempat Penginapan</option>
-                                                            <option value="kuliner"> Tempat Kuliner</option>
+                                            <div class="col-md-4">
+                                                <label>Kategori *</label>
+                                            </div>
+                                            {{-- <div class="col-md-6 mb-4"> --}}
+                                            <div class="col-md-6 ">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" name="kategori" required>
+                                                                <option value="">Pilih Kategori</option>
+                                                                <option value="wisata"> Tempat Wisata</option>
+                                                                <option value="penginapan"> Tempat Penginapan</option>
+                                                                <option value="kuliner"> Tempat Kuliner</option>
+                                                                <option value="event & sewa tempat"> Tempat Event & Sewa
+                                                                    Tempat</option>
+                                                                <option value="seni & budaya"> Tempat Seni & Budaya</option>
 
 
-                                                        </select>
-                                                    </fieldset>
+                                                            </select>
+                                                        </fieldset>
 
                                                 </div>
                                             </div>
@@ -149,44 +154,50 @@
                                         </div>
 
 
-
-                                        <div class="col-md-4">
-                                            <label>Image (400x600 p)</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input class="form-control @error('image') is-invalid @enderror" name="image" type="file" id="image" multiple="" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-person-square"></i>
+                                            <div class="col-md-4">
+                                                <label>Image (400x600 p) *</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <input class="form-control @error('image') is-invalid @enderror"
+                                                            name="image" type="file" id="image" multiple=""
+                                                            required>
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-person-square"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Image (2200x1280 p) *</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <input class="form-control @error('image2') is-invalid @enderror"
+                                                            name="image2" type="file" id="image2" multiple=""
+                                                            required>
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-person-square"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <label>Image (2200x1280 p)</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input class="form-control @error('image2') is-invalid @enderror" name="image2" type="file" id="image2" multiple="" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-person-square"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-4">
-                                            <label>Email</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input type="email" class="form-control" name="email"
-                                                        placeholder="Email" id="first-name-icon" value="{{ old('email') }}" required>
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-envelope"></i>
+                                            <div class="col-md-4">
+                                                <label>Email *</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <input type="email" class="form-control" name="email"
+                                                            placeholder="Email" id="first-name-icon"
+                                                            value="{{ old('email') }}" required>
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-envelope"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -208,37 +219,38 @@
                                         </div>
 
 
-                                        <div class="col-md-4">
-                                            <label>Alamat</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <textarea class="form-control" name="alamat"
-                                                    rows="3" required ></textarea>
-                                                    <div class="form-control-icon">
-                                                    <i class="far fa-map"></i>
+                                            <div class="col-md-4">
+                                                <label>Alamat *</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <textarea class="form-control" name="alamat" rows="3" required></textarea>
+                                                        <div class="form-control-icon">
+                                                            <i class="far fa-map"></i>
+                                                        </div>
+
                                                     </div>
 
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Petugas</label>
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <fieldset class="form-group">
-                                                        <select class="form-select" id="basicSelect"  name="user_id" >
+                                            <div class="col-md-4">
+                                                <label>Petugas *</label>
+                                            </div>
+                                            <div class="col-md-6 ">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <fieldset class="form-group">
+                                                            <select class="form-select" id="basicSelect" name="user_id">
 
-                                                            <option selected value=''>Pilih Petugas</option>
-                                                            @foreach(App\Models\User::where('role_id','!=','5')->where('desa_id',$tempat->id)->where('tempat_id',null)->get() as $role)
-                                                                <option value="{{$role->petugas_id}}"> Admin - {{$role->name}}</option>
-                                                            @endforeach
+                                                                <option selected value=''>Pilih Petugas</option>
+                                                                @foreach (App\Models\User::where('role_id', '!=', '5')->where('desa_id', $tempat->id)->where('tempat_id', null)->get() as $role)
+                                                                    <option value="{{ $role->petugas_id }}"> Admin -
+                                                                        {{ $role->name }}</option>
+                                                                @endforeach
 
-                                                        </select>
-                                                        {{-- <div class="form-control-icon">
+                                                            </select>
+                                                            {{-- <div class="form-control-icon">
                                                             <i class="bi bi-exclude"></i>
                                                         </div> --}}
                                                     </fieldset>

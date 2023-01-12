@@ -65,7 +65,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Nama Makanan/Minuman</label>
+                                            <label>Nama Makanan/Minuman *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -80,7 +80,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Deskripsi</label>
+                                            <label>Deskripsi *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Kategori</label>
+                                            <label>Kategori *</label>
                                         </div>
 
                                         <div class="col-md-6 ">
@@ -118,7 +118,7 @@
 
 
                                         <div class="col-md-4">
-                                            <label>Image</label>
+                                            <label>Image *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -132,7 +132,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Harga</label>
+                                            <label>Harga *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
