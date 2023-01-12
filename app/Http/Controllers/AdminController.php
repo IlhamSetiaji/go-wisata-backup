@@ -15,6 +15,7 @@ use App\Models\Villa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -85,12 +86,17 @@ class AdminController extends Controller
 
         $name = (new User)->userAvatar($request);
         $data['image'] = $name;
-        $data['email_verified_at'] = now();
+        // $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
 
         User::create($data);
+        $role = Role::where('id', $request->role_id)->first();
 
-
+        $receiver = $request->email;
+        $name = $request->name;
+        $subject = "Anda ditambahkan sebagai admin";
+        $body = 'Hallo ' . $name . ', anda telah ditambahkan sebagai ' . $role->name . ' dengan email ' . $request->email . ' dan password ' . $request->password . ' silahkan login untuk menerima email verifikasi';
+        $this->sendEmail($receiver, $subject, $body);
         Toastr::success('Membuat akun admin berhasil :)', 'Success');
         return redirect()->route('admin.index');
     }
@@ -105,11 +111,17 @@ class AdminController extends Controller
 
         $name = (new User)->userAvatar($request);
         $data['image'] = $name;
-        $data['email_verified_at'] = now();
+        // $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
         $data['desa_id'] = $tempat->id;
 
         User::create($data);
+        $role = Role::where('id', $request->role_id)->first();
+        $receiver = $request->email;
+        $name = $request->name;
+        $subject = "Anda ditambahkan sebagai admin";
+        $body = 'Hallo ' . $name . ', anda telah ditambahkan sebagai ' . $role->name . ' dengan email ' . $request->email . ' dan password ' . $request->password . ' silahkan login untuk menerima email verifikasi';
+        $this->sendEmail($receiver, $subject, $body);
 
 
         Toastr::success('Membuat akun admin berhasil :)', 'Success');
@@ -376,6 +388,33 @@ class AdminController extends Controller
 
         Toastr::success(' Berhasil mengupdate data :)', 'Success');
         return redirect()->route('tourd.index');
+    }
+    public function sendEmail($receiver, $subject, $body)
+    {
+        if ($this->isOnline()) {
+            $email = [
+                'recepient' => $receiver,
+                'fromEmail' => 'admin@go-wisata.com',
+                'fromName' => 'Go-Wisata.id',
+                'subject' => $subject,
+                'body' => $body
+            ];
+
+            Mail::send('email-otp', ['body' => $email['body']], function ($message) use ($email) {
+                $message->from($email['fromEmail'], $email['fromName']);
+                $message->to($email['recepient']);
+                $message->subject($email['subject']);
+            });
+        }
+    }
+
+    public function isOnline($site = "https://www.youtube.com/")
+    {
+        if (@fopen($site, "r")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // public function tourDestroy($id)
