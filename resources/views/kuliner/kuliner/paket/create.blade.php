@@ -21,7 +21,7 @@
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <label>Nama Paket Kuliner</label>
+                                                <label>Nama Paket Kuliner *</label>
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group has-icon-left">
@@ -38,7 +38,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Makanan</label>
+                                                <label>Makanan *</label>
                                             </div>
                                             <div class="col-md-8" id="makan">
                                                 <div class="form-group">
@@ -57,7 +57,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Minum</label>
+                                                <label>Minum *</label>
                                             </div>
                                             <div class="col-md-8" id="minum">
                                                 <div class="form-group">
@@ -75,7 +75,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                <label>Snack</label>
+                                                <label>Snack *</label>
                                             </div>
                                             <div class="col-md-8" id="snack">
                                                 <div class="form-group">

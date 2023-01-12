@@ -54,7 +54,7 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label>Name</label>
+                                            <label>Name *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
@@ -88,7 +88,7 @@
                                               </select> --}}
                                         </div>
                                         <div class="col-md-4 mt-2">
-                                            <label>Telfon</label>
+                                            <label>Telfon *</label>
                                         </div>
                                         <div class="col-md-8 mt-2">
                                             <div class="form-group">
@@ -108,7 +108,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Email</label>
+                                            <label>Email *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group ">
@@ -125,7 +125,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Image</label>
+                                            <label>Image *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">
@@ -141,7 +141,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Harga</label>
+                                            <label>Harga *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group">

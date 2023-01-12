@@ -74,7 +74,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Name</label>
+                                            <label>Name *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -89,7 +89,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Email</label>
+                                            <label>Email *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -104,13 +104,13 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Password</label>
+                                            <label>Password *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <input type="password" class="form-control" name="password"
-                                                        placeholder="Password" value="{{ old('password') }}" required>
+                                                        placeholder="6 characters" value="{{ old('password') }}" required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-lock"></i>
                                                     </div>
@@ -118,7 +118,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Image</label>
+                                            <label>Image *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -133,7 +133,7 @@
 
 
                                         <div class="col-md-4">
-                                            <label>Jenis Kelamin</label>
+                                            <label>Jenis Kelamin *</label>
                                         </div>
 
                                         <div class="col-md-6 ">
@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Alamat</label>
+                                            <label>Alamat *</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -181,7 +181,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Role</label>
+                                            <label>Role *</label>
                                         </div>
                                         <div class="col-md-6 ">
                                             <div class="form-group has-icon-left">
