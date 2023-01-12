@@ -14,15 +14,72 @@
         @endforeach
         <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
         <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
-        <header class="mb-3">
-            <a href="#" class="burger-btn d-block d-xl-none">
-                <i class="bi bi-justify fs-3"></i>
-            </a>
+        <header class='mb-3'>
+            <nav class="navbar navbar-expand navbar-light ">
+                <div class="container-fluid">
+                    <div class="page-heading">
+                        <h3>Data Statistics </h3>
+                    </div>
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item dropdown me-1">
+                            </li>
+                            <li class="nav-item dropdown me-3">
+                            </li>
+                        </ul>
+                        <div class="dropdown">
+                            <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="user-menu d-flex">
+                                    <div class="user-name text-end me-3">
+                                        <h6 class="mb-0 text-gray-600">{{ Auth::user()->name }}</h6>
+                                        <p class="mb-0 text-sm text-gray-600">{{ Auth::user()->role->name }}</p>
+                                    </div>
+                                    <div class="user-img d-flex align-items-center">
+                                        <div class="avatar avatar-md">
+                                            @if (Auth::user()->image == null)
+                                                <img alt="image" class="mr-3 rounded-circle" width="50"
+                                                    src="{{ asset('images') }}/user.png">
+                                            @else
+                                                <div class="avatar avatar-xl">
+                                                    <img src="{{ asset('images') }}/{{ Auth::user()->image }}">
+    
+                                                </div>
+                                            @endif
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <h6 class="dropdown-header">Hello, {{ Auth::user()->name }}!</h6>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('atf.padmin') }}"><i
+                                            class="icon-mid bi bi-person me-2"></i> My
+                                        Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="icon-mid bi bi-box-arrow-left me-2"></i>Logout</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            </ul>
+    
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </header>
 
-        <div class="page-heading">
-            <h3>Data Statistics</h3>
-        </div>
 
         <div class="page-content">
             <section class="row">

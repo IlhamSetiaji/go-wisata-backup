@@ -136,6 +136,30 @@ class ATFController extends Controller
 
         return redirect()->back();
     }
+    public function pkuliner()
+    {
+        return view('profil.profilkuliner');
+    }
+    public function padmin()
+    {
+        return view('profil.profiladmin');
+    }
+    public function pdesa()
+    {
+        return view('profil.profildesa');
+    }
+    public function peventsewa()
+    {
+        return view('profil.profileventsewa');
+    }
+    public function ppenginapan()
+    {
+        return view('profil.profilpenginapan');
+    }
+    public function pwisata()
+    {
+        return view('profil.profilwisata');
+    }
     public function toggleStatus($id)
     {
         $sesii = Tempat::find($id);
