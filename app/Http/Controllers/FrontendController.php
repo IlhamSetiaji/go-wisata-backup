@@ -296,6 +296,7 @@ class FrontendController extends Controller
                 ->orderBy('harga', 'desc')
                 ->get();
         }
+        // dd($pakets);
 
         //filter kategori paket
         if (count($kategori) == 1) {
@@ -306,18 +307,42 @@ class FrontendController extends Controller
                 }
             }
         } else if (count($kategori) == 2) {
+            $dataSetelahFilter = [];
             foreach ($pakets as $paket) {
-                $tempFilterKategori = tb_paketkategoriwisata::where('paket_id', $paket->id)->where('kategori_wisata_id', $kategori[0])->orWhere('kategori_wisata_id', $kategori[1])->first();
-                if ($tempFilterKategori != null) {
-                    array_push($filterKategori, tb_paket::where('id', $tempFilterKategori->paket_id)->first());
+                $tempFilterKategori1 = tb_paketkategoriwisata::where('paket_id', $paket->id)->get();
+                $tempDataFilter = [];
+                array_push($tempDataFilter, $tempFilterKategori1);
+
+                for ($i = 0; $i < count($tempDataFilter); $i++) {
+                    for ($j = 0; $j < count($tempDataFilter[$i]); $j++) {
+                        if ($tempDataFilter[$i][$j]->kategori_wisata_id == $kategori[0] || $tempDataFilter[$i][$j]->kategori_wisata_id == $kategori[1]) {
+                            array_push($dataSetelahFilter, tb_paket::where('id', $tempDataFilter[$i][$j]->paket_id)->pluck('id')->first());
+                        }
+                    }
                 }
             }
+            $dataUniqe = array_unique($dataSetelahFilter);
+            foreach ($dataUniqe as $filter) {
+                array_push($filterKategori, tb_paket::where('id', $filter)->first());
+            }
         } else if (count($kategori) == 3) {
+            $dataSetelahFilter = [];
             foreach ($pakets as $paket) {
-                $tempFilterKategori = tb_paketkategoriwisata::where('paket_id', $paket->id)->where('kategori_wisata_id', $kategori[0])->orWhere('kategori_wisata_id', $kategori[1])->orWhere('kategori_wisata_id', $kategori[2])->first();
-                if ($tempFilterKategori != null) {
-                    array_push($filterKategori, tb_paket::where('id', $tempFilterKategori->paket_id)->first());
+                $tempFilterKategori1 = tb_paketkategoriwisata::where('paket_id', $paket->id)->get();
+                $tempDataFilter = [];
+                array_push($tempDataFilter, $tempFilterKategori1);
+
+                for ($i = 0; $i < count($tempDataFilter); $i++) {
+                    for ($j = 0; $j < count($tempDataFilter[$i]); $j++) {
+                        if ($tempDataFilter[$i][$j]->kategori_wisata_id == $kategori[0] || $tempDataFilter[$i][$j]->kategori_wisata_id == $kategori[1] || $tempDataFilter[$i][$j]->kategori_wisata_id == $kategori[2]) {
+                            array_push($dataSetelahFilter, tb_paket::where('id', $tempDataFilter[$i][$j]->paket_id)->pluck('id')->first());
+                        }
+                    }
                 }
+            }
+            $dataUniqe = array_unique($dataSetelahFilter);
+            foreach ($dataUniqe as $filter) {
+                array_push($filterKategori, tb_paket::where('id', $filter)->first());
             }
         }
 
@@ -332,7 +357,6 @@ class FrontendController extends Controller
         foreach ($dataIdPaktes as $id) {
             array_push($kategoriPaket, tb_paketkategoriwisata::where('paket_id', $id)->get());
         }
-        // dd($kategoriPaket);
 
         //get paket wisata setiap paket
         $dataPaketWisata = [];
@@ -349,7 +373,6 @@ class FrontendController extends Controller
         foreach ($dataIdPaktes as $id) {
             $cekIdPaketKuliner = tb_datakuliner::where('paket_id', $id)->first();
             if ($cekIdPaketKuliner != '') {
-                // $tempPaketWisata = tb_datakuliner::where('paket_id', $id)->get();
                 array_push($dataPaketKuliner, $cekIdPaketKuliner);
             }
         }
@@ -363,28 +386,6 @@ class FrontendController extends Controller
                 array_push($dataPaketPenginapan, $tempPaketPenginapan);
             }
         }
-        // dd($dataPaketPenginapan);
-
-
-        //get paket penginapan setiap paket
-        // $dataPaketPenginapan = [];
-        // foreach ($dataIdPaktes as $id) {
-        //     $cekIdPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->first();
-        //     if ($cekIdPaketPenginapan != '') {
-        //         $tempPaketPenginapan = tb_paketpenginapan::where('paket_id', $id)->get();
-        //         array_push($dataPaketPenginapan, $tempPaketPenginapan);
-        //     }
-        // }
-
-        //get paket wahana setiap paket
-        // $dataPaketWahana = [];
-        // foreach ($dataIdPaktes as $id) {
-        //     $cekIdPaketWahana = tb_paketwahana::where('paket_id', $id)->first();
-        //     if ($cekIdPaketWahana != '') {
-        //         $tempPaketWahana = tb_paketwahana::where('paket_id', $id)->get();
-        //         array_push($dataPaketWahana, $tempPaketWahana);
-        //     }
-        // }
 
         // get random image for tb_tempat
         $arrGambar = [];
