@@ -82,7 +82,7 @@ class BudgetingController extends Controller
     public function getMenu(Request $request)
     {
         // $data = Kuliner::where('tempat_id', $request->resto_id)->get();
-        $datas = DataPaketKuliner::where('tempat_id', $request->resto_id)->get();
+        $datas = DataPaketKuliner::where('tempat_id', $request->resto_id)->where('status', 1)->get();
         foreach ($datas as $data) {
             echo "<option value='$data->id'> $data->nama_paket - $data->harga</option>";
         }
