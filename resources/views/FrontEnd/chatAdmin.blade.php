@@ -72,7 +72,7 @@
                         <a href="https://twitter.com/" target="_blank" class="footer__social">
                             <i class="ri-twitter-fill"></i>
                         </a>
-                        <a href="https://www.instagram.com/" target="_blank" class="footer__social">
+                        <a href="https://www.instagram.com/gowisata.id//" target="_blank" class="footer__social">
                             <i class="ri-instagram-fill"></i>
                         </a>
                         <a href="https://www.youtube.com/" target="_blank" class="footer__social">
