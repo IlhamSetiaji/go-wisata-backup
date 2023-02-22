@@ -1,7 +1,7 @@
 # go-wisata.id
 
-https://go-wisata.id/login = page login user
-https://go-wisata.id/login-admin = page login admin
+> https://go-wisata.id/login = page login user``
+> https://go-wisata.id/login-admin = page login admin
 
 
 # daftar roles 
