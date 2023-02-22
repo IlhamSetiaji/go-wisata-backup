@@ -6,16 +6,23 @@
 
 
 # daftar roles 
-1 = admin 	as super admin
+id  name
 
-2 = wisata 	
+1 = admin 	as Super Admin
 
-3 =	kuliner 	
-4 =	penginapan 	
-5 =	pelanggan 	
-6 =	desa 	
+2 = wisata 	as Admin Wisata
+
+3 =	kuliner as Admin Kuliner
+
+4 =	penginapan 	as Admin Penginapan
+
+5 =	pelanggan as User	
+
+6 =	desa 	  as Admin Desa
+
 7 =	event & sewa tempat 	
-8 =	seni & budaya
+
+8 =	seni & budaya 
 
 
 
