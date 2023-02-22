@@ -61,7 +61,7 @@
         <div class="footer__container container grid">
             <div class="footer__content grid">
                 <div class="footer__data">
-                    <h3 class="footer__title">GoWisata.</h3>
+                    <h3 class="footer__title">GoWisata.id</h3>
                     <p class="footer__description">Kami Membantu <br> wisata anda,
                         dimanapun <br> dan kapanpun.
                     </p>
