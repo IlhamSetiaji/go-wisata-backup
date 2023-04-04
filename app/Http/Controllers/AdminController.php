@@ -12,6 +12,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Tempat;
 use App\Models\Tour;
 use App\Models\Villa;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +22,10 @@ class AdminController extends Controller
 {
     public function index()
     {
+        if(request()->user()->role_id == 9){
+            $users  = User::with(['role'])->whereNotIn('role_id',[1,5])->get();
+            return view('admin.admin.index', compact('users'));
+        }
         $users  = User::with(['role'])->where('role_id', '!=', 5)->get();
         // dd($users);
         return view('admin.admin.index', compact('users'));
@@ -53,10 +58,11 @@ class AdminController extends Controller
         $urutan = (int)substr($data, 2, 3);
         $urutan++;
         $petugas_id = $huruf . sprintf("%03s", $urutan);
+        $roles = Role::whereNotIn('id', [1,5,9])->get();
         // dd($petugas_id);
 
 
-        return view('admin.admin.create', compact('petugas_id'));
+        return view('admin.admin.create', compact('petugas_id','roles'));
     }
     public function created()
     {
@@ -82,21 +88,32 @@ class AdminController extends Controller
         $this->validateStore($request);
         $data = $request->all();
         // dd($data);
-
+        $user = request()->user();
 
         $name = (new User)->userAvatar($request);
         $data['image'] = $name;
         // $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
-
+        if($user->role_id === 1){
+            if($request->role_id == 9){
+                $data['parent_id'] = request()->user()->id;
+                $data['email_verified_at'] = Carbon::now();
+            } else {
+                $data['parent_id'] = User::where('role_id', 9)->first()->id;
+                $data['email_verified_at'] = Carbon::now();
+            }
+        } elseif($user->role_id === 9){
+            $data['parent_id'] = request()->user()->id;
+            $data['email_verified_at'] = Carbon::now();
+        }
         User::create($data);
-        $role = Role::where('id', $request->role_id)->first();
+        // $role = Role::where('id', $request->role_id)->first();
 
-        $receiver = $request->email;
-        $name = $request->name;
-        $subject = "Anda ditambahkan sebagai admin";
-        $body = 'Hallo ' . $name . ', anda telah ditambahkan sebagai ' . $role->name . ' dengan email ' . $request->email . ' dan password ' . $request->password . ' silahkan login untuk menerima email verifikasi';
-        $this->sendEmail($receiver, $subject, $body);
+        // $receiver = $request->email;
+        // $name = $request->name;
+        // $subject = "Anda ditambahkan sebagai admin";
+        // $body = 'Hallo ' . $name . ', anda telah ditambahkan sebagai ' . $role->name . ' dengan email ' . $request->email . ' dan password ' . $request->password . ' silahkan login untuk menerima email verifikasi';
+        // $this->sendEmail($receiver, $subject, $body);
         Toastr::success('Membuat akun admin berhasil :)', 'Success');
         return redirect()->route('admin.index');
     }

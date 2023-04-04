@@ -537,7 +537,7 @@ Route::get('/penginapan/{slug}', [FrontendController::class, 'tempatshow'])->nam
 Route::get('/kuliner/{slug}', [FrontendController::class, 'tempatshow'])->name('front.showk');
 Route::get('/event & sewa tempat/{slug}', [FrontendController::class, 'tempatshow']);
 Route::post('/tiket/{name}', [TiketController::class, 'beli'])->name('tiket.beli');
-Route::get('/logout2', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout2');
+Route::get('/logout/another', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout2');
 
 //Pembayaran Midrrans
 Route::get('/bayar', [PaymentController::class, 'index'])->middleware('verified');

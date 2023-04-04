@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         // ]);
 
         User::create([
-
+            'parent_id' => User::where('role_id', 1)->first()->id,
             'name' => 'adminkota',
             'email' => 'adminkota@gmail.com',
             'email_verified_at' => now(),
