@@ -16,13 +16,25 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        // User::create([
 
-            'name' => 'admin',
-            'email' => 'admin@gmail.com',
+        //     'name' => 'admin',
+        //     'email' => 'admin@gmail.com',
+        //     'email_verified_at' => now(),
+        //     'password' => Hash::make('admin@gmail.com'),
+        //     'role_id' => '1',
+        //     'petugas_id' => 'D001',
+        //     'created_at' => \Carbon\Carbon::now(),
+
+        // ]);
+
+        User::create([
+            'parent_id' => User::where('role_id', 1)->first()->id,
+            'name' => 'adminkota',
+            'email' => 'adminkota@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('admin@gmail.com'),
-            'role_id' => '1',
+            'password' => Hash::make('adminkota@gmail.com'),
+            'role_id' => '9',
             'petugas_id' => 'D001',
             'created_at' => \Carbon\Carbon::now(),
 

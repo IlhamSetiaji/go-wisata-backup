@@ -13,9 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Tiket;
 use App\Models\User;
-use Auth;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -55,6 +54,9 @@ class DashboardController extends Controller
                     ->pluck('tanggal_a');
                 // dd($datee);
                 return view('admin.dashboard.admin', compact('users', 'datee'));
+            }
+            if(Auth::user()->role->name == 'kota') {
+                return view('kota.index');
             }
             if (Auth::user()->role->name == 'wisata') {
 
@@ -101,10 +103,10 @@ class DashboardController extends Controller
                 $tempattt  = Tempat::where('id', $induk_id)->where('status', '1')->first();
                 // dd($tempattt);
                 // dd($tempatt);
-                $users = Detail_transaksi::select(\DB::raw("COUNT(*) as count"))
+                $users = Detail_transaksi::select(DB::raw("COUNT(*) as count"))
                     ->where('tempat_id', $tempatt->id)
                     ->whereYear('tanggal_a', date('Y'))
-                    ->groupBy(\DB::raw("Day(tanggal_a)"))
+                    ->groupBy(DB::raw("Day(tanggal_a)"))
                     ->pluck('count');
                 $isi = [];
                 foreach ($users as $atas) {
@@ -130,10 +132,10 @@ class DashboardController extends Controller
                 $tempatt  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
                 $induk_id = $tempatt->induk_id;
                 $tempattt  = Tempat::where('id', $induk_id)->where('status', '1')->first();
-                $users = Detail_transaksi::select(\DB::raw("COUNT(*) as count"))
+                $users = Detail_transaksi::select(DB::raw("COUNT(*) as count"))
                     ->where('tempat_id', $tempatt->id)
                     ->whereYear('tanggal_a', date('Y'))
-                    ->groupBy(\DB::raw("Day(tanggal_a)"))
+                    ->groupBy(DB::raw("Day(tanggal_a)"))
                     ->pluck('count');
                 $isi = [];
                 foreach ($users as $atas) {
@@ -158,10 +160,10 @@ class DashboardController extends Controller
                 $tempattt  = Tempat::where('id', $induk_id)->where('status', '1')->first();
                 // dd($tempattt);
                 // dd($tempatt);
-                $users = Detail_transaksi::select(\DB::raw("COUNT(*) as count"))
+                $users = Detail_transaksi::select(DB::raw("COUNT(*) as count"))
                     ->where('tempat_id', $tempatt->id)
                     ->whereYear('tanggal_a', date('Y'))
-                    ->groupBy(\DB::raw("Day(tanggal_a)"))
+                    ->groupBy(DB::raw("Day(tanggal_a)"))
                     ->pluck('count');
                 $isi = [];
                 foreach ($users as $atas) {
@@ -190,10 +192,10 @@ class DashboardController extends Controller
                 $ts = TempatSewa::where('user_id', Auth::user()->id)->count();
                 $tempat_sewa = Villa::where('user_id', Auth::user()->id)->count();
 
-                $users = Detail_transaksi::select(\DB::raw("COUNT(*) as count"))
+                $users = Detail_transaksi::select(DB::raw("COUNT(*) as count"))
                     ->where('tempat_id', $tempatt->id)
                     ->whereYear('tanggal_a', date('Y'))
-                    ->groupBy(\DB::raw("Day(tanggal_a)"))
+                    ->groupBy(DB::raw("Day(tanggal_a)"))
                     ->pluck('count');
                 $isi = [];
                 foreach ($users as $atas) {

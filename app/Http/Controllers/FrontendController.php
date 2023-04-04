@@ -1200,7 +1200,7 @@ class FrontendController extends Controller
     }
     // function available_place(Request $request, $checkin_date)
     // {
-    // $tempat = DB::SELECT("SELECT * FROM tb_villa WHERE id NOT IN 
+    // $tempat = DB::SELECT("SELECT * FROM tb_villa WHERE id NOT IN
     // (SELECT villa_id FROM tb_BookingVilla WHERE '$checkin_date' BETWEEN checkin AND checkout)");
     // return response()->json(['data' => $tempat]);
     // }
@@ -1220,7 +1220,7 @@ class FrontendController extends Controller
             Toastr::warning('Tanggal checkout tidak boleh sama tanggal checkin', 'Warning');
             return redirect()->back();
         } else {
-            $villa = DB::SELECT("SELECT * FROM tb_villa WHERE id NOT IN (SELECT villa_id FROM tb_bookingvilla 
+            $villa = DB::SELECT("SELECT * FROM tb_villa WHERE id NOT IN (SELECT villa_id FROM tb_bookingvilla
             WHERE ('$checkin' BETWEEN checkin AND checkout) OR ('$checkout' BETWEEN checkin AND checkout))");
 
             return view('explore/halaman_explore_penginapan', [

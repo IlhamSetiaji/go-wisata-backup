@@ -388,6 +388,14 @@
                                 </a>
                             </li>
                         @endif
+                        @if (auth()->check() && auth()->user()->role->id === 9)
+                        <li class="sidebar-item  {{ request()->is('admin/admin*') ? 'active' : '' }}">
+                            <a href="{{ route('admin.index') }}" class='sidebar-link'>
+                                <i class="fas fa-user-tie"></i>
+                                <span>Admin</span>
+                            </a>
+                        </li>
+                        @endif
 
                         @if (auth()->check() && auth()->user()->role->name === 'event & sewa tempat')
                             <li class="sidebar-item  {{ request()->is('booking/eventtempatsewa*') ? 'active' : '' }}">
