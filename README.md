@@ -25,7 +25,12 @@
 > 8 = seni & budaya 
 
 
-
+# how to use 
+1. git pull using https
+2. composer  install (if required)
+3. Import the newest db to your own database
+4. php artisan migrate --path=/database/migrations/2023_04_04_100533_add_parent_id_to_users_table.php
+5. php artisan db:seed
 
 
 
