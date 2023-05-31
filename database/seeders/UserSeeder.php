@@ -40,7 +40,9 @@ class UserSeeder extends Seeder
 
         ]);
 
-        $users = [
+        User::where('role_id', '!=', 1)->where('role_id', '!=', 9)->update(['parent_id' => User::where('role_id', 9)->first()->id]);
+
+        // $users = [
 
             // [
             //     'name' => 'admwisataa',
@@ -83,7 +85,7 @@ class UserSeeder extends Seeder
             //     'created_at' => \Carbon\Carbon::now(),
             // ]
 
-        ];
+        // ];
 
         // foreach ($users as $user) {
         //     User::firstOrcreate([

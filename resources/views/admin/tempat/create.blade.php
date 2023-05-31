@@ -137,7 +137,7 @@
                                             </div>
                                         </div>
 
-                                        
+
 
                                         <div class="col-md-4">
                                             <label>Sejarah</label>
@@ -178,9 +178,10 @@
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input class="form-control" name="atraksi" value="{{ old('atraksi') }}">
+                                                    <input class="form-control" name="atraksi"
+                                                        value="{{ old('atraksi') }}">
 
-                                                    
+
                                                     <div class="form-control-icon">
                                                         <i class="fas fa-pen"></i>
                                                     </div>
@@ -194,7 +195,8 @@
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
-                                                    <input class="form-check-input" id="flexCheckDefault" type="checkbox" name="unggulan" value=1>
+                                                    <input class="form-check-input" id="flexCheckDefault" type="checkbox"
+                                                        name="unggulan" value=1>
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                 </div>
                                             </div>
@@ -303,12 +305,19 @@
 
                                                                 <option selected value=''>Pilih Petugas
                                                                 </option>
-                                                                @foreach (App\Models\User::where('role_id', '!=', '5')->where(['tempat_id' => null, 'desa_id' => null])->get() as $role)
-                                                                    <option value="{{ $role->petugas_id }}"> Admin
-                                                                        -
-                                                                        {{ $role->name }}</option>
-                                                                @endforeach
-
+                                                                @if (auth()->user()->role->name == 'kota')
+                                                                    @foreach (App\Models\User::where('role_id', '!=', '5')->where('role_id', '!=' ,'9')->where(['tempat_id' => null, 'desa_id' => null])->get() as $role)
+                                                                        <option value="{{ $role->petugas_id }}"> Admin
+                                                                            -
+                                                                            {{ $role->name }}</option>
+                                                                    @endforeach
+                                                                @else
+                                                                    @foreach (App\Models\User::where('role_id', '!=', '5')->where(['tempat_id' => null, 'desa_id' => null])->get() as $role)
+                                                                        <option value="{{ $role->petugas_id }}"> Admin
+                                                                            -
+                                                                            {{ $role->name }}</option>
+                                                                    @endforeach
+                                                                @endif
                                                             </select>
                                                             {{-- <div class="form-control-icon">
                                                             <i class="bi bi-exclude"></i>
@@ -329,11 +338,17 @@
 
                                                                 <option selected value=''>Pilih Induk Tempat
                                                                 </option>
-                                                                @foreach (App\Models\Tempat::where('kategori', 'desa')->get() as $induk)
-                                                                    <option value="{{ $induk->id }}">
-                                                                        {{ $induk->name }}</option>
-                                                                @endforeach
-
+                                                                @if (auth()->user()->role->name == 'kota')
+                                                                    @foreach (App\Models\Tempat::where('kategori', 'desa')->where('user_id', auth()->user()->petugas_id)->get() as $induk)
+                                                                        <option value="{{ $induk->id }}">
+                                                                            {{ $induk->name }}</option>
+                                                                    @endforeach
+                                                                @else
+                                                                    @foreach (App\Models\Tempat::where('kategori', 'desa')->get() as $induk)
+                                                                        <option value="{{ $induk->id }}">
+                                                                            {{ $induk->name }}</option>
+                                                                    @endforeach
+                                                                @endif
                                                             </select>
                                                             {{-- <div class="form-control-icon">
                                                             <i class="bi bi-exclude"></i>

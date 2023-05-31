@@ -30,7 +30,8 @@
 2. composer  install (if required)
 3. Import the newest db to your own database
 4. php artisan migrate --path=/database/migrations/2023_04_04_100533_add_parent_id_to_users_table.php
-5. php artisan db:seed
+5. php artisan migrate --path=/database/migrations/2023_05_31_203158_add_creator_id_to_tb_tempat_table.php
+6. php artisan db:seed
 
 
 
