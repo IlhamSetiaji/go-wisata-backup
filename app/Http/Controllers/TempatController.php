@@ -17,7 +17,11 @@ class TempatController extends Controller
     public function index()
     {
         // $users  = Tempat::all();
-        $users  = Tempat::all();
+        if(request()->user()->role->name === 'kota') {
+            $users = Tempat::where('creator_id', request()->user()->id)->get();
+        } else {
+            $users = Tempat::all();
+        }
         // $u = Tempat::first();
         // return $u->petugas()->petugas_id;
         // return $users
@@ -100,6 +104,9 @@ class TempatController extends Controller
 
         $name = (new Tempat)->tempatAvatar($request);
         $data['image'] = $name;
+        if(request()->user()->role->name = 'kota') {
+            $data['creator_id'] = request()->user()->id;
+        }
 
         $name2 = (new Tempat)->tempatAvatar2($request);
         $data['image2'] = $name2;
