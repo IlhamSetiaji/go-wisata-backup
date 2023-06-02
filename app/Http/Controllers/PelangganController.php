@@ -11,9 +11,11 @@ class PelangganController extends Controller
     //
     public function index()
     {
-
-
-        $users  = User::where('role_id', 5)->get();
+        if (request()->user()->role->name == 'kota') {
+            $users  = User::where('role_id', 5)->where('parent_id', request()->user()->id)->get();
+        } else {
+            $users  = User::where('role_id', 5)->get();
+        }
         return view('admin.pelanggan.index', compact('users'));
     }
     public function create()

@@ -23,7 +23,7 @@ class AdminController extends Controller
     public function index()
     {
         if(request()->user()->role_id == 9){
-            $users  = User::with(['role'])->whereNotIn('role_id',[1,5])->get();
+            $users  = User::with(['role'])->whereNotIn('role_id',[1,5])->where('parent_id', request()->user()->id)->get();
             return view('admin.admin.index', compact('users'));
         }
         $users  = User::with(['role'])->where('role_id', '!=', 5)->get();
@@ -58,7 +58,11 @@ class AdminController extends Controller
         $urutan = (int)substr($data, 2, 3);
         $urutan++;
         $petugas_id = $huruf . sprintf("%03s", $urutan);
-        $roles = Role::whereNotIn('id', [1,5,9])->get();
+        if(request()->user()->role->id == 9) {
+            $roles = Role::whereNotIn('id', [1,5,9])->get();
+        } else {
+            $roles = Role::whereNotIn('id', [1,5])->get();
+        }
         // dd($petugas_id);
 
 

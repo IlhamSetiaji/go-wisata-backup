@@ -375,20 +375,20 @@
                                     <span>Pelanggan</span>
                                 </a>
                             </li>
-                            @if(auth()->user()->role->name === 'admin')
                             <li class="sidebar-item  {{ request()->is('admin/admin*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.index') }}" class='sidebar-link'>
                                     <i class="fas fa-user-tie"></i>
-                                    <span>Admin</span>
+                                    <span>Member</span>
                                 </a>
                             </li>
-                            @endif
+                            @if(auth()->user()->role->name === 'admin')
                             <li class="sidebar-item  {{ request()->is('admin/setting*') ? 'active' : '' }}">
                                 <a href="{{ route('setting.index') }}" class='sidebar-link'>
                                     <i class="fas fa-cogs"></i>
                                     <span>Setting</span>
                                 </a>
                             </li>
+                            @endif
                         @endif
                         {{-- @if (auth()->check() && auth()->user()->role->id === 9)
                         <li class="sidebar-item  {{ request()->is('admin/admin*') ? 'active' : '' }}">

@@ -106,6 +106,8 @@ class TempatController extends Controller
         $data['image'] = $name;
         if(request()->user()->role->name = 'kota') {
             $data['creator_id'] = request()->user()->id;
+        } else if (request()->user()->role->name != 'admin' || request()->user()->role->id != 5) {
+            $data['creator_id'] = request()->user()->parent_id;
         }
 
         $name2 = (new Tempat)->tempatAvatar2($request);
