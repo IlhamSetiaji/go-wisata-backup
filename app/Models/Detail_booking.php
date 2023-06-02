@@ -11,4 +11,9 @@ class Detail_booking extends Model
     use HasFactory;
     protected $table = "tb_detailbooking";
     protected $guarded = [];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

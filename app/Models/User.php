@@ -37,7 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-   
+
     public function tempat()
     {
         return $this->belongsTo(Tempat::class, 'tempat_id');
@@ -81,5 +81,10 @@ class User extends Authenticatable implements MustVerifyEmail
         $video->move($destination, $name);
 
         return $name;
+    }
+
+    public function detailBookings()
+    {
+        return $this->hasMany(Detail_booking::class);
     }
 }
