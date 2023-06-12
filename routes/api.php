@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
@@ -41,6 +42,9 @@ use App\Http\Controllers\API\SendEmailMobile;
 // });
 // Route::post('midtrans/gopay/create', 'Api\Payment\PaymentController@createGopay');
 // Route::post('midtrans/pay', 'Api\Payment\PaymentController@getPayment');
+
+// fetch city API
+Route::post('/fetch-cities', [AddressController::class, 'fetchCities']);
 
 //mobile
 Route::get('/tempat', [API::class, 'tempat']);

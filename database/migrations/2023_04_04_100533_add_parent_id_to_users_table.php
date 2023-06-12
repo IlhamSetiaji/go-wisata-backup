@@ -15,6 +15,7 @@ class AddParentIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('parent_id')->nullable()->after('id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('city')->after('parent_id')->nullable();
         });
     }
 

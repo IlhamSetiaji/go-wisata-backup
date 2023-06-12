@@ -79,10 +79,10 @@
                                                         <input type="text"
                                                             class="form-control @error('id_desa') is-invalid @enderror"
                                                             placeholder="Nama paket wisata"
-                                                            value="{{ $dataDesa->tempat->name }}" required readonly>
+                                                            value="{{ $dataDesa->name }}" required readonly>
                                                         <input type="text"
                                                             class="form-control"
-                                                            name='id_desa' value="{{ $dataDesa->tempat_id }}" required hidden>
+                                                            name='id_desa' value="{{ $dataDesa->id }}" required hidden>
                                                     </div>
                                                 </div>
                                             </div>
@@ -98,7 +98,7 @@
                                                                 @foreach ($kategoriPakets as $kategori)
                                                                 <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori}}</option>
                                                                 @endforeach
-                                                                
+
                                                             </select> --}}
                                                             @foreach ($kategoriPakets as $kategori)
                                                                 <input class="form-check-input" type="checkbox" value="{{ $kategori->id }}" id="flexCheckDefault" name="kategori[]">
@@ -107,7 +107,7 @@
                                                                 </label>
                                                             @endforeach
                                                         </fieldset>
-    
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,7 +169,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                           
+
                                             <div class="col-md-4">
                                                 <label>Kuliner</label>
                                             </div>
@@ -224,7 +224,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
-                                                
+
                                                     <div class="form-group">
                                                         <div class="position-relative">
                                                             <fieldset class="form-group">
@@ -241,7 +241,7 @@
                                                             </fieldset>
                                                         </div>
                                                     </div>
-                                                
+
                                             </div>
                                             <div class="col-md-4"></div>
                                             <div class="col-md-8">
@@ -264,7 +264,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                             {{-- <div class="col-md-4">
                                                 <label>Total</label>
                                             </div>
@@ -272,9 +272,9 @@
                                                 <div class="form-group">
                                                     <div class="position-relative">
                                                         <input type="text" class="form-control" name="harga"
-                                                            id="harga-total" value="{{ old('harga') }}" 
+                                                            id="harga-total" value="{{ old('harga') }}"
                                                             required>
-                                                    </div>  
+                                                    </div>
                                                 </div>
                                             </div> --}}
                                         </div>
@@ -301,18 +301,18 @@
 
     <script>
         $(document).ready(function() {
-                   
-                    
+
+
 
                     $(document).on('change', '#data-wisata', function() {
                         var allGood = true;
                         // var lastInputField = ;
-    
+
                         if ($(this).val() == "") {
                             console.log('false');
                             return allGood = false;
                         }
-                            
+
                         if (allGood) {
                             $('#wisata').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_wisata[]" id = "data-wisata" >  <option value = "" > Please select data Wisata </option>@foreach ($dataWisatas as $data)<option value="{{ $data->id }}">{{ $data->name }} - {{ $data->htm != ''? $data->htm : "Rp. 0" }}</option>@endforeach</select> </fieldset> </div> </div>'));
                         }
@@ -320,39 +320,39 @@
                     // $(document).on('change', '#paketresto', function() {
                     //     var allGood = true;
                     //     // var lastInputField = ;
-    
+
                     //     if ($(this).val() == "") {
                     //         console.log('false');
                     //         return allGood = false;
                     //     }
-                            
+
                     //     if (allGood) {
                     //         $('#paketrestoran').append($('<div class="form-group"><div class="position-relative"><fieldset class="form-group"><select class="form-select" name="paketresto" id="paketresto"><option value="">Pilih paket dari restoran</option><option value="$data->id> $data->nama_paket - $data->harga</option></select></fieldset></div></div>'));
                     //     }
                     // });
 
-                    // $(document).on('change', '#data-penginapan-hotel', function() {    
+                    // $(document).on('change', '#data-penginapan-hotel', function() {
                     //     var allGood = true;
-                    //     // var lastInputField = ;
-                    //     if ($(this).val() == "") {
-                    //         console.log('false');
-                    //         return allGood = false;    
-                    //     }    
-                    //     if (allGood) {    
-                    //         $('#hotel').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapanhotel[]" id = "data-penginapan-hotel">  <option value = "" > Pilih Hotel </option>@foreach ($dataPenginapanHotel as $data)<option value="{{ $data->id }}">{{ $data->nama }}</option>@endforeach</select> </fieldset> </div> </div>'));
-                    //     }    
-                    // });
-                    // $(document).on('change', '#data-penginapan-villa', function() {
-                    //     var allGood = true;    
                     //     // var lastInputField = ;
                     //     if ($(this).val() == "") {
                     //         console.log('false');
                     //         return allGood = false;
                     //     }
-                    //     if (allGood) { 
-                    //         $('#villa').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapanvilla[]" id = "data-penginapan-villa">  <option value = "" > Pilih Villa </option>@foreach ($dataPenginapanVilla as $data)<option value="{{ $data->id }}">{{ $data->nama }} - {{ $data->harga }}</option>@endforeach</select> </fieldset> </div> </div>'));            
+                    //     if (allGood) {
+                    //         $('#hotel').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapanhotel[]" id = "data-penginapan-hotel">  <option value = "" > Pilih Hotel </option>@foreach ($dataPenginapanHotel as $data)<option value="{{ $data->id }}">{{ $data->nama }}</option>@endforeach</select> </fieldset> </div> </div>'));
                     //     }
-                    // }); 
+                    // });
+                    // $(document).on('change', '#data-penginapan-villa', function() {
+                    //     var allGood = true;
+                    //     // var lastInputField = ;
+                    //     if ($(this).val() == "") {
+                    //         console.log('false');
+                    //         return allGood = false;
+                    //     }
+                    //     if (allGood) {
+                    //         $('#villa').append($(' <div class="form-group"> <div class = "position-relative"><fieldset class = "form-group"> <select class = "form-select" name = "data_penginapanvilla[]" id = "data-penginapan-villa">  <option value = "" > Pilih Villa </option>@foreach ($dataPenginapanVilla as $data)<option value="{{ $data->id }}">{{ $data->nama }} - {{ $data->harga }}</option>@endforeach</select> </fieldset> </div> </div>'));
+                    //     }
+                    // });
                 });
     </script>
     <script>

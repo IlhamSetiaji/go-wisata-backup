@@ -339,7 +339,7 @@
                                                                 <option selected value=''>Pilih Induk Tempat
                                                                 </option>
                                                                 @if (auth()->user()->role->name == 'kota')
-                                                                    @foreach (App\Models\Tempat::where('kategori', 'desa')->where('user_id', auth()->user()->petugas_id)->get() as $induk)
+                                                                    @foreach (App\Models\Tempat::where('kategori', 'desa')->where('city', auth()->user()->city)->get() as $induk)
                                                                         <option value="{{ $induk->id }}">
                                                                             {{ $induk->name }}</option>
                                                                     @endforeach

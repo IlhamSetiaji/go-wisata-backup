@@ -193,20 +193,8 @@
                                             <div class="col-md-6 ">
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
-                                                        {{-- <fieldset class="form-group">
-                                                        <select class="form-select"  name="role_id" required>
-                                                            <option value="" > --- </option>
-                                                            <option value="1"> Admin</option>
-                                                            <option value="2"> Wisata </option>
-                                                            <option value="3"> Restaurant </option>
-                                                            <option value="4"> Hotel </option>
-
-
-                                                        </select>
-                                                    </fieldset> --}}
                                                         <fieldset class="form-group">
-                                                            <select class="form-select" name="role_id">
-
+                                                            <select class="form-select" name="role_id" id="role">
                                                                 <option selected value=''>Please select role</option>
                                                                 @if (auth()->user()->role_id == 1)
                                                                     @foreach (App\Models\Role::where('name', '!=', 'pelanggan')->get() as $role)
@@ -220,17 +208,51 @@
                                                                     @endforeach
                                                                 @endif
                                                             </select>
-                                                            {{-- <div class="form-control-icon">
-                                                            <i class="bi bi-exclude"></i>
-                                                        </div> --}}
                                                         </fieldset>
-
                                                     </div>
                                                 </div>
                                             </div>
+                                            @if (auth()->user()->role_id == 1)
+                                                <div id="livin" style="display: none">
+                                                    <div class="col-md-4">
+                                                        <label>Province *</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group has-icon-left">
+                                                            <div class="position-relative">
+                                                                <fieldset class="form-group">
+                                                                    <select class="form-select" name="province_id"
+                                                                        id="province" required>
+                                                                        <option selected value="">Please select
+                                                                            province
+                                                                        </option>
+                                                                        @foreach ($provinces as $province)
+                                                                            <option value="{{ $province->id }}">
+                                                                                {{ $province->nama }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>City *</label>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group has-icon-left">
+                                                            <div class="position-relative">
+                                                                <fieldset class="form-group">
+                                                                    <select class="form-select" name="city"
+                                                                        id="city" required>
+                                                                        <option label="&nbsp;"></option>
+                                                                    </select>
+                                                                </fieldset>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </div>
-
-
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                             <button type="reset"
@@ -250,5 +272,49 @@
     <a class=" nav-link" href="{{ route('admin.index') }}"> <span>List Admin</span></a>
 
     </div>
-
 @endsection
+@push('script')
+    <script>
+        $(document).ready(function() {
+
+            $('#role').on('change', () => {
+                let roleId = $('#role').val();
+                console.log(roleId);
+                if (roleId == 9) {
+                    document.getElementById('livin').style.display = 'block';
+                } else {
+                    document.getElementById('livin').style.display = 'none';
+                }
+            })
+            /*------------------------------------------
+            --------------------------------------------
+            Province dropdown change event
+            --------------------------------------------
+            --------------------------------------------*/
+            $('#province').on('change', function() {
+                let idProvince = this.value;
+                $("#district").html('');
+                $.ajax({
+                    url: "{{ url('api/fetch-cities') }}",
+                    type: "POST",
+                    data: {
+                        province_id: idProvince,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log(result);
+                        // document.getElementById('province_name').value = $(
+                        //     "#province option:selected").text();
+                        $('#city').html(
+                            '<option value="">-- Select City --</option>');
+                        $.each(result, function(key, value) {
+                            $("#city").append('<option value="' + value
+                                .nama + '">' + value.nama + '</option>');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

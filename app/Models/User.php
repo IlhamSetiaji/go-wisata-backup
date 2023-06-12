@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function tempat()
     {
-        return $this->belongsTo(Tempat::class, 'tempat_id');
+        return $this->hasMany(Tempat::class,'user_id', 'petugas_id');
     }
 
     public function role()

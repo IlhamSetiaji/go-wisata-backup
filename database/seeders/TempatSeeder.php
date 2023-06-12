@@ -30,7 +30,7 @@ class TempatSeeder extends Seeder
        $tempat = Tempat::all();
        $tempat->each(function($e) {
               $e->update([
-                'creator_id' => '370'
+                'city' => 'Surabaya'
               ]);
        });
     }
