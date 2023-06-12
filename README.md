@@ -26,13 +26,26 @@
 
 > 9 = kota
 
+# daftar user
+> admin
+email: admin@gmail.com
+password: admin@gmail.com
+
+> kota
+email: adminkota@gmail.com
+password: adminkota@gmail.com
+
+> desa
+email: kare@gmail.com
+password: kare@gmail.com
+
 
 # how to use 
 1. git pull using https
 2. composer  install (if required)
 3. Import "gowisata_new.sql" to your own database
 4. php artisan migrate --path=/database/migrations/2023_04_04_100533_add_parent_id_to_users_table.php
-5. php artisan migrate --path=/database/migrations/2023_05_31_203158_add_creator_id_to_tb_tempat_table.php
+5. php artisan migrate --path=/database/migrations/2023_05_31_203158_add_city_to_tb_tempat_table.php
 6. php artisan db:seed
 7. run on localhost port 8000
 
