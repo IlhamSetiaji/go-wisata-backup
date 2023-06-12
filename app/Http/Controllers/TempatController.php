@@ -18,7 +18,7 @@ class TempatController extends Controller
     {
         // $users  = Tempat::all();
         if(request()->user()->role->name === 'kota') {
-            $users = Tempat::where('creator_id', request()->user()->id)->get();
+            $users = Tempat::where('city', request()->user()->city)->get();
         } else {
             $users = Tempat::all();
         }
@@ -101,13 +101,12 @@ class TempatController extends Controller
             Toastr::error('Role admin dan kategori berbeda', 'Error');
             return redirect()->back();
         }
-
         $name = (new Tempat)->tempatAvatar($request);
         $data['image'] = $name;
         if(request()->user()->role->name = 'kota') {
-            $data['creator_id'] = request()->user()->id;
-        } else if (request()->user()->role->name != 'admin' || request()->user()->role->id != 5) {
-            $data['creator_id'] = request()->user()->parent_id;
+            $data['city'] = request()->user()->city;
+        } else if (request()->user()->role->name == 'admin') {
+            $data['city'] = User::where('role_id', 9)->first()->city;
         }
 
         $name2 = (new Tempat)->tempatAvatar2($request);
@@ -150,7 +149,7 @@ class TempatController extends Controller
             return redirect()->back();
         }
 
-
+        $data['city'] = request()->user()->city;
         $name = (new Tempat)->tempatAvatar($request);
         $data['image'] = $name;
         $name2 = (new Tempat)->tempatAvatar2($request);

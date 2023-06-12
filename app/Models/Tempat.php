@@ -69,6 +69,11 @@ class Tempat extends Model
         }
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function petugas()
     {
         return $this->belongsTo(User::class, 'id', 'desa_id');

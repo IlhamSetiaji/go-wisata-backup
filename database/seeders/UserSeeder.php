@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
         // ]);
 
         User::create([
+            'city' => 'Surabaya',
             'parent_id' => User::where('role_id', 1)->first()->id,
             'name' => 'adminkota',
             'email' => 'adminkota@gmail.com',
@@ -40,50 +41,52 @@ class UserSeeder extends Seeder
 
         ]);
 
-        User::where('role_id', '!=', 1)->where('role_id', '!=', 9)->update(['parent_id' => User::where('role_id', 9)->first()->id]);
+        User::where('role_id', '6')->update(['parent_id' => User::where('role_id', 9)->first()->id,'city' => 'Surabaya']);
+
+        User::whereIn('role_id', [2, 3, 4, 7, 8])->update(['parent_id' => User::find(22)->id, 'city' => 'Surabaya']);
 
         // $users = [
 
-            // [
-            //     'name' => 'admwisataa',
-            //     'email' => 'wisataa@gmail.com',
-            //     'password' => Hash::make('wisataa@gmail.com'),
-            //     'role_id' => '2',
-            //     'petugas_id' => 'D002',
-            //     'created_at' => \Carbon\Carbon::now(),
-            // ],
-            // [
-            //     'name' => 'admrestauranta',
-            //     'email' => 'restauranta@gmail.com',
-            //     'password' => Hash::make('restauranta@gmail.com'),
-            //     'role_id' => '3',
-            //     'petugas_id' => 'D003',
-            //     'created_at' => \Carbon\Carbon::now(),
-            // ],
-            // [
-            //     'name' => 'admhotela',
-            //     'email' => 'hotela@gmail.com',
-            //     'password' => Hash::make('hotela@gmail.com'),
-            //     'role_id' => '4',
-            //     'petugas_id' => 'D004',
-            //     'created_at' => \Carbon\Carbon::now(),
-            // ],
-            // [
-            //     'name' => 'customer',
-            //     'email' => 'customer@gmail.com',
-            //     'password' => Hash::make('customer@gmail.com'),
-            //     'role_id' => '5',
-            //     'petugas_id' => 'D005',
-            //     'created_at' => \Carbon\Carbon::now(),
-            // ],
-            // [
-            //     'name' => 'admdesaa',
-            //     'email' => 'desa@gmail.com',
-            //     'password' => Hash::make('desa@gmail.com'),
-            //     'role_id' => '6',
-            //     'petugas_id' => 'D006',
-            //     'created_at' => \Carbon\Carbon::now(),
-            // ]
+        // [
+        //     'name' => 'admwisataa',
+        //     'email' => 'wisataa@gmail.com',
+        //     'password' => Hash::make('wisataa@gmail.com'),
+        //     'role_id' => '2',
+        //     'petugas_id' => 'D002',
+        //     'created_at' => \Carbon\Carbon::now(),
+        // ],
+        // [
+        //     'name' => 'admrestauranta',
+        //     'email' => 'restauranta@gmail.com',
+        //     'password' => Hash::make('restauranta@gmail.com'),
+        //     'role_id' => '3',
+        //     'petugas_id' => 'D003',
+        //     'created_at' => \Carbon\Carbon::now(),
+        // ],
+        // [
+        //     'name' => 'admhotela',
+        //     'email' => 'hotela@gmail.com',
+        //     'password' => Hash::make('hotela@gmail.com'),
+        //     'role_id' => '4',
+        //     'petugas_id' => 'D004',
+        //     'created_at' => \Carbon\Carbon::now(),
+        // ],
+        // [
+        //     'name' => 'customer',
+        //     'email' => 'customer@gmail.com',
+        //     'password' => Hash::make('customer@gmail.com'),
+        //     'role_id' => '5',
+        //     'petugas_id' => 'D005',
+        //     'created_at' => \Carbon\Carbon::now(),
+        // ],
+        // [
+        //     'name' => 'admdesaa',
+        //     'email' => 'desa@gmail.com',
+        //     'password' => Hash::make('desa@gmail.com'),
+        //     'role_id' => '6',
+        //     'petugas_id' => 'D006',
+        //     'created_at' => \Carbon\Carbon::now(),
+        // ]
 
         // ];
 

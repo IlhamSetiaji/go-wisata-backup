@@ -378,7 +378,7 @@
                             <li class="sidebar-item  {{ request()->is('admin/admin*') ? 'active' : '' }}">
                                 <a href="{{ route('admin.index') }}" class='sidebar-link'>
                                     <i class="fas fa-user-tie"></i>
-                                    <span>Member</span>
+                                    <span>Administrator</span>
                                 </a>
                             </li>
                             @if(auth()->user()->role->name === 'admin')
@@ -572,7 +572,7 @@
     <script src="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
+    @stack('script')
 </body>
 
 </html>

@@ -123,7 +123,7 @@
 
                                                         <td>
                                                             @if ($users->tempat != null)
-                                                                {{ $users->tempat }}
+                                                                {{ $users->tempat->first()->name }}
                                                             @else
                                                                 <p>Belum Ditempatkan</p>
                                                             @endif
@@ -132,21 +132,21 @@
 
 
 
-                                                        @if ($users->role == 'admin')
+                                                        @if ($users->role->name == 'admin')
                                                             {{-- <td class="role_name"><span  class="btn btn-info">{{ $users->role}}</span></td> --}}
                                                             <td class="role_name"><span class="btn btn-success">Admin</span>
                                                             </td>
-                                                        @elseif ($users->role == 'wisata')
+                                                        @elseif ($users->role->name == 'wisata')
                                                             {{-- <td class="role_name"><span  class="btn btn-info">{{ $users->role}}</span></td> --}}
                                                             <td class="role_name"><span class="btn btn-info">Wisata</span>
                                                             </td>
-                                                        @elseif ($users->role == 'penginapan')
+                                                        @elseif ($users->role->name == 'penginapan')
                                                             <td class="role_name"><span
                                                                     class=" btn btn-primary">Hotel</span></td>
-                                                        @elseif ($users->role == 'kuliner')
+                                                        @elseif ($users->role->name == 'kuliner')
                                                             <td class="role_name"><span
                                                                     class=" btn btn-secondary">Kuliner</span></td>
-                                                        @elseif ($users->role == 'desa')
+                                                        @elseif ($users->role->name == 'desa')
                                                             <td class="role_name"><span class=" btn btn-light">Desa</span>
                                                             </td>
                                                         @else

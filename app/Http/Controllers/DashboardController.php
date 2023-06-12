@@ -24,7 +24,7 @@ class DashboardController extends Controller
     }
     public function index()
     {
-        if (Auth::user()->status == '1') {
+        if (request()->user()->status == '1') {
             if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'kota') {
 
                 // $users = Detail_transaksi::select(DB::raw("COUNT(*) as count"))
@@ -55,9 +55,6 @@ class DashboardController extends Controller
                 // dd($datee);
                 return view('admin.dashboard.admin', compact('users', 'datee'));
             }
-            // if(Auth::user()->role->name == 'kota') {
-            //     return view('kota.index');
-            // }
             if (Auth::user()->role->name == 'wisata') {
 
                 $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
@@ -259,7 +256,8 @@ class DashboardController extends Controller
             if (Auth::user()->role->name == 'pelanggan') {
                 return redirect('/');
             }
+        } else {
+            return view('error');
         }
-        return view('error');
     }
 }

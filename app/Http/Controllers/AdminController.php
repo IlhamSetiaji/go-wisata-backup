@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kamar;
-use App\Models\Role;
-use App\Models\tb_kategoriwisata;
-use App\Models\tb_paket;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Brian2694\Toastr\Facades\Toastr;
-use App\Models\Tempat;
-use App\Models\Tour;
-use App\Models\Villa;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Role;
+use App\Models\Tour;
+use App\Models\User;
+use App\Models\Kamar;
+use App\Models\Villa;
+use App\Models\Tempat;
+use App\Models\tb_paket;
+use Illuminate\Http\Request;
+use App\Models\tb_kategoriwisata;
 use Illuminate\Support\Facades\DB;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        if(request()->user()->role_id == 9){
-            $users  = User::with(['role'])->whereNotIn('role_id',[1,5])->where('parent_id', request()->user()->id)->get();
+        if (request()->user()->role_id == 9) {
+            $users  = User::with(['role'])->whereNotIn('role_id', [1, 5])->where('parent_id', request()->user()->id)->where('city','Surabaya')->get();
             return view('admin.admin.index', compact('users'));
         }
         $users  = User::with(['role'])->where('role_id', '!=', 5)->get();
@@ -33,20 +34,21 @@ class AdminController extends Controller
     public function indexd()
     {
 
-        $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
-        // $users  = User::where('role_id', '!=', 5)->where('desa_id', $tempat->id)->get();
-        $users  = DB::table("users")
-            ->leftJoin("tb_role", function ($join) {
-                $join->on("users.role_id", "=", "tb_role.id");
-            })
-            ->leftJoin("tb_tempat", function ($join) {
-                $join->on("users.tempat_id", "=", "tb_tempat.id");
-            })
-            ->select("tb_role.name as role", "users.*", "tb_tempat.name as tempat")
-            ->where("users.role_id", "!=", 5)
-            ->where("users.desa_id", "=", $tempat->id)
-            ->orderBy('id', 'asc')
-            ->get();
+        // $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
+        // // $users  = User::where('role_id', '!=', 5)->where('desa_id', $tempat->id)->get();
+        // $users  = DB::table("users")
+        //     ->leftJoin("tb_role", function ($join) {
+        //         $join->on("users.role_id", "=", "tb_role.id");
+        //     })
+        //     ->leftJoin("tb_tempat", function ($join) {
+        //         $join->on("users.tempat_id", "=", "tb_tempat.id");
+        //     })
+        //     ->select("tb_role.name as role", "users.*", "tb_tempat.name as tempat")
+        //     ->where("users.role_id", "!=", 5)
+        //     ->where("users.desa_id", "=", $tempat->id)
+        //     ->orderBy('id', 'asc')
+        //     ->get();
+        $users = User::where('parent_id', Auth::user()->id)->where('role_id', '!=', 5)->get();
         // dd($users);
         return view('desa.admin.index', compact('users'));
     }
@@ -55,18 +57,18 @@ class AdminController extends Controller
         $data = User::max('petugas_id');
         // dd($data);
         $huruf = "D";
-        $urutan = (int)substr($data, 2, 3);
+        $urutan = (int)substr($data, 1, 3);
         $urutan++;
         $petugas_id = $huruf . sprintf("%03s", $urutan);
-        if(request()->user()->role->id == 9) {
-            $roles = Role::whereNotIn('id', [1,5,9])->get();
+        if (request()->user()->role->id == 9) {
+            $roles = Role::whereNotIn('id', [1, 5, 9])->get();
         } else {
-            $roles = Role::whereNotIn('id', [1,5])->get();
+            $roles = Role::whereNotIn('id', [1, 5])->get();
         }
         // dd($petugas_id);
-
-
-        return view('admin.admin.create', compact('petugas_id','roles'));
+        $fetchedProvinces = Http::get('https://dev.farizdotid.com/api/daerahindonesia/provinsi');
+        $provinces = json_decode($fetchedProvinces)->provinsi;
+        return view('admin.admin.create', compact('petugas_id', 'roles', 'provinces'));
     }
     public function created()
     {
@@ -74,11 +76,11 @@ class AdminController extends Controller
         $data = User::max('petugas_id');
         // dd($data);
         $huruf = "D";
-        $urutan = (int)substr($data, 2, 3);
+        $urutan = (int)substr($data, 1, 3);
         $urutan++;
         $petugas_id = $huruf . sprintf("%03s", $urutan);
         $role = DB::table("tb_role")
-            ->where("tb_role.id", "!=", 1)
+            ->whereNotIn("tb_role.id",[1,9,6,5])
             ->get();
         // dd($petugas_id);
 
@@ -98,15 +100,17 @@ class AdminController extends Controller
         $data['image'] = $name;
         // $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
-        if($user->role_id === 1){
-            if($request->role_id == 9){
+        if ($user->role_id === 1) {
+            if ($request->role_id == 9) {
                 $data['parent_id'] = request()->user()->id;
                 $data['email_verified_at'] = Carbon::now();
             } else {
                 $data['parent_id'] = User::where('role_id', 9)->first()->id;
+                $data['city'] = User::where('role_id', 9)->first()->city;
                 $data['email_verified_at'] = Carbon::now();
             }
-        } elseif($user->role_id === 9){
+        } elseif ($user->role_id === 9) {
+            $data['city'] = $user->city;
             $data['parent_id'] = request()->user()->id;
             $data['email_verified_at'] = Carbon::now();
         }
@@ -127,7 +131,7 @@ class AdminController extends Controller
 
         $this->validateStore($request);
         $data = $request->all();
-
+        $authUser = request()->user();
         $tempat  = Tempat::where('user_id', Auth::user()->petugas_id)->where('status', '1')->first();
 
         $name = (new User)->userAvatar($request);
@@ -135,14 +139,15 @@ class AdminController extends Controller
         // $data['email_verified_at'] = now();
         $data['password'] = bcrypt($request->password);
         $data['desa_id'] = $tempat->id;
-
+        $data['city'] = $authUser->city;
+        $data['parent_id'] = $authUser->id;
         User::create($data);
         $role = Role::where('id', $request->role_id)->first();
         $receiver = $request->email;
         $name = $request->name;
         $subject = "Anda ditambahkan sebagai admin";
         $body = 'Hallo ' . $name . ', anda telah ditambahkan sebagai ' . $role->name . ' dengan email ' . $request->email . ' dan password ' . $request->password . ' silahkan login untuk menerima email verifikasi';
-        $this->sendEmail($receiver, $subject, $body);
+        // $this->sendEmail($receiver, $subject, $body); // Please disable this line if you want to test the email feature
 
 
         Toastr::success('Membuat akun admin berhasil :)', 'Success');

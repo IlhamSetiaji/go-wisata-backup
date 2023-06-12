@@ -48,8 +48,9 @@ class BudgetingController extends Controller
     }
     public function createPaket()
     {
-        $dataDesa = Auth::user();
-        $idTempat = $dataDesa->tempat_id;
+        $user = Auth::user();
+        $dataDesa = $user->tempat->where('kategori', 'desa')->first();
+        $idTempat = $dataDesa->id;
         $dataWisata = Tempat::where('kategori', 'wisata')->where('status', 1)->where('induk_id', $idTempat)->get();
         $dataPenginapanHotel = DB::table('tb_hotel')->select('tb_hotel.*')->join('tb_tempat', 'tb_hotel.tempat_id', '=', 'tb_tempat.id')->where('tb_tempat.induk_id', $idTempat)->where('tb_tempat.status', 1)
             ->get();
@@ -211,10 +212,10 @@ class BudgetingController extends Controller
         }
         // $validateDataPaket['harga'] = $request->harga;
 
-        //insert data to tb_paket 
+        //insert data to tb_paket
         tb_paket::create($validateDataPaket);
 
-        //get id paket 
+        //get id paket
         $idPaket = tb_paket::where([
             'nama_paket' => $request->nama_paket,
             'jml_hari' =>  $request->jml_hari,
@@ -317,7 +318,7 @@ class BudgetingController extends Controller
         $dataKuliner = DB::table('tb_tempat')->join('tb_kuliner', 'tb_tempat.id', 'tb_kuliner.tempat_id')->join('tb_paketkuliners',  'tb_paketkuliners.tb_kuliner_id', 'tb_kuliner.id')->where('tb_tempat.status', 1)->where('tb_tempat.induk_id', $idTempat)->select('tb_tempat.name', 'tb_tempat.id')->distinct()->get();
         $dataGuide = DB::table('tour_guide')->where('desa_id', $dataDesa->tempat_id)->where('status', 1)->get();
 
-        //get spesific data paket from database 
+        //get spesific data paket from database
         $paket = tb_paket::where('id', $id)->first();
         $paketWisata = tb_paketwisata::where('paket_id', $id)->get();
         $paketKategori = tb_paketkategoriwisata::where('paket_id', $id)->get();
