@@ -138,6 +138,7 @@ class TempatController extends Controller
     {
         $this->validateStore($request);
         $data = $request->all();
+        return $data;
         // dd($data);
 
         $this->validateStore($request);
