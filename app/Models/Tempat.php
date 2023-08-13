@@ -95,4 +95,9 @@ class Tempat extends Model
         $image->move($destination, $name);
         return $name;
     }
+
+    public function additional_photos()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }

@@ -187,6 +187,23 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
+                                <label>Additional Photos</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group has-icon-lefts">
+                                    <div class="position-relative">
+                                        {{-- <div class="form-control-icon avatar avatar.avatar-im">
+                                            <img src="{{asset('images')}}/{{$tempat->image2}}">
+                                        </div> --}}
+                                        <input type="file" class="form-control file-upload-info @error('images') is-invalid @enderror"   placeholder="Upload Image" name="images[]" multiple>
+                                        <span class="input-group-append">
+                                        @error('images')
+                                            {!!  Toastr::error($message, 'Error', ['options']) !!}
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <label>Video</label>
                             </div>
                             <div class="col-md-8">

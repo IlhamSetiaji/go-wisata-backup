@@ -123,7 +123,9 @@
 
                                                         <td>
                                                             @if ($users->tempat != null)
-                                                                {{ $users->tempat->first()->name }}
+                                                                @foreach ($users->tempat as $tempat)
+                                                                    <span class="badge bg-success">{{ $tempat->name }}</span>
+                                                                @endforeach
                                                             @else
                                                                 <p>Belum Ditempatkan</p>
                                                             @endif

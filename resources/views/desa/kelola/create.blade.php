@@ -160,8 +160,7 @@
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
                                                         <input class="form-control @error('image') is-invalid @enderror"
-                                                            name="image" type="file" id="image" multiple=""
-                                                            required>
+                                                            name="image" type="file" id="image" required>
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-person-square"></i>
                                                         </div>
@@ -175,8 +174,21 @@
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
                                                         <input class="form-control @error('image2') is-invalid @enderror"
-                                                            name="image2" type="file" id="image2" multiple=""
-                                                            required>
+                                                            name="image2" type="file" id="image2" required>
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-person-square"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Image Additional</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <input class="form-control @error('images') is-invalid @enderror"
+                                                            name="images[]" type="file" id="images" multiple>
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-person-square"></i>
                                                         </div>
@@ -242,7 +254,7 @@
                                                                 <option selected value=''>Pilih Petugas</option>
                                                                 @foreach (App\Models\User::where('role_id', '!=', '5')->where('desa_id', $tempat->id)->where('tempat_id', null)->get() as $role)
                                                                     <option value="{{ $role->petugas_id }}"> Admin -
-                                                                        {{ $role->name }}</option>
+                                                                        {{ $role->name }} - {{ $role->role->name }}</option>
                                                                 @endforeach
 
                                                             </select>

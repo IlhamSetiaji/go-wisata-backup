@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
@@ -93,11 +94,11 @@ class TempatController extends Controller
         $this->validateStore($request);
         $data = $request->all();
         // dd($data);
-        $this->validateStore($request);
+        // $this->validateStore($request);
         $user = User::where('petugas_id', $request->user_id)->first();
-        $role = Role::where('id', $user->role_id)->first();
+        // $role = Role::where('id', $user->role_id)->first();
 
-        if ($request->kategori != $role->name) {
+        if ($request->kategori != $user->role->name) {
             Toastr::error('Role admin dan kategori berbeda', 'Error');
             return redirect()->back();
         }
@@ -129,23 +130,33 @@ class TempatController extends Controller
         $data['slug'] = $slug;
 
         // dd($data);
-        Tempat::create($data);
+        $tempat = Tempat::create($data);
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $image){
+                $name = $image->hashName();
+                $image->move(public_path().'/images/', $name);
+                DB::table('images')->insert([
+                    'imageable_type' => 'App\Models\Tempat',
+                    'imageable_id' => $tempat->id,
+                    'path' => $name,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+            }
+        }
 
-        Toastr::success('Membuat akun admin berhasil :)', 'Success');
+        Toastr::success('Membuat tempat berhasil :)', 'Success');
         return redirect()->route('tempat.index')->with('message', 'Data Berhasil ditambahkan !');
     }
     public function stored(Request $request)
     {
         $this->validateStore($request);
         $data = $request->all();
-        return $data;
-        // dd($data);
-
-        $this->validateStore($request);
         $user = User::where('petugas_id', $request->user_id)->first();
-        $role = Role::where('id', $user->role_id)->first();
+        // return [$user->role->name, $request->kategori];
+        // $role = Role::where('id', $user->role_id)->first();
 
-        if ($request->kategori != $role->name) {
+        if ($request->kategori != $user->role->name) {
             Toastr::error('Role admin dan kategori berbeda', 'Error');
             return redirect()->back();
         }
@@ -170,10 +181,23 @@ class TempatController extends Controller
         $data['induk_id'] = $tempatdesa->id;
 
 
-        Tempat::create($data);
+        $tempat = Tempat::create($data);
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $image){
+                $name = $image->hashName();
+                $image->move(public_path().'/images/', $name);
+                DB::table('images')->insert([
+                    'imageable_type' => 'App\Models\Tempat',
+                    'imageable_id' => $tempat->id,
+                    'path' => $name,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+            }
+        }
 
         Toastr::success('Membuat akun admin berhasil :)', 'Success');
-        return redirect()->route('tempat.index')->with('message', 'Data Berhasil ditambahkan !');
+        return redirect()->route('tempat.indexd')->with('message', 'Data Berhasil ditambahkan !');
     }
     public function edit($id)
     {

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Tempat;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
@@ -90,6 +92,7 @@ class DesaController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image2' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'video' => 'mimes:mp4,m4v,webm|max:41943040',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         // dd($data);
@@ -116,6 +119,20 @@ class DesaController extends Controller
         }
         $data['image2'] = $imageName2;
         // dd($data);
+
+        if($request->hasFile('images')){
+            foreach($request->file('images') as $image){
+                $name = $image->hashName();
+                $image->move(public_path().'/images/', $name);
+                DB::table('images')->insert([
+                    'imageable_type' => 'App\Models\Tempat',
+                    'imageable_id' => $user->id,
+                    'path' => $name,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now()
+                ]);
+            }
+        }
 
         $video = $user->video;
         if ($request->hasFile('video')) {

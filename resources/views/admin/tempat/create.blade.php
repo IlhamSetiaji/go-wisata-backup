@@ -224,7 +224,7 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <input class="form-control @error('image') is-invalid @enderror"
-                                                        name="image" type="file" id="image" multiple=""
+                                                        name="image" type="file" id="image"
                                                         required>
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-person-square"></i>
@@ -239,8 +239,23 @@
                                                 <div class="form-group has-icon-left">
                                                     <div class="position-relative">
                                                         <input class="form-control @error('image2') is-invalid @enderror"
-                                                            name="image2" type="file" id="image2" multiple=""
+                                                            name="image2" type="file" id="image2"
                                                             required>
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-person-square"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Additional Images</label>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group has-icon-left">
+                                                    <div class="position-relative">
+                                                        <input class="form-control @error('images') is-invalid @enderror"
+                                                            name="images" type="file" id="images"
+                                                            multiple>
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-person-square"></i>
                                                         </div>
@@ -309,13 +324,13 @@
                                                                     @foreach (App\Models\User::where('role_id', '!=', '5')->where('role_id', '!=' ,'9')->where(['tempat_id' => null, 'desa_id' => null])->get() as $role)
                                                                         <option value="{{ $role->petugas_id }}"> Admin
                                                                             -
-                                                                            {{ $role->name }}</option>
+                                                                            {{ $role->name }} - {{ $role->role->name }}</option>
                                                                     @endforeach
                                                                 @else
                                                                     @foreach (App\Models\User::where('role_id', '!=', '5')->where(['tempat_id' => null, 'desa_id' => null])->get() as $role)
                                                                         <option value="{{ $role->petugas_id }}"> Admin
                                                                             -
-                                                                            {{ $role->name }}</option>
+                                                                            {{ $role->name }} - {{ $role->role->name }}</option>
                                                                     @endforeach
                                                                 @endif
                                                             </select>

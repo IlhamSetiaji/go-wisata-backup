@@ -112,6 +112,7 @@ class FrontendController extends Controller
         } else {
             $event = Event::where('status', 1)->orderby('tgl_buka', 'DESC')->paginate(5);
         }
+        // return $event;
 
         return view('explore/halaman_explore_event', [
             "title" => "Explore",

@@ -39,21 +39,23 @@
             {!! Toastr::message() !!}
             <section class="row list-event">
                 <div class="col-12 col-lg-9">
+                    {{-- @foreach ($event as $item)
+                        <h1>{{ $item->nama }}</h1>
+                    @endforeach --}}
                     @foreach ($event as $key => $value)
                         <?php
-                        
+
                         $tgl_buka = date('d F Y', strtotime($value->tgl_buka));
                         $tgl_tutup = date('d F Y', strtotime($value->tgl_tutup));
                         $today = Carbon\carbon::today();
-                        
+
                         if ($today <= Carbon\carbon::parse($value->date_b)) {
                             $c = 1;
                         } else {
                             $c = 0;
                         }
                         ?>
-                        @if ($value->tgl_tutup > now())
-                            
+                        {{-- @if ($value->tgl_tutup > now()) --}}
                         <div class="row">
                             <div class="col-xl-3">
                             </div>
@@ -91,7 +93,8 @@
                                             @if ($value->harga <= 0)
                                                 <li class="list-group-item">Tiket Gratis
                                                 @else
-                                                <li class="list-group-item">Harga : Rp. {{ number_format($value->harga) }}
+                                                <li class="list-group-item">Harga : Rp.
+                                                    {{ number_format($value->harga) }}
                                             @endif
                                             </li>
                                             <li class="list-group-item">
@@ -127,7 +130,7 @@
                             </div>
                         </div>
                         <br>
-                        @endif
+                        {{-- @endif --}}
                     @endforeach
                     {{ $event->links() }}
                 </div>
@@ -152,22 +155,23 @@
                         </div>
                         <div class="card-content pb-4">
                             @foreach ($allevent as $key => $value)
-                            
-                            @if ($value->tgl_tutup > now())
-                            <div class="recent-message d-flex px-4 py-3">
-                                <div class="name ms-4">
-                                    <h6 class="text-muted mb-0"><a href="/detail/explore-event/{{ $value->id }}"
-                                            target="blank">{{ $value->nama }}</a>
-                                    </h6>
-                                    @if ($value->harga <= 0)
-                                        <h7 class="mb-1">Gratis</h7>
-                                    @else
-                                        <h7 class="mb-1">Rp.{{ number_format($value->harga) }}</h7>
-                                    @endif
-                                </div>
-                            </div>
-                            @endif
-                                
+                                @if ($value->tgl_tutup > now())
+                                    <div class="recent-message d-flex px-4 py-3">
+                                        <div class="name ms-4">
+                                            <h6 class="text-muted mb-0"><a href="/detail/explore-event/{{ $value->id }}"
+                                                    target="blank">{{ $value->nama }}</a>
+                                            </h6>
+                                            @if ($value->harga <= 0)
+                                                <h7 class="mb-1">Gratis</h7>
+                                            @else
+                                                <h7 class="mb-1">Rp.{{ number_format($value->harga) }}</h7>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @else
+                                    <button class="btn btn-primary">Belum ada event terbaru</button>
+                                    @break
+                                @endif
                             @endforeach
                         </div>
                     </div>
@@ -218,4 +222,3 @@
         </div>
     @endforeach
 @endsection
-
